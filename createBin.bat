@@ -1,0 +1,1 @@
+if not exist bin mkdir bin
