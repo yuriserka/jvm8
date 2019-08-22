@@ -26,7 +26,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc
 
 clean:
 ifeq ($(OS), Windows_NT)
-	del /S bin
+	del /S /Q bin $(EXE).exe
 else
 	$(RM) *~ $(OBJ) $(EXE)
 endif
