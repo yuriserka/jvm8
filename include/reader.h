@@ -1,16 +1,14 @@
-#ifndef READER_H
-#define READER_H
-
-#include "./classfile.h"
+#ifndef INCLUDE_READER_H_
+#define INCLUDE_READER_H_
 
 #include <string>
 #include <fstream>
-#include <sstream>
-#include <type_traits>
+#include <algorithm>
+#include "./classfile.h"
 
 class Reader {
-  public:
-    Reader(std::string fpath);
+ public:
+    explicit Reader(std::string fpath);
 
     ~Reader() {
         if (this->file.is_open()) {
@@ -23,31 +21,26 @@ class Reader {
     void readMagic(ClassFile *cf);
     void readMinorVersion(ClassFile *cf);
     void readMajorVersion(ClassFile *cf);
-  private:
-    template <typename T>
-    T readNBytes() {
-        int n = 1;
-        if (std::is_same<T, Utils::Types::u2>::value) {
-            n = 2;
-        } else if (std::is_same<T, Utils::Types::u4>::value) {
-            n = 4;
-        } else {
-            n = 8;
-        }
+    void readConstantPoolCount(ClassFile *cf);
 
-        std::stringstream ss;
-        for (auto i = 0; i < n; ++i) {
-            auto b = this->file.get();
-            ss << std::hex << b;
-        }
-        T Nbytes;
-        ss >> std::hex >> Nbytes;
-        return Nbytes;
+ private:
+    template <class T>
+    inline void endianSwap(T *objp) {
+        unsigned char *memp = reinterpret_cast<unsigned char *>(objp);
+        std::reverse(memp, memp + sizeof(T));
+    }
+
+    template <typename T>
+    inline T readNBytes(size_t n) {
+        T out;
+        this->file.read(reinterpret_cast<char *>(&out), sizeof(T));
+        this->endianSwap(&out);
+
+        return out;
     }
 
     std::fstream file;
     std::string fname;
 };
 
-
-#endif
+#endif  // INCLUDE_READER_H_

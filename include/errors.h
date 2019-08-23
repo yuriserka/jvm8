@@ -1,32 +1,31 @@
-#ifndef ERRORS_H
-#define ERRORS_H
+#ifndef INCLUDE_ERRORS_H_
+#define INCLUDE_ERRORS_H_
 
 #include <string>
 
 namespace Utils {
-    namespace Errors {
-        
-        class Exception : public std::exception {
-          public:
-            Exception(int c, std::string m) {
-                this->code = c;
-                this->message = m;
-            }
-            const char *what() const throw () {
-                return this->message.c_str();
-            }
-          private:
-            int code;
-            std::string message;
-        };
+namespace Errors {
 
-        enum {
-            kCLASSFILE = 1,
-            KMAGIC,
-            kMINOR,
-            kMAJOR
-        };
+class Exception : public std::exception {
+ public:
+    Exception(int c, std::string m) : code(c), message(m) {}
+    const char *what() const throw() {
+        return this->message.c_str();
     }
-}
 
-#endif
+ private:
+    int code;
+    std::string message;
+};
+
+enum {
+    kCLASSFILE = 1,
+    KMAGIC,
+    kMINOR,
+    kMAJOR
+};
+
+}  // namespace Errors
+}  // namespace Utils
+
+#endif  // INCLUDE_ERRORS_H_

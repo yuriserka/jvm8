@@ -1,11 +1,10 @@
+#include <iostream>
 #include "../include/classfile.h"
 #include "../include/flags.h"
 #include "../include/errors.h"
 #include "../include/reader.h"
 
-#include <iostream>
-
-auto main(const int argc, const char **argv) -> int {
+int main(const int argc, const char **argv) {
     Utils::Flags::toggleAll(++argv);
 
     auto cf = new ClassFile();
@@ -14,13 +13,16 @@ auto main(const int argc, const char **argv) -> int {
     try {
         r->readClassFile(cf);
     }
-    catch(const Utils::Errors::Exception &err) {
+    catch (const std::exception &e) {
         delete cf;
         delete r;
-        std::cerr << err.what() << "\n";
+        if (Utils::Flags::kVERBOSE) {
+            std::cout << "\tA exception happened\n";
+        }
+        std::cerr << e.what() << "\n";
         return EXIT_FAILURE;
     }
-    
+
     delete cf;
     delete r;
 
