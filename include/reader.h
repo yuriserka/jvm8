@@ -21,7 +21,11 @@ class Reader {
     void readMagic(ClassFile *cf);
     void readMinorVersion(ClassFile *cf);
     void readMajorVersion(ClassFile *cf);
+    void readConstantPool(ClassFile *cf);
     void readConstantPoolCount(ClassFile *cf);
+    void readConstantPoolInfo(ClassFile *cf);
+
+    std::string fname;
 
  private:
     template <class T>
@@ -40,7 +44,6 @@ class Reader {
     }
 
     std::fstream file;
-    std::string fname;
 };
 
 #endif  // INCLUDE_READER_H_

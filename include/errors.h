@@ -5,7 +5,6 @@
 
 namespace Utils {
 namespace Errors {
-
 class Exception : public std::exception {
  public:
     Exception(int c, std::string m) : code(c), message(m) {}
@@ -22,9 +21,9 @@ enum {
     kCLASSFILE = 1,
     KMAGIC,
     kMINOR,
-    kMAJOR
+    kMAJOR,
+    kCONSTANTPOOL
 };
-
 }  // namespace Errors
 }  // namespace Utils
 
