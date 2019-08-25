@@ -15,8 +15,9 @@ std::map<Utils::Types::u2, std::string> vs = {
     {0x30, "JDK 1.4"},
     {0x2F, "JDK 1.3"},
     {0x2E, "JDK 1.2"},
-    {0x2D, "JDK 1.1"}};
+    {0x2D, "JDK 1.1"}
+};
 
-std::string Utils::Versions::getVersion(Utils::Types::u2 major) {
+std::string Utils::Versions::getVersion(const Utils::Types::u2 &major) {
     return vs.at(major);
 }

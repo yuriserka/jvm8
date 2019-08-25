@@ -11,7 +11,7 @@
 
 static std::ios state(NULL);
 
-Reader::Reader(std::string fpath) {
+Reader::Reader(const std::string &fpath) {
     this->fname = fpath.substr(fpath.find_last_of("/\\") + 1);
     this->file = std::fstream(fpath, std::ios::binary | std::ios::in);
 
@@ -32,7 +32,7 @@ void Reader::readClassFile(ClassFile *cf) {
 }
 
 void Reader::readMagic(ClassFile *cf) {
-    cf->magic = this->readNBytes<Utils::Types::u4>(4);
+    this->readNBytes(&cf->magic);
     if (Utils::Flags::kVERBOSE) {
         state.copyfmt(std::cout);
         std::cout << "Read classfile->magic = '"
@@ -47,7 +47,7 @@ void Reader::readMagic(ClassFile *cf) {
 }
 
 void Reader::readMinorVersion(ClassFile *cf) {
-    cf->minor_version = this->readNBytes<Utils::Types::u2>(2);
+    this->readNBytes(&cf->minor_version);
     if (Utils::Flags::kVERBOSE) {
         state.copyfmt(std::cout);
         std::cout << "Read classfile->minor_version = '"
@@ -65,7 +65,7 @@ void Reader::readMinorVersion(ClassFile *cf) {
 }
 
 void Reader::readMajorVersion(ClassFile *cf) {
-    cf->major_version = this->readNBytes<Utils::Types::u2>(2);
+    this->readNBytes(&cf->major_version);
     if (Utils::Flags::kVERBOSE) {
         state.copyfmt(std::cout);
         std::cout << "Read classfile->major_version = '"
@@ -92,7 +92,7 @@ void Reader::readConstantPool(ClassFile *cf) {
 }
 
 void Reader::readConstantPoolCount(ClassFile *cf) {
-    cf->constant_pool_count = this->readNBytes<Utils::Types::u2>(2);
+    this->readNBytes(&cf->constant_pool_count);
     if (Utils::Flags::kVERBOSE) {
         std::cout << "Read classfile->constant_pool_count = '"
             << cf->constant_pool_count << "'\n";
@@ -102,14 +102,14 @@ void Reader::readConstantPoolCount(ClassFile *cf) {
 void Reader::readConstantPoolInfo(ClassFile *cf) {
     for (auto i = 0; i < /*cf->constant_pool_count-1*/1; ++i) {
         auto constpool = &cf->constant_pool[i];
-        constpool->tag = this->readNBytes<Utils::Types::u1>(1);
+        this->readNBytes(&constpool->tag);
 
         switch (constpool->tag) {
             namespace cp = ::Utils::ConstantPool;
             namespace i = ::Utils::Infos;
         case cp::CONSTANT_Class: {
             auto cpClassInfo = constpool->info.classinfo = new i::CONSTANT_Class_info(constpool->tag);
-            cpClassInfo->name_index = this->readNBytes<Utils::Types::u2>(2);
+            this->readNBytes(&cpClassInfo->name_index);
             break;
         }
         default: {

@@ -8,7 +8,7 @@
 
 class Reader {
  public:
-    explicit Reader(std::string fpath);
+    explicit Reader(const std::string &fpath);
 
     ~Reader() {
         if (this->file.is_open()) {
@@ -35,12 +35,9 @@ class Reader {
     }
 
     template <typename T>
-    inline T readNBytes(size_t n) {
-        T out;
-        this->file.read(reinterpret_cast<char *>(&out), sizeof(T));
-        this->endianSwap(&out);
-
-        return out;
+    inline void readNBytes(T *objp) {
+        this->file.read(reinterpret_cast<char *>(objp), sizeof(T));
+        this->endianSwap(objp);
     }
 
     std::fstream file;
