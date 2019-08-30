@@ -1,5 +1,5 @@
 #include <map>
-#include "../include/versions.h"
+#include "utils/versions.h"
 
 std::map<Utils::Types::u2, std::string> vs = {
     {0x3A, "Java SE 14"},
@@ -18,6 +18,10 @@ std::map<Utils::Types::u2, std::string> vs = {
     {0x2D, "JDK 1.1"}
 };
 
-std::string Utils::Versions::getVersion(const Utils::Types::u2 &major) {
+namespace Utils {
+namespace Versions {
+std::string getVersion(const Utils::Types::u2 &major) {
     return vs.at(major);
 }
+} // namespace Versions
+} // namespace Utils

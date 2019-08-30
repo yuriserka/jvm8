@@ -1,9 +1,9 @@
 #include <iostream>
-#include "../include/classfile.h"
-#include "../include/flags.h"
-#include "../include/errors.h"
-#include "../include/reader.h"
-#include "../include/viewer.h"
+#include "classfile.h"
+#include "reader.h"
+#include "viewer.h"
+#include "utils/flags.h"
+#include "utils/errors.h"
 
 int main(const int argc, const char **argv) {
     // argv[0] = ./jvm

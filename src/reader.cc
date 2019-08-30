@@ -1,13 +1,13 @@
-#include "../include/reader.h"
+#include "reader.h"
 
 #include <iostream>
 #include <sstream>
 #include <iomanip>
-#include "../include/flags.h"
-#include "../include/errors.h"
-#include "../include/versions.h"
-#include "../include/constantPool.h"
-#include "../include/infos.h"
+#include "utils/flags.h"
+#include "utils/errors.h"
+#include "utils/versions.h"
+#include "utils/constantPool.h"
+#include "utils/infos.h"
 
 static std::ios state(NULL);
 

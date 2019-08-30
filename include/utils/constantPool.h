@@ -2,7 +2,7 @@
 #define INCLUDE_CONSTANTPOOL_H_
 
 #include <string>
-#include "./types.h"
+#include "utils/types.h"
 
 namespace Utils {
 namespace ConstantPool {

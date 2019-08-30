@@ -2,7 +2,7 @@
 #define INCLUDE_VERSIONS_H_
 
 #include <string>
-#include "./types.h"
+#include "utils/types.h"
 
 namespace Utils {
 namespace Versions {

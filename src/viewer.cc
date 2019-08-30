@@ -1,7 +1,7 @@
-#include "../include/viewer.h"
+#include "viewer.h"
 
 #include <iostream>
-#include "../include/constantPool.h"
+#include "utils/constantPool.h"
 
 static std::ios state(NULL);
 

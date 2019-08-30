@@ -2,8 +2,8 @@
 #define INCLUDE_CLASSFILE_H_
 
 #include <vector>
-#include "./types.h"
-#include "./infos.h"
+#include "utils/types.h"
+#include "utils/infos.h"
 
 struct ClassFile {
     Utils::Types::u4 magic;

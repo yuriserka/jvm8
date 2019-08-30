@@ -2,7 +2,7 @@
 #define INCLUDE_INFOS_H_
 
 #include <vector>
-#include "./types.h"
+#include "utils/types.h"
 
 namespace Utils {
 namespace Infos {

@@ -4,7 +4,7 @@
 #include <string>
 #include <fstream>
 #include <algorithm>
-#include "./classfile.h"
+#include "classfile.h"
 
 class Reader {
  public:
