@@ -6,8 +6,8 @@
 static std::ios state(NULL);
 
 void Viewer::printClassFile() {
-    std::cout << "Visualizing ClassFile structure for " << this->classname
-              << "\n";
+    std::cout << "Visualizing ClassFile structure for "
+              << this->classname << "\n";
     this->printMagic();
     this->printVersion();
     this->printConstantPool();
@@ -16,20 +16,20 @@ void Viewer::printClassFile() {
 void Viewer::printMagic() {
     state.copyfmt(std::cout);
     std::cout << "Magic: '" << "0x" << std::hex << std::uppercase
-              << this->cf->magic << "'\n";
+              << this->classfile->magic << "'\n";
     std::cout.copyfmt(state);
 }
 
 void Viewer::printVersion() {
-    std::cout << "Version: '" << this->cf->major_version << "."
-              << this->cf->minor_version << "'\n";
+    std::cout << "Version: '" << this->classfile->major_version << "."
+              << this->classfile->minor_version << "'\n";
 }
 
 void Viewer::printConstantPool() {
     std::cout << "Constant Pool:\n";
-    for (auto i = 0; i < /*cf->constant_pool_count-1*/1; ++i) {
+    for (auto i = 0; i < /*this->classfile->constant_pool_count-1*/1; ++i) {
         std::cout << "\tTAG '" << i + 1 << "': ";
-        auto constpool = &cf->constant_pool[i];
+        auto constpool = &this->classfile->constant_pool[i];
         auto name = Utils::ConstantPool::getConstantTypeName(constpool->tag);
         std::cout << "(" << unsigned(constpool->tag) << ", " << name << ")\n";
         switch (constpool->tag) {

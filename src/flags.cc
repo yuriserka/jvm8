@@ -7,7 +7,7 @@ bool Utils::Flags::kVERBOSE;
 bool Utils::Flags::kIGNORE;
 std::string Utils::Flags::kFILE;
 
-std::map<std::string, bool *> flagsMap = {
+std::map<std::string, bool *> options = {
     {"-v", &Utils::Flags::kVERBOSE},
     {"-i", &Utils::Flags::kIGNORE}};
 
@@ -23,5 +23,5 @@ void Utils::Flags::toggleAll(const char **flags) {
 }
 
 void Utils::Flags::toggle(const char *flag) {
-    *flagsMap.at(flag) = !*flagsMap.at(flag);
+    *options.at(flag) = !*options.at(flag);
 }

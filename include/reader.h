@@ -8,7 +8,7 @@
 
 class Reader {
  public:
-    explicit Reader(const std::string &fpath);
+    explicit Reader(ClassFile *cf, const std::string &fpath);
 
     ~Reader() {
         if (this->file.is_open()) {
@@ -16,18 +16,17 @@ class Reader {
         }
     }
 
-    void readClassFile(ClassFile *cf);
-
-    void readMagic(ClassFile *cf);
-    void readMinorVersion(ClassFile *cf);
-    void readMajorVersion(ClassFile *cf);
-    void readConstantPool(ClassFile *cf);
-    void readConstantPoolCount(ClassFile *cf);
-    void readConstantPoolInfo(ClassFile *cf);
-
+    void readClassFile();
     std::string fname;
 
  private:
+    void readMagic();
+    void readMinorVersion();
+    void readMajorVersion();
+    void readConstantPool();
+    void readConstantPoolCount();
+    void readConstantPoolInfo();
+
     template <class T>
     inline void endianSwap(T *objp) {
         unsigned char *memp = reinterpret_cast<unsigned char *>(objp);
@@ -41,6 +40,7 @@ class Reader {
     }
 
     std::fstream file;
+    ClassFile *classfile;
 };
 
 #endif  // INCLUDE_READER_H_

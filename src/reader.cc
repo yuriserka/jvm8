@@ -11,9 +11,10 @@
 
 static std::ios state(NULL);
 
-Reader::Reader(const std::string &fpath) {
+Reader::Reader(ClassFile *cf, const std::string &fpath) {
     this->fname = fpath.substr(fpath.find_last_of("/\\") + 1);
     this->file = std::fstream(fpath, std::ios::binary | std::ios::in);
+    this->classfile = cf;
 
     if (!this->file.is_open()) {
         throw Utils::Errors::Exception(Utils::Errors::kCLASSFILE,
@@ -24,38 +25,38 @@ Reader::Reader(const std::string &fpath) {
     }
 }
 
-void Reader::readClassFile(ClassFile *cf) {
-    this->readMagic(cf);
-    this->readMinorVersion(cf);
-    this->readMajorVersion(cf);
-    this->readConstantPool(cf);
+void Reader::readClassFile() {
+    this->readMagic();
+    this->readMinorVersion();
+    this->readMajorVersion();
+    this->readConstantPool();
 }
 
-void Reader::readMagic(ClassFile *cf) {
-    this->readNBytes(&cf->magic);
+void Reader::readMagic() {
+    this->readNBytes(&this->classfile->magic);
     if (Utils::Flags::kVERBOSE) {
         state.copyfmt(std::cout);
         std::cout << "Read classfile->magic = '"
-                  << "0x" << std::hex << std::uppercase << cf->magic << "'\n";
+                  << "0x" << std::hex << std::uppercase << this->classfile->magic << "'\n";
         std::cout.copyfmt(state);
     }
-    if (cf->magic != 0xCAFEBABE) {
+    if (this->classfile->magic != 0xCAFEBABE) {
         std::stringstream err;
         err << "[ERROR]: " << "Magic number not equal to 0xCAFEBABE";
         throw Utils::Errors::Exception(Utils::Errors::KMAGIC, err.str());
     }
 }
 
-void Reader::readMinorVersion(ClassFile *cf) {
-    this->readNBytes(&cf->minor_version);
+void Reader::readMinorVersion() {
+    this->readNBytes(&this->classfile->minor_version);
     if (Utils::Flags::kVERBOSE) {
         state.copyfmt(std::cout);
         std::cout << "Read classfile->minor_version = '"
-                  << "0x" << std::hex << std::uppercase << cf->minor_version
+                  << "0x" << std::hex << std::uppercase << this->classfile->minor_version
                   << "'\n";
         std::cout.copyfmt(state);
     }
-    if (cf->minor_version > Utils::Versions::Java8) {
+    if (this->classfile->minor_version > Utils::Versions::Java8) {
         std::stringstream err;
         err << "[ERROR]: "
             << "Minor version superior to 0x" << std::hex << std::uppercase
@@ -64,16 +65,16 @@ void Reader::readMinorVersion(ClassFile *cf) {
     }
 }
 
-void Reader::readMajorVersion(ClassFile *cf) {
-    this->readNBytes(&cf->major_version);
+void Reader::readMajorVersion() {
+    this->readNBytes(&this->classfile->major_version);
     if (Utils::Flags::kVERBOSE) {
         state.copyfmt(std::cout);
         std::cout << "Read classfile->major_version = '"
-                  << "0x" << std::hex << std::uppercase << cf->major_version
+                  << "0x" << std::hex << std::uppercase << this->classfile->major_version
                   << "'\n";
         std::cout.copyfmt(state);
     }
-    if (cf->major_version < Utils::Versions::Java8) {
+    if (this->classfile->major_version < Utils::Versions::Java8) {
         std::stringstream err;
         err << "[ERROR]: "
             << "Major version inferior to 0x" << std::hex << std::uppercase
@@ -82,26 +83,26 @@ void Reader::readMajorVersion(ClassFile *cf) {
     }
 }
 
-void Reader::readConstantPool(ClassFile *cf) {
-    this->readConstantPoolCount(cf);
-    cf->constant_pool.resize(cf->constant_pool_count - 1);
-    this->readConstantPoolInfo(cf);
+void Reader::readConstantPool() {
+    this->readConstantPoolCount();
+    this->classfile->constant_pool.resize(this->classfile->constant_pool_count - 1);
+    this->readConstantPoolInfo();
     if (Utils::Flags::kVERBOSE) {
         std::cout << "Read classfile->constant_pool\n";
     }
 }
 
-void Reader::readConstantPoolCount(ClassFile *cf) {
-    this->readNBytes(&cf->constant_pool_count);
+void Reader::readConstantPoolCount() {
+    this->readNBytes(&this->classfile->constant_pool_count);
     if (Utils::Flags::kVERBOSE) {
         std::cout << "Read classfile->constant_pool_count = '"
-            << cf->constant_pool_count << "'\n";
+            << this->classfile->constant_pool_count << "'\n";
     }
 }
 
-void Reader::readConstantPoolInfo(ClassFile *cf) {
-    for (auto i = 0; i < /*cf->constant_pool_count-1*/1; ++i) {
-        auto constpool = &cf->constant_pool[i];
+void Reader::readConstantPoolInfo() {
+    for (auto i = 0; i < /*this->classfile->constant_pool_count-1*/1; ++i) {
+        auto constpool = &this->classfile->constant_pool[i];
         this->readNBytes(&constpool->tag);
 
         switch (constpool->tag) {

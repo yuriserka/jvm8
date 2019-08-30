@@ -10,11 +10,11 @@ int main(const int argc, const char **argv) {
     Utils::Flags::toggleAll(++argv);
 
     auto cf = new ClassFile();
-    auto r = new Reader(Utils::Flags::kFILE);
+    auto r = new Reader(cf, Utils::Flags::kFILE);
     auto v = new Viewer(cf, r->fname);
 
     try {
-        r->readClassFile(cf);
+        r->readClassFile();
         v->printClassFile();
     }
     catch (const std::exception &e) {

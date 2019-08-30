@@ -7,18 +7,19 @@
 class Viewer {
  public:
     explicit Viewer(ClassFile *cf, const std::string &fname) {
-        this->cf = cf;
+        this->classfile = cf;
         this->classname = fname;
     }
 
     void printClassFile();
+
+ private:
     void printMagic();
     void printVersion();
     void printConstantPool();
-
- private:
+    
     std::string classname;
-    ClassFile *cf;
+    ClassFile *classfile;
 };
 
 #endif  // INCLUDE_VIEWER_H_
