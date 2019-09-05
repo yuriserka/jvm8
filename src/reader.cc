@@ -101,7 +101,7 @@ void Reader::readConstantPoolCount() {
 }
 
 void Reader::readConstantPoolInfo() {
-    for (auto i = 0; i < /*this->classfile->constant_pool_count-1*/1; ++i) {
+    for (auto i = 0; i < this->classfile->constant_pool_count-1; ++i) {
         auto constpool = &this->classfile->constant_pool[i];
         this->readNBytes(&constpool->tag);
 
@@ -109,8 +109,79 @@ void Reader::readConstantPoolInfo() {
             namespace cp = ::Utils::ConstantPool;
             namespace i = ::Utils::Infos;
         case cp::CONSTANT_Class: {
-            auto cpClassInfo = constpool->info.classinfo = new i::CONSTANT_Class_info(constpool->tag);
+            auto cpClassInfo = constpool->info.classinfo_ =
+                new i::CONSTANT_Class_info(constpool->tag);
             this->readNBytes(&cpClassInfo->name_index);
+            break;
+        }
+        case cp::CONSTANT_Fieldref: {
+            auto cpClassInfo = constpool->info.fieldref_ =
+                new i::CONSTANT_FieldRef_info(constpool->tag);
+            this->readNBytes(&cpClassInfo->class_index);
+            this->readNBytes(&cpClassInfo->name_and_type_index);
+            break;            
+        }
+        case cp::CONSTANT_Methodref: {
+            auto cpClassInfo = constpool->info.methodref_ =
+                new i::CONSTANT_Methodref_info(constpool->tag);
+            this->readNBytes(&cpClassInfo->class_index);
+            this->readNBytes(&cpClassInfo->name_and_type_index);
+            break;
+        }
+        case cp::CONSTANT_InterfaceMethodref: {
+            auto cpClassInfo = constpool->info.Imethodref_ =
+                new i::CONSTANT_InterfaceMethodref_info(constpool->tag);
+            this->readNBytes(&cpClassInfo->class_index);
+            this->readNBytes(&cpClassInfo->name_and_type_index);
+            break;
+        }
+        case cp::CONSTANT_String: {
+            auto cpClassInfo = constpool->info.string_ =
+                new i::CONSTANT_String_info(constpool->tag);
+                this->readNBytes(&cpClassInfo->string_index);
+            break;
+        }
+        case cp::CONSTANT_Integer: {
+            auto cpClassInfo = constpool->info.integer_ =
+                new i::CONSTANT_Integer_info(constpool->tag);
+            this->readNBytes(&cpClassInfo->bytes);
+            break;
+        }
+        case cp::CONSTANT_Float: {
+            auto cpClassInfo = constpool->info.float_ =
+                new i::CONSTANT_Float_info(constpool->tag);
+            this->readNBytes(&cpClassInfo->bytes);
+            break;
+        }
+        case cp::CONSTANT_Long: {
+            auto cpClassInfo = constpool->info.long_ =
+                new i::CONSTANT_Long_info(constpool->tag);
+            this->readNBytes(&cpClassInfo->high_bytes);
+            this->readNBytes(&cpClassInfo->low_bytes);
+            break;
+        }
+        case cp::CONSTANT_Double: {
+            auto cpClassInfo = constpool->info.double_ =
+                new i::CONSTANT_Double_info(constpool->tag);
+            this->readNBytes(&cpClassInfo->high_bytes);
+            this->readNBytes(&cpClassInfo->low_bytes);
+            break;
+        }
+        case cp::CONSTANT_NameAndType: {
+            auto cpClassInfo = constpool->info.nameandtype_ =
+                new i::CONSTANT_NameAndType_info(constpool->tag);
+            this->readNBytes(&cpClassInfo->name_index);
+            this->readNBytes(&cpClassInfo->descriptor_index);
+            break;
+        }
+        case cp::CONSTANT_Utf8: {
+            auto cpClassInfo = constpool->info.utf8_ =
+                new i::CONSTANT_Utf8_info(constpool->tag);
+            this->readNBytes(&cpClassInfo->length);
+            cpClassInfo->bytes.resize(cpClassInfo->length);
+            for (size_t i = 0; i < cpClassInfo->length; ++i) {
+                this->readNBytes(&cpClassInfo->bytes[i]);
+            }
             break;
         }
         default: {

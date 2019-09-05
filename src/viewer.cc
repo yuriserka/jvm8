@@ -36,7 +36,7 @@ void Viewer::printConstantPool() {
             namespace cp = ::Utils::ConstantPool;
         case cp::CONSTANT_Class:
             std::cout << "\t\tName Index: "
-                      << constpool->info.classinfo->name_index << "\n";
+                      << constpool->info.classinfo_->name_index << "\n";
             break;
         default:
             break;
