@@ -1,5 +1,5 @@
-#ifndef INCLUDE_FLAGS_H_
-#define INCLUDE_FLAGS_H_
+#ifndef INCLUDE_UTILS_FLAGS_H_
+#define INCLUDE_UTILS_FLAGS_H_
 
 #include <string>
 #include <map>
@@ -16,4 +16,4 @@ extern std::string kFILE;
 }  // namespace Flags
 }  // namespace Utils
 
-#endif  // INCLUDE_FLAGS_H_
+#endif  // INCLUDE_UTILS_FLAGS_H_

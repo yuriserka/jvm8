@@ -1,5 +1,5 @@
-#ifndef INCLUDE_CONSTANTPOOL_H_
-#define INCLUDE_CONSTANTPOOL_H_
+#ifndef INCLUDE_UTILS_CONSTANTPOOL_H_
+#define INCLUDE_UTILS_CONSTANTPOOL_H_
 
 #include <string>
 #include "utils/types.h"
@@ -22,8 +22,8 @@ enum ConstantTypes {
     CONSTANT_MethodType = 16,
     CONSTANT_InvokeDynamic = 18
 };
-std::string getConstantTypeName(const Utils::Types::u1 &ct);
+std::string getConstantTypename(const Utils::Types::u1 &ct);
 }  // namespace ConstantPool
 }  // namespace Utils
 
-#endif  // INCLUDE_CONSTANTPOOL_H_
+#endif  // INCLUDE_UTILS_CONSTANTPOOL_H_

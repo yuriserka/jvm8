@@ -27,17 +27,19 @@ void Viewer::printVersion() {
 
 void Viewer::printConstantPool() {
     std::cout << "Constant Pool:\n";
-    for (auto i = 0; i < /*this->classfile->constant_pool_count-1*/1; ++i) {
+    for (auto i = 0; i < this->classfile->constant_pool_count-1; ++i) {
         std::cout << "\tTAG '" << i + 1 << "': ";
         auto constpool = &this->classfile->constant_pool[i];
-        auto name = Utils::ConstantPool::getConstantTypeName(constpool->tag);
+        auto name = Utils::ConstantPool::getConstantTypename(constpool->tag);
         std::cout << "(" << unsigned(constpool->tag) << ", " << name << ")\n";
         switch (constpool->tag) {
-            namespace cp = ::Utils::ConstantPool;
-        case cp::CONSTANT_Class:
-            std::cout << "\t\tName Index: "
-                      << constpool->info.classinfo_->name_index << "\n";
+            namespace cp = Utils::ConstantPool;
+            namespace inf = Utils::Infos;
+        case cp::CONSTANT_Class: {
+            auto kclassinfo = static_cast<inf::CONSTANT_Class_info *>(constpool->info);
+            std::cout << "\t\tName Index: " << kclassinfo->name_index << "\n";
             break;
+        }
         default:
             break;
         }

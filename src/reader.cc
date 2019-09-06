@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include<memory>
 #include "utils/flags.h"
 #include "utils/errors.h"
 #include "utils/versions.h"
@@ -33,11 +34,12 @@ void Reader::readClassFile() {
 }
 
 void Reader::readMagic() {
-    this->readNBytes(&this->classfile->magic);
+    this->readBytes(&this->classfile->magic);
     if (Utils::Flags::kVERBOSE) {
         state.copyfmt(std::cout);
         std::cout << "Read classfile->magic = '"
-                  << "0x" << std::hex << std::uppercase << this->classfile->magic << "'\n";
+                  << "0x" << std::hex << std::uppercase
+                  << this->classfile->magic << "'\n";
         std::cout.copyfmt(state);
     }
     if (this->classfile->magic != 0xCAFEBABE) {
@@ -48,12 +50,12 @@ void Reader::readMagic() {
 }
 
 void Reader::readMinorVersion() {
-    this->readNBytes(&this->classfile->minor_version);
+    this->readBytes(&this->classfile->minor_version);
     if (Utils::Flags::kVERBOSE) {
         state.copyfmt(std::cout);
         std::cout << "Read classfile->minor_version = '"
-                  << "0x" << std::hex << std::uppercase << this->classfile->minor_version
-                  << "'\n";
+                  << "0x" << std::hex << std::uppercase
+                  << this->classfile->minor_version << "'\n";
         std::cout.copyfmt(state);
     }
     if (this->classfile->minor_version > Utils::Versions::Java8) {
@@ -66,12 +68,12 @@ void Reader::readMinorVersion() {
 }
 
 void Reader::readMajorVersion() {
-    this->readNBytes(&this->classfile->major_version);
+    this->readBytes(&this->classfile->major_version);
     if (Utils::Flags::kVERBOSE) {
         state.copyfmt(std::cout);
         std::cout << "Read classfile->major_version = '"
-                  << "0x" << std::hex << std::uppercase << this->classfile->major_version
-                  << "'\n";
+                  << "0x" << std::hex << std::uppercase
+                  << this->classfile->major_version << "'\n";
         std::cout.copyfmt(state);
     }
     if (this->classfile->major_version < Utils::Versions::Java8) {
@@ -93,95 +95,111 @@ void Reader::readConstantPool() {
 }
 
 void Reader::readConstantPoolCount() {
-    this->readNBytes(&this->classfile->constant_pool_count);
+    this->readBytes(&this->classfile->constant_pool_count);
     if (Utils::Flags::kVERBOSE) {
         std::cout << "Read classfile->constant_pool_count = '"
             << this->classfile->constant_pool_count << "'\n";
     }
 }
 
+/**
+ * @brief fancy way to create any class with many args as necessary for the constructor.
+ *
+ * @tparam T the class that will be created.
+ * @tparam TArgs will be a list of all the args types passed.
+ * @param[in] mArgs the multiple arguments used in constructor of class T.
+ * @returns a pointer to the class.
+ */
+template <typename T, typename... TArgs>
+T *createClass(TArgs &&...mArgs) {
+    T *constinfo = reinterpret_cast<T *>(std::malloc(sizeof(T)));
+    new (constinfo) T(std::forward<TArgs>(mArgs)...);
+
+    return constinfo;
+}
+
 void Reader::readConstantPoolInfo() {
     for (auto i = 0; i < this->classfile->constant_pool_count-1; ++i) {
         auto constpool = &this->classfile->constant_pool[i];
-        this->readNBytes(&constpool->tag);
+        this->readBytes(&constpool->tag);
 
         switch (constpool->tag) {
-            namespace cp = ::Utils::ConstantPool;
-            namespace i = ::Utils::Infos;
+            namespace cp = Utils::ConstantPool;
+            namespace i = Utils::Infos;
         case cp::CONSTANT_Class: {
-            auto cpClassInfo = constpool->info.classinfo_ =
-                new i::CONSTANT_Class_info(constpool->tag);
-            this->readNBytes(&cpClassInfo->name_index);
+            auto kclassinfo = createClass<i::CONSTANT_Class_info>(constpool->tag);
+            this->readBytes(&kclassinfo->name_index);
+            constpool->info = kclassinfo;
             break;
         }
         case cp::CONSTANT_Fieldref: {
-            auto cpClassInfo = constpool->info.fieldref_ =
-                new i::CONSTANT_FieldRef_info(constpool->tag);
-            this->readNBytes(&cpClassInfo->class_index);
-            this->readNBytes(&cpClassInfo->name_and_type_index);
-            break;            
+            auto kfieldref = createClass<i::CONSTANT_FieldRef_info>(constpool->tag);
+            this->readBytes(&kfieldref->class_index);
+            this->readBytes(&kfieldref->name_and_type_index);
+            constpool->info = kfieldref;
+            break;
         }
         case cp::CONSTANT_Methodref: {
-            auto cpClassInfo = constpool->info.methodref_ =
-                new i::CONSTANT_Methodref_info(constpool->tag);
-            this->readNBytes(&cpClassInfo->class_index);
-            this->readNBytes(&cpClassInfo->name_and_type_index);
+            auto kmethodref = createClass<i::CONSTANT_Methodref_info>(constpool->tag);
+            this->readBytes(&kmethodref->class_index);
+            this->readBytes(&kmethodref->name_and_type_index);
+            constpool->info = kmethodref;
             break;
         }
         case cp::CONSTANT_InterfaceMethodref: {
-            auto cpClassInfo = constpool->info.Imethodref_ =
-                new i::CONSTANT_InterfaceMethodref_info(constpool->tag);
-            this->readNBytes(&cpClassInfo->class_index);
-            this->readNBytes(&cpClassInfo->name_and_type_index);
+            auto kInterfacemethodref = createClass<i::CONSTANT_InterfaceMethodref_info>(constpool->tag);
+            this->readBytes(&kInterfacemethodref->class_index);
+            this->readBytes(&kInterfacemethodref->name_and_type_index);
+            constpool->info = kInterfacemethodref;
             break;
         }
         case cp::CONSTANT_String: {
-            auto cpClassInfo = constpool->info.string_ =
-                new i::CONSTANT_String_info(constpool->tag);
-                this->readNBytes(&cpClassInfo->string_index);
+            auto kstring = createClass<i::CONSTANT_String_info>(constpool->tag);
+            this->readBytes(&kstring->string_index);
+            constpool->info = kstring;
             break;
         }
         case cp::CONSTANT_Integer: {
-            auto cpClassInfo = constpool->info.integer_ =
-                new i::CONSTANT_Integer_info(constpool->tag);
-            this->readNBytes(&cpClassInfo->bytes);
+            auto kinteger = createClass<i::CONSTANT_Integer_info>(constpool->tag);
+            this->readBytes(&kinteger->bytes);
+            constpool->info = kinteger;
             break;
         }
         case cp::CONSTANT_Float: {
-            auto cpClassInfo = constpool->info.float_ =
-                new i::CONSTANT_Float_info(constpool->tag);
-            this->readNBytes(&cpClassInfo->bytes);
+            auto kfloat = createClass<i::CONSTANT_Integer_info>(constpool->tag);
+            this->readBytes(&kfloat->bytes);
+            constpool->info = kfloat;
             break;
         }
         case cp::CONSTANT_Long: {
-            auto cpClassInfo = constpool->info.long_ =
-                new i::CONSTANT_Long_info(constpool->tag);
-            this->readNBytes(&cpClassInfo->high_bytes);
-            this->readNBytes(&cpClassInfo->low_bytes);
+            auto klong = createClass<i::CONSTANT_Long_info>(constpool->tag);
+            this->readBytes(&klong->high_bytes);
+            this->readBytes(&klong->low_bytes);
+            constpool->info = klong;
             break;
         }
         case cp::CONSTANT_Double: {
-            auto cpClassInfo = constpool->info.double_ =
-                new i::CONSTANT_Double_info(constpool->tag);
-            this->readNBytes(&cpClassInfo->high_bytes);
-            this->readNBytes(&cpClassInfo->low_bytes);
+            auto kdouble = createClass<i::CONSTANT_Double_info>(constpool->tag);
+            this->readBytes(&kdouble->high_bytes);
+            this->readBytes(&kdouble->low_bytes);
+            constpool->info = kdouble;
             break;
         }
         case cp::CONSTANT_NameAndType: {
-            auto cpClassInfo = constpool->info.nameandtype_ =
-                new i::CONSTANT_NameAndType_info(constpool->tag);
-            this->readNBytes(&cpClassInfo->name_index);
-            this->readNBytes(&cpClassInfo->descriptor_index);
+            auto knameandtype = createClass<i::CONSTANT_NameAndType_info>(constpool->tag);
+            this->readBytes(&knameandtype->name_index);
+            this->readBytes(&knameandtype->descriptor_index);
+            constpool->info = knameandtype;
             break;
         }
         case cp::CONSTANT_Utf8: {
-            auto cpClassInfo = constpool->info.utf8_ =
-                new i::CONSTANT_Utf8_info(constpool->tag);
-            this->readNBytes(&cpClassInfo->length);
-            cpClassInfo->bytes.resize(cpClassInfo->length);
-            for (size_t i = 0; i < cpClassInfo->length; ++i) {
-                this->readNBytes(&cpClassInfo->bytes[i]);
+            auto kutf8 = createClass<i::CONSTANT_Utf8_info>(constpool->tag);
+            this->readBytes(&kutf8->length);
+            kutf8->bytes.resize(kutf8->length);
+            for (size_t i = 0; i < kutf8->length; ++i) {
+                this->readBytes(&kutf8->bytes[i]);
             }
+            constpool->info = kutf8;
             break;
         }
         default: {

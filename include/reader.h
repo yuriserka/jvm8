@@ -34,7 +34,7 @@ class Reader {
     }
 
     template <typename T>
-    inline void readNBytes(T *objp) {
+    inline void readBytes(T *objp) {
         this->file.read(reinterpret_cast<char *>(objp), sizeof(T));
         this->endianSwap(objp);
     }

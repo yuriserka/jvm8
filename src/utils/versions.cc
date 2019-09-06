@@ -23,5 +23,5 @@ namespace Versions {
 std::string getVersion(const Utils::Types::u2 &major) {
     return vs.at(major);
 }
-} // namespace Versions
-} // namespace Utils
+}  // namespace Versions
+}  // namespace Utils

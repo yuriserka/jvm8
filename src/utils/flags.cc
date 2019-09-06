@@ -27,5 +27,5 @@ void toggleAll(const char **flags) {
 void toggle(const char *flag) {
     *options.at(flag) = !*options.at(flag);
 }
-} // namespace Flags
-} // namespace Utils
+}  // namespace Flags
+}  // namespace Utils

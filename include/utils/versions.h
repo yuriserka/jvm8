@@ -1,5 +1,5 @@
-#ifndef INCLUDE_VERSIONS_H_
-#define INCLUDE_VERSIONS_H_
+#ifndef INCLUDE_UTILS_VERSIONS_H_
+#define INCLUDE_UTILS_VERSIONS_H_
 
 #include <string>
 #include "utils/types.h"
@@ -11,4 +11,4 @@ const Utils::Types::u2 Java8 = 0x34;
 }  // namespace Versions
 }  // namespace Utils
 
-#endif  // INCLUDE_VERSIONS_H_
+#endif  // INCLUDE_UTILS_VERSIONS_H_

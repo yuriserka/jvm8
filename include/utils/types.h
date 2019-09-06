@@ -1,5 +1,5 @@
-#ifndef INCLUDE_TYPES_H_
-#define INCLUDE_TYPES_H_
+#ifndef INCLUDE_UTILS_TYPES_H_
+#define INCLUDE_UTILS_TYPES_H_
 
 #include <cstdint>
 
@@ -16,4 +16,4 @@ typedef std::uint8_t character;
 }  // namespace Types
 }  // namespace Utils
 
-#endif  // INCLUDE_TYPES_H_
+#endif  // INCLUDE_UTILS_TYPES_H_

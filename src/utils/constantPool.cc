@@ -21,7 +21,7 @@ std::map<Utils::Types::u1, std::string> names = {
 
 namespace Utils {
 namespace ConstantPool {
-std::string getConstantTypeName(const Utils::Types::u1 &ct) {
+std::string getConstantTypename(const Utils::Types::u1 &ct) {
     return names.at(ct);
 }
 }  // namespace ConstantPool
