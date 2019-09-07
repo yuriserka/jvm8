@@ -27,7 +27,8 @@ enum {
     KMAGIC,
     kMINOR,
     kMAJOR,
-    kCONSTANTPOOL
+    kCONSTANTPOOL,
+    kBYTE
 };
 }  // namespace Errors
 }  // namespace Utils

@@ -17,6 +17,7 @@ class Viewer {
     void printMagic();
     void printVersion();
     void printConstantPool();
+    void printConstantPoolInfo(int index, int depth, bool inner);
 
     std::string classname;
     ClassFile *classfile;

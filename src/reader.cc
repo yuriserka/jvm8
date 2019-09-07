@@ -195,9 +195,17 @@ void Reader::readConstantPoolInfo() {
         case cp::CONSTANT_Utf8: {
             auto kutf8 = createClass<i::CONSTANT_Utf8_info>(constpool->tag);
             this->readBytes(&kutf8->length);
-            kutf8->bytes.resize(kutf8->length);
-            for (size_t i = 0; i < kutf8->length; ++i) {
+            kutf8->bytes.resize(unsigned(kutf8->length));
+            for (size_t i = 0; i < kutf8->bytes.size(); ++i) {
                 this->readBytes(&kutf8->bytes[i]);
+                auto ubyte = unsigned(kutf8->bytes[i]);
+                if (ubyte == 0x0000 || (ubyte >= 0x00F0 && ubyte <= 0x00FF)) {
+                    std::stringstream err;
+                    err << "[ERROR]: "
+                        << "No byte may have the value 0x0000 or "
+                        << "lie in the range [0x00f0, 0x00FF]";
+                    throw Utils::Errors::Exception(Utils::Errors::kBYTE, err.str());
+                }
             }
             constpool->info = kutf8;
             break;

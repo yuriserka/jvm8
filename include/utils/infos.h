@@ -23,12 +23,6 @@ class BaseInfo {
 
 class cp_info : public BaseInfo {
  public:
-    cp_info() = default;
-
-    ~cp_info() {
-        std::free(this->info);
-    }
-
     void *info;
 };
 
