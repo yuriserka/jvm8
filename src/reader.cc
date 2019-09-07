@@ -3,7 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
-#include<memory>
+#include <memory>
 #include "utils/flags.h"
 #include "utils/errors.h"
 #include "utils/versions.h"
@@ -110,90 +110,82 @@ void Reader::readConstantPoolCount() {
  * @param[in] mArgs the multiple arguments used in constructor of class T.
  * @returns a pointer to the class.
  */
-template <typename T, typename... TArgs>
-T *createClass(TArgs &&...mArgs) {
-    T *constinfo = reinterpret_cast<T *>(std::malloc(sizeof(T)));
-    new (constinfo) T(std::forward<TArgs>(mArgs)...);
+// template <typename T, typename... TArgs>
+// T *createClass(TArgs &&...mArgs) {
+//     void *objptr = std::malloc(sizeof(T));
+//     auto constinfo = new (objptr) T(std::forward<TArgs>(mArgs)...);
 
-    return constinfo;
-}
+//     return constinfo;
+// }
 
 void Reader::readConstantPoolInfo() {
     for (auto i = 0; i < this->classfile->constant_pool_count-1; ++i) {
+        this->classfile->constant_pool[i] = Utils::Infos::cp_info();
         auto constpool = &this->classfile->constant_pool[i];
-        this->readBytes(&constpool->tag);
+        Utils::Types::u1 tag;
+        this->readBytes(&tag);
 
-        switch (constpool->tag) {
+        switch (tag) {
             namespace cp = Utils::ConstantPool;
             namespace i = Utils::Infos;
         case cp::CONSTANT_Class: {
-            auto kclassinfo = createClass<i::CONSTANT_Class_info>(constpool->tag);
+            auto kclassinfo = constpool->setBase<i::CONSTANT_Class_info>(tag);
             this->readBytes(&kclassinfo->name_index);
-            constpool->info = kclassinfo;
             break;
         }
         case cp::CONSTANT_Fieldref: {
-            auto kfieldref = createClass<i::CONSTANT_FieldRef_info>(constpool->tag);
+            auto kfieldref = constpool->setBase<i::CONSTANT_FieldRef_info>(tag);
             this->readBytes(&kfieldref->class_index);
             this->readBytes(&kfieldref->name_and_type_index);
-            constpool->info = kfieldref;
             break;
         }
         case cp::CONSTANT_Methodref: {
-            auto kmethodref = createClass<i::CONSTANT_Methodref_info>(constpool->tag);
+            auto kmethodref = constpool->setBase<i::CONSTANT_Methodref_info>(tag);
             this->readBytes(&kmethodref->class_index);
             this->readBytes(&kmethodref->name_and_type_index);
-            constpool->info = kmethodref;
             break;
         }
         case cp::CONSTANT_InterfaceMethodref: {
-            auto kInterfacemethodref = createClass<i::CONSTANT_InterfaceMethodref_info>(constpool->tag);
+            auto kInterfacemethodref = constpool->setBase<i::CONSTANT_InterfaceMethodref_info>(tag);
             this->readBytes(&kInterfacemethodref->class_index);
             this->readBytes(&kInterfacemethodref->name_and_type_index);
-            constpool->info = kInterfacemethodref;
             break;
         }
         case cp::CONSTANT_String: {
-            auto kstring = createClass<i::CONSTANT_String_info>(constpool->tag);
+            auto kstring = constpool->setBase<i::CONSTANT_String_info>(tag);
             this->readBytes(&kstring->string_index);
-            constpool->info = kstring;
             break;
         }
         case cp::CONSTANT_Integer: {
-            auto kinteger = createClass<i::CONSTANT_Integer_info>(constpool->tag);
+            auto kinteger = constpool->setBase<i::CONSTANT_Integer_info>(tag);
             this->readBytes(&kinteger->bytes);
-            constpool->info = kinteger;
             break;
         }
         case cp::CONSTANT_Float: {
-            auto kfloat = createClass<i::CONSTANT_Integer_info>(constpool->tag);
+            auto kfloat = constpool->setBase<i::CONSTANT_Integer_info>(tag);
             this->readBytes(&kfloat->bytes);
-            constpool->info = kfloat;
             break;
         }
         case cp::CONSTANT_Long: {
-            auto klong = createClass<i::CONSTANT_Long_info>(constpool->tag);
+            auto klong = constpool->setBase<i::CONSTANT_Long_info>(tag);
             this->readBytes(&klong->high_bytes);
             this->readBytes(&klong->low_bytes);
-            constpool->info = klong;
             break;
         }
         case cp::CONSTANT_Double: {
-            auto kdouble = createClass<i::CONSTANT_Double_info>(constpool->tag);
+            auto kdouble = constpool->setBase<i::CONSTANT_Double_info>(tag);
             this->readBytes(&kdouble->high_bytes);
             this->readBytes(&kdouble->low_bytes);
-            constpool->info = kdouble;
             break;
         }
         case cp::CONSTANT_NameAndType: {
-            auto knameandtype = createClass<i::CONSTANT_NameAndType_info>(constpool->tag);
+            auto knameandtype = constpool->setBase<i::CONSTANT_NameAndType_info>(tag);
             this->readBytes(&knameandtype->name_index);
             this->readBytes(&knameandtype->descriptor_index);
-            constpool->info = knameandtype;
             break;
         }
         case cp::CONSTANT_Utf8: {
-            auto kutf8 = createClass<i::CONSTANT_Utf8_info>(constpool->tag);
+            auto kutf8 = constpool->setBase<i::CONSTANT_Utf8_info>(tag);
             this->readBytes(&kutf8->length);
             kutf8->bytes.resize(unsigned(kutf8->length));
             for (size_t i = 0; i < kutf8->bytes.size(); ++i) {
@@ -207,13 +199,12 @@ void Reader::readConstantPoolInfo() {
                     throw Utils::Errors::Exception(Utils::Errors::kBYTE, err.str());
                 }
             }
-            constpool->info = kutf8;
             break;
         }
         default: {
             std::stringstream err;
             err << "[ERROR]: "
-                << "Unknown constant pool tag = '" << unsigned(constpool->tag)
+                << "Unknown constant pool tag = '" << unsigned(tag)
                 << "'\n";
             throw Utils::Errors::Exception(Utils::Errors::kCONSTANTPOOL, err.str());
         }

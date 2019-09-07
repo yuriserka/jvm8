@@ -40,23 +40,23 @@ void Viewer::printConstantPool() {
 }
 
 void Viewer::printConstantPoolInfo(int index, int depth, bool inner) {
-    auto constpool = &this->classfile->constant_pool[index];
+    auto constpool = this->classfile->constant_pool[index];
     if (!inner) {
         std::cout << "\tTAG '" << index + 1 << "': ";
-        auto name = Utils::ConstantPool::getConstantTypename(constpool->tag);
-        std::cout << "(" << unsigned(constpool->tag) << ", " << name << ")\n";
+        auto name = Utils::ConstantPool::getConstantTypename(constpool.base->tag);
+        std::cout << "(" << unsigned(constpool.base->tag) << ", " << name << ")\n";
     }
-    switch (constpool->tag) {
+    switch (constpool.base->tag) {
         namespace cp = Utils::ConstantPool;
         namespace info = Utils::Infos;
     case cp::CONSTANT_Class: {
-        auto kclassinfo = static_cast<info::CONSTANT_Class_info *>(constpool->info);
+        auto kclassinfo = constpool.getClass<info::CONSTANT_Class_info>();
         std::cout << std::string(depth, '\t') << "Name Index: " << kclassinfo->name_index << "\n";
         this->printConstantPoolInfo(kclassinfo->name_index - 1, depth + 1, true);
         break;
     }
     case cp::CONSTANT_Utf8: {
-        auto kclassinfo = static_cast<info::CONSTANT_Utf8_info *>(constpool->info);
+        auto kclassinfo = constpool.getClass<info::CONSTANT_Utf8_info>();
         if (!inner) {
             std::cout << std::string(depth, '\t') << "Length: " << kclassinfo->length << "\n";
             std::cout << std::string(depth, '\t') << "Bytes: ";

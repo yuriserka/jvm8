@@ -20,10 +20,20 @@ repositório com o fim de fazer a JVM 8.
 
 `.\jvm.exe -f .\.javasrc\Caixa.class -v`
 
+### Debugging
+
+Works only on Linux. Make sure you have GDB installed.
+
+Compile the program normally with `make clean && make`
+then `gdb --args ./jvm -f ./.javasrc/Caixa.class`
+
+##### Basic commands
+consult the commands: [GDB Command Line Arguments](http://www.yolinux.com/TUTORIALS/GDB-Commands.html)
+ 
 ## Code style reference
 [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
 
-##### Running Static Code Checker
+#### Running Static Code Checker
 Make sure that you have Python and pip installed.
 
 - installing: `pip install cpplint`
