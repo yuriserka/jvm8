@@ -6,7 +6,7 @@
 
 class Viewer {
  public:
-    explicit Viewer(ClassFile *cf, const std::string &fname) {
+    explicit Viewer(const ClassFile *cf, const std::string &fname) {
         this->classfile = cf;
         this->classname = fname;
     }
@@ -19,8 +19,17 @@ class Viewer {
     void printConstantPool();
     void printConstantPoolInfo(int index, int depth, bool inner);
 
+    template<typename T>
+    void printReferences(const T *kinfo, const int &depth, const bool &inner);
+
+    template<typename T>
+    void print4bytesNumeral(const T *kinfo, const int &depth, const bool &inner);
+
+    template<typename T>
+    void print8bytesNumeral(const T *kinfo, const int &depth, const bool &inner);
+    
     std::string classname;
-    ClassFile *classfile;
+    const ClassFile *classfile;
 };
 
 #endif  // INCLUDE_VIEWER_H_

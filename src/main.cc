@@ -1,4 +1,5 @@
 #include <iostream>
+#include <locale.h>
 #include "classfile.h"
 #include "reader.h"
 #include "viewer.h"
@@ -6,6 +7,7 @@
 #include "utils/errors.h"
 
 int main(const int argc, const char **argv) {
+    setlocale(LC_ALL, "");
     // argv[0] = ./jvm
     Utils::Flags::toggleAll(++argv);
 

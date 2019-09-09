@@ -162,7 +162,7 @@ void Reader::readConstantPoolInfo() {
             break;
         }
         case cp::CONSTANT_Float: {
-            auto kfloat = constpool->setBase<i::CONSTANT_Integer_info>(tag);
+            auto kfloat = constpool->setBase<i::CONSTANT_Float_info>(tag);
             this->readBytes(&kfloat->bytes);
             break;
         }
