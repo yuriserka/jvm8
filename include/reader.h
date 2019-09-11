@@ -34,10 +34,13 @@ class Reader {
     void readInterfaceInfo();
     void readFields();
     void readFieldsCount();
+    void readFieldsInfo();
     void readMethods();
     void readMethodsCount();
+    void readMethodsInfo();
     void readAttributes();
     void readAttributesCount();
+    void readAttributesInfo(std::vector<Utils::Attributes::attribute_info> attributes);    
 
     template <class T>
     inline void endianSwap(T *objp) {

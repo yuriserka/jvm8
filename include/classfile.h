@@ -28,7 +28,7 @@ struct ClassFile {
     Utils::Types::u2 methods_count;
     std::vector<Utils::Infos::method_info> methods;
     Utils::Types::u2 attributes_count;
-    std::vector<Utils::Infos::attribute_info> attributes;
+    std::vector<Utils::Attributes::attribute_info> attributes;
 
     ~ClassFile() {
         for (int i = 0; i < this->constant_pool_count-1; ++i) {

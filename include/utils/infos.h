@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "utils/types.h"
+#include "utils/attributes.h"
 
 namespace types = Utils::Types;
 
@@ -49,20 +50,13 @@ class cp_info {
     BaseInfo *base;
 };
 
-class attribute_info {
- public:
-    types::u2 attribute_name_index;
-    types::u4 attribute_length;
-    std::vector<types::u1> info;
-};
-
 class field_info {
  public:
     types::u2 access_flags;
     types::u2 name_index;
     types::u2 descriptor_index;
     types::u2 attributes_count;
-    std::vector<attribute_info> attributes;
+    std::vector<Utils::Attributes::attribute_info> attributes;
 
 };
 
@@ -72,7 +66,7 @@ class method_info {
     types::u2 name_index;
     types::u2 descriptor_index;
     types::u2 attributes_count;
-    std::vector<attribute_info> attributes;
+    std::vector<Utils::Attributes::attribute_info> attributes;
 };
 
 class CONSTANT_Class_info : public BaseInfo {
@@ -179,6 +173,35 @@ class CONSTANT_Utf8_info : public BaseInfo {
 
     types::u2 length;
     std::vector<types::u1> bytes;
+};
+
+class CONSTANT_MethodHandle_info : public BaseInfo {
+ public:
+    explicit CONSTANT_MethodHandle_info(const types::u1 &tag) : BaseInfo(tag) {}
+
+    ~CONSTANT_MethodHandle_info() = default;
+
+    types::u1 reference_kind;
+    types::u2 reference_index;
+};
+
+class CONSTANT_MethodType_info : public BaseInfo {
+ public:
+    explicit CONSTANT_MethodType_info(const types::u1 &tag) : BaseInfo(tag) {}
+
+    ~CONSTANT_MethodType_info() = default;
+
+    types::u2 descriptor_index;
+};
+
+class CONSTANT_InvokeDynamic_info : public BaseInfo {
+ public:
+     explicit CONSTANT_InvokeDynamic_info(const types::u1 &tag) : BaseInfo(tag) {}
+
+    ~CONSTANT_InvokeDynamic_info() = default;
+
+    types::u2 bootstrap_method_attr_index;
+    types::u2 name_and_type_index;
 };
 }  // namespace Infos
 }  // namespace Utils

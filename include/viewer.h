@@ -17,11 +17,18 @@ class Viewer {
     void printMagic();
     void printVersion();
     void printConstantPool();
-    void printConstantPoolInfo(int index, int depth, bool inner);
+    void printConstantPoolInfo(const int &index, const int &depth, const bool &inner);
     void printAccessFlags();
     void printThisClass();
     void printSuperClass();
     void printInterfaces();
+    void printInterfacesInfo(const int &index, const int &depth);
+    void printFields();
+    void printFieldsInfo(const int &index, const int &depth);
+    void printMethods();
+    void printMethodsInfo(const int &index, const int &depth);
+    void printAttributes();
+    void printAttributesInfo(const int &index, const int &depth);
 
     template<typename T>
     void printReferences(const T *kinfo, const int &depth, const bool &inner);

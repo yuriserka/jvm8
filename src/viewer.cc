@@ -20,6 +20,9 @@ void Viewer::printClassFile() {
     this->printThisClass();
     this->printSuperClass();
     this->printInterfaces();
+    this->printFields();
+    this->printMethods();
+    this->printAttributes();
 }
 
 void Viewer::printMagic() {
@@ -83,8 +86,6 @@ void Viewer::print4bytesNumeral(const T *kinfo, const int &depth, const bool &in
         std::cout << std::string(depth, '\t') << "Value: '" << f << "'\n";
         break;
     }
-    default:
-        break;
     }
 }
 
@@ -103,17 +104,15 @@ void Viewer::print8bytesNumeral(const T *kinfo, const int &depth, const bool &in
         std::cout << std::string(depth, '\t') << "Value: '" << d << "'\n";
         break;
     }
-    default:
-        break;
     }
 }
 
-void Viewer::printConstantPoolInfo(int index, int depth, bool inner) {
+void Viewer::printConstantPoolInfo(const int &index, const int &depth, const bool &inner) {
     auto constpool = this->classfile->constant_pool[index];
     if (!inner) {
         std::cout << "\tcp_info '#" << index+1 << "': ";
         auto name = Utils::ConstantPool::getConstantTypename(constpool.base->tag);
-        std::cout << "(" << unsigned(constpool.base->tag) << ", " << name << ")\n";
+        std::cout << "CONSTANT_" << name << "_info\n";
     }
     switch (constpool.base->tag) {
         namespace cp = Utils::ConstantPool;
@@ -121,7 +120,7 @@ void Viewer::printConstantPoolInfo(int index, int depth, bool inner) {
     case cp::CONSTANT_Class: {
         auto kclassinfo = constpool.getClass<info::CONSTANT_Class_info>();
         if (!inner) {
-            std::cout << std::string(depth, '\t') << "Name Index: " << kclassinfo->name_index << "\n";
+            std::cout << std::string(depth, '\t') << "Name index = 'cp_info #" << kclassinfo->name_index << "'\n";
         }
         this->printConstantPoolInfo(kclassinfo->name_index-1, inner ? depth : depth+1, true);
         break;
@@ -144,7 +143,7 @@ void Viewer::printConstantPoolInfo(int index, int depth, bool inner) {
     case cp::CONSTANT_String: {
         auto kstringinfo = constpool.getClass<info::CONSTANT_String_info>();
         if (!inner) {
-            std::cout << std::string(depth, '\t') << "String index: " << kstringinfo->string_index << "\n";
+            std::cout << std::string(depth, '\t') << "String index = 'cp_info #" << kstringinfo->string_index << "'\n";
         }
         this->printConstantPoolInfo(kstringinfo->string_index-1, inner ? depth : depth+1, true);
         break;
@@ -172,11 +171,11 @@ void Viewer::printConstantPoolInfo(int index, int depth, bool inner) {
     case cp::CONSTANT_NameAndType: {
         auto knametypeinfo = constpool.getClass<info::CONSTANT_NameAndType_info>();
         if (!inner) {
-            std:: cout << std::string(depth, '\t') << "Name Index: " << knametypeinfo->name_index << "\n";
+            std:: cout << std::string(depth, '\t') << "Name index = 'cp_info #" << knametypeinfo->name_index << "'\n";
         }
         this->printConstantPoolInfo(knametypeinfo->name_index-1, inner ? depth : depth+1, true);
         if (!inner) {
-            std:: cout << std::string(depth, '\t') << "Descriptor Index: " << knametypeinfo->descriptor_index << "\n";
+            std:: cout << std::string(depth, '\t') << "Descriptor index = 'cp_info #" << knametypeinfo->descriptor_index << "'\n";
         }
         this->printConstantPoolInfo(knametypeinfo->descriptor_index-1, inner ? depth : depth+1, true);
         break;
@@ -184,8 +183,8 @@ void Viewer::printConstantPoolInfo(int index, int depth, bool inner) {
     case cp::CONSTANT_Utf8: {
         auto kutf8 = constpool.getClass<info::CONSTANT_Utf8_info>();
         if (!inner) {
-            std::cout << std::string(depth, '\t') << "Length: " << kutf8->length << "\n";
-            std::cout << std::string(depth, '\t') << "Bytes: ";
+            std::cout << std::string(depth, '\t') << "Length of byte array: " << kutf8->length << "\n";
+            std::cout << std::string(depth, '\t') << "String: ";
         }
         std::cout << (inner ? std::string(depth, '\t') : "") << "\"";
         std::vector<std::string> scapes= {"\aa", "\bb", "\tt", "\nn", "\vv", "\ff", "\rr"};
@@ -206,19 +205,16 @@ void Viewer::printConstantPoolInfo(int index, int depth, bool inner) {
          * - range 0x0800 to 0xFFFF are represented by 3 bytes x, y, and z
          * - higher than 0xFFFF are represented by 6 bytes, u, v, w, x, y, and z;
          */ 
-        const std::map<int, const unsigned> byteRange = {
-            {1, 0x0001},
-            {2, 0x0080},
-            {3, 0x8000},
-            {4, 0xFFFF}
+        Utils::Types::u2 byteRange[] = {
+            0x0001, 0x0080, 0x8000, 0xFFFF
         };
         for (size_t i = 0; i < unsigned(kutf8->length); ++i) {
             auto ubyte = unsigned(bytes[i]);
 
-            auto umByte = ubyte >= byteRange.at(1) && ubyte < byteRange.at(2);
-            auto doisBytes = ubyte >= byteRange.at(2) && ubyte < byteRange.at(3);
-            auto tresBytes = ubyte >= byteRange.at(1) && ubyte <= byteRange.at(4);
-            auto seisBytes = ubyte > byteRange.at(4);
+            auto umByte = ubyte >= byteRange[0] && ubyte < byteRange[1];
+            auto doisBytes = ubyte >= byteRange[1] && ubyte < byteRange[2];
+            auto tresBytes = ubyte >= byteRange[0] && ubyte <= byteRange[3];
+            auto seisBytes = ubyte > byteRange[3];
 
             wchar_t utf8c;
             if (umByte) {
@@ -260,29 +256,91 @@ void Viewer::printConstantPoolInfo(int index, int depth, bool inner) {
         std::cout << "\"\n";
         break;
     }
-    default:
-        break;
     }
+    if (!inner) std::cout << "\n";
 }
 
 void Viewer::printAccessFlags() {
     auto flags = Utils::Access::getClassAccessType(this->classfile->access_flags);
-    std::cout << "Access Flags: [";
+    state.copyfmt(std::cout);
+    std::cout << "Access Flags: '" << "0x" << std::hex << std::uppercase
+              << this->classfile->access_flags << "' [";
+    std::cout.copyfmt(state);
     for (size_t i = 0; i < flags.size(); ++i) {
-        std::cout << flags[i] << (i < flags.size()-1 ? ", " : "]\n");
+        std::cout << flags[i] << (i < flags.size()-1 ? " " : "]\n");
     }
 }
 
 void Viewer::printThisClass() {
     std::cout << "This class: \n";
-    this->printConstantPoolInfo(this->classfile->this_class-1, 1, true);
+    this->printConstantPoolInfo(this->classfile->this_class-1, 1, false);
 }
 
 void Viewer::printSuperClass() {
     std::cout << "Super class: \n";
-    this->printConstantPoolInfo(this->classfile->super_class-1, 1, true);
+    this->printConstantPoolInfo(this->classfile->super_class-1, 1, false);
 }
 
 void Viewer::printInterfaces() {
-    std::cout << "interfaces\n";
+    std::cout << "Interfaces Count: "
+              << this->classfile->interfaces_count << "\n";
+    if (!this->classfile->interfaces_count) {
+        return;
+    }
+    std::cout << "Interfaces:\n";
+    for (auto i = 0; i < this->classfile->interfaces_count; ++i) {
+        this->printInterfacesInfo(i, 1);
+    }
+}
+
+void Viewer::printInterfacesInfo(const int &index, const int &depth) {
+    std::cout << std::string(depth, '\t') << "interface #" << index << "\n";
+}
+
+void Viewer::printFields() {
+    std::cout << "Fields Count: "
+              << this->classfile->fields_count << "\n";
+    if (!this->classfile->fields_count) {
+        return;
+    }
+    std::cout << "Fields:\n";
+    for (auto i = 0; i < this->classfile->fields_count; ++i) {
+        this->printFieldsInfo(i, 1);
+    }
+}
+
+void Viewer::printFieldsInfo(const int &index, const int &depth) {
+    std::cout << std::string(depth, '\t') << "field #" << index << "\n";
+}
+
+void Viewer::printMethods() {
+    std::cout << "Methods Count: "
+              << this->classfile->methods_count << "\n";
+    if (!this->classfile->methods_count) {
+        return;
+    }
+    std::cout << "Methods:\n";
+    for (auto i = 0; i < this->classfile->methods_count; ++i) {
+        this->printMethodsInfo(i, 1);
+    }
+}
+
+void Viewer::printMethodsInfo(const int &index, const int &depth) {
+    std::cout << std::string(depth, '\t') << "method #" << index << "\n";
+}
+
+void Viewer::printAttributes() {
+    std::cout << "Attributes Count: "
+              << this->classfile->attributes_count << "\n";
+    if (!this->classfile->attributes_count) {
+        return;
+    }
+    std::cout << "Attributes:\n";
+    for (auto i = 0; i < this->classfile->attributes_count; ++i) {
+        this->printAttributesInfo(i, 1);
+    }
+}
+
+void Viewer::printAttributesInfo(const int &index, const int &depth) {
+    std::cout << std::string(depth, '\t') << "attribute #" << index << "\n";
 }

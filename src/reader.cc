@@ -37,7 +37,7 @@ void Reader::readClassFile() {
     this->readInterfaces();
     this->readFields();
     this->readMethods();
-    this->readAttributes();
+    // this->readAttributes();
 }
 
 void Reader::readMagic() {
@@ -134,65 +134,65 @@ void Reader::readConstantPoolInfo() {
 
         switch (tag) {
             namespace cp = Utils::ConstantPool;
-            namespace i = Utils::Infos;
+            namespace info = Utils::Infos;
         case cp::CONSTANT_Class: {
-            auto kclassinfo = constpool->setBase<i::CONSTANT_Class_info>(tag);
+            auto kclassinfo = constpool->setBase<info::CONSTANT_Class_info>(tag);
             this->readBytes(&kclassinfo->name_index);
             break;
         }
         case cp::CONSTANT_Fieldref: {
-            auto kfieldref = constpool->setBase<i::CONSTANT_FieldRef_info>(tag);
+            auto kfieldref = constpool->setBase<info::CONSTANT_FieldRef_info>(tag);
             this->readBytes(&kfieldref->class_index);
             this->readBytes(&kfieldref->name_and_type_index);
             break;
         }
         case cp::CONSTANT_Methodref: {
-            auto kmethodref = constpool->setBase<i::CONSTANT_Methodref_info>(tag);
+            auto kmethodref = constpool->setBase<info::CONSTANT_Methodref_info>(tag);
             this->readBytes(&kmethodref->class_index);
             this->readBytes(&kmethodref->name_and_type_index);
             break;
         }
         case cp::CONSTANT_InterfaceMethodref: {
-            auto kInterfacemethodref = constpool->setBase<i::CONSTANT_InterfaceMethodref_info>(tag);
+            auto kInterfacemethodref = constpool->setBase<info::CONSTANT_InterfaceMethodref_info>(tag);
             this->readBytes(&kInterfacemethodref->class_index);
             this->readBytes(&kInterfacemethodref->name_and_type_index);
             break;
         }
         case cp::CONSTANT_String: {
-            auto kstring = constpool->setBase<i::CONSTANT_String_info>(tag);
+            auto kstring = constpool->setBase<info::CONSTANT_String_info>(tag);
             this->readBytes(&kstring->string_index);
             break;
         }
         case cp::CONSTANT_Integer: {
-            auto kinteger = constpool->setBase<i::CONSTANT_Integer_info>(tag);
+            auto kinteger = constpool->setBase<info::CONSTANT_Integer_info>(tag);
             this->readBytes(&kinteger->bytes);
             break;
         }
         case cp::CONSTANT_Float: {
-            auto kfloat = constpool->setBase<i::CONSTANT_Float_info>(tag);
+            auto kfloat = constpool->setBase<info::CONSTANT_Float_info>(tag);
             this->readBytes(&kfloat->bytes);
             break;
         }
         case cp::CONSTANT_Long: {
-            auto klong = constpool->setBase<i::CONSTANT_Long_info>(tag);
+            auto klong = constpool->setBase<info::CONSTANT_Long_info>(tag);
             this->readBytes(&klong->high_bytes);
             this->readBytes(&klong->low_bytes);
             break;
         }
         case cp::CONSTANT_Double: {
-            auto kdouble = constpool->setBase<i::CONSTANT_Double_info>(tag);
+            auto kdouble = constpool->setBase<info::CONSTANT_Double_info>(tag);
             this->readBytes(&kdouble->high_bytes);
             this->readBytes(&kdouble->low_bytes);
             break;
         }
         case cp::CONSTANT_NameAndType: {
-            auto knameandtype = constpool->setBase<i::CONSTANT_NameAndType_info>(tag);
+            auto knameandtype = constpool->setBase<info::CONSTANT_NameAndType_info>(tag);
             this->readBytes(&knameandtype->name_index);
             this->readBytes(&knameandtype->descriptor_index);
             break;
         }
         case cp::CONSTANT_Utf8: {
-            auto kutf8 = constpool->setBase<i::CONSTANT_Utf8_info>(tag);
+            auto kutf8 = constpool->setBase<info::CONSTANT_Utf8_info>(tag);
             this->readBytes(&kutf8->length);
             kutf8->bytes.resize(unsigned(kutf8->length));
             for (size_t i = 0; i < kutf8->bytes.size(); ++i) {
@@ -206,6 +206,41 @@ void Reader::readConstantPoolInfo() {
                     throw Utils::Errors::Exception(Utils::Errors::kBYTE, err.str());
                 }
             }
+            break;
+        }
+        case cp::CONSTANT_MethodHandle: {
+            auto kmethodhandler = constpool->setBase<info::CONSTANT_MethodHandle_info>(tag);
+            this->readBytes(&kmethodhandler->reference_kind);
+            if (kmethodhandler->reference_kind < 1 || kmethodhandler->reference_kind > 9) {
+                std::stringstream err;
+                err << "[ERROR]: "
+                    << " reference_kind item must be in the range 1 to 9";
+                throw Utils::Errors::Exception(Utils::Errors::kBYTE, err.str());
+            }
+            this->readBytes(&kmethodhandler->reference_index);
+            if (kmethodhandler->reference_kind >= 1 && kmethodhandler->reference_kind <= 4) {
+                constpool->setBase<info::CONSTANT_FieldRef_info>(tag);
+            } else if (kmethodhandler->reference_kind == 5 || kmethodhandler->reference_kind == 8) {
+                constpool->setBase<info::CONSTANT_Methodref_info>(tag);
+            }
+            else if (kmethodhandler->reference_kind == 6 || kmethodhandler->reference_kind == 7) {
+                if (this->classfile->major_version < Utils::Versions::Java8) {
+                    constpool->setBase<info::CONSTANT_Methodref_info>(tag);                    
+                }
+            } else {
+                constpool->setBase<info::CONSTANT_InterfaceMethodref_info>(tag);                
+            }
+            break;
+        }
+        case cp::CONSTANT_MethodType: {
+            auto kmethodtype = constpool->setBase<info::CONSTANT_MethodType_info>(tag);
+            this->readBytes(&kmethodtype->descriptor_index);
+            break;
+        }
+        case cp::CONSTANT_InvokeDynamic: {
+            auto kinvokedynamic = constpool->setBase<info::CONSTANT_InvokeDynamic_info>(tag);
+            this->readBytes(&kinvokedynamic->bootstrap_method_attr_index);
+            this->readBytes(&kinvokedynamic->name_and_type_index);
             break;
         }
         default: {
@@ -233,7 +268,7 @@ void Reader::readAccessFlags() {
 void Reader::readThisClass() {
     this->readBytes(&this->classfile->this_class);
     if (Utils::Flags::kVERBOSE) {
-        std::cout << "Read this_class cp_info '#"
+        std::cout << "Read classfile->this_class = 'cp_info #"
             << this->classfile->this_class << "'\n";
     }
 }
@@ -244,7 +279,7 @@ this->readBytes(&this->classfile->super_class);
         if (!this->classfile->super_class) {
             std::cout << "Read classfile->super_class = none\n";
         } else {
-            std::cout << "Read super_class cp_info '#"
+            std::cout << "Read classfile->super_class = 'cp_info #"
                       << this->classfile->super_class << "'\n";
         }
     }
@@ -254,6 +289,9 @@ void Reader::readInterfaces() {
     this->readInterfaceCount();
     this->classfile->interfaces.resize(this->classfile->interfaces_count);
     this->readInterfaceInfo();
+    if (Utils::Flags::kVERBOSE) {
+        std::cout << "Read classfile->interfaces\n";
+    }
 }
 
 void Reader::readInterfaceCount() {
@@ -265,32 +303,96 @@ void Reader::readInterfaceCount() {
 }
 
 void Reader::readInterfaceInfo() {
-
+    for (auto i = 0; i < this->classfile->interfaces_count; ++i) {
+        // auto interface = this->classfile->interfaces[i];
+    }
 }
 
 void Reader::readFields() {
     this->readFieldsCount();
     this->classfile->fields.resize(this->classfile->fields_count);
+    this->readFieldsInfo();
+    if (Utils::Flags::kVERBOSE) {
+        std::cout << "Read classfile->fields\n";
+    }
 }
 
 void Reader::readFieldsCount() {
     this->readBytes(&this->classfile->fields_count);
+    if (Utils::Flags::kVERBOSE) {
+        std::cout << "Read classfile->fields_count = '"
+            << this->classfile->fields_count << "'\n";
+    }
+}
+
+void Reader::readFieldsInfo() {
+    for (auto i = 0; i < this->classfile->fields_count; ++i) {
+        auto field = &this->classfile->fields[i];
+        this->readBytes(&field->access_flags);
+        this->readBytes(&field->name_index);
+        this->readBytes(&field->descriptor_index);
+        this->readBytes(&field->attributes_count);
+        field->attributes.resize(field->attributes_count);
+        this->readBytes(&field->descriptor_index);
+        
+        this->readAttributesInfo(field->attributes);
+    }
 }
 
 void Reader::readMethods() {
     this->readMethodsCount();
-    this->classfile->fields.resize(this->classfile->fields_count);
+    this->classfile->fields.resize(this->classfile->methods_count);
+    // this->readMethodsInfo();
+    if (Utils::Flags::kVERBOSE) {
+        std::cout << "Read classfile->methods\n";
+    }
 }
 
 void Reader::readMethodsCount() {
     this->readBytes(&this->classfile->methods_count);
+    if (Utils::Flags::kVERBOSE) {
+        std::cout << "Read classfile->methods_count = '"
+            << this->classfile->methods_count << "'\n";
+    }
+}
+
+void Reader::readMethodsInfo() {
+    for (auto i = 0; i < this->classfile->methods_count; ++i) {
+        auto method = &this->classfile->methods[i];
+        this->readBytes(&method->access_flags);
+        this->readBytes(&method->name_index);
+        this->readBytes(&method->descriptor_index);
+        this->readBytes(&method->attributes_count);
+        method->attributes.resize(method->attributes_count);
+
+        this->readAttributesInfo(method->attributes);
+    }
 }
 
 void Reader::readAttributes() {
     this->readAttributesCount();
-    this->classfile->fields.resize(this->classfile->fields_count);
+    this->classfile->fields.resize(this->classfile->attributes_count);
+    // this->readAttributesInfo(this->classfile->attributes);
+    if (Utils::Flags::kVERBOSE) {
+        std::cout << "Read classfile->attributes\n";
+    }
 }
 
 void Reader::readAttributesCount() {
     this->readBytes(&this->classfile->attributes_count);
+    if (Utils::Flags::kVERBOSE) {
+        std::cout << "Read classfile->attributes_count = '"
+            << this->classfile->attributes_count << "'\n";
+    }
+}
+
+void Reader::readAttributesInfo(std::vector<Utils::Attributes::attribute_info> attributes) {
+    for (size_t i = 0; i < attributes.size(); ++i) {
+        attributes[i] = Utils::Attributes::attribute_info();
+        // auto attr = &attributes[i];
+        types::u2 nameidx;
+        types::u4 attrlen;
+        this->readBytes(&nameidx);
+        this->readBytes(&attrlen);
+    }
 }
