@@ -26,6 +26,18 @@ class Reader {
     void readConstantPool();
     void readConstantPoolCount();
     void readConstantPoolInfo();
+    void readAccessFlags();
+    void readThisClass();
+    void readSuperClass();
+    void readInterfaces();
+    void readInterfaceCount();
+    void readInterfaceInfo();
+    void readFields();
+    void readFieldsCount();
+    void readMethods();
+    void readMethodsCount();
+    void readAttributes();
+    void readAttributesCount();
 
     template <class T>
     inline void endianSwap(T *objp) {

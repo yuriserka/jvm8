@@ -5,16 +5,21 @@
 #include <map>
 #include <cstring>
 #include "utils/constantPool.h"
+#include "utils/accessFlags.h"
 #include "utils/versions.h"
 
 static std::ios state(NULL);
 
 void Viewer::printClassFile() {
-    std::cout << "Visualizing ClassFile structure for "
+    std::cout << "\tVisualizing ClassFile structure for "
               << this->classname << "\n";
     this->printMagic();
     this->printVersion();
     this->printConstantPool();
+    this->printAccessFlags();
+    this->printThisClass();
+    this->printSuperClass();
+    this->printInterfaces();
 }
 
 void Viewer::printMagic() {
@@ -258,4 +263,26 @@ void Viewer::printConstantPoolInfo(int index, int depth, bool inner) {
     default:
         break;
     }
+}
+
+void Viewer::printAccessFlags() {
+    auto flags = Utils::Access::getClassAccessType(this->classfile->access_flags);
+    std::cout << "Access Flags: [";
+    for (size_t i = 0; i < flags.size(); ++i) {
+        std::cout << flags[i] << (i < flags.size()-1 ? ", " : "]\n");
+    }
+}
+
+void Viewer::printThisClass() {
+    std::cout << "This class: \n";
+    this->printConstantPoolInfo(this->classfile->this_class-1, 1, true);
+}
+
+void Viewer::printSuperClass() {
+    std::cout << "Super class: \n";
+    this->printConstantPoolInfo(this->classfile->super_class-1, 1, true);
+}
+
+void Viewer::printInterfaces() {
+    std::cout << "interfaces\n";
 }

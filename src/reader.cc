@@ -31,6 +31,13 @@ void Reader::readClassFile() {
     this->readMinorVersion();
     this->readMajorVersion();
     this->readConstantPool();
+    this->readAccessFlags();
+    this->readThisClass();
+    this->readSuperClass();
+    this->readInterfaces();
+    this->readFields();
+    this->readMethods();
+    this->readAttributes();
 }
 
 void Reader::readMagic() {
@@ -210,4 +217,80 @@ void Reader::readConstantPoolInfo() {
         }
         }
     }
+}
+
+void Reader::readAccessFlags() {
+    this->readBytes(&this->classfile->access_flags);
+    if (Utils::Flags::kVERBOSE) {
+        state.copyfmt(std::cout);
+        std::cout << "Read classfile->access_flags = '"
+                  << "0x" << std::hex << std::uppercase
+                  << this->classfile->access_flags << "'\n";
+        std::cout.copyfmt(state);
+    }
+}
+
+void Reader::readThisClass() {
+    this->readBytes(&this->classfile->this_class);
+    if (Utils::Flags::kVERBOSE) {
+        std::cout << "Read this_class cp_info '#"
+            << this->classfile->this_class << "'\n";
+    }
+}
+
+void Reader::readSuperClass() {
+this->readBytes(&this->classfile->super_class);
+    if (Utils::Flags::kVERBOSE) {
+        if (!this->classfile->super_class) {
+            std::cout << "Read classfile->super_class = none\n";
+        } else {
+            std::cout << "Read super_class cp_info '#"
+                      << this->classfile->super_class << "'\n";
+        }
+    }
+}
+
+void Reader::readInterfaces() {
+    this->readInterfaceCount();
+    this->classfile->interfaces.resize(this->classfile->interfaces_count);
+    this->readInterfaceInfo();
+}
+
+void Reader::readInterfaceCount() {
+    this->readBytes(&this->classfile->interfaces_count);
+    if (Utils::Flags::kVERBOSE) {
+        std::cout << "Read classfile->interfaces_count = '"
+            << this->classfile->interfaces_count << "'\n";
+    }
+}
+
+void Reader::readInterfaceInfo() {
+
+}
+
+void Reader::readFields() {
+    this->readFieldsCount();
+    this->classfile->fields.resize(this->classfile->fields_count);
+}
+
+void Reader::readFieldsCount() {
+    this->readBytes(&this->classfile->fields_count);
+}
+
+void Reader::readMethods() {
+    this->readMethodsCount();
+    this->classfile->fields.resize(this->classfile->fields_count);
+}
+
+void Reader::readMethodsCount() {
+    this->readBytes(&this->classfile->methods_count);
+}
+
+void Reader::readAttributes() {
+    this->readAttributesCount();
+    this->classfile->fields.resize(this->classfile->fields_count);
+}
+
+void Reader::readAttributesCount() {
+    this->readBytes(&this->classfile->attributes_count);
 }

@@ -18,6 +18,10 @@ class Viewer {
     void printVersion();
     void printConstantPool();
     void printConstantPoolInfo(int index, int depth, bool inner);
+    void printAccessFlags();
+    void printThisClass();
+    void printSuperClass();
+    void printInterfaces();
 
     template<typename T>
     void printReferences(const T *kinfo, const int &depth, const bool &inner);

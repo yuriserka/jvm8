@@ -49,6 +49,32 @@ class cp_info {
     BaseInfo *base;
 };
 
+class attribute_info {
+ public:
+    types::u2 attribute_name_index;
+    types::u4 attribute_length;
+    std::vector<types::u1> info;
+};
+
+class field_info {
+ public:
+    types::u2 access_flags;
+    types::u2 name_index;
+    types::u2 descriptor_index;
+    types::u2 attributes_count;
+    std::vector<attribute_info> attributes;
+
+};
+
+class method_info {
+ public:
+    types::u2 access_flags;
+    types::u2 name_index;
+    types::u2 descriptor_index;
+    types::u2 attributes_count;
+    std::vector<attribute_info> attributes;
+};
+
 class CONSTANT_Class_info : public BaseInfo {
  public:
     explicit CONSTANT_Class_info(const types::u1 &tag) : BaseInfo(tag) {}
