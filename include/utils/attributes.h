@@ -60,6 +60,29 @@ class ConstantValue_attribute : public BaseAttribute {
     
     types::u2 constantvalue_index;
 };
+
+class Code_attribute : public BaseAttribute {
+ public:
+    types::u2 max_stack;
+    types::u2 max_locals;
+    types::u4 code_length;
+    std::vector<types::u1> code;
+    types::u2 exception_table_length;
+    types::u2 attributes_count;
+    std::vector<attribute_info> attributes;
+    struct excpt{
+        types::u2 start_pc;
+        types::u2 end_pc;
+        types::u2 handler_pc;
+        types::u2 catch_type;
+    };
+    std::vector<excpt> exception_table;
+};
+
+class Exceptions_attribute : public BaseAttribute {
+    types::u2 number_of_exceptions;
+    std::vector<types::u2> exception_index_table;
+};
 }  // namespace Attributes   
 }  // namespace Utils
 

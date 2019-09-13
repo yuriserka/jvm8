@@ -40,7 +40,7 @@ class Reader {
     void readMethodsInfo();
     void readAttributes();
     void readAttributesCount();
-    void readAttributesInfo(std::vector<Utils::Attributes::attribute_info> attributes);    
+    void readAttributesInfo(std::vector<Utils::Attributes::attribute_info> &attributes);    
 
     template <class T>
     inline void endianSwap(T *objp) {

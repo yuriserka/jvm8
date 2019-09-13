@@ -386,13 +386,26 @@ void Reader::readAttributesCount() {
     }
 }
 
-void Reader::readAttributesInfo(std::vector<Utils::Attributes::attribute_info> attributes) {
-    for (size_t i = 0; i < attributes.size(); ++i) {
-        attributes[i] = Utils::Attributes::attribute_info();
-        // auto attr = &attributes[i];
-        types::u2 nameidx;
-        types::u4 attrlen;
-        this->readBytes(&nameidx);
-        this->readBytes(&attrlen);
-    }
+void Reader::readAttributesInfo(std::vector<Utils::Attributes::attribute_info> &attributes) {
+    // std::map<std::string, void (*)(Utils::Attributes::attribute_info *)> attributesFunction = {
+    //     {"ConstantValue", NULL},
+    //     {"Code", NULL},
+    //     {"Exceptions", NULL},
+    //     {"SourceFile", NULL},
+    //     {"LineNumberTable", NULL},
+    //     {"LocalVariableTable", NULL},
+    //     {"Deprecated", NULL},
+    // };
+    // for (size_t i = 0; i < attributes.size(); ++i) {
+    //     attributes[i] = Utils::Attributes::attribute_info();
+    //     auto attr = &attributes[i];
+    //     namespace info = Utils::Infos;
+    //     types::u2 nameidx;
+    //     types::u4 attrlen;
+    //     this->readBytes(&nameidx);
+    //     this->readBytes(&attrlen);
+    //     auto constpool = this->classfile->constant_pool[nameidx];
+    //     std::vector<types::u1> nameBytes = constpool.getClass<info::CONSTANT_Utf8_info>()->bytes;
+    //     attributesFunction.at(nameBytes)(attr);
+    // }
 }
