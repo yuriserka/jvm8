@@ -28,7 +28,9 @@ enum {
     kMINOR,
     kMAJOR,
     kCONSTANTPOOL,
-    kBYTE
+    kBYTE,
+    kUTF8,
+    kREFKIND
 };
 }  // namespace Errors
 }  // namespace Utils

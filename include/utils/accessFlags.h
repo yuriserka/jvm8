@@ -1,9 +1,9 @@
 #ifndef INCLUDE_UTILS_ACCESSFLAGS_H_
 #define INCLUDE_UTILS_ACCESSFLAGS_H_
 
-#include "utils/types.h"
 #include <string>
 #include <vector>
+#include "utils/types.h"
 
 namespace Utils {
 namespace Access {

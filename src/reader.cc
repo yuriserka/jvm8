@@ -203,7 +203,7 @@ void Reader::readConstantPoolInfo() {
                     err << "[ERROR]: "
                         << "No byte may have the value 0x0000 or "
                         << "lie in the range [0x00f0, 0x00FF]";
-                    throw Utils::Errors::Exception(Utils::Errors::kBYTE, err.str());
+                    throw Utils::Errors::Exception(Utils::Errors::kUTF8, err.str());
                 }
             }
             break;
@@ -215,7 +215,7 @@ void Reader::readConstantPoolInfo() {
                 std::stringstream err;
                 err << "[ERROR]: "
                     << " reference_kind item must be in the range 1 to 9";
-                throw Utils::Errors::Exception(Utils::Errors::kBYTE, err.str());
+                throw Utils::Errors::Exception(Utils::Errors::kREFKIND, err.str());
             }
             this->readBytes(&kmethodhandler->reference_index);
             if (kmethodhandler->reference_kind >= 1 && kmethodhandler->reference_kind <= 4) {
@@ -335,14 +335,14 @@ void Reader::readFieldsInfo() {
         field->attributes.resize(field->attributes_count);
         this->readBytes(&field->descriptor_index);
         
-        this->readAttributesInfo(field->attributes);
+        // this->readAttributesInfo(field->attributes);
     }
 }
 
 void Reader::readMethods() {
     this->readMethodsCount();
     this->classfile->fields.resize(this->classfile->methods_count);
-    // this->readMethodsInfo();
+    this->readMethodsInfo();
     if (Utils::Flags::kVERBOSE) {
         std::cout << "Read classfile->methods\n";
     }
@@ -365,7 +365,7 @@ void Reader::readMethodsInfo() {
         this->readBytes(&method->attributes_count);
         method->attributes.resize(method->attributes_count);
 
-        this->readAttributesInfo(method->attributes);
+        // this->readAttributesInfo(method->attributes);
     }
 }
 
