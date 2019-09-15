@@ -231,7 +231,10 @@ void Viewer::printInterfaces() {
 }
 
 void Viewer::printInterfacesInfo(const int &index, const int &depth) {
-    std::cout << std::string(depth, '\t') << "interface #" << index << "\n";
+    auto interfaceIdx = this->classfile->interfaces[index];
+    std::cout << std::string(depth, '\t') << "interface #" << index
+              << " = 'cp_info #" << interfaceIdx << "'\n";
+    this->printConstantPoolInfo(interfaceIdx-1, depth, false);
 }
 
 void Viewer::printFields() {

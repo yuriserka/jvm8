@@ -50,8 +50,11 @@ class cp_info {
     BaseInfo *base;
 };
 
-class field_info {
- public:
+struct field_info {
+    field_info() = default;
+    
+    ~field_info() = default;
+
     types::u2 access_flags;
     types::u2 name_index;
     types::u2 descriptor_index;
@@ -60,8 +63,11 @@ class field_info {
 
 };
 
-class method_info {
- public:
+struct method_info {
+    method_info() = default;
+    
+    ~method_info() = default;
+
     types::u2 access_flags;
     types::u2 name_index;
     types::u2 descriptor_index;

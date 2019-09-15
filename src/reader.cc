@@ -37,7 +37,7 @@ void Reader::readClassFile() {
     this->readInterfaces();
     this->readFields();
     this->readMethods();
-    // this->readAttributes();
+    this->readAttributes();
 }
 
 void Reader::readMagic() {
@@ -304,7 +304,8 @@ void Reader::readInterfaceCount() {
 
 void Reader::readInterfaceInfo() {
     for (auto i = 0; i < this->classfile->interfaces_count; ++i) {
-        // auto interface = this->classfile->interfaces[i];
+        auto interface = this->classfile->interfaces[i];
+        this->readBytes(&interface);
     }
 }
 
@@ -327,6 +328,7 @@ void Reader::readFieldsCount() {
 
 void Reader::readFieldsInfo() {
     for (auto i = 0; i < this->classfile->fields_count; ++i) {
+        this->classfile->fields[i] = Utils::Infos::field_info();
         auto field = &this->classfile->fields[i];
         this->readBytes(&field->access_flags);
         this->readBytes(&field->name_index);
@@ -341,7 +343,7 @@ void Reader::readFieldsInfo() {
 
 void Reader::readMethods() {
     this->readMethodsCount();
-    this->classfile->fields.resize(this->classfile->methods_count);
+    this->classfile->methods.resize(this->classfile->methods_count);
     this->readMethodsInfo();
     if (Utils::Flags::kVERBOSE) {
         std::cout << "Read classfile->methods\n";
@@ -358,6 +360,7 @@ void Reader::readMethodsCount() {
 
 void Reader::readMethodsInfo() {
     for (auto i = 0; i < this->classfile->methods_count; ++i) {
+        this->classfile->methods[i] = Utils::Infos::method_info();
         auto method = &this->classfile->methods[i];
         this->readBytes(&method->access_flags);
         this->readBytes(&method->name_index);
