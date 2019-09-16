@@ -1,10 +1,10 @@
 #include <locale.h>
 #include <iostream>
-#include "include/classfile.h"
-#include "include/reader.h"
-#include "include/viewer.h"
+#include "classfile.h"
+#include "reader.h"
 #include "utils/errors.h"
 #include "utils/flags.h"
+#include "viewer.h"
 
 int main(const int argc, const char **argv) {
   setlocale(LC_ALL, "");

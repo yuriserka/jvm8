@@ -66,9 +66,10 @@ enum {
 };
 }  // namespace NestedClassAccess
 
-std::vector<std::string> getClassAccessType(const types::u2 &accessType);
-std::vector<std::string> getFieldAccessType(const types::u2 &accessType);
-std::vector<std::string> getMethodAccessType(const types::u2 &accessType);
+std::vector<std::string> getClassAccessType(const Utils::Types::u2 &accessType);
+std::vector<std::string> getFieldAccessType(const Utils::Types::u2 &accessType);
+std::vector<std::string> getMethodAccessType(
+    const Utils::Types::u2 &accessType);
 }  // namespace Access
 }  // namespace Utils
 

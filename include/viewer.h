@@ -2,7 +2,7 @@
 #define INCLUDE_VIEWER_H_
 
 #include <string>
-#include "include/classfile.h"
+#include "classfile.h"
 
 class Viewer {
  public:

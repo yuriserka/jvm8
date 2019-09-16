@@ -5,7 +5,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "include/classfile.h"
+#include "classfile.h"
 
 class Reader {
  public:

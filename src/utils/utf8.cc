@@ -50,6 +50,6 @@ Utf8::Utf8(const Utils::Infos::CONSTANT_Utf8_info *kutf8Info) {
       utf8c = static_cast<wchar_t>(0x10000 | b1 | b2 | b3 | b4);
       i += 3;
     }
-    str.push_back(utf8c);
+    this->str.push_back(utf8c);
   }
 }
