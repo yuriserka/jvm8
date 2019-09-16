@@ -22,9 +22,13 @@ repositório com o fim de fazer a JVM 8.
 
 ### Debugging
 
-Works only on Linux. Make sure you have GDB installed.
+Make sure you have GDB installed.
 
-Compile the program normally with `make clean && make`
+Compile the program normally with `make clean && make` in Linux or for windows users
+```
+mingw32-make.exe clean
+mingw32-make.exe
+```
 then `gdb --args ./jvm -f ./.javasrc/Caixa.class`
 
 ##### Basic commands
@@ -38,6 +42,13 @@ Make sure that you have Python and pip installed.
 
 - installing: `pip install cpplint`
 - running: `cpplint --recursive ./[src|include]`
+
+#### Running Code Formatter
+Works only on Linux.
+Make sure that you have clang and clang-format installed
+
+- installing: `sudo apt install clang clang-format`
+- running: `./formatter ./[src|include]`
 
 ## TODO
  - [ ] Ler o arquivo e atribuir os valores as devidas variáveis.  

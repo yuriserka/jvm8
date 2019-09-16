@@ -10,8 +10,7 @@ std::map<Utils::Types::u2, std::string> classAccessNames = {
     {Utils::Access::ClassAccess::ACC_ABSTRACT, "abstract"},
     {Utils::Access::ClassAccess::ACC_SYNTHETIC, "synthetic"},
     {Utils::Access::ClassAccess::ACC_ANNOTATION, "annotation"},
-    {Utils::Access::ClassAccess::ACC_ENUM, "enum"}
-};
+    {Utils::Access::ClassAccess::ACC_ENUM, "enum"}};
 
 std::map<Utils::Types::u2, std::string> fieldAccessNames = {
     {Utils::Access::FieldAccess::ACC_PUBLIC, "public"},
@@ -22,8 +21,7 @@ std::map<Utils::Types::u2, std::string> fieldAccessNames = {
     {Utils::Access::FieldAccess::ACC_VOLATILE, "volatile"},
     {Utils::Access::FieldAccess::ACC_TRANSIENT, "transient"},
     {Utils::Access::FieldAccess::ACC_SYNTHETIC, "synthetic"},
-    {Utils::Access::FieldAccess::ACC_ENUM, "enum"}
-};
+    {Utils::Access::FieldAccess::ACC_ENUM, "enum"}};
 
 std::map<Utils::Types::u2, std::string> methodAccessNames = {
     {Utils::Access::MethodAccess::ACC_PUBLIC, "public"},
@@ -37,60 +35,63 @@ std::map<Utils::Types::u2, std::string> methodAccessNames = {
     {Utils::Access::MethodAccess::ACC_NATIVE, "native"},
     {Utils::Access::MethodAccess::ACC_ABSTRACT, "abstract"},
     {Utils::Access::MethodAccess::ACC_STRICT, "strict"},
-    {Utils::Access::MethodAccess::ACC_SYNTHETIC, "synthetic"}
-};
+    {Utils::Access::MethodAccess::ACC_SYNTHETIC, "synthetic"}};
 
 namespace Utils {
 namespace Access {
-std::vector<std::string> getClassAccessType(const Utils::Types::u2 &accessType) {
-    std::vector<Utils::Types::u2> keys;
-    for(auto it = classAccessNames.begin(); it != classAccessNames.end(); ++it) {
-        keys.push_back(it->first);
+std::vector<std::string> getClassAccessType(
+    const Utils::Types::u2 &accessType) {
+  std::vector<Utils::Types::u2> keys;
+  for (auto it = classAccessNames.begin(); it != classAccessNames.end(); ++it) {
+    keys.push_back(it->first);
+  }
+  std::vector<std::string> flagsname;
+  for (auto accessFlag : keys) {
+    try {
+      auto s = classAccessNames.at(accessType & accessFlag);
+      flagsname.push_back(s);
+    } catch (const std::exception &e) {
+      continue;
     }
-    std::vector<std::string> flagsname;
-    for (auto accessFlag : keys) {
-        try {
-            auto s = classAccessNames.at(accessType & accessFlag);
-            flagsname.push_back(s);
-        } catch(const std::exception &e) {
-            continue;
-        }
-    }
-    return flagsname;    
+  }
+  return flagsname;
 }
 
-std::vector<std::string> getFieldAccessType(const Utils::Types::u2 &accessType) {
-    std::vector<Utils::Types::u2> keys;
-    for(auto it = fieldAccessNames.begin(); it != fieldAccessNames.end(); ++it) {
-        keys.push_back(it->first);
+std::vector<std::string> getFieldAccessType(
+    const Utils::Types::u2 &accessType) {
+  std::vector<Utils::Types::u2> keys;
+  for (auto it = fieldAccessNames.begin(); it != fieldAccessNames.end(); ++it) {
+    keys.push_back(it->first);
+  }
+  std::vector<std::string> flagsname;
+  for (auto accessFlag : keys) {
+    try {
+      auto s = fieldAccessNames.at(accessType & accessFlag);
+      flagsname.push_back(s);
+    } catch (const std::exception &e) {
+      continue;
     }
-    std::vector<std::string> flagsname;
-    for (auto accessFlag : keys) {
-        try {
-            auto s = fieldAccessNames.at(accessType & accessFlag);
-            flagsname.push_back(s);
-        } catch(const std::exception &e) {
-            continue;
-        }
-    }
-    return flagsname;    
+  }
+  return flagsname;
 }
 
-std::vector<std::string> getMethodAccessType(const Utils::Types::u2 &accessType) {
-    std::vector<Utils::Types::u2> keys;
-    for(auto it = methodAccessNames.begin(); it != methodAccessNames.end(); ++it) {
-        keys.push_back(it->first);
+std::vector<std::string> getMethodAccessType(
+    const Utils::Types::u2 &accessType) {
+  std::vector<Utils::Types::u2> keys;
+  for (auto it = methodAccessNames.begin(); it != methodAccessNames.end();
+       ++it) {
+    keys.push_back(it->first);
+  }
+  std::vector<std::string> flagsname;
+  for (auto accessFlag : keys) {
+    try {
+      auto s = methodAccessNames.at(accessType & accessFlag);
+      flagsname.push_back(s);
+    } catch (const std::exception &e) {
+      continue;
     }
-    std::vector<std::string> flagsname;
-    for (auto accessFlag : keys) {
-        try {
-            auto s = methodAccessNames.at(accessType & accessFlag);
-            flagsname.push_back(s);
-        } catch(const std::exception &e) {
-            continue;
-        }
-    }
-    return flagsname;    
+  }
+  return flagsname;
 }
 }  // namespace Access
 }  // namespace Utils

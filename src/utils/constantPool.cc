@@ -16,13 +16,12 @@ std::map<Utils::Types::u1, std::string> names = {
     {Utils::ConstantPool::CONSTANT_Utf8, "Utf8"},
     {Utils::ConstantPool::CONSTANT_MethodHandle, "MethodHandle"},
     {Utils::ConstantPool::CONSTANT_MethodType, "MethodType"},
-    {Utils::ConstantPool::CONSTANT_InvokeDynamic, "InvokeDynamic"}
-};
+    {Utils::ConstantPool::CONSTANT_InvokeDynamic, "InvokeDynamic"}};
 
 namespace Utils {
 namespace ConstantPool {
 std::string getConstantTypename(const Utils::Types::u1 &ct) {
-    return names.at(ct);
+  return names.at(ct);
 }
 }  // namespace ConstantPool
 }  // namespace Utils
