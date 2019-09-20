@@ -235,6 +235,7 @@ class Signature_attribute : public BaseAttribute {
 };
 
 class SourceFile_attribute : public BaseAttribute {
+ public:
   explicit SourceFile_attribute(const types::u1 &nameIdx,
                                 const types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}

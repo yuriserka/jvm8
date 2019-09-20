@@ -24,21 +24,27 @@ class Reader {
   void readMagic();
   void readMinorVersion();
   void readMajorVersion();
+
   void readConstantPool();
   void readConstantPoolCount();
   void readConstantPoolInfo();
+
   void readAccessFlags();
   void readThisClass();
   void readSuperClass();
+
   void readInterfaces();
   void readInterfaceCount();
   void readInterfaceInfo();
+
   void readFields();
   void readFieldsCount();
   void readFieldsInfo();
+
   void readMethods();
   void readMethodsCount();
   void readMethodsInfo();
+
   void readAttributes();
   void readAttributesCount();
   void readAttributesInfo(

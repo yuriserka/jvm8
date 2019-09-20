@@ -345,8 +345,7 @@ void Reader::readFieldsInfo() {
     this->readBytes(&field->access_flags);
 
     this->readBytes(&field->name_index);
-    auto ok = kpool[field->name_index - 1].getClass<info::CONSTANT_Utf8_info>() == nullptr;
-    if (!ok) {
+    if (!kpool[field->name_index - 1].getClass<info::CONSTANT_Utf8_info>()) {
       std::stringstream err;
       err << "The constant_pool entry at name_index must be a "
              "CONSTANT_Utf8_info";
@@ -354,9 +353,8 @@ void Reader::readFieldsInfo() {
     }
 
     this->readBytes(&field->descriptor_index);
-    ok =
-        kpool[field->descriptor_index - 1].getClass<info::CONSTANT_Utf8_info>() == nullptr;
-    if (!ok) {
+    if (!kpool[field->descriptor_index - 1]
+             .getClass<info::CONSTANT_Utf8_info>()) {
       std::stringstream err;
       err << "The constant_pool entry at descriptor_index must be a "
              "CONSTANT_Utf8_info";
@@ -419,11 +417,11 @@ void Reader::readAttributesCount() {
 }
 
 /**
- * 
- * Precisa arrumar um lugar pra colocar essa função, uma vez q ela também é usada no viewer.cc.
- * Tava com preguiça de colocar no attributes.h pq tava dando dependencia circular,
- * mas vai ter que quebrar a cabeça e arrumar.
- * 
+ *
+ * Precisa arrumar um lugar pra colocar essa função, uma vez q ela também é
+ * usada no viewer.cc. Tava com preguiça de colocar no attributes.h pq tava
+ * dando dependencia circular, mas vai ter que quebrar a cabeça e arrumar.
+ *
  * */
 static int getAttributeType(const Utf8 &attrname) {
   std::map<Utf8, int> attrTypes = {

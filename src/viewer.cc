@@ -324,11 +324,11 @@ void Viewer::printAttributes(
 }
 
 /**
- * 
- * Precisa arrumar um lugar pra colocar essa função, uma vez q ela também é usada no reader.cc.
- * Tava com preguiça de colocar no attributes.h pq tava dando dependencia circular,
- * mas vai ter que quebrar a cabeça e arrumar.
- * 
+ *
+ * Precisa arrumar um lugar pra colocar essa função, uma vez q ela também é
+ * usada no reader.cc. Tava com preguiça de colocar no attributes.h pq tava
+ * dando dependencia circular, mas vai ter que quebrar a cabeça e arrumar.
+ *
  * */
 static int getAttributeType(const Utf8 &attrname) {
   std::map<Utf8, int> attrTypes = {
