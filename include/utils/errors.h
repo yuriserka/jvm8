@@ -11,14 +11,14 @@ class Exception : public std::exception {
 
   const char *what() const noexcept { return this->message.c_str(); }
 
-  const int error() const { return this->code; }
+  const int errorCode() const { return this->code; }
 
  private:
   int code;
   std::string message;
 };
 
-enum {
+enum errorTypes {
   kCLASSFILE = 1,
   KMAGIC,
   kMINOR,
@@ -26,7 +26,9 @@ enum {
   kCONSTANTPOOL,
   kBYTE,
   kUTF8,
-  kREFKIND
+  kREFKIND,
+  kFIELD,
+  kATTRIBUTE
 };
 }  // namespace Errors
 }  // namespace Utils

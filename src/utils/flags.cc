@@ -4,19 +4,18 @@
 #include <iostream>
 #include <map>
 
-bool Utils::Flags::kVERBOSE;
-bool Utils::Flags::kIGNORE;
-std::string Utils::Flags::kFILE;
+Options Utils::Flags::options = Options();
 
-std::map<std::string, bool *> options = {{"-v", &Utils::Flags::kVERBOSE},
-                                         {"-i", &Utils::Flags::kIGNORE}};
+std::map<std::string, bool *> optionsNames = {
+    {"-v", &Utils::Flags::options.kVERBOSE},
+    {"-i", &Utils::Flags::options.kIGNORE}};
 
 namespace Utils {
 namespace Flags {
 void toggleAll(const char **flags) {
   for (; *flags;) {
     if (!strcmp(*flags, "-f")) {
-      kFILE = std::string(*++flags);
+      options.kFILE = std::string(*++flags);
       flags++;
       continue;
     }
@@ -24,6 +23,8 @@ void toggleAll(const char **flags) {
   }
 }
 
-void toggle(const char *flag) { *options.at(flag) = !*options.at(flag); }
+void toggle(const char *flag) {
+  *optionsNames.at(flag) = !*optionsNames.at(flag);
+}
 }  // namespace Flags
 }  // namespace Utils

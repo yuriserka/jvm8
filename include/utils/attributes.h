@@ -93,6 +93,18 @@ struct MethodParameters_info {
 
 namespace Utils {
 namespace Attributes {
+
+enum attr_types {
+  kINVALID = -1,
+  kCODE,
+  kCONSTANTVALUE,
+  kDEPRECATED,
+  kEXCEPTIONS,
+  kLINENUMBERTABLE,
+  kLOCALVARIABLETABLE,
+  kSOURCEFILE
+};
+
 class BaseAttribute {
  public:
   BaseAttribute() = default;
@@ -123,8 +135,8 @@ class attribute_info {
   }
 
   template <typename T>
-  T *setBase(const types::u1 &tag) {
-    this->base = new T(tag);
+  T *setBase(const types::u1 &nameIdx, const types::u4 &attrLen) {
+    this->base = new T(nameIdx, attrLen);
     return this->getClass<T>();
   }
 
