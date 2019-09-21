@@ -183,12 +183,14 @@ void Reader::readConstantPoolInfo() {
         auto klong_info = constpool->setBase<info::CONSTANT_Long_info>(tag);
         this->readBytes(&klong_info->high_bytes);
         this->readBytes(&klong_info->low_bytes);
+        ++i;
         break;
       }
       case cp::CONSTANT_Double: {
         auto kdouble_info = constpool->setBase<info::CONSTANT_Double_info>(tag);
         this->readBytes(&kdouble_info->high_bytes);
         this->readBytes(&kdouble_info->low_bytes);
+        ++i;
         break;
       }
       case cp::CONSTANT_NameAndType: {

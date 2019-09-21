@@ -48,8 +48,12 @@ void Viewer::printConstantPool() {
   std::cout << "Constant Pool Count: " << this->classfile->constant_pool_count
             << "\n";
   std::cout << "Constant Pool:\n";
-  for (auto i = 0; i < this->classfile->constant_pool_count - 1; ++i) {
-    this->printConstantPoolInfo(i, 1, false);
+  for (int i = 0; i < this->classfile->constant_pool_count - 1; ++i) {
+    auto jmpNextIndex = this->printConstantPoolInfo(i, 1, false);
+    if (jmpNextIndex) {
+      std::cout << std::string(1, '\t') << "cp_info '#" << ++i + 1 << "': ";
+      std::cout << "(large numeric continued)\n\n";
+    }
   }
 }
 
@@ -57,15 +61,15 @@ template <typename T>
 void Viewer::printReferences(const T *kinfo, const int &depth,
                              const bool &inner) {
   if (!inner) {
-    std::cout << std::string(depth, '\t')
-              << "Class Index: " << kinfo->class_index << "\n";
+    std::cout << std::string(depth, '\t') << "Class name: "
+              << "cp_info '#" << kinfo->class_index << "'\n";
   }
-  this->printConstantPoolInfo(kinfo->class_index - 1, depth + 1, true);
+  this->printConstantPoolInfo(kinfo->class_index - 1, depth, true);
   if (!inner) {
-    std::cout << std::string(depth, '\t')
-              << "Name and Type Index: " << kinfo->name_and_type_index << "\n";
+    std::cout << std::string(depth, '\t') << "Name and Type Index: "
+              << "cp_info '#" << kinfo->name_and_type_index << "'\n";
   }
-  this->printConstantPoolInfo(kinfo->name_and_type_index - 1, depth + 1, true);
+  this->printConstantPoolInfo(kinfo->name_and_type_index - 1, depth, true);
 }
 
 template <typename T, typename U>
@@ -83,7 +87,7 @@ void Viewer::print4bytesNumeral(const T *kinfo, const int &depth,
     namespace cp = Utils::ConstantPool;
     case cp::CONSTANT_Integer: {
       state.copyfmt(std::cout);
-      std::cout << std::string(depth, '\t') << "Bytes: "
+      std::cout << std::string(depth, '\t') << "Bytes: '"
                 << "0x" << std::setfill('0') << std::setw(4) << std::hex
                 << std::uppercase << kinfo->bytes << "'\n";
       std::cout.copyfmt(state);
@@ -92,6 +96,11 @@ void Viewer::print4bytesNumeral(const T *kinfo, const int &depth,
       break;
     }
     case cp::CONSTANT_Float: {
+      state.copyfmt(std::cout);
+      std::cout << std::string(depth, '\t') << "Bytes: '"
+                << "0x" << std::setfill('0') << std::setw(4) << std::hex
+                << std::uppercase << kinfo->bytes << "'\n";
+      std::cout.copyfmt(state);
       float f = copyCast<float>(&kinfo->bytes);
       std::cout << std::string(depth, '\t') << "Value: '" << f << "'\n";
       break;
@@ -108,20 +117,37 @@ void Viewer::print8bytesNumeral(const T *kinfo, const int &depth,
     namespace cp = Utils::ConstantPool;
     namespace types = Utils::Types;
     case cp::CONSTANT_Long: {
-      std::cout << std::string(depth, '\t') << "Value: '" << u8val << "'\n";
+      std::cout << std::string(depth, '\t') << "High Bytes: '";
+      state.copyfmt(std::cout);
+      std::cout << "0x" << std::setfill('0') << std::setw(8) << std::hex
+                << std::uppercase << kinfo->high_bytes << "'\n";
+      std::cout << std::string(depth, '\t') << "Low Bytes: '";
+      std::cout << "0x" << std::setfill('0') << std::setw(8) << std::hex
+                << std::uppercase << kinfo->low_bytes << "'\n";
+      std::cout.copyfmt(state);
+      std::cout << std::string(depth, '\t') << "Long: '" << u8val << "'\n";
       break;
     }
     case cp::CONSTANT_Double: {
+      std::cout << std::string(depth, '\t') << "High Bytes: ";
+      state.copyfmt(std::cout);
+      std::cout << "0x" << std::setfill('0') << std::setw(8) << std::hex
+                << std::uppercase << kinfo->high_bytes << "'\n";
+      std::cout << std::string(depth, '\t') << "Low Bytes: ";
+      std::cout << "0x" << std::setfill('0') << std::setw(8) << std::hex
+                << std::uppercase << kinfo->low_bytes << "'\n";
+      std::cout.copyfmt(state);
       double d = copyCast<double>(&u8val);
-      std::cout << std::string(depth, '\t') << "Value: '" << d << "'\n";
+      std::cout << std::string(depth, '\t') << "Double: '" << d << "'\n";
       break;
     }
   }
 }
 
-void Viewer::printConstantPoolInfo(const int &index, const int &depth,
+bool Viewer::printConstantPoolInfo(const int &index, const int &depth,
                                    const bool &inner) {
   auto constpool = this->classfile->constant_pool[index];
+  bool jmpNextIndex = false;
   if (!inner) {
     std::cout << std::string(depth, '\t') << "cp_info '#" << index + 1 << "': ";
     auto name = Utils::ConstantPool::getConstantTypename(constpool.base->tag);
@@ -180,11 +206,13 @@ void Viewer::printConstantPoolInfo(const int &index, const int &depth,
     case cp::CONSTANT_Long: {
       auto klong_info = constpool.getClass<info::CONSTANT_Long_info>();
       this->print8bytesNumeral(klong_info, depth + 1, inner);
+      jmpNextIndex = true;
       break;
     }
     case cp::CONSTANT_Double: {
       auto kdouble_info = constpool.getClass<info::CONSTANT_Double_info>();
       this->print8bytesNumeral(kdouble_info, depth + 1, inner);
+      jmpNextIndex = true;
       break;
     }
     case cp::CONSTANT_NameAndType: {
@@ -219,6 +247,7 @@ void Viewer::printConstantPoolInfo(const int &index, const int &depth,
     }
   }
   if (!inner) std::cout << "\n";
+  return jmpNextIndex;
 }
 
 template <typename T>
@@ -242,12 +271,12 @@ void Viewer::printAccessFlags() {
 
 void Viewer::printThisClass() {
   std::cout << "This class: \n";
-  this->printConstantPoolInfo(this->classfile->this_class - 1, 1, false);
+  this->printConstantPoolInfo(this->classfile->this_class - 1, 0, true);
 }
 
 void Viewer::printSuperClass() {
   std::cout << "Super class: \n";
-  this->printConstantPoolInfo(this->classfile->super_class - 1, 1, false);
+  this->printConstantPoolInfo(this->classfile->super_class - 1, 0, true);
 }
 
 void Viewer::printInterfaces() {
@@ -283,13 +312,13 @@ void Viewer::printFields() {
 void Viewer::printFieldsInfo(const int &index, const int &depth) {
   std::cout << std::string(depth, '\t') << "field #" << index << "\n";
   auto field = this->classfile->fields[index];
-  this->printAccessFlags(&field, 2, Utils::Access::getFieldAccessType);
   std::cout << std::string(depth + 1, '\t') << "Name index = 'cp_info #"
             << field.name_index << "'\n";
-  this->printConstantPoolInfo(field.name_index - 1, 2, false);
+  this->printConstantPoolInfo(field.name_index - 1, 2, true);
   std::cout << std::string(depth + 1, '\t') << "Descriptor index = 'cp_info #"
             << field.descriptor_index << "'\n";
-  this->printConstantPoolInfo(field.descriptor_index - 1, 2, false);
+  this->printConstantPoolInfo(field.descriptor_index - 1, 2, true);
+  this->printAccessFlags(&field, 2, Utils::Access::getFieldAccessType);
   this->printAttributes(field.attributes, field.attributes_count, 2);
 }
 
@@ -373,7 +402,7 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info &attribute,
                 << "Attribute name index = 'cp_info #"
                 << kval_attr->attribute_name_index << "'\n";
       this->printConstantPoolInfo(kval_attr->attribute_name_index - 1,
-                                  depth + 2, false);
+                                  depth + 2, true);
       std::cout << std::string(depth + 2, '\t') << "Attribute length = '"
                 << kval_attr->attribute_length << "'\n";
       std::cout << std::string(depth + 1, '\t') << "Specific Info: \n";
@@ -381,7 +410,7 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info &attribute,
                 << "Constant Value index = 'cp_info #"
                 << kval_attr->constantvalue_index << "'\n";
       this->printConstantPoolInfo(kval_attr->constantvalue_index - 1, depth + 2,
-                                  false);
+                                  true);
       break;
     }
     case attrs::kDEPRECATED: {

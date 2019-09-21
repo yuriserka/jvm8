@@ -42,6 +42,7 @@ void ClassFile::deleteConstantPool() {
         break;
       case cp::CONSTANT_Double:
         cpi.deleteclass<info::CONSTANT_Double_info>();
+        ++i;
         break;
       case cp::CONSTANT_Fieldref:
         cpi.deleteclass<info::CONSTANT_FieldRef_info>();
@@ -57,6 +58,7 @@ void ClassFile::deleteConstantPool() {
         break;
       case cp::CONSTANT_Long:
         cpi.deleteclass<info::CONSTANT_Long_info>();
+        ++i;
         break;
       case cp::CONSTANT_Methodref:
         cpi.deleteclass<info::CONSTANT_Methodref_info>();

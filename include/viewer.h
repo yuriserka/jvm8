@@ -18,7 +18,7 @@ class Viewer {
   void printMagic();
   void printVersion();
   void printConstantPool();
-  void printConstantPoolInfo(const int &index, const int &depth,
+  bool printConstantPoolInfo(const int &index, const int &depth,
                              const bool &inner);
   void printAccessFlags();
   void printThisClass();
