@@ -16,9 +16,8 @@ Utf8::Utf8(const Utils::Infos::CONSTANT_Utf8_info *kutf8Info) {
     auto umByte = ubyte >= byteRange[0] && ubyte < byteRange[1];
     auto doisBytes = ubyte >= byteRange[1] && ubyte < byteRange[2];
     auto tresBytes = ubyte >= byteRange[0] && ubyte <= byteRange[3];
-    auto seisBytes = ubyte > byteRange[3];
 
-    wchar_t utf8c;
+    wchar_t utf8c = L'\0';
     if (umByte) {
       std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
       auto s = converter.from_bytes(bytes[i]);
@@ -42,7 +41,7 @@ Utf8::Utf8(const Utils::Infos::CONSTANT_Utf8_info *kutf8Info) {
       auto b3 = bytes[i + 2] & 0x3F;
       utf8c = static_cast<wchar_t>(b1 | b2 | b3);
       i += 2;
-    } else if (seisBytes) {
+    } else if (ubyte > byteRange[3]) {
       auto b1 = (bytes[i] & 0x0F) << 16;
       auto b2 = (bytes[i + 1] & 0x3F) << 10;
       auto b3 = (bytes[i + 2] & 0x0F) << 6;

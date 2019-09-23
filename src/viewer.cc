@@ -385,8 +385,8 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info &attribute,
   std::cout << std::string(depth, '\t') << "attribute #" << index << "\n";
   auto utf8nameindex =
       this->classfile->constant_pool[attribute.base->attribute_name_index - 1];
-  auto kutf8 = utf8nameindex.getClass<Utils::Infos::CONSTANT_Utf8_info>();
-  auto attrName = Utf8(kutf8);
+  auto kutf8_info = utf8nameindex.getClass<Utils::Infos::CONSTANT_Utf8_info>();
+  auto attrName = Utf8(kutf8_info);
   auto attrtype = getAttributeType(attrName);
 
   switch (attrtype) {

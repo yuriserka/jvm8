@@ -4,7 +4,10 @@
 #include <vector>
 #include "utils/constantPool.h"
 #include "utils/infos.h"
+#include "utils/nlohmann_json.hpp"
 #include "utils/types.h"
+
+using nlohmann::json;
 
 class ClassFile {
  public:
@@ -47,5 +50,7 @@ class ClassFile {
   void deleteAttributes(
       std::vector<Utils::Attributes::attribute_info> &attributes);
 };
+
+void to_json(json &j, ClassFile *cf);
 
 #endif  // INCLUDE_CLASSFILE_H_

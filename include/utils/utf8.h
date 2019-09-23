@@ -4,8 +4,6 @@
 #include <iostream>
 #include "utils/infos.h"
 
-// class Utils::Infos::CONSTANT_Utf8_info;
-
 class Utf8 {
  public:
   explicit Utf8(const Utils::Infos::CONSTANT_Utf8_info *kutf8Info);
@@ -33,7 +31,6 @@ class Utf8 {
 
   const wchar_t *toString() const { return str.c_str(); }
 
- private:
   std::wstring str;
 };
 

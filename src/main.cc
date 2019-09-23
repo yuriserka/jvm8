@@ -17,7 +17,16 @@ int main(const int argc, const char **argv) {
 
   try {
     r->readClassFile();
-    v->printClassFile();
+    json j = cf;
+    if (Utils::Flags::options.kJSON) {
+      std::ofstream o("classfile_structure.json");
+      o << std::setw(2) << j << std::endl;
+      if (Utils::Flags::options.kVERBOSE) {
+        std::cout << "json file dump complete\n";
+      }
+    } else {
+      v->printClassFile();
+    }
   } catch (const Utils::Errors::Exception &e) {
     delete cf;
     delete r;

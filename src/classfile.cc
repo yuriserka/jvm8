@@ -1,7 +1,12 @@
 #include "classfile.h"
 
+#include <iomanip>
 #include <map>
+#include <sstream>
+#include "utils/accessFlags.h"
+#include "utils/serializers/infoSerializer.h"
 #include "utils/utf8.h"
+#include "utils/versions.h"
 
 /**
  *
@@ -125,4 +130,78 @@ void ClassFile::deleteAttributes(
         break;
     }
   }
+}
+
+// clang-format off
+void to_json(json &j, ClassFile *cf) {
+  auto is = Utils::Infos::Serializer(cf->constant_pool);
+  std::stringstream ss;
+  j = json {
+    {"magic",  [&ss] (const ClassFile *cf) -> std::string {
+        ss << "0x" << std::setfill('0') << std::setw(8) << std::hex
+          << std::uppercase << cf->magic;
+        auto str = ss.str();
+        ss.str(std::string());
+        return str;
+      }(cf)
+    },
+    {"version", {
+        {"minor", cf->minor_version},
+        {"major", cf->major_version},
+        {"name", Utils::Versions::getVersion(cf->major_version)}
+      }
+    },
+    {"constant pool", {
+        {"count", cf->constant_pool_count},
+        {"entries", json::array()}
+      }
+    },
+    {"access flags", {
+        {"value", [&ss] (const ClassFile *cf) -> std::string {
+            ss << "0x" << std::setfill('0') << std::setw(4) << std::hex
+              << std::uppercase << cf->access_flags;
+            auto str = ss.str();
+            ss.str(std::string());        
+            return str;
+          }(cf)
+        },
+        {"flags name", Utils::Access::getClassAccessType(cf->access_flags)}
+      }
+    },
+    {"this class", {}},
+    {"super class", {}},
+    {"interfaces", {
+        {"count", cf->interfaces_count},
+        {"indices", cf->interfaces}
+      }
+    },
+    {"fields", {
+        {"count", cf->fields_count}
+        //, {"entries", cf->fields}
+      }
+    },
+    {"methods", {
+        {"count", cf->methods_count}
+        //, {"entries", cf->methods}
+      }
+    },
+    {"attributes", {
+        {"count", cf->attributes_count}
+        //, {"entries", cf->attributes}
+      }
+    }
+  };
+  // clang-format on
+
+  Utils::Infos::to_json(j.at("constant pool").at("entries"), is);
+
+  Utils::Infos::to_json(j.at("this class"),
+                        cf->constant_pool[cf->this_class - 1]
+                            .getClass<Utils::Infos::CONSTANT_Class_info>(),
+                        cf->constant_pool);
+
+  Utils::Infos::to_json(j.at("super class"),
+                        cf->constant_pool[cf->super_class - 1]
+                            .getClass<Utils::Infos::CONSTANT_Class_info>(),
+                        cf->constant_pool);
 }

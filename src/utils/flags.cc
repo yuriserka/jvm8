@@ -8,7 +8,8 @@ Options Utils::Flags::options = Options();
 
 std::map<std::string, bool *> optionsNames = {
     {"-v", &Utils::Flags::options.kVERBOSE},
-    {"-i", &Utils::Flags::options.kIGNORE}};
+    {"-i", &Utils::Flags::options.kIGNORE},
+    {"-json", &Utils::Flags::options.kJSON}};
 
 namespace Utils {
 namespace Flags {

@@ -6,6 +6,7 @@
 struct Options {
   bool kVERBOSE;
   bool kIGNORE;
+  bool kJSON;
   std::string kFILE;
 };
 
