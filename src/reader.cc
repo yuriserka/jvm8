@@ -481,8 +481,7 @@ void Reader::readAttributesInfo(
         break;
       }
       case attrs::kDEPRECATED: {
-        // auto deprecated_attr =
-        //     attr->setBase<attrs::Deprecated_attribute>(nameidx, attrlen);
+        attr->setBase<attrs::Deprecated_attribute>(nameidx, attrlen);
         break;
       }
       case attrs::kEXCEPTIONS: {
@@ -497,14 +496,27 @@ void Reader::readAttributesInfo(
         break;
       }
       case attrs::kLOCALVARIABLETABLE: {
-        // auto localvar_attr =
-        // attr->setBase<attrs::LocalVariableTable_attribute>(
-        //     nameidx, attrlen);
+        auto localvar_attr = attr->setBase<attrs::LocalVariableTable_attribute>(
+            nameidx, attrlen);
+        this->readBytes(&localvar_attr->local_variable_table_length);
+        localvar_attr->local_variable_table.resize(
+            localvar_attr->local_variable_table_length);
+
+        for (auto i = 0; i < localvar_attr->local_variable_table_length; ++i) {
+          localvar_attr->local_variable_table[i] = localVariableTable_info();
+          auto localvar_info = &localvar_attr->local_variable_table[i];
+          this->readBytes(&localvar_info->start_pc);
+          this->readBytes(&localvar_info->length);
+          this->readBytes(&localvar_info->name_index);
+          this->readBytes(&localvar_info->descriptor_index);
+          this->readBytes(&localvar_info->index);
+        }
         break;
       }
       case attrs::kSOURCEFILE: {
-        // auto sourcefile_attr =
-        //     attr->setBase<attrs::SourceFile_attribute>(nameidx, attrlen);
+        auto sourcefile_attr =
+            attr->setBase<attrs::SourceFile_attribute>(nameidx, attrlen);
+        this->readBytes(&sourcefile_attr->sourcefile_index);
         break;
       }
       case attrs::kINVALID: {
@@ -514,10 +526,5 @@ void Reader::readAttributesInfo(
         break;
       }
     }
-    //   std::wcout << L"found you -> " << *ok->toString();
-    // } else {
-    //   std::cout << "fodac entao nao achei";
-    // }
-    // attrTable.at(attrName)();
   }
 }
