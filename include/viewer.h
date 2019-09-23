@@ -2,6 +2,7 @@
 #define INCLUDE_VIEWER_H_
 
 #include <string>
+#include <vector>
 #include "classfile.h"
 #include "utils/attributes.h"
 
@@ -36,7 +37,7 @@ class Viewer {
   void printAttributes(
       const std::vector<Utils::Attributes::attribute_info> &attributes,
       const int &attr_count, const int &depth);
-  void printAttributeInfo(Utils::Attributes::attribute_info &attribute,
+  void printAttributeInfo(Utils::Attributes::attribute_info *attribute,
                           const int &index, const int &depth);
 
   template <typename T>

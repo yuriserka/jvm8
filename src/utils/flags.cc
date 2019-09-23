@@ -6,13 +6,12 @@
 
 Options Utils::Flags::options = Options();
 
-std::map<std::string, bool *> optionsNames = {
-    {"-v", &Utils::Flags::options.kVERBOSE},
-    {"-i", &Utils::Flags::options.kIGNORE},
-    {"-json", &Utils::Flags::options.kJSON}};
-
 namespace Utils {
 namespace Flags {
+std::map<std::string, bool *> optionsNames = {{"-v", &options.kVERBOSE},
+                                              {"-i", &options.kIGNORE},
+                                              {"-json", &options.kJSON}};
+
 void toggleAll(const char **flags) {
   for (; *flags;) {
     if (!strcmp(*flags, "-f")) {

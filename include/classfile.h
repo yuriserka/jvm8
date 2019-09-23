@@ -16,7 +16,7 @@ class ClassFile {
   ~ClassFile() {
     this->deleteFieldsAttributes();
     this->deleteMethodsAttributes();
-    this->deleteAttributes(this->attributes);
+    this->deleteAttributes(&this->attributes);
     this->deleteConstantPool();
   }
 
@@ -48,9 +48,7 @@ class ClassFile {
   void deleteFieldsAttributes();
   void deleteMethodsAttributes();
   void deleteAttributes(
-      std::vector<Utils::Attributes::attribute_info> &attributes);
+      std::vector<Utils::Attributes::attribute_info> *attributes);
 };
-
-void to_json(json &j, ClassFile *cf);
 
 #endif  // INCLUDE_CLASSFILE_H_

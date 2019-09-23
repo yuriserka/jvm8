@@ -366,7 +366,7 @@ void Reader::readFieldsInfo() {
     this->readBytes(&field->attributes_count);
     field->attributes.resize(field->attributes_count);
 
-    this->readAttributesInfo(field->attributes);
+    this->readAttributesInfo(&field->attributes);
   }
 }
 
@@ -397,14 +397,14 @@ void Reader::readMethodsInfo() {
     this->readBytes(&method->attributes_count);
     method->attributes.resize(method->attributes_count);
 
-    // this->readAttributesInfo(method->attributes);
+    // this->readAttributesInfo(&method->attributes);
   }
 }
 
 void Reader::readAttributes() {
   this->readAttributesCount();
   this->classfile->fields.resize(this->classfile->attributes_count);
-  // this->readAttributesInfo(this->classfile->attributes);
+  // this->readAttributesInfo(&this->classfile->attributes);
   if (Utils::Flags::options.kVERBOSE) {
     std::cout << "Read classfile->attributes\n";
   }
@@ -447,10 +447,10 @@ static int getAttributeType(const Utf8 &attrname) {
 }
 
 void Reader::readAttributesInfo(
-    std::vector<Utils::Attributes::attribute_info> &attributes) {
-  for (size_t i = 0; i < attributes.size(); ++i) {
-    attributes[i] = Utils::Attributes::attribute_info();
-    Utils::Attributes::attribute_info *attr = &attributes[i];
+    std::vector<Utils::Attributes::attribute_info> *attributes) {
+  for (size_t i = 0; i < attributes->size(); ++i) {
+    attributes->at(i) = Utils::Attributes::attribute_info();
+    Utils::Attributes::attribute_info *attr = &attributes->at(i);
     types::u2 nameidx;
     types::u4 attrlen;
     this->readBytes(&nameidx);

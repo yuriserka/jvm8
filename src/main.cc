@@ -4,6 +4,7 @@
 #include "reader.h"
 #include "utils/errors.h"
 #include "utils/flags.h"
+#include "utils/serializers/classfileSerializer.h"
 #include "viewer.h"
 
 int main(const int argc, const char **argv) {
@@ -17,8 +18,10 @@ int main(const int argc, const char **argv) {
 
   try {
     r->readClassFile();
-    json j = cf;
     if (Utils::Flags::options.kJSON) {
+      auto cfSerializer = ClassFileSerializer(cf);
+      json j;
+      cfSerializer.to_json(&j);
       std::ofstream o("classfile_structure.json");
       o << std::setw(2) << j << std::endl;
       if (Utils::Flags::options.kVERBOSE) {
@@ -28,9 +31,9 @@ int main(const int argc, const char **argv) {
       v->printClassFile();
     }
   } catch (const Utils::Errors::Exception &e) {
-    delete cf;
     delete r;
     delete v;
+    delete cf;
     if (Utils::Flags::options.kVERBOSE) {
       std::cout << "\tA exception happened\n";
     }
@@ -39,9 +42,9 @@ int main(const int argc, const char **argv) {
     return EXIT_FAILURE;
   }
 
-  delete cf;
   delete r;
   delete v;
+  delete cf;
 
   return 0;
 }

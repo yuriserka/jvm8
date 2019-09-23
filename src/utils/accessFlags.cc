@@ -2,43 +2,43 @@
 
 #include <map>
 
-std::map<Utils::Types::u2, std::string> classAccessNames = {
-    {Utils::Access::ClassAccess::ACC_PUBLIC, "public"},
-    {Utils::Access::ClassAccess::ACC_FINAL, "final"},
-    {Utils::Access::ClassAccess::ACC_SUPER, "super"},
-    {Utils::Access::ClassAccess::ACC_INTERFACE, "interface"},
-    {Utils::Access::ClassAccess::ACC_ABSTRACT, "abstract"},
-    {Utils::Access::ClassAccess::ACC_SYNTHETIC, "synthetic"},
-    {Utils::Access::ClassAccess::ACC_ANNOTATION, "annotation"},
-    {Utils::Access::ClassAccess::ACC_ENUM, "enum"}};
-
-std::map<Utils::Types::u2, std::string> fieldAccessNames = {
-    {Utils::Access::FieldAccess::ACC_PUBLIC, "public"},
-    {Utils::Access::FieldAccess::ACC_PRIVATE, "private"},
-    {Utils::Access::FieldAccess::ACC_PROTECTED, "protected"},
-    {Utils::Access::FieldAccess::ACC_STATIC, "static"},
-    {Utils::Access::FieldAccess::ACC_FINAL, "final"},
-    {Utils::Access::FieldAccess::ACC_VOLATILE, "volatile"},
-    {Utils::Access::FieldAccess::ACC_TRANSIENT, "transient"},
-    {Utils::Access::FieldAccess::ACC_SYNTHETIC, "synthetic"},
-    {Utils::Access::FieldAccess::ACC_ENUM, "enum"}};
-
-std::map<Utils::Types::u2, std::string> methodAccessNames = {
-    {Utils::Access::MethodAccess::ACC_PUBLIC, "public"},
-    {Utils::Access::MethodAccess::ACC_PRIVATE, "private"},
-    {Utils::Access::MethodAccess::ACC_PROTECTED, "protected"},
-    {Utils::Access::MethodAccess::ACC_STATIC, "static"},
-    {Utils::Access::MethodAccess::ACC_FINAL, "final"},
-    {Utils::Access::MethodAccess::ACC_SYNCHRONIZED, "syncronized"},
-    {Utils::Access::MethodAccess::ACC_BRIDGE, "bridge"},
-    {Utils::Access::MethodAccess::ACC_VARARGS, "varargs"},
-    {Utils::Access::MethodAccess::ACC_NATIVE, "native"},
-    {Utils::Access::MethodAccess::ACC_ABSTRACT, "abstract"},
-    {Utils::Access::MethodAccess::ACC_STRICT, "strict"},
-    {Utils::Access::MethodAccess::ACC_SYNTHETIC, "synthetic"}};
-
 namespace Utils {
 namespace Access {
+std::map<Utils::Types::u2, std::string> classAccessNames = {
+    {ClassAccess::ACC_PUBLIC, "public"},
+    {ClassAccess::ACC_FINAL, "final"},
+    {ClassAccess::ACC_SUPER, "super"},
+    {ClassAccess::ACC_INTERFACE, "interface"},
+    {ClassAccess::ACC_ABSTRACT, "abstract"},
+    {ClassAccess::ACC_SYNTHETIC, "synthetic"},
+    {ClassAccess::ACC_ANNOTATION, "annotation"},
+    {ClassAccess::ACC_ENUM, "enum"}};
+
+std::map<Utils::Types::u2, std::string> fieldAccessNames = {
+    {FieldAccess::ACC_PUBLIC, "public"},
+    {FieldAccess::ACC_PRIVATE, "private"},
+    {FieldAccess::ACC_PROTECTED, "protected"},
+    {FieldAccess::ACC_STATIC, "static"},
+    {FieldAccess::ACC_FINAL, "final"},
+    {FieldAccess::ACC_VOLATILE, "volatile"},
+    {FieldAccess::ACC_TRANSIENT, "transient"},
+    {FieldAccess::ACC_SYNTHETIC, "synthetic"},
+    {FieldAccess::ACC_ENUM, "enum"}};
+
+std::map<Utils::Types::u2, std::string> methodAccessNames = {
+    {MethodAccess::ACC_PUBLIC, "public"},
+    {MethodAccess::ACC_PRIVATE, "private"},
+    {MethodAccess::ACC_PROTECTED, "protected"},
+    {MethodAccess::ACC_STATIC, "static"},
+    {MethodAccess::ACC_FINAL, "final"},
+    {MethodAccess::ACC_SYNCHRONIZED, "syncronized"},
+    {MethodAccess::ACC_BRIDGE, "bridge"},
+    {MethodAccess::ACC_VARARGS, "varargs"},
+    {MethodAccess::ACC_NATIVE, "native"},
+    {MethodAccess::ACC_ABSTRACT, "abstract"},
+    {MethodAccess::ACC_STRICT, "strict"},
+    {MethodAccess::ACC_SYNTHETIC, "synthetic"}};
+
 std::vector<std::string> getClassAccessType(
     const Utils::Types::u2 &accessType) {
   std::vector<Utils::Types::u2> keys;

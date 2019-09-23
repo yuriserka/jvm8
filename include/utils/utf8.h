@@ -2,6 +2,7 @@
 #define INCLUDE_UTILS_UTF8_H_
 
 #include <iostream>
+#include <string>
 #include "utils/infos.h"
 
 class Utf8 {
