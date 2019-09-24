@@ -1,6 +1,7 @@
 #include "utils/serializers/classfileSerializer.h"
 
 #include "utils/accessFlags.h"
+#include "utils/serializers/fieldSerializer.h"
 #include "utils/serializers/infoSerializer.h"
 #include "utils/utf8.h"
 #include "utils/versions.h"
@@ -62,7 +63,12 @@ void ClassFileSerializer::writeAccessFlags(json *j) {
   std::stringstream ss;
   ss << "0x" << std::setfill('0') << std::setw(4) << std::hex << std::uppercase
      << this->cf->access_flags;
-  *j = ss.str();
+  // clang-format off
+  *j = {
+    {"bytes", ss.str()},
+    {"values", Utils::Access::getClassAccessType(this->cf->access_flags)}
+  };
+  // clang-format on
 }
 
 void ClassFileSerializer::writeThisClass(json *j) {
@@ -93,10 +99,15 @@ void ClassFileSerializer::writeInterfaces(json *j) {
 void ClassFileSerializer::writeFields(json *j) {
   // clang-format off
   *j = {
-      {"count", this->cf->fields_count}
-      //, {"entries", this->cf->fields}
+      {"count", this->cf->fields_count},
+      {"entries", json::array()}
   };
   // clang-format on
+
+  auto fserializer = Utils::Infos::FieldSerializer(this->cf);
+  for (auto i = 0; i < this->cf->fields_count; ++i) {
+    fserializer.to_json(&(*j).at("entries")[i], i);
+  }
 }
 
 void ClassFileSerializer::writeMethods(json *j) {

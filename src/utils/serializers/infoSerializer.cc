@@ -23,7 +23,7 @@ static auto getHexByteString = [](types::u4 bytes,
 namespace Utils {
 namespace Infos {
 // clang-format off
-static void create_json_str(json *j, CONSTANT_Class_info *kinfo) {
+static void create_json_str(json *j, const CONSTANT_Class_info *kinfo) {
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -35,7 +35,7 @@ static void create_json_str(json *j, CONSTANT_Class_info *kinfo) {
   };
 }
 
-static void create_json_str(json *j, CONSTANT_FieldRef_info *kinfo) {
+static void create_json_str(json *j, const CONSTANT_FieldRef_info *kinfo) {
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -55,7 +55,7 @@ static void create_json_str(json *j, CONSTANT_FieldRef_info *kinfo) {
   };
 }
 
-static void create_json_str(json *j, CONSTANT_Methodref_info *kinfo) {
+static void create_json_str(json *j, const CONSTANT_Methodref_info *kinfo) {
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -75,7 +75,7 @@ static void create_json_str(json *j, CONSTANT_Methodref_info *kinfo) {
   };
 }
 
-static void create_json_str(json *j, CONSTANT_InterfaceMethodref_info *kinfo) {
+static void create_json_str(json *j, const CONSTANT_InterfaceMethodref_info *kinfo) {
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -95,7 +95,7 @@ static void create_json_str(json *j, CONSTANT_InterfaceMethodref_info *kinfo) {
   };
 }
 
-static void create_json_str(json *j, CONSTANT_String_info *kinfo) {
+static void create_json_str(json *j, const CONSTANT_String_info *kinfo) {
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -107,7 +107,7 @@ static void create_json_str(json *j, CONSTANT_String_info *kinfo) {
   };
 }
 
-static void create_json_str(json *j, CONSTANT_Integer_info *kinfo) {
+static void create_json_str(json *j, const CONSTANT_Integer_info *kinfo) {
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -116,7 +116,7 @@ static void create_json_str(json *j, CONSTANT_Integer_info *kinfo) {
   };
 }
 
-static void create_json_str(json *j, CONSTANT_Float_info *kinfo) {
+static void create_json_str(json *j, const CONSTANT_Float_info *kinfo) {
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -125,7 +125,7 @@ static void create_json_str(json *j, CONSTANT_Float_info *kinfo) {
   };
 }
 
-static void create_json_str(json *j, CONSTANT_Long_info *kinfo) {
+static void create_json_str(json *j, const CONSTANT_Long_info *kinfo) {
   auto u8val = (static_cast<Utils::Types::u8>(kinfo->high_bytes) << 32 |
                 kinfo->low_bytes);
   *j = {
@@ -140,7 +140,7 @@ static void create_json_str(json *j, CONSTANT_Long_info *kinfo) {
   };
 }
 
-static void create_json_str(json *j, CONSTANT_Double_info *kinfo) {
+static void create_json_str(json *j, const CONSTANT_Double_info *kinfo) {
   auto u8val = (static_cast<Utils::Types::u8>(kinfo->high_bytes) << 32 |
                 kinfo->low_bytes);
   *j = {
@@ -155,7 +155,7 @@ static void create_json_str(json *j, CONSTANT_Double_info *kinfo) {
   };
 }
 
-static void create_json_str(json *j, CONSTANT_NameAndType_info *kinfo) {
+static void create_json_str(json *j, const CONSTANT_NameAndType_info *kinfo) {
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -172,7 +172,7 @@ static void create_json_str(json *j, CONSTANT_NameAndType_info *kinfo) {
   };
 }
 
-static void create_json_str(json *j, CONSTANT_Utf8_info *kinfo) {
+static void create_json_str(json *j, const CONSTANT_Utf8_info *kinfo) {
   auto utf8_string = Utf8(kinfo).str;
   *j = {
     {"tag", kinfo->tag},
@@ -225,7 +225,7 @@ bool Serializer::kPoolInfo_to_JSON(json *j, const int &kpoolindex) {
     case cp::CONSTANT_String: {
       auto kstring_info = cpi.getClass<CONSTANT_String_info>();
       create_json_str(j, kstring_info);
-      this->kPoolInfo_to_JSON(&(*j).at("utf8/info"_json_pointer),
+      this->kPoolInfo_to_JSON(&(*j).at("/utf8/info"_json_pointer),
                               kstring_info->string_index - 1);
       break;
     }

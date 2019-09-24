@@ -93,7 +93,6 @@ struct MethodParameters_info {
 
 namespace Utils {
 namespace Attributes {
-
 enum attr_types {
   kINVALID = -1,
   kCODE,

@@ -24,6 +24,7 @@ class Viewer {
                              const bool &inner,
                              const bool &innerNameAndType = false,
                              const int &utf8fmt = -1);
+  void printConstantPoolInfo(const int &index);
   void printAccessFlags();
   void printThisClass();
   void printSuperClass();

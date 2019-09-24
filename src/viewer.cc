@@ -51,18 +51,18 @@ void Viewer::printClassFile() {
 
 void Viewer::printMagic() {
   state.copyfmt(std::cout);
-  std::cout << "Magic: " << std::setw(16) << ' ' << "'0x" << std::setfill('0')
+  std::cout << "Magic: " << std::setw(16) << ' ' << "0x" << std::setfill('0')
             << std::setw(4) << std::hex << std::uppercase
-            << this->classfile->magic << "'\n";
+            << this->classfile->magic << "\n";
   std::cout.copyfmt(state);
 }
 
 void Viewer::printVersion() {
   state.copyfmt(std::cout);
-  std::cout << "Minor version: " << std::setw(8) << ' ' << "'"
-            << this->classfile->minor_version << "'\n";
-  std::cout << "Major version: " << std::setw(8) << ' ' << "'"
-            << this->classfile->major_version << "'\n";
+  std::cout << "Minor version: " << std::setw(8) << ' '
+            << this->classfile->minor_version << "\n";
+  std::cout << "Major version: " << std::setw(8) << ' '
+            << this->classfile->major_version << "\n";
   std::cout.copyfmt(state);
 }
 
@@ -72,15 +72,15 @@ void Viewer::printConstantPool() {
     auto jmpNextIndex = this->printConstantPoolInfo(i, 0, false);
     if (jmpNextIndex) {
       std::cout << "[" << ++i + 1 << "]"
-                << "(large numeric continued)\n";
+                << " (large numeric continued)\n\n";
     }
   }
 }
 
 void Viewer::printConstantPoolCount() {
   state.copyfmt(std::cout);
-  std::cout << "Constant Pool Count: " << std::setw(2) << ' ' << "'"
-            << this->classfile->constant_pool_count << "'\n";
+  std::cout << "Constant Pool Count: " << std::setw(2) << ' '
+            << this->classfile->constant_pool_count << "\n";
   std::cout.copyfmt(state);
 }
 
@@ -95,7 +95,6 @@ void Viewer::printReferences(const T *kinfo, const int &depth) {
   state.copyfmt(std::cout);
   std::cout << std::string(depth, '\t') << "Name and type: "
             << "'cp_info #" << kinfo->name_and_type_index << "' ";
-
   this->printConstantPoolInfo(kinfo->name_and_type_index - 1, 0, true, true);
   std::cout.copyfmt(state);
 }
@@ -116,21 +115,23 @@ void Viewer::print4bytesNumeral(const T *kinfo, const int &depth,
     case cp::CONSTANT_Integer: {
       state.copyfmt(std::cout);
       std::cout << std::string(depth, '\t') << "Bytes: "
-                << "'0x" << std::setfill('0') << std::setw(8) << std::hex
-                << std::uppercase << kinfo->bytes << "'\n";
+                << "0x" << std::setfill('0') << std::setw(8) << std::hex
+                << std::uppercase << kinfo->bytes << "\n";
       std::cout.copyfmt(state);
-      std::cout << std::string(depth, '\t') << "Value: '" << kinfo->bytes
-                << "'\n";
+
+      std::cout << std::string(depth, '\t') << "Value: " << kinfo->bytes
+                << "\n";
       break;
     }
     case cp::CONSTANT_Float: {
       state.copyfmt(std::cout);
       std::cout << std::string(depth, '\t') << "Bytes: "
-                << "'0x" << std::setfill('0') << std::setw(8) << std::hex
-                << std::uppercase << kinfo->bytes << "'\n";
+                << "0x" << std::setfill('0') << std::setw(8) << std::hex
+                << std::uppercase << kinfo->bytes << "\n";
       std::cout.copyfmt(state);
+
       float f = copyCast<float>(&kinfo->bytes);
-      std::cout << std::string(depth, '\t') << "Value: '" << f << "'\n";
+      std::cout << std::string(depth, '\t') << "Value: " << f << "\n";
       break;
     }
   }
@@ -147,30 +148,30 @@ void Viewer::print8bytesNumeral(const T *kinfo, const int &depth,
     case cp::CONSTANT_Long: {
       state.copyfmt(std::cout);
       std::cout << std::string(depth, '\t') << "High Bytes: ";
-      std::cout << "'0x" << std::setfill('0') << std::setw(8) << std::hex
-                << std::uppercase << kinfo->high_bytes << "'\n";
+      std::cout << "0x" << std::setfill('0') << std::setw(8) << std::hex
+                << std::uppercase << kinfo->high_bytes << "\n";
 
       std::cout << std::string(depth, '\t') << "Low Bytes: ";
-      std::cout << "'0x" << std::setfill('0') << std::setw(8) << std::hex
-                << std::uppercase << kinfo->low_bytes << "'\n";
+      std::cout << "0x" << std::setfill('0') << std::setw(8) << std::hex
+                << std::uppercase << kinfo->low_bytes << "\n";
       std::cout.copyfmt(state);
 
-      std::cout << std::string(depth, '\t') << "Long: '" << u8val << "'\n";
+      std::cout << std::string(depth, '\t') << "Long: " << u8val << "\n";
       break;
     }
     case cp::CONSTANT_Double: {
       state.copyfmt(std::cout);
       std::cout << std::string(depth, '\t') << "High Bytes: ";
-      std::cout << "'0x" << std::setfill('0') << std::setw(8) << std::hex
-                << std::uppercase << kinfo->high_bytes << "'\n";
+      std::cout << "0x" << std::setfill('0') << std::setw(8) << std::hex
+                << std::uppercase << kinfo->high_bytes << "\n";
 
       std::cout << std::string(depth, '\t') << "Low Bytes: ";
-      std::cout << "'0x" << std::setfill('0') << std::setw(8) << std::hex
-                << std::uppercase << kinfo->low_bytes << "'\n";
+      std::cout << "0x" << std::setfill('0') << std::setw(8) << std::hex
+                << std::uppercase << kinfo->low_bytes << "\n";
       std::cout.copyfmt(state);
 
       double d = copyCast<double>(&u8val);
-      std::cout << std::string(depth, '\t') << "Double: '" << d << "'\n";
+      std::cout << std::string(depth, '\t') << "Double: " << d << "\n";
       break;
     }
   }
@@ -182,18 +183,18 @@ bool Viewer::printConstantPoolInfo(const int &index, const int &depth,
                                    const bool &inner,
                                    const bool &innerNameAndType,
                                    const int &utf8fmt) {
-  auto constpool = this->classfile->constant_pool[index];
+  auto cpi = this->classfile->constant_pool[index];
   bool jmpNextIndex = false;
   if (!inner) {
     std::cout << std::string(depth, '\t') << "[" << index + 1 << "] ";
-    auto name = Utils::ConstantPool::getConstantTypename(constpool.base->tag);
+    auto name = Utils::ConstantPool::getConstantTypename(cpi.base->tag);
     std::cout << "CONSTANT_" << name << "_info\n";
   }
-  switch (constpool.base->tag) {
+  switch (cpi.base->tag) {
     namespace cp = Utils::ConstantPool;
     namespace info = Utils::Infos;
     case cp::CONSTANT_Class: {
-      auto kclass_info = constpool.getClass<info::CONSTANT_Class_info>();
+      auto kclass_info = cpi.getClass<info::CONSTANT_Class_info>();
       if (!inner) {
         std::cout << std::string(depth + 1, '\t') << "Class Name: "
                   << "'cp_info #" << kclass_info->name_index << "' ";
@@ -203,57 +204,55 @@ bool Viewer::printConstantPoolInfo(const int &index, const int &depth,
       break;
     }
     case cp::CONSTANT_Fieldref: {
-      auto kfieldref_info = constpool.getClass<info::CONSTANT_FieldRef_info>();
+      auto kfieldref_info = cpi.getClass<info::CONSTANT_FieldRef_info>();
       this->printReferences(kfieldref_info, depth + 1);
       break;
     }
     case cp::CONSTANT_Methodref: {
-      auto kmethodref_info =
-          constpool.getClass<info::CONSTANT_Methodref_info>();
+      auto kmethodref_info = cpi.getClass<info::CONSTANT_Methodref_info>();
       this->printReferences(kmethodref_info, depth + 1);
       break;
     }
     case cp::CONSTANT_InterfaceMethodref: {
       auto kImethodref_info =
-          constpool.getClass<info::CONSTANT_InterfaceMethodref_info>();
+          cpi.getClass<info::CONSTANT_InterfaceMethodref_info>();
       this->printReferences(kImethodref_info, depth + 1);
       break;
     }
     case cp::CONSTANT_String: {
-      auto kstring_info = constpool.getClass<info::CONSTANT_String_info>();
+      auto kstring_info = cpi.getClass<info::CONSTANT_String_info>();
       if (!inner) {
         std::cout << std::string(depth + 1, '\t') << "String: 'cp_info #"
-                  << kstring_info->string_index << "'";
+                  << kstring_info->string_index << "' ";
       }
       this->printConstantPoolInfo(kstring_info->string_index - 1,
                                   inner ? depth : depth + 1, true);
       break;
     }
     case cp::CONSTANT_Integer: {
-      auto kinteger_info = constpool.getClass<info::CONSTANT_Integer_info>();
+      auto kinteger_info = cpi.getClass<info::CONSTANT_Integer_info>();
       this->print4bytesNumeral(kinteger_info, depth + 1, inner);
       break;
     }
     case cp::CONSTANT_Float: {
-      auto kfloat_info = constpool.getClass<info::CONSTANT_Float_info>();
+      auto kfloat_info = cpi.getClass<info::CONSTANT_Float_info>();
       this->print4bytesNumeral(kfloat_info, depth + 1, inner);
       break;
     }
     case cp::CONSTANT_Long: {
-      auto klong_info = constpool.getClass<info::CONSTANT_Long_info>();
+      auto klong_info = cpi.getClass<info::CONSTANT_Long_info>();
       this->print8bytesNumeral(klong_info, depth + 1, inner);
       jmpNextIndex = true;
       break;
     }
     case cp::CONSTANT_Double: {
-      auto kdouble_info = constpool.getClass<info::CONSTANT_Double_info>();
+      auto kdouble_info = cpi.getClass<info::CONSTANT_Double_info>();
       this->print8bytesNumeral(kdouble_info, depth + 1, inner);
       jmpNextIndex = true;
       break;
     }
     case cp::CONSTANT_NameAndType: {
-      auto knametype_info =
-          constpool.getClass<info::CONSTANT_NameAndType_info>();
+      auto knametype_info = cpi.getClass<info::CONSTANT_NameAndType_info>();
       if (!inner) {
         std::cout << std::string(depth + 1, '\t') << "Name: "
                   << "'cp_info #" << knametype_info->name_index << "' ";
@@ -277,7 +276,7 @@ bool Viewer::printConstantPoolInfo(const int &index, const int &depth,
       break;
     }
     case cp::CONSTANT_Utf8: {
-      auto kutf8_info = constpool.getClass<info::CONSTANT_Utf8_info>();
+      auto kutf8_info = cpi.getClass<info::CONSTANT_Utf8_info>();
       auto utf8string = Utf8(kutf8_info);
       if (!inner) {
         std::cout << std::string(depth + 1, '\t')
@@ -294,7 +293,7 @@ bool Viewer::printConstantPoolInfo(const int &index, const int &depth,
             break;
           }
           case name_and_type_aux_fmt::kNAMETYPEdesc: {
-            toprint += L">";
+            toprint += L">\n";
             break;
           }
           default:
@@ -311,6 +310,81 @@ bool Viewer::printConstantPoolInfo(const int &index, const int &depth,
   return jmpNextIndex;
 }
 
+void Viewer::printConstantPoolInfo(const int &index) {
+  auto cpi = this->classfile->constant_pool[index];
+  switch (cpi.base->tag) {
+    namespace cp = Utils::ConstantPool;
+    namespace info = Utils::Infos;
+    case cp::CONSTANT_Class: {
+      auto kclass_info = cpi.getClass<info::CONSTANT_Class_info>();
+      this->printConstantPoolInfo(kclass_info->name_index - 1);
+      break;
+    }
+    case cp::CONSTANT_Fieldref: {
+      auto kfieldref_info = cpi.getClass<info::CONSTANT_FieldRef_info>();
+      this->printConstantPoolInfo(kfieldref_info->class_index - 1);
+      this->printConstantPoolInfo(kfieldref_info->name_and_type_index - 1);
+      break;
+    }
+    case cp::CONSTANT_Methodref: {
+      auto kmethodref_info = cpi.getClass<info::CONSTANT_Methodref_info>();
+      this->printConstantPoolInfo(kmethodref_info->class_index - 1);
+      this->printConstantPoolInfo(kmethodref_info->name_and_type_index - 1);
+      break;
+    }
+    case cp::CONSTANT_InterfaceMethodref: {
+      auto kImethodref_info =
+          cpi.getClass<info::CONSTANT_InterfaceMethodref_info>();
+      this->printConstantPoolInfo(kImethodref_info->class_index - 1);
+      this->printConstantPoolInfo(kImethodref_info->name_and_type_index - 1);
+      break;
+    }
+    case cp::CONSTANT_String: {
+      auto kstring_info = cpi.getClass<info::CONSTANT_String_info>();
+      this->printConstantPoolInfo(kstring_info->string_index - 1);
+      break;
+    }
+    case cp::CONSTANT_Integer: {
+      auto kinteger_info = cpi.getClass<info::CONSTANT_Integer_info>();
+      std::cout << kinteger_info->bytes;
+      break;
+    }
+    case cp::CONSTANT_Float: {
+      auto kfloat_info = cpi.getClass<info::CONSTANT_Float_info>();
+      std::cout << copyCast<float>(&kfloat_info->bytes);
+      break;
+    }
+    case cp::CONSTANT_Long: {
+      auto klong_info = cpi.getClass<info::CONSTANT_Long_info>();
+      auto u8val =
+          (static_cast<Utils::Types::u8>(klong_info->high_bytes) << 32 |
+           klong_info->low_bytes);
+      std::cout << u8val;
+      break;
+    }
+    case cp::CONSTANT_Double: {
+      auto kdouble_info = cpi.getClass<info::CONSTANT_Double_info>();
+      auto u8val =
+          (static_cast<Utils::Types::u8>(kdouble_info->high_bytes) << 32 |
+           kdouble_info->low_bytes);
+      std::cout << copyCast<double>(&u8val);
+      break;
+    }
+    case cp::CONSTANT_NameAndType: {
+      auto knametype_info = cpi.getClass<info::CONSTANT_NameAndType_info>();
+      this->printConstantPoolInfo(knametype_info->name_index - 1);
+      this->printConstantPoolInfo(knametype_info->descriptor_index - 1);
+      break;
+    }
+    case cp::CONSTANT_Utf8: {
+      auto kutf8_info = cpi.getClass<info::CONSTANT_Utf8_info>();
+      auto utf8string = Utf8(kutf8_info);
+      std::wcout << utf8string;
+      break;
+    }
+  }
+}
+
 template <typename T>
 void Viewer::printAccessFlags(const T *obj, const int &depth, const int &width,
                               std::vector<std::string> (*getAccessTypeFunc)(
@@ -318,8 +392,8 @@ void Viewer::printAccessFlags(const T *obj, const int &depth, const int &width,
   auto flags = getAccessTypeFunc(obj->access_flags);
   state.copyfmt(std::cout);
   std::cout << std::string(depth, '\t') << "Access Flags: " << std::setw(width);
-  std::cout << "'0x" << std::setfill('0') << std::setw(4) << std::hex
-            << std::uppercase << obj->access_flags << "'";
+  std::cout << "0x" << std::setfill('0') << std::setw(4) << std::hex
+            << std::uppercase << obj->access_flags;
   std::cout.copyfmt(state);
   std::cout << " [";
   for (size_t i = 0; i < flags.size(); ++i) {
@@ -328,7 +402,7 @@ void Viewer::printAccessFlags(const T *obj, const int &depth, const int &width,
 }
 
 void Viewer::printAccessFlags() {
-  this->printAccessFlags(this->classfile, 0, 12,
+  this->printAccessFlags(this->classfile, 0, 11,
                          Utils::Access::getClassAccessType);
 }
 
@@ -343,7 +417,7 @@ void Viewer::printThisClass() {
 void Viewer::printSuperClass() {
   state.copyfmt(std::cout);
   std::cout << "Super class: " << std::setw(10) << ' ' << "'cp_info #"
-            << this->classfile->super_class << "'";
+            << this->classfile->super_class << "' ";
   this->printConstantPoolInfo(this->classfile->super_class - 1, 0, true);
   std::cout.copyfmt(state);
 }
@@ -353,7 +427,6 @@ void Viewer::printInterfaces() {
   if (!this->classfile->interfaces_count) {
     return;
   }
-  std::cout << "Interfaces:\n";
   for (auto i = 0; i < this->classfile->interfaces_count; ++i) {
     this->printInterfacesInfo(i, 1);
   }
@@ -361,14 +434,14 @@ void Viewer::printInterfaces() {
 
 void Viewer::printInterfacesCount() {
   state.copyfmt(std::cout);
-  std::cout << "Interfaces Count: " << std::setw(6) << "'"
-            << this->classfile->interfaces_count << "'\n";
+  std::cout << "Interfaces Count: " << std::setw(6)
+            << this->classfile->interfaces_count << "\n";
   std::cout.copyfmt(state);
 }
 
 void Viewer::printInterfacesInfo(const int &index, const int &depth) {
   auto interfaceIdx = this->classfile->interfaces[index];
-  std::cout << std::string(depth, '\t') << "interface #" << index
+  std::cout << std::string(depth, '\t') << "[" << index << "]"
             << ": 'cp_info #" << interfaceIdx << "'\n";
   this->printConstantPoolInfo(interfaceIdx - 1, depth, false);
 }
@@ -385,8 +458,8 @@ void Viewer::printFields() {
 
 void Viewer::printFieldsCount() {
   state.copyfmt(std::cout);
-  std::cout << "Fields Count: " << std::setw(10) << "'"
-            << this->classfile->fields_count << "'\n";
+  std::cout << "Fields Count: " << std::setw(10)
+            << this->classfile->fields_count << "\n";
   std::cout.copyfmt(state);
 }
 
@@ -394,13 +467,16 @@ void Viewer::printFieldsInfo(const int &index, const int &depth) {
   auto field = this->classfile->fields[index];
   std::cout << std::string(depth, '\t') << "[" << index << "] ";
   this->printConstantPoolInfo(field.name_index - 1, 2, true);
+
   std::cout << std::string(depth + 1, '\t') << "Name: 'cp_info #"
             << field.name_index << "' ";
   this->printConstantPoolInfo(field.name_index - 1, 2, true);
+
   std::cout << std::string(depth + 1, '\t') << "Descriptor: 'cp_info #"
             << field.descriptor_index << "' ";
   this->printConstantPoolInfo(field.descriptor_index - 1, 2, true);
-  this->printAccessFlags(&field, 2, 6, Utils::Access::getFieldAccessType);
+
+  this->printAccessFlags(&field, 2, 0, Utils::Access::getFieldAccessType);
   this->printAttributes(field.attributes, field.attributes_count, 2);
 }
 
@@ -409,7 +485,6 @@ void Viewer::printMethods() {
   if (!this->classfile->methods_count) {
     return;
   }
-  std::cout << "Methods:\n";
   for (auto i = 0; i < this->classfile->methods_count; ++i) {
     this->printMethodsInfo(i, 1);
   }
@@ -417,8 +492,8 @@ void Viewer::printMethods() {
 
 void Viewer::printMethodsCount() {
   state.copyfmt(std::cout);
-  std::cout << "Methods Count: " << std::setw(9) << "'"
-            << this->classfile->methods_count << "'\n";
+  std::cout << "Methods Count: " << std::setw(9)
+            << this->classfile->methods_count << "\n";
   std::cout.copyfmt(state);
 }
 
@@ -442,7 +517,7 @@ void Viewer::printAttributes(
 void Viewer::printAttributesCount(const int &depth, const int &attr_count) {
   state.copyfmt(std::cout);
   std::cout << std::string(depth, '\t') << "Attributes Count: " << std::setw(6)
-            << "'" << attr_count << "'\n";
+            << attr_count << "\n";
   std::cout.copyfmt(state);
 }
 
@@ -481,6 +556,7 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
   auto kutf8_info = utf8nameindex.getClass<Utils::Infos::CONSTANT_Utf8_info>();
   auto attrName = Utf8(kutf8_info);
   auto attrtype = getAttributeType(attrName);
+
   std::cout << std::string(depth, '\t') << "[" << index << "] ";
   std::wcout << attrName << "\n";
 
@@ -496,16 +572,20 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
       std::cout << std::string(depth + 2, '\t')
                 << "Attribute name index: 'cp_info #"
                 << kval_attr->attribute_name_index << "' ";
-      this->printConstantPoolInfo(kval_attr->attribute_name_index - 1,
-                                  depth + 2, true);
+      std::cout << "<";
+      this->printConstantPoolInfo(kval_attr->attribute_name_index - 1);
+      std::cout << ">\n";
+
       std::cout << std::string(depth + 2, '\t') << "Attribute length = '"
                 << kval_attr->attribute_length << "'\n";
+
       std::cout << std::string(depth + 1, '\t') << "Specific Info: \n";
       std::cout << std::string(depth + 2, '\t')
                 << "Constant value index: 'cp_info #"
-                << kval_attr->constantvalue_index << "'\n";
-      this->printConstantPoolInfo(kval_attr->constantvalue_index - 1, depth + 2,
-                                  true);
+                << kval_attr->constantvalue_index << "' ";
+      std::cout << "<";
+      this->printConstantPoolInfo(kval_attr->constantvalue_index - 1);
+      std::cout << ">\n";
       break;
     }
     case attrs::kDEPRECATED: {
