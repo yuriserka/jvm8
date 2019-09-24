@@ -15,7 +15,6 @@ endif
 
 ifeq ($(detected_OS), Windows)
 	SRC := $(call rwildcard,src/,*.cc)
-	# SRC := $(wildcard $(SRC_DIR)/*.cc) $(wildcard $(SRC_DIR)/**/*.cc $(wildcard $(SRC_DIR)/**/**/*.cc)
 	MAKE_DIR = @cmd /C createBin.bat $(@D)
 	DEL_FILES = @del /s /q bin $(EXEC).exe
 else

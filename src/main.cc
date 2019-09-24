@@ -27,9 +27,8 @@ int main(const int argc, const char **argv) {
       if (Utils::Flags::options.kVERBOSE) {
         std::cout << "json file dump complete\n";
       }
-    } else {
-      v->printClassFile();
     }
+    v->printClassFile();
   } catch (const Utils::Errors::Exception &e) {
     delete r;
     delete v;

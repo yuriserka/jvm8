@@ -19,29 +19,36 @@ class Viewer {
   void printMagic();
   void printVersion();
   void printConstantPool();
+  void printConstantPoolCount();
   bool printConstantPoolInfo(const int &index, const int &depth,
-                             const bool &inner);
+                             const bool &inner,
+                             const bool &innerNameAndType = false,
+                             const int &utf8fmt = -1);
   void printAccessFlags();
   void printThisClass();
   void printSuperClass();
 
   void printInterfaces();
+  void printInterfacesCount();
   void printInterfacesInfo(const int &index, const int &depth);
 
   void printFields();
+  void printFieldsCount();
   void printFieldsInfo(const int &index, const int &depth);
 
   void printMethods();
+  void printMethodsCount();
   void printMethodsInfo(const int &index, const int &depth);
 
   void printAttributes(
       const std::vector<Utils::Attributes::attribute_info> &attributes,
       const int &attr_count, const int &depth);
+  void printAttributesCount(const int &depth, const int &attr_count);
   void printAttributeInfo(Utils::Attributes::attribute_info *attribute,
                           const int &index, const int &depth);
 
   template <typename T>
-  void printReferences(const T *kinfo, const int &depth, const bool &inner);
+  void printReferences(const T *kinfo, const int &depth);
 
   template <typename T>
   void print4bytesNumeral(const T *kinfo, const int &depth, const bool &inner);
@@ -50,7 +57,7 @@ class Viewer {
   void print8bytesNumeral(const T *kinfo, const int &depth, const bool &inner);
 
   template <typename T>
-  void printAccessFlags(const T *obj, const int &depth,
+  void printAccessFlags(const T *obj, const int &depth, const int &width,
                         std::vector<std::string> (*getAccessTypeFunc)(
                             const Utils::Types::u2 &accessType));
 
