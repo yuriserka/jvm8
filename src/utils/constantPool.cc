@@ -19,6 +19,7 @@ std::map<Utils::Types::u1, std::string> names = {
     {CONSTANT_MethodHandle, "MethodHandle"},
     {CONSTANT_MethodType, "MethodType"},
     {CONSTANT_InvokeDynamic, "InvokeDynamic"}};
+
 std::string getConstantTypename(const Utils::Types::u1 &ct) {
   return names.at(ct);
 }

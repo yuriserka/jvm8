@@ -2,28 +2,20 @@
 
 #include <sstream>
 #include "utils/constantPool.h"
+#include "utils/memory.h"
 #include "utils/utf8.h"
 
-template <typename T, typename U>
-static T copyCast(const U *in) {
-  T dest;
-  std::memcpy(&dest, in, sizeof(U));
-
-  return dest;
-}
-
-static auto getHexByteString = [](types::u4 bytes,
-                                  const int &size) -> std::string {
+static std::string getHexByteString(types::u4 bytes, const int &size) {
   std::stringstream ss;
   ss << "0x" << std::setfill('0') << std::setw(size) << std::hex
      << std::uppercase << bytes;
   return ss.str();
-};
+}
 
 namespace Utils {
 namespace Infos {
-// clang-format off
 static void create_json_str(json *j, const CONSTANT_Class_info *kinfo) {
+  // clang-format off
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -33,9 +25,11 @@ static void create_json_str(json *j, const CONSTANT_Class_info *kinfo) {
       }
     }
   };
+  // clang-format on
 }
 
 static void create_json_str(json *j, const CONSTANT_FieldRef_info *kinfo) {
+  // clang-format off
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -53,9 +47,11 @@ static void create_json_str(json *j, const CONSTANT_FieldRef_info *kinfo) {
       }
     }
   };
+  // clang-format on
 }
 
 static void create_json_str(json *j, const CONSTANT_Methodref_info *kinfo) {
+  // clang-format off
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -73,9 +69,12 @@ static void create_json_str(json *j, const CONSTANT_Methodref_info *kinfo) {
       }
     }
   };
+  // clang-format on
 }
 
-static void create_json_str(json *j, const CONSTANT_InterfaceMethodref_info *kinfo) {
+static void create_json_str(json *j,
+                            const CONSTANT_InterfaceMethodref_info *kinfo) {
+  // clang-format off
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -93,9 +92,11 @@ static void create_json_str(json *j, const CONSTANT_InterfaceMethodref_info *kin
       }
     }
   };
+  // clang-format on
 }
 
 static void create_json_str(json *j, const CONSTANT_String_info *kinfo) {
+  // clang-format off
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -105,29 +106,35 @@ static void create_json_str(json *j, const CONSTANT_String_info *kinfo) {
       }
     }
   };
+  // clang-format on
 }
 
 static void create_json_str(json *j, const CONSTANT_Integer_info *kinfo) {
+  // clang-format off
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
     {"bytes", getHexByteString(kinfo->bytes, 4)},
     {"value", kinfo->bytes}
   };
+  // clang-format on
 }
 
 static void create_json_str(json *j, const CONSTANT_Float_info *kinfo) {
+  // clang-format off
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
     {"bytes", getHexByteString(kinfo->bytes, 4)},
     {"value", copyCast<float>(&kinfo->bytes)}
   };
+  // clang-format on
 }
 
 static void create_json_str(json *j, const CONSTANT_Long_info *kinfo) {
   auto u8val = (static_cast<Utils::Types::u8>(kinfo->high_bytes) << 32 |
                 kinfo->low_bytes);
+  // clang-format off
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -138,11 +145,13 @@ static void create_json_str(json *j, const CONSTANT_Long_info *kinfo) {
     },
     {"value", u8val}
   };
+  // clang-format on
 }
 
 static void create_json_str(json *j, const CONSTANT_Double_info *kinfo) {
   auto u8val = (static_cast<Utils::Types::u8>(kinfo->high_bytes) << 32 |
                 kinfo->low_bytes);
+  // clang-format off
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -153,9 +162,11 @@ static void create_json_str(json *j, const CONSTANT_Double_info *kinfo) {
     },
     {"value", copyCast<double>(&u8val)}
   };
+  // clang-format on
 }
 
 static void create_json_str(json *j, const CONSTANT_NameAndType_info *kinfo) {
+  // clang-format off
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
@@ -170,18 +181,20 @@ static void create_json_str(json *j, const CONSTANT_NameAndType_info *kinfo) {
       }
     }
   };
+  // clang-format on
 }
 
 static void create_json_str(json *j, const CONSTANT_Utf8_info *kinfo) {
   auto utf8_string = Utf8(kinfo).str;
+  // clang-format off
   *j = {
     {"tag", kinfo->tag},
     {"type", Utils::ConstantPool::getConstantTypename(kinfo->tag)},
     {"string", std::string(utf8_string.begin(), utf8_string.end())},
     {"length", kinfo->length}
   };
+  // clang-format on
 }
-// clang-format on
 
 template <typename T>
 void Serializer::writeReferences(json *j, const T *kinfo) {

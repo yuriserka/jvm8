@@ -3,9 +3,12 @@
 #include "classfile.h"
 #include "reader.h"
 #include "utils/errors.h"
+#include "utils/fileSystem.h"
 #include "utils/flags.h"
 #include "utils/serializers/classfileSerializer.h"
 #include "viewer.h"
+
+void dumpJsonFile(const ClassFile *cf, const std::string &filename);
 
 int main(const int argc, const char **argv) {
   setlocale(LC_ALL, "");
@@ -19,14 +22,7 @@ int main(const int argc, const char **argv) {
   try {
     r->readClassFile();
     if (Utils::Flags::options.kJSON) {
-      auto cfSerializer = ClassFileSerializer(cf);
-      json j;
-      cfSerializer.to_json(&j);
-      std::ofstream o("classfile_structure.json");
-      o << std::setw(2) << j << std::endl;
-      if (Utils::Flags::options.kVERBOSE) {
-        std::cout << "json file dump complete\n";
-      }
+      dumpJsonFile(cf, r->fname);
     }
     v->printClassFile();
   } catch (const Utils::Errors::Exception &e) {
@@ -46,4 +42,19 @@ int main(const int argc, const char **argv) {
   delete cf;
 
   return 0;
+}
+
+void dumpJsonFile(const ClassFile *cf, const std::string &filename) {
+  auto cfSerializer = ClassFileSerializer(cf);
+  json j;
+  cfSerializer.to_json(&j);
+  const std::string outdir = ".out";
+  Utils::makeDirectory(outdir);
+  const std::string classname = filename.substr(0, filename.find_last_of('.'));
+  const std::string path = outdir + '/' + classname + "_structure.json";
+  std::ofstream o(path);
+  o << std::setw(2) << j << std::endl;
+  if (Utils::Flags::options.kVERBOSE) {
+    std::cout << "json file dump complete\n";
+  }
 }

@@ -1,7 +1,6 @@
 #ifndef INCLUDE_UTILS_SERIALIZERS_FIELDSERIALIZER_H_
 #define INCLUDE_UTILS_SERIALIZERS_FIELDSERIALIZER_H_
 
-#include <vector>
 #include "classfile.h"
 #include "utils/nlohmann_json.hpp"
 

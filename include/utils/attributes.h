@@ -1,6 +1,7 @@
 #ifndef INCLUDE_UTILS_ATTRIBUTES_H_
 #define INCLUDE_UTILS_ATTRIBUTES_H_
 
+#include <string>
 #include <vector>
 #include "utils/types.h"
 
@@ -103,6 +104,8 @@ enum attr_types {
   kLOCALVARIABLETABLE,
   kSOURCEFILE
 };
+
+int getAttributeType(const std::wstring &attrname);
 
 class BaseAttribute {
  public:

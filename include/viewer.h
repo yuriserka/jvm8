@@ -18,6 +18,7 @@ class Viewer {
  private:
   void printMagic();
   void printVersion();
+
   void printConstantPool();
   void printConstantPoolCount();
   bool printConstantPoolInfo(const int &index, const int &depth,
@@ -25,6 +26,7 @@ class Viewer {
                              const bool &innerNameAndType = false,
                              const int &utf8fmt = -1);
   void printConstantPoolInfo(const int &index);
+
   void printAccessFlags();
   void printThisClass();
   void printSuperClass();

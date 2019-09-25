@@ -1,13 +1,11 @@
 #include "viewer.h"
 
 #include <algorithm>
-#include <codecvt>
-#include <cstring>
 #include <iomanip>
 #include <iostream>
-#include <map>
 #include "utils/accessFlags.h"
 #include "utils/constantPool.h"
+#include "utils/memory.h"
 #include "utils/utf8.h"
 #include "utils/versions.h"
 
@@ -99,14 +97,6 @@ void Viewer::printReferences(const T *kinfo, const int &depth) {
   std::cout.copyfmt(state);
 }
 
-template <typename T, typename U>
-static T copyCast(const U *in) {
-  T dest;
-  std::memcpy(&dest, in, sizeof(U));
-
-  return dest;
-}
-
 template <typename T>
 void Viewer::print4bytesNumeral(const T *kinfo, const int &depth,
                                 const bool &inner) {
@@ -130,7 +120,7 @@ void Viewer::print4bytesNumeral(const T *kinfo, const int &depth,
                 << std::uppercase << kinfo->bytes << "\n";
       std::cout.copyfmt(state);
 
-      float f = copyCast<float>(&kinfo->bytes);
+      float f = Utils::copyCast<float>(&kinfo->bytes);
       std::cout << std::string(depth, '\t') << "Value: " << f << "\n";
       break;
     }
@@ -170,7 +160,7 @@ void Viewer::print8bytesNumeral(const T *kinfo, const int &depth,
                 << std::uppercase << kinfo->low_bytes << "\n";
       std::cout.copyfmt(state);
 
-      double d = copyCast<double>(&u8val);
+      double d = Utils::copyCast<double>(&u8val);
       std::cout << std::string(depth, '\t') << "Double: " << d << "\n";
       break;
     }
@@ -351,7 +341,7 @@ void Viewer::printConstantPoolInfo(const int &index) {
     }
     case cp::CONSTANT_Float: {
       auto kfloat_info = cpi.getClass<info::CONSTANT_Float_info>();
-      std::cout << copyCast<float>(&kfloat_info->bytes);
+      std::cout << Utils::copyCast<float>(&kfloat_info->bytes);
       break;
     }
     case cp::CONSTANT_Long: {
@@ -367,7 +357,7 @@ void Viewer::printConstantPoolInfo(const int &index) {
       auto u8val =
           (static_cast<Utils::Types::u8>(kdouble_info->high_bytes) << 32 |
            kdouble_info->low_bytes);
-      std::cout << copyCast<double>(&u8val);
+      std::cout << Utils::copyCast<double>(&u8val);
       break;
     }
     case cp::CONSTANT_NameAndType: {
@@ -521,41 +511,13 @@ void Viewer::printAttributesCount(const int &depth, const int &attr_count) {
   std::cout.copyfmt(state);
 }
 
-/**
- *
- * Precisa arrumar um lugar pra colocar essa função, uma vez q ela também é
- * usada no reader.cc. Tava com preguiça de colocar no attributes.h pq tava
- * dando dependencia circular, mas vai ter que quebrar a cabeça e arrumar.
- *
- * */
-static int getAttributeType(const Utf8 &attrname) {
-  std::map<Utf8, int> attrTypes = {
-      {Utf8("Code"), Utils::Attributes::kCODE},
-      {Utf8("ConstantValue"), Utils::Attributes::kCONSTANTVALUE},
-      {Utf8("Deprecated"), Utils::Attributes::kDEPRECATED},
-      {Utf8("Exceptions"), Utils::Attributes::kEXCEPTIONS},
-      {Utf8("LineNumberTable"), Utils::Attributes::kLINENUMBERTABLE},
-      {Utf8("LocalVariableTable"), Utils::Attributes::kLOCALVARIABLETABLE},
-      {Utf8("SourceFile"), Utils::Attributes::kSOURCEFILE}};
-
-  try {
-    auto type = attrTypes.at(attrname);
-    return type;
-  } catch (const std::exception &e) {
-    //   std::stringstream err;
-    // err << "Invalid Attribute";
-    // throw Utils::Errors::Exception(Utils::Errors::kATTRIBUTE, err.str());
-    return Utils::Attributes::kINVALID;
-  }
-}
-
 void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
                                 const int &index, const int &depth) {
   auto utf8nameindex =
       this->classfile->constant_pool[attribute->base->attribute_name_index - 1];
   auto kutf8_info = utf8nameindex.getClass<Utils::Infos::CONSTANT_Utf8_info>();
   auto attrName = Utf8(kutf8_info);
-  auto attrtype = getAttributeType(attrName);
+  auto attrtype = Utils::Attributes::getAttributeType(attrName.str);
 
   std::cout << std::string(depth, '\t') << "[" << index << "] ";
   std::wcout << attrName << "\n";
