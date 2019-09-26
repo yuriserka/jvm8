@@ -210,61 +210,61 @@ bool Serializer::kPoolInfo_to_JSON(json *j, const int &kpoolindex) {
   auto cpi = this->cf->constant_pool[kpoolindex];
   switch (cpi.base->tag) {
     namespace cp = Utils::ConstantPool;
-    case cp::CONSTANT_Class: {
+    case cp::kCONSTANT_CLASS: {
       auto kclass_info = cpi.getClass<CONSTANT_Class_info>();
       create_json_str(j, kclass_info);
       this->kPoolInfo_to_JSON(&(*j).at("/name/info"_json_pointer),
                               kclass_info->name_index - 1);
       break;
     }
-    case cp::CONSTANT_Fieldref: {
+    case cp::kCONSTANT_FIELDREF: {
       auto kfieldref_info = cpi.getClass<CONSTANT_FieldRef_info>();
       create_json_str(j, kfieldref_info);
       this->writeReferences(j, kfieldref_info);
       break;
     }
-    case cp::CONSTANT_Methodref: {
+    case cp::kCONSTANT_METHODREF: {
       auto kmethodref_info = cpi.getClass<CONSTANT_Methodref_info>();
       create_json_str(j, kmethodref_info);
       this->writeReferences(j, kmethodref_info);
       break;
     }
-    case cp::CONSTANT_InterfaceMethodref: {
+    case cp::kCONSTANT_INTERFACEMETHODREF: {
       auto kImethodref_info = cpi.getClass<CONSTANT_InterfaceMethodref_info>();
       create_json_str(j, kImethodref_info);
       this->writeReferences(j, kImethodref_info);
       break;
     }
-    case cp::CONSTANT_String: {
+    case cp::kCONSTANT_STRING: {
       auto kstring_info = cpi.getClass<CONSTANT_String_info>();
       create_json_str(j, kstring_info);
       this->kPoolInfo_to_JSON(&(*j).at("/utf8/info"_json_pointer),
                               kstring_info->string_index - 1);
       break;
     }
-    case cp::CONSTANT_Integer: {
+    case cp::kCONSTANT_INTEGER: {
       auto kinteger_info = cpi.getClass<CONSTANT_Integer_info>();
       create_json_str(j, kinteger_info);
       break;
     }
-    case cp::CONSTANT_Float: {
+    case cp::kCONSTANT_FLOAT: {
       auto kfloat_info = cpi.getClass<CONSTANT_Float_info>();
       create_json_str(j, kfloat_info);
       break;
     }
-    case cp::CONSTANT_Long: {
+    case cp::kCONSTANT_LONG: {
       auto klong_info = cpi.getClass<CONSTANT_Long_info>();
       create_json_str(j, klong_info);
       jmpNextIndex = true;
       break;
     }
-    case cp::CONSTANT_Double: {
+    case cp::kCONSTANT_DOUBLE: {
       auto kdouble_info = cpi.getClass<CONSTANT_Double_info>();
       create_json_str(j, kdouble_info);
       jmpNextIndex = true;
       break;
     }
-    case cp::CONSTANT_NameAndType: {
+    case cp::kCONSTANT_NAMEANDTYPE: {
       auto knametype_info = cpi.getClass<CONSTANT_NameAndType_info>();
       create_json_str(j, knametype_info);
       this->kPoolInfo_to_JSON(&(*j).at("/name/info"_json_pointer),
@@ -273,7 +273,7 @@ bool Serializer::kPoolInfo_to_JSON(json *j, const int &kpoolindex) {
                               knametype_info->descriptor_index - 1);
       break;
     }
-    case cp::CONSTANT_Utf8: {
+    case cp::kCONSTANT_UTF8: {
       auto kutf8_info = cpi.getClass<CONSTANT_Utf8_info>();
       create_json_str(j, kutf8_info);
       break;

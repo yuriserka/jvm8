@@ -10,39 +10,39 @@ void ClassFile::deleteConstantPool() {
     switch (cpi.base->tag) {
       namespace cp = Utils::ConstantPool;
       namespace info = Utils::Infos;
-      case cp::CONSTANT_Class:
+      case cp::kCONSTANT_CLASS:
         cpi.deleteclass<info::CONSTANT_Class_info>();
         break;
-      case cp::CONSTANT_Double:
+      case cp::kCONSTANT_DOUBLE:
         cpi.deleteclass<info::CONSTANT_Double_info>();
         ++i;
         break;
-      case cp::CONSTANT_Fieldref:
+      case cp::kCONSTANT_FIELDREF:
         cpi.deleteclass<info::CONSTANT_FieldRef_info>();
         break;
-      case cp::CONSTANT_Float:
+      case cp::kCONSTANT_FLOAT:
         cpi.deleteclass<info::CONSTANT_Float_info>();
         break;
-      case cp::CONSTANT_Integer:
+      case cp::kCONSTANT_INTEGER:
         cpi.deleteclass<info::CONSTANT_Integer_info>();
         break;
-      case cp::CONSTANT_InterfaceMethodref:
+      case cp::kCONSTANT_INTERFACEMETHODREF:
         cpi.deleteclass<info::CONSTANT_InterfaceMethodref_info>();
         break;
-      case cp::CONSTANT_Long:
+      case cp::kCONSTANT_LONG:
         cpi.deleteclass<info::CONSTANT_Long_info>();
         ++i;
         break;
-      case cp::CONSTANT_Methodref:
+      case cp::kCONSTANT_METHODREF:
         cpi.deleteclass<info::CONSTANT_Methodref_info>();
         break;
-      case cp::CONSTANT_NameAndType:
+      case cp::kCONSTANT_NAMEANDTYPE:
         cpi.deleteclass<info::CONSTANT_NameAndType_info>();
         break;
-      case cp::CONSTANT_String:
+      case cp::kCONSTANT_STRING:
         cpi.deleteclass<info::CONSTANT_String_info>();
         break;
-      case cp::CONSTANT_Utf8:
+      case cp::kCONSTANT_UTF8:
         cpi.deleteclass<info::CONSTANT_Utf8_info>();
         break;
     }
@@ -75,26 +75,29 @@ void ClassFile::deleteAttributes(
 
     switch (attrtype) {
       namespace attrs = Utils::Attributes;
-      case attrs::kCODE:
-        attr.deleteclass<Utils::Attributes::Code_attribute>();
+      case attrs::kCODE: {
+        auto code_attr = attr.getClass<attrs::Code_attribute>();
+        this->deleteAttributes(&code_attr->attributes);
+        attr.deleteclass<attrs::Code_attribute>();
         break;
+      }
       case attrs::kCONSTANTVALUE:
-        attr.deleteclass<Utils::Attributes::ConstantValue_attribute>();
+        attr.deleteclass<attrs::ConstantValue_attribute>();
         break;
       case attrs::kDEPRECATED:
-        attr.deleteclass<Utils::Attributes::Deprecated_attribute>();
+        attr.deleteclass<attrs::Deprecated_attribute>();
         break;
       case attrs::kEXCEPTIONS:
-        attr.deleteclass<Utils::Attributes::Exceptions_attribute>();
+        attr.deleteclass<attrs::Exceptions_attribute>();
         break;
       case attrs::kLINENUMBERTABLE:
-        attr.deleteclass<Utils::Attributes::LineNumberTable_attribute>();
+        attr.deleteclass<attrs::LineNumberTable_attribute>();
         break;
       case attrs::kLOCALVARIABLETABLE:
-        attr.deleteclass<Utils::Attributes::LocalVariableTable_attribute>();
+        attr.deleteclass<attrs::LocalVariableTable_attribute>();
         break;
       case attrs::kSOURCEFILE:
-        attr.deleteclass<Utils::Attributes::SourceFile_attribute>();
+        attr.deleteclass<attrs::SourceFile_attribute>();
         break;
     }
   }

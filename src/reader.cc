@@ -37,8 +37,8 @@ void Reader::readClassFile() {
   this->readSuperClass();
   this->readInterfaces();
   this->readFields();
-  // this->readMethods();
-  // this->readAttributes();
+  this->readMethods();
+  this->readAttributes();
 }
 
 void Reader::readMagic() {
@@ -135,70 +135,70 @@ void Reader::readConstantPoolInfo() {
     switch (tag) {
       namespace cp = Utils::ConstantPool;
       namespace info = Utils::Infos;
-      case cp::CONSTANT_Class: {
+      case cp::kCONSTANT_CLASS: {
         auto kclass_info = constpool->setBase<info::CONSTANT_Class_info>(tag);
         this->readBytes(&kclass_info->name_index);
         break;
       }
-      case cp::CONSTANT_Fieldref: {
+      case cp::kCONSTANT_FIELDREF: {
         auto kfieldref_info =
             constpool->setBase<info::CONSTANT_FieldRef_info>(tag);
         this->readBytes(&kfieldref_info->class_index);
         this->readBytes(&kfieldref_info->name_and_type_index);
         break;
       }
-      case cp::CONSTANT_Methodref: {
+      case cp::kCONSTANT_METHODREF: {
         auto kmethodref_info =
             constpool->setBase<info::CONSTANT_Methodref_info>(tag);
         this->readBytes(&kmethodref_info->class_index);
         this->readBytes(&kmethodref_info->name_and_type_index);
         break;
       }
-      case cp::CONSTANT_InterfaceMethodref: {
+      case cp::kCONSTANT_INTERFACEMETHODREF: {
         auto kInterfacemethodref_info =
             constpool->setBase<info::CONSTANT_InterfaceMethodref_info>(tag);
         this->readBytes(&kInterfacemethodref_info->class_index);
         this->readBytes(&kInterfacemethodref_info->name_and_type_index);
         break;
       }
-      case cp::CONSTANT_String: {
+      case cp::kCONSTANT_STRING: {
         auto kstring_info = constpool->setBase<info::CONSTANT_String_info>(tag);
         this->readBytes(&kstring_info->string_index);
         break;
       }
-      case cp::CONSTANT_Integer: {
+      case cp::kCONSTANT_INTEGER: {
         auto kinteger_info =
             constpool->setBase<info::CONSTANT_Integer_info>(tag);
         this->readBytes(&kinteger_info->bytes);
         break;
       }
-      case cp::CONSTANT_Float: {
+      case cp::kCONSTANT_FLOAT: {
         auto kfloat_info = constpool->setBase<info::CONSTANT_Float_info>(tag);
         this->readBytes(&kfloat_info->bytes);
         break;
       }
-      case cp::CONSTANT_Long: {
+      case cp::kCONSTANT_LONG: {
         auto klong_info = constpool->setBase<info::CONSTANT_Long_info>(tag);
         this->readBytes(&klong_info->high_bytes);
         this->readBytes(&klong_info->low_bytes);
         ++i;
         break;
       }
-      case cp::CONSTANT_Double: {
+      case cp::kCONSTANT_DOUBLE: {
         auto kdouble_info = constpool->setBase<info::CONSTANT_Double_info>(tag);
         this->readBytes(&kdouble_info->high_bytes);
         this->readBytes(&kdouble_info->low_bytes);
         ++i;
         break;
       }
-      case cp::CONSTANT_NameAndType: {
+      case cp::kCONSTANT_NAMEANDTYPE: {
         auto knameandtype_info =
             constpool->setBase<info::CONSTANT_NameAndType_info>(tag);
         this->readBytes(&knameandtype_info->name_index);
         this->readBytes(&knameandtype_info->descriptor_index);
         break;
       }
-      case cp::CONSTANT_Utf8: {
+      case cp::kCONSTANT_UTF8: {
         auto kutf8_info = constpool->setBase<info::CONSTANT_Utf8_info>(tag);
         this->readBytes(&kutf8_info->length);
         kutf8_info->bytes.resize(unsigned(kutf8_info->length));
@@ -214,7 +214,7 @@ void Reader::readConstantPoolInfo() {
         }
         break;
       }
-      case cp::CONSTANT_MethodHandle: {
+      case cp::kCONSTANT_METHODHANDLE: {
         auto kmethodhandler_info =
             constpool->setBase<info::CONSTANT_MethodHandle_info>(tag);
         this->readBytes(&kmethodhandler_info->reference_kind);
@@ -241,13 +241,13 @@ void Reader::readConstantPoolInfo() {
         }
         break;
       }
-      case cp::CONSTANT_MethodType: {
+      case cp::kCONSTANT_METHODTYPE: {
         auto kmethodtype_info =
             constpool->setBase<info::CONSTANT_MethodType_info>(tag);
         this->readBytes(&kmethodtype_info->descriptor_index);
         break;
       }
-      case cp::CONSTANT_InvokeDynamic: {
+      case cp::kCONSTANT_INVOKEDYNAMIC: {
         auto kinvokedynamic_info =
             constpool->setBase<info::CONSTANT_InvokeDynamic_info>(tag);
         this->readBytes(&kinvokedynamic_info->bootstrap_method_attr_index);
@@ -313,8 +313,7 @@ void Reader::readInterfaceCount() {
 
 void Reader::readInterfaceInfo() {
   for (auto i = 0; i < this->classfile->interfaces_count; ++i) {
-    auto interface = this->classfile->interfaces[i];
-    this->readBytes(&interface);
+    this->readBytes(&this->classfile->interfaces[i]);
   }
 }
 
@@ -395,14 +394,14 @@ void Reader::readMethodsInfo() {
     this->readBytes(&method->attributes_count);
     method->attributes.resize(method->attributes_count);
 
-    // this->readAttributesInfo(&method->attributes);
+    this->readAttributesInfo(&method->attributes);
   }
 }
 
 void Reader::readAttributes() {
   this->readAttributesCount();
-  this->classfile->fields.resize(this->classfile->attributes_count);
-  // this->readAttributesInfo(&this->classfile->attributes);
+  this->classfile->attributes.resize(this->classfile->attributes_count);
+  this->readAttributesInfo(&this->classfile->attributes);
   if (Utils::Flags::options.kVERBOSE) {
     std::cout << "Read classfile->attributes\n";
   }
@@ -416,6 +415,18 @@ void Reader::readAttributesCount() {
   }
 }
 
+void Reader::kpoolValidEntry(const Utils::Types::u2 &index,
+                             const std::string &indexname) {
+  try {
+    this->classfile->constant_pool.at(index - 1);
+  } catch (const std::exception &e) {
+    throw Utils::Errors::Exception(Utils::Errors::kATTRIBUTE,
+                                   "The value of " + indexname +
+                                       "must be a valid index into the "
+                                       "constant_pool table");
+  }
+}
+
 void Reader::readAttributesInfo(
     std::vector<Utils::Attributes::attribute_info> *attributes) {
   for (size_t i = 0; i < attributes->size(); ++i) {
@@ -423,15 +434,11 @@ void Reader::readAttributesInfo(
     Utils::Attributes::attribute_info *attr = &attributes->at(i);
     types::u2 nameidx;
     types::u4 attrlen;
+
     this->readBytes(&nameidx);
-    auto kutf8 = this->classfile->constant_pool[nameidx - 1]
-                     .getClass<Utils::Infos::CONSTANT_Utf8_info>();
-    if (!kutf8) {
-      std::stringstream err;
-      err << "The constant_pool entry at name_index must be a "
-             "CONSTANT_Utf8_info";
-      throw Utils::Errors::Exception(Utils::Errors::kATTRIBUTE, err.str());
-    }
+    auto kutf8 = this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+        nameidx, "name_index", Utils::ConstantPool::kCONSTANT_UTF8);
+
     this->readBytes(&attrlen);
 
     auto attrName = Utf8(kutf8);
@@ -440,14 +447,117 @@ void Reader::readAttributesInfo(
     switch (attrtype) {
       namespace attrs = Utils::Attributes;
       case attrs::kCODE: {
-        // auto code_attr = attr->setBase<attrs::Code_attribute>(nameidx,
-        // attrlen);
+        auto code_attr = attr->setBase<attrs::Code_attribute>(nameidx, attrlen);
+        this->readBytes(&code_attr->max_stack);
+        this->readBytes(&code_attr->max_locals);
+
+        this->readBytes(&code_attr->code_length);
+        if (code_attr->code_length <= 0 || code_attr->code_length >= 65536) {
+          throw Utils::Errors::Exception(
+              Utils::Errors::kATTRIBUTE,
+              "The value of code_length must be greater than zero and less "
+              "than 65536.");
+        }
+        code_attr->code.resize(code_attr->code_length);
+        for (size_t i = 0; i < code_attr->code_length; ++i) {
+          this->readBytes(&code_attr->code[i]);
+        }
+
+        this->readBytes(&code_attr->exception_table_length);
+        code_attr->exception_table.resize(code_attr->exception_table_length);
+        for (auto i = 0; i < code_attr->exception_table_length; ++i) {
+          code_attr->exception_table[i] = excption_info();
+          auto excpt = &code_attr->exception_table[i];
+          this->readBytes(&excpt->start_pc);
+          try {
+            code_attr->code.at(excpt->start_pc);
+          } catch (const std::exception &e) {
+            throw Utils::Errors::Exception(Utils::Errors::kATTRIBUTE,
+                                           "The value of start_pc must be a "
+                                           "valid index into the code array");
+          }
+          this->readBytes(&excpt->end_pc);
+          try {
+            code_attr->code.at(excpt->end_pc);
+          } catch (const std::exception &e) {
+            throw Utils::Errors::Exception(Utils::Errors::kATTRIBUTE,
+                                           "The value of end_pc must be a "
+                                           "valid index into the code array");
+          }
+          this->readBytes(&excpt->handler_pc);
+          try {
+            code_attr->code.at(excpt->handler_pc);
+          } catch (const std::exception &e) {
+            throw Utils::Errors::Exception(Utils::Errors::kATTRIBUTE,
+                                           "The value of handler_pc must be a "
+                                           "valid index into the code array");
+          }
+          this->readBytes(&excpt->catch_type);
+          if (excpt->catch_type != 0) {
+            this->kpoolValidInfo<Utils::Infos::CONSTANT_Class_info>(
+                excpt->catch_type, "catch_type",
+                Utils::ConstantPool::kCONSTANT_CLASS);
+          }
+        }
+        this->readBytes(&code_attr->attributes_count);
+        code_attr->attributes.resize(code_attr->attributes_count);
+        this->readAttributesInfo(&code_attr->attributes);
+
+        for (auto &attr_info : code_attr->attributes) {
+          auto linenumbertb =
+              attr_info
+                  .getClass<Utils::Attributes::LineNumberTable_attribute>();
+          if (linenumbertb) {
+            auto lnt = linenumbertb->line_number_table;
+            auto found = std::find_if(
+                lnt.begin(), lnt.end(),
+                [&code_attr](const lineNumberTable_info &lnt_info) {
+                  return lnt_info.start_pc >= code_attr->code_length;
+                });
+            if (found != lnt.end()) {
+              throw Utils::Errors::Exception(
+                  Utils::Errors::kATTRIBUTE,
+                  "The value of start_pc must be less than the value "
+                  "of the code_length");
+            }
+          }
+        }
+
+        for (auto &attr_info : code_attr->attributes) {
+          auto localvar =
+              attr_info
+                  .getClass<Utils::Attributes::LocalVariableTable_attribute>();
+          if (localvar) {
+            auto lvt = localvar->local_variable_table;
+            for (auto lvt_info : lvt) {
+              try {
+                code_attr->code.at(lvt_info.start_pc);
+              } catch (const std::exception &e) {
+                throw Utils::Errors::Exception(
+                    Utils::Errors::kATTRIBUTE,
+                    "The value of start_pc must be a valid index into "
+                    "the code array");
+              }
+              try {
+                code_attr->code.at(lvt_info.start_pc + lvt_info.length);
+              } catch (const std::exception &e) {
+                throw Utils::Errors::Exception(
+                    Utils::Errors::kATTRIBUTE,
+                    "The value of start_pc + length must be a valid "
+                    "index into the code array");
+              }
+            }
+          }
+        }
         break;
       }
       case attrs::kCONSTANTVALUE: {
         auto kvalue_attr =
             attr->setBase<attrs::ConstantValue_attribute>(nameidx, attrlen);
         this->readBytes(&kvalue_attr->constantvalue_index);
+
+        this->kpoolValidEntry(kvalue_attr->constantvalue_index,
+                              "constantvalue_index");
         break;
       }
       case attrs::kDEPRECATED: {
@@ -455,14 +565,33 @@ void Reader::readAttributesInfo(
         break;
       }
       case attrs::kEXCEPTIONS: {
-        // auto exceptions_attr =
-        //     attr->setBase<attrs::Exceptions_attribute>(nameidx, attrlen);
+        auto exceptions_attr =
+            attr->setBase<attrs::Exceptions_attribute>(nameidx, attrlen);
+        this->readBytes(&exceptions_attr->number_of_exceptions);
+
+        exceptions_attr->exception_index_table.resize(
+            exceptions_attr->number_of_exceptions);
+        for (auto i = 0; i < exceptions_attr->number_of_exceptions; ++i) {
+          auto exceptit = exceptions_attr->exception_index_table[i];
+          this->kpoolValidInfo<Utils::Infos::CONSTANT_Class_info>(
+              exceptit, "exception_index_table",
+              Utils::ConstantPool::kCONSTANT_CLASS);
+        }
         break;
       }
       case attrs::kLINENUMBERTABLE: {
-        // auto linenumbertb_attr =
-        //     attr->setBase<attrs::LineNumberTable_attribute>(nameidx,
-        //     attrlen);
+        auto linenumbertb_attr =
+            attr->setBase<attrs::LineNumberTable_attribute>(nameidx, attrlen);
+        this->readBytes(&linenumbertb_attr->line_number_table_length);
+        linenumbertb_attr->line_number_table.resize(
+            linenumbertb_attr->line_number_table_length);
+
+        for (auto i = 0; i < linenumbertb_attr->line_number_table_length; ++i) {
+          linenumbertb_attr->line_number_table[i] = lineNumberTable_info();
+          auto lnt_info = &linenumbertb_attr->line_number_table[i];
+          this->readBytes(&lnt_info->start_pc);
+          this->readBytes(&lnt_info->line_number);
+        }
         break;
       }
       case attrs::kLOCALVARIABLETABLE: {
@@ -477,8 +606,17 @@ void Reader::readAttributesInfo(
           auto localvar_info = &localvar_attr->local_variable_table[i];
           this->readBytes(&localvar_info->start_pc);
           this->readBytes(&localvar_info->length);
+
           this->readBytes(&localvar_info->name_index);
+          this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+              localvar_info->name_index, "name_index",
+              Utils::ConstantPool::kCONSTANT_UTF8);
+
           this->readBytes(&localvar_info->descriptor_index);
+          this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+              localvar_info->descriptor_index, "descriptor_index",
+              Utils::ConstantPool::kCONSTANT_UTF8);
+
           this->readBytes(&localvar_info->index);
         }
         break;
@@ -487,6 +625,9 @@ void Reader::readAttributesInfo(
         auto sourcefile_attr =
             attr->setBase<attrs::SourceFile_attribute>(nameidx, attrlen);
         this->readBytes(&sourcefile_attr->sourcefile_index);
+        this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+            sourcefile_attr->sourcefile_index, "sourcefile_index",
+            Utils::ConstantPool::kCONSTANT_UTF8);
         break;
       }
       case attrs::kINVALID: {

@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 #include "classfile.h"
+#include "utils/constantPool.h"
+#include "utils/errors.h"
 
 class Reader {
  public:
@@ -60,6 +62,26 @@ class Reader {
   inline void readBytes(T *objp) {
     this->file.read(reinterpret_cast<char *>(objp), sizeof(T));
     this->endianSwap(objp);
+  }
+
+  void kpoolValidEntry(const Utils::Types::u2 &index,
+                       const std::string &indexname);
+
+  template <typename T>
+  T *kpoolValidInfo(const Utils::Types::u2 &index, const std::string &indexname,
+                    const Utils::Types::u1 &tag) {
+    this->kpoolValidEntry(index, indexname);
+    auto kinfo = this->classfile->constant_pool[index - 1].getClass<T>();
+    if (!kinfo) {
+      throw Utils::Errors::Exception(
+          Utils::Errors::kATTRIBUTE,
+          "The constant_pool entry at " + indexname +
+              " index must be a "
+              "CONSTANT_" +
+              Utils::ConstantPool::getConstantTypename(tag) +
+              "_info structure");
+    }
+    return kinfo;
   }
 
   std::fstream file;

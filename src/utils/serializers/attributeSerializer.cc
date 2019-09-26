@@ -29,6 +29,30 @@ static void create_json_str(json *j, const ConstantValue_attribute *kval_attr) {
   // clang-format on
 }
 
+// static void create_json_str(json *j, const Code_attribute *code_attr) {
+//   // clang-format off
+//   *j = {
+//     {"generic info", {
+//         {"name", {
+//             {"cp_entry_index", code_attr->attribute_name_index},
+//             {"info", {}}
+//           }
+//         },
+//         {"length", code_attr->attribute_length}
+//       }
+//     },
+//     {"specific info", {
+//           {"Bytecode", {
+//             {"cp_entry_index", kval_attr->constantvalue_index},
+//             {"info", {}}
+//           }
+//         }
+//       }
+//     },
+//   };
+//   // clang-format on
+// }
+
 void AttributeSerializer::to_json(json *j, const int &attrindex) {
   auto is = Utils::Infos::Serializer(this->cf);
   auto attr = this->attrs[attrindex];

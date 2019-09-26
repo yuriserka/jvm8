@@ -33,19 +33,20 @@ class Viewer {
 
   void printInterfaces();
   void printInterfacesCount();
-  void printInterfacesInfo(const int &index, const int &depth);
+  void printInterfaceInfo(const int &index, const int &depth);
 
   void printFields();
   void printFieldsCount();
-  void printFieldsInfo(const int &index, const int &depth);
+  void printFieldInfo(const int &index, const int &depth);
 
   void printMethods();
   void printMethodsCount();
-  void printMethodsInfo(const int &index, const int &depth);
+  void printMethodInfo(const int &index, const int &depth);
 
   void printAttributes(
       const std::vector<Utils::Attributes::attribute_info> &attributes,
-      const int &attr_count, const int &depth);
+      const int &attr_count, const int &depth, const int &qtd_stars,
+      const int &width_shift);
   void printAttributesCount(const int &depth, const int &attr_count);
   void printAttributeInfo(Utils::Attributes::attribute_info *attribute,
                           const int &index, const int &depth);
