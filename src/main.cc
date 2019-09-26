@@ -23,6 +23,9 @@ int main(const int argc, const char **argv) {
     r->readClassFile();
     if (Utils::Flags::options.kJSON) {
       dumpJsonFile(cf, r->fname);
+      if (Utils::Flags::options.kVERBOSE) {
+        std::cout << "json file dump complete\n";
+      }
     }
     v->printClassFile();
   } catch (const Utils::Errors::Exception &e) {
@@ -48,13 +51,10 @@ void dumpJsonFile(const ClassFile *cf, const std::string &filename) {
   auto cfSerializer = ClassFileSerializer(cf);
   json j;
   cfSerializer.to_json(&j);
-  const std::string outdir = ".out";
-  Utils::makeDirectory(outdir);
+  const std::string outdir = "./.out/";
+  Utils::makeDirectory(outdir.c_str());
   const std::string classname = filename.substr(0, filename.find_last_of('.'));
   const std::string path = outdir + '/' + classname + "_structure.json";
   std::ofstream o(path);
   o << std::setw(2) << j << std::endl;
-  if (Utils::Flags::options.kVERBOSE) {
-    std::cout << "json file dump complete\n";
-  }
 }

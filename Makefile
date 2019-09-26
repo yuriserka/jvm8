@@ -1,8 +1,9 @@
 # https://pt.wikibooks.org/wiki/Programar_em_C/Makefiles
 EXEC := jvm
-BUILD_DIR := bin
+BUILD_DIR := build
 SRC_DIR := src
 DEP_DIR := $(BUILD_DIR)/.deps
+OBJ_DIR := $(BUILD_DIR)/.objs
 
 # Make does not offer a recursive wildcard function, so here's one:
 rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
@@ -15,15 +16,15 @@ endif
 
 ifeq ($(detected_OS), Windows)
 	SRC := $(call rwildcard,src/,*.cc)
-	MAKE_DIR = @cmd /C createBin.bat $(@D)
-	DEL_FILES = @del /s /q bin $(EXEC).exe
+	MAKE_DIR = @cmd /C create_dir.bat $(@D)
+	DEL_FILES = @del /s /q build $(EXEC).exe
 else
 	SRC := $(shell find src -name '*.cc')
 	MAKE_DIR = @mkdir -p $(@D)
 	DEL_FILES = $(RM) *~ $(OBJ) $(DEP) $(EXEC)
 endif
 
-OBJ := $(SRC:$(SRC_DIR)/%.cc=$(BUILD_DIR)/%.o)
+OBJ := $(SRC:$(SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
 DEP := $(SRC:$(SRC_DIR)/%.cc=$(DEP_DIR)/%.d)
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEP_DIR)/$*.d
 CC := g++
@@ -47,7 +48,7 @@ $(EXEC): $(OBJ)
 $(DEP_DIR)/%.d: $(SRC_DIR)/%.cc
 	$(MAKE_DIR)
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cc $(DEP_DIR)/%.d | $(DEP_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc $(DEP_DIR)/%.d | $(DEP_DIR)
 	$(MAKE_DIR)
 	$(CC) -c $< $(DEPFLAGS) $(CXXFLAGS) $(CFLAGS) -o $@
 

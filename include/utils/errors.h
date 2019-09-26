@@ -19,7 +19,6 @@ class Exception : public std::exception {
 };
 
 enum errorTypes {
-  kMEMCPY = -1,
   kCLASSFILE = 1,
   KMAGIC,
   kMINOR,
@@ -29,7 +28,9 @@ enum errorTypes {
   kUTF8,
   kREFKIND,
   kFIELD,
-  kATTRIBUTE
+  kATTRIBUTE,
+  kMKDIR,
+  kMEMCPY
 };
 }  // namespace Errors
 }  // namespace Utils

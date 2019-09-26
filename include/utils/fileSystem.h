@@ -6,8 +6,17 @@
 
 namespace Utils {
 inline void makeDirectory(const std::string &path) {
-  std::string comando = "mkdir " + path;
-  system(comando.c_str());
+  std::string comando;
+#ifdef _WIN32
+  comando = "cmd /C create_dir.bat " + path;
+#else
+  comando = "mkdir -p " + path;
+#endif
+  auto ret = system(comando.c_str());
+  if (ret == -1) {
+    throw Utils::Errors::Exception(Utils::Errors::kMKDIR,
+                                   "Error creating directory " + path);
+  }
 }
 }  // namespace Utils
 
