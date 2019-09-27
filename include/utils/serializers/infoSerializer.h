@@ -8,11 +8,11 @@ using nlohmann::json;
 
 namespace Utils {
 namespace Infos {
-class Serializer {
+class ConstantPoolSerializer {
  public:
-  explicit Serializer(const ClassFile *cf) { this->cf = cf; }
+  explicit ConstantPoolSerializer(const ClassFile *cf) { this->cf = cf; }
 
-  bool kPoolInfo_to_JSON(json *j, const int &kpoolindex);
+  bool to_json(json *j, const int &kpoolindex);
 
  private:
   template <typename T>

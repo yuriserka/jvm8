@@ -1,8 +1,10 @@
 #include "utils/serializers/classfileSerializer.h"
 
 #include "utils/accessFlags.h"
+#include "utils/serializers/attributeSerializer.h"
 #include "utils/serializers/fieldSerializer.h"
 #include "utils/serializers/infoSerializer.h"
+#include "utils/serializers/methodSerializer.h"
 #include "utils/utf8.h"
 #include "utils/versions.h"
 
@@ -45,9 +47,9 @@ void ClassFileSerializer::writeConstantPool(json *j) {
   };
   // clang-format on
 
-  auto kpoolserializer = Utils::Infos::Serializer(this->cf);
+  auto kpoolserializer = Utils::Infos::ConstantPoolSerializer(this->cf);
   for (auto i = 0; i < this->cf->constant_pool_count - 1; ++i) {
-    auto jmp = kpoolserializer.kPoolInfo_to_JSON(&(*j).at("entries")[i], i);
+    auto jmp = kpoolserializer.to_json(&(*j).at("entries")[i], i);
     if (jmp) {
       // clang-format off
       (*j).at("entries")[++i] = {
@@ -72,13 +74,13 @@ void ClassFileSerializer::writeAccessFlags(json *j) {
 }
 
 void ClassFileSerializer::writeThisClass(json *j) {
-  auto kpoolserializer = Utils::Infos::Serializer(this->cf);
-  kpoolserializer.kPoolInfo_to_JSON(j, this->cf->this_class - 1);
+  auto kpoolserializer = Utils::Infos::ConstantPoolSerializer(this->cf);
+  kpoolserializer.to_json(j, this->cf->this_class - 1);
 }
 
 void ClassFileSerializer::writeSuperClass(json *j) {
-  auto kpoolserializer = Utils::Infos::Serializer(this->cf);
-  kpoolserializer.kPoolInfo_to_JSON(j, this->cf->super_class - 1);
+  auto kpoolserializer = Utils::Infos::ConstantPoolSerializer(this->cf);
+  kpoolserializer.to_json(j, this->cf->super_class - 1);
 }
 
 void ClassFileSerializer::writeInterfaces(json *j) {
@@ -89,10 +91,9 @@ void ClassFileSerializer::writeInterfaces(json *j) {
   };
   // clang-format on
 
-  auto kpoolserializer = Utils::Infos::Serializer(this->cf);
+  auto kpoolserializer = Utils::Infos::ConstantPoolSerializer(this->cf);
   for (auto i = 0; i < this->cf->interfaces_count; ++i) {
-    kpoolserializer.kPoolInfo_to_JSON(&(*j).at("entries")[i],
-                                      this->cf->interfaces[i]);
+    kpoolserializer.to_json(&(*j).at("entries")[i], this->cf->interfaces[i]);
   }
 }
 
@@ -113,17 +114,28 @@ void ClassFileSerializer::writeFields(json *j) {
 void ClassFileSerializer::writeMethods(json *j) {
   // clang-format off
   *j = {
-      {"count", this->cf->methods_count}
-      //, {"entries", this->cf->fields}
+      {"count", this->cf->methods_count},
+      {"entries", json::array()}
   };
   // clang-format on
+
+  auto mserializer = Utils::Infos::MethodSerializer(this->cf);
+  for (auto i = 0; i < this->cf->methods_count; ++i) {
+    mserializer.to_json(&(*j).at("entries")[i], i);
+  }
 }
 
 void ClassFileSerializer::writeAttributes(json *j) {
   // clang-format off
   *j = {
-      {"count", this->cf->attributes_count}
-      //, {"entries", this->cf->fields}
+      {"count", this->cf->attributes_count},
+      {"entries", json::array()}
   };
   // clang-format on
+
+  auto as =
+      Utils::Attributes::AttributeSerializer(this->cf, this->cf->attributes);
+  for (auto i = 0; i < this->cf->attributes_count; ++i) {
+    as.to_json(&(*j).at("entries")[i], i);
+  }
 }

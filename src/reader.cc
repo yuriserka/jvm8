@@ -344,21 +344,13 @@ void Reader::readFieldsInfo() {
     this->readBytes(&field->access_flags);
 
     this->readBytes(&field->name_index);
-    if (!kpool[field->name_index - 1].getClass<info::CONSTANT_Utf8_info>()) {
-      std::stringstream err;
-      err << "The constant_pool entry at name_index must be a "
-             "CONSTANT_Utf8_info";
-      throw Utils::Errors::Exception(Utils::Errors::kFIELD, err.str());
-    }
+    this->kpoolValidInfo<info::CONSTANT_Utf8_info>(
+        field->name_index, "name_index", Utils::ConstantPool::kCONSTANT_UTF8);
 
     this->readBytes(&field->descriptor_index);
-    if (!kpool[field->descriptor_index - 1]
-             .getClass<info::CONSTANT_Utf8_info>()) {
-      std::stringstream err;
-      err << "The constant_pool entry at descriptor_index must be a "
-             "CONSTANT_Utf8_info";
-      throw Utils::Errors::Exception(Utils::Errors::kFIELD, err.str());
-    }
+    this->kpoolValidInfo<info::CONSTANT_Utf8_info>(
+        field->descriptor_index, "descriptor_index",
+        Utils::ConstantPool::kCONSTANT_UTF8);
 
     this->readBytes(&field->attributes_count);
     field->attributes.resize(field->attributes_count);

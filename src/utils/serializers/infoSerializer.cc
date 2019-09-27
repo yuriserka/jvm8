@@ -197,15 +197,14 @@ static void create_json_str(json *j, const CONSTANT_Utf8_info *kinfo) {
 }
 
 template <typename T>
-void Serializer::writeReferences(json *j, const T *kinfo) {
-  this->kPoolInfo_to_JSON(&(*j).at("/reference/class/info"_json_pointer),
-                          kinfo->class_index - 1);
-  this->kPoolInfo_to_JSON(
-      &(*j).at("/reference/name and type/info"_json_pointer),
-      kinfo->name_and_type_index - 1);
+void ConstantPoolSerializer::writeReferences(json *j, const T *kinfo) {
+  this->to_json(&(*j).at("/reference/class/info"_json_pointer),
+                kinfo->class_index - 1);
+  this->to_json(&(*j).at("/reference/name and type/info"_json_pointer),
+                kinfo->name_and_type_index - 1);
 }
 
-bool Serializer::kPoolInfo_to_JSON(json *j, const int &kpoolindex) {
+bool ConstantPoolSerializer::to_json(json *j, const int &kpoolindex) {
   bool jmpNextIndex = false;
   auto cpi = this->cf->constant_pool[kpoolindex];
   switch (cpi.base->tag) {
@@ -213,8 +212,8 @@ bool Serializer::kPoolInfo_to_JSON(json *j, const int &kpoolindex) {
     case cp::kCONSTANT_CLASS: {
       auto kclass_info = cpi.getClass<CONSTANT_Class_info>();
       create_json_str(j, kclass_info);
-      this->kPoolInfo_to_JSON(&(*j).at("/name/info"_json_pointer),
-                              kclass_info->name_index - 1);
+      this->to_json(&(*j).at("/name/info"_json_pointer),
+                    kclass_info->name_index - 1);
       break;
     }
     case cp::kCONSTANT_FIELDREF: {
@@ -238,8 +237,8 @@ bool Serializer::kPoolInfo_to_JSON(json *j, const int &kpoolindex) {
     case cp::kCONSTANT_STRING: {
       auto kstring_info = cpi.getClass<CONSTANT_String_info>();
       create_json_str(j, kstring_info);
-      this->kPoolInfo_to_JSON(&(*j).at("/utf8/info"_json_pointer),
-                              kstring_info->string_index - 1);
+      this->to_json(&(*j).at("/utf8/info"_json_pointer),
+                    kstring_info->string_index - 1);
       break;
     }
     case cp::kCONSTANT_INTEGER: {
@@ -267,10 +266,10 @@ bool Serializer::kPoolInfo_to_JSON(json *j, const int &kpoolindex) {
     case cp::kCONSTANT_NAMEANDTYPE: {
       auto knametype_info = cpi.getClass<CONSTANT_NameAndType_info>();
       create_json_str(j, knametype_info);
-      this->kPoolInfo_to_JSON(&(*j).at("/name/info"_json_pointer),
-                              knametype_info->name_index - 1);
-      this->kPoolInfo_to_JSON(&(*j).at("/descriptor/info"_json_pointer),
-                              knametype_info->descriptor_index - 1);
+      this->to_json(&(*j).at("/name/info"_json_pointer),
+                    knametype_info->name_index - 1);
+      this->to_json(&(*j).at("/descriptor/info"_json_pointer),
+                    knametype_info->descriptor_index - 1);
       break;
     }
     case cp::kCONSTANT_UTF8: {
