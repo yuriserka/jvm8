@@ -293,7 +293,7 @@ bool Viewer::printConstantPoolInfo(const int &index, const int &depth,
       } else if (inner) {
         toprint = L"<" + toprint + L">";
       }
-      std::wcout << toprint << (innerNameAndType ? "" : "\n");
+      std::printf("%ls %s", toprint.c_str(), (innerNameAndType ? "" : "\n"));
       break;
     }
   }
@@ -370,7 +370,7 @@ void Viewer::printConstantPoolInfo(const int &index) {
     case cp::kCONSTANT_UTF8: {
       auto kutf8_info = cpi.getClass<info::CONSTANT_Utf8_info>();
       auto utf8string = Utf8(kutf8_info);
-      std::wcout << utf8string;
+      std::printf("%ls", utf8string.toString());
       break;
     }
   }

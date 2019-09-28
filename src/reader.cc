@@ -564,6 +564,7 @@ void Reader::readAttributesInfo(
         exceptions_attr->exception_index_table.resize(
             exceptions_attr->number_of_exceptions);
         for (auto i = 0; i < exceptions_attr->number_of_exceptions; ++i) {
+          this->readBytes(&exceptions_attr->exception_index_table[i]);
           auto exceptit = exceptions_attr->exception_index_table[i];
           this->kpoolValidInfo<Utils::Infos::CONSTANT_Class_info>(
               exceptit, "exception_index_table",
