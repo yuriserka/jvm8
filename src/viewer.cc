@@ -3,10 +3,10 @@
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
+#include "instructions/printer.h"
 #include "utils/accessFlags.h"
 #include "utils/constantPool.h"
 #include "utils/memory.h"
-#include "utils/opcodes.h"
 #include "utils/utf8.h"
 #include "utils/versions.h"
 
@@ -293,7 +293,8 @@ bool Viewer::printConstantPoolInfo(const int &index, const int &depth,
       } else if (inner) {
         toprint = L"<" + toprint + L">";
       }
-      std::printf("%ls %s", toprint.c_str(), (innerNameAndType ? "" : "\n"));
+      std::wcout << toprint.c_str();
+      std::cout << (innerNameAndType ? "" : "\n");
       break;
     }
   }
@@ -370,10 +371,91 @@ void Viewer::printConstantPoolInfo(const int &index) {
     case cp::kCONSTANT_UTF8: {
       auto kutf8_info = cpi.getClass<info::CONSTANT_Utf8_info>();
       auto utf8string = Utf8(kutf8_info);
-      std::printf("%ls", utf8string.toString());
+      std::wcout << utf8string;
       break;
     }
   }
+}
+
+std::wstring Viewer::getBytecodeOperandString(const int &index) {
+  auto cpi = this->classfile->constant_pool[index];
+  std::wstringstream ss;
+  switch (cpi.base->tag) {
+    namespace cp = Utils::ConstantPool;
+    namespace info = Utils::Infos;
+    case cp::kCONSTANT_CLASS: {
+      auto kclass_info = cpi.getClass<info::CONSTANT_Class_info>();
+      ss << this->getBytecodeOperandString(kclass_info->name_index - 1) << ".";
+      break;
+    }
+    case cp::kCONSTANT_FIELDREF: {
+      auto kfieldref_info = cpi.getClass<info::CONSTANT_FieldRef_info>();
+      ss << this->getBytecodeOperandString(kfieldref_info->class_index - 1)
+         << this->getBytecodeOperandString(kfieldref_info->name_and_type_index -
+                                           1);
+      break;
+    }
+    case cp::kCONSTANT_METHODREF: {
+      auto kmethodref_info = cpi.getClass<info::CONSTANT_Methodref_info>();
+      ss << this->getBytecodeOperandString(kmethodref_info->class_index - 1)
+         << this->getBytecodeOperandString(
+                kmethodref_info->name_and_type_index - 1);
+      break;
+    }
+    case cp::kCONSTANT_INTERFACEMETHODREF: {
+      auto kImethodref_info =
+          cpi.getClass<info::CONSTANT_InterfaceMethodref_info>();
+      ss << this->getBytecodeOperandString(kImethodref_info->class_index - 1)
+         << this->getBytecodeOperandString(
+                kImethodref_info->name_and_type_index - 1);
+      break;
+    }
+    case cp::kCONSTANT_STRING: {
+      auto kstring_info = cpi.getClass<info::CONSTANT_String_info>();
+      ss << this->getBytecodeOperandString(kstring_info->string_index - 1);
+      break;
+    }
+    case cp::kCONSTANT_INTEGER: {
+      auto kinteger_info = cpi.getClass<info::CONSTANT_Integer_info>();
+      ss << kinteger_info->bytes;
+      break;
+    }
+    case cp::kCONSTANT_FLOAT: {
+      auto kfloat_info = cpi.getClass<info::CONSTANT_Float_info>();
+      ss << std::fixed << std::setprecision(2)
+         << Utils::copyCast<float>(&kfloat_info->bytes);
+      break;
+    }
+    case cp::kCONSTANT_LONG: {
+      auto klong_info = cpi.getClass<info::CONSTANT_Long_info>();
+      auto u8val =
+          (static_cast<Utils::Types::u8>(klong_info->high_bytes) << 32 |
+           klong_info->low_bytes);
+      ss << u8val;
+      break;
+    }
+    case cp::kCONSTANT_DOUBLE: {
+      auto kdouble_info = cpi.getClass<info::CONSTANT_Double_info>();
+      auto u8val =
+          (static_cast<Utils::Types::u8>(kdouble_info->high_bytes) << 32 |
+           kdouble_info->low_bytes);
+      ss << std::fixed << std::setprecision(2)
+         << Utils::copyCast<double>(&u8val);
+      break;
+    }
+    case cp::kCONSTANT_NAMEANDTYPE: {
+      auto knametype_info = cpi.getClass<info::CONSTANT_NameAndType_info>();
+      ss << this->getBytecodeOperandString(knametype_info->name_index - 1);
+      break;
+    }
+    case cp::kCONSTANT_UTF8: {
+      auto kutf8_info = cpi.getClass<info::CONSTANT_Utf8_info>();
+      auto utf8string = Utf8(kutf8_info);
+      ss << utf8string.toString();
+      break;
+    }
+  }
+  return ss.str();
 }
 
 template <typename T>
@@ -601,12 +683,12 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
 
       std::cout << std::string(depth + 1, '\t') << "Specific Info: \n";
       std::cout << std::string(depth + 2, '\t') << "Bytecode: \n";
-      for (size_t i = 0; i < code_attr->code_length; ++i) {
-        auto op = code_attr->code[i];
-        state.copyfmt(std::cout);
-        std::cout << std::string(depth + 3, '\t') << std::setw(3) << i << ": ";
-        std::cout << Utils::Opcodes::getMnemonic(op) << "\n";
-        std::cout.copyfmt(state);
+      int i = 0;
+      auto codeArr = code_attr->code;
+      for (auto it = codeArr.begin(); it != codeArr.end(); ++it) {
+        std::cout << std::string(depth + 3, '\t') << i << ": ";
+        auto delta_code = Instructions::printBytecode(&it, this);
+        i += delta_code;
       }
 
       std::cout << std::string(depth + 2, '\t') << "Exception table: \n";

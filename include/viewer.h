@@ -14,6 +14,7 @@ class Viewer {
   }
 
   void printClassFile();
+  std::wstring getBytecodeOperandString(const int &index);
 
  private:
   void printMagic();

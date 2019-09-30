@@ -1,6 +1,6 @@
 #include "utils/serializers/attributeSerializer.h"
 
-#include "utils/opcodes.h"
+#include "instructions/opcodes.h"
 #include "utils/serializers/infoSerializer.h"
 #include "utils/utf8.h"
 
@@ -106,7 +106,7 @@ static void create_json_str(json *j,
       }
     },
   };
-  // clang-format on                            
+  // clang-format on
 }
 
 void AttributeSerializer::to_json(json *j, const int &attrindex) {
@@ -124,19 +124,21 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
       auto code_attr = attr.getClass<Code_attribute>();
       create_json_str(j, code_attr);
       is.to_json(&(*j).at("/generic info/name/info"_json_pointer),
-                           code_attr->attribute_name_index - 1);
+                 code_attr->attribute_name_index - 1);
 
-      for (size_t i = 0; i < code_attr->code_length; ++i) {
-        auto op = code_attr->code[i];
+      int i = 0;
+      auto codeArr = code_attr->code;
+      for (auto it = codeArr.begin(); it != codeArr.end(); ++it) {
         // clang-format off
         (*j).at("/specific info/bytecode"_json_pointer)[i] = {
           {"code position", i},
-          {"mnemonic", Utils::Opcodes::getMnemonic(op)},
+          {"mnemonic", Instructions::Opcodes::getMnemonic(*it)},
           {"arguments", json::array()}
         };
 
-        // TODO
+        // TODO(yuriserka):
         // preencher os argumentos que a instrução precisa de forma correta
+        // será se isso realmente vale a pena tentar???? (PENSAR MELHOR)
 
         // clang-format on
       }

@@ -1,8 +1,8 @@
-#include "utils/opcodes.h"
+#include "instructions/opcodes.h"
 
 #include <map>
 
-namespace Utils {
+namespace Instructions {
 namespace Opcodes {
 static std::map<Utils::Types::u1, std::string> mnemonics = {
     {kAALOAD, "AALOAD"},
@@ -215,4 +215,4 @@ std::string getMnemonic(const Utils::Types::u1 &opcode) {
   return mnemonics.at(opcode);
 }
 }  // namespace Opcodes
-}  // namespace Utils
+}  // namespace Instructions

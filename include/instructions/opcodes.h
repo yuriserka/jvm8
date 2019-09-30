@@ -1,10 +1,11 @@
-#ifndef INCLUDE_UTILS_OPCODES_H_
-#define INCLUDE_UTILS_OPCODES_H_
+#ifndef INCLUDE_INSTRUCTIONS_OPCODES_H_
+#define INCLUDE_INSTRUCTIONS_OPCODES_H_
 
 #include <string>
+#include <vector>
 #include "utils/types.h"
 
-namespace Utils {
+namespace Instructions {
 namespace Opcodes {
 enum opcode_reference {
   kAALOAD = 0x32,
@@ -213,8 +214,11 @@ enum opcode_reference {
   kTABLESWITCH = 0xaa,
   kWIDE = 0xc4
 };
-std::string getMnemonic(const Utils::Types::u1 &opcode);
-}  // namespace Opcodes
-}  // namespace Utils
 
-#endif  // INCLUDE_UTILS_OPCODES_H_
+std::string getMnemonic(const Utils::Types::u1 &opcode);
+int getArguments(std::vector<Utils::Types::u1>::iterator *opcode,
+                 std::vector<std::string> *arguments);
+}  // namespace Opcodes
+}  // namespace Instructions
+
+#endif  // INCLUDE_INSTRUCTIONS_OPCODES_H_
