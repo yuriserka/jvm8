@@ -15,17 +15,17 @@ else
 endif
 
 ifeq ($(detected_OS), Windows)
-	SRC := $(call rwildcard,src/,*.cc)
+	SRCS := $(call rwildcard,src/,*.cc)
 	MAKE_DIR = @cmd /C create_dir.bat $(@D)
 	DEL_FILES = @del /s /q build $(EXEC).exe
 else
-	SRC := $(shell find src -name '*.cc')
+	SRCS := $(shell find src -name '*.cc')
 	MAKE_DIR = @mkdir -p $(@D)
-	DEL_FILES = $(RM) *~ $(OBJ) $(DEP) $(EXEC)
+	DEL_FILES = $(RM) *~ $(OBJS) $(DEPS) $(EXEC)
 endif
 
-OBJ := $(SRC:$(SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
-DEP := $(SRC:$(SRC_DIR)/%.cc=$(DEP_DIR)/%.d)
+OBJS := $(SRCS:$(SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
+DEPS := $(SRCS:$(SRC_DIR)/%.cc=$(DEP_DIR)/%.d)
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEP_DIR)/$*.d
 CC := g++
 INCLUDES := -I"include/"
@@ -42,20 +42,19 @@ CFLAGS := -g -Wall -pedantic -pthread -Wpedantic -Werror -lm
 
 all: $(EXEC)
 
-$(EXEC): $(OBJ)
-	$(CC) $^ $(CXXFLAGS) $(CFLAGS) -o $@
+$(EXEC): $(OBJS)
+	@echo Generating executable $@
+	@$(CC) $^ $(CXXFLAGS) $(CFLAGS) -o $@
 
 $(DEP_DIR)/%.d: $(SRC_DIR)/%.cc
-	$(MAKE_DIR)
+	@$(MAKE_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc $(DEP_DIR)/%.d | $(DEP_DIR)
-	$(MAKE_DIR)
-	$(CC) -c $< $(DEPFLAGS) $(CXXFLAGS) $(CFLAGS) -o $@
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc $(DEP_DIR)/%.d
+	@$(MAKE_DIR)
+	@echo Compiling $<
+	@$(CC) -c $< $(DEPFLAGS) $(CXXFLAGS) $(CFLAGS) -o $@
 
-$(DEP_DIR): ; $(MAKE_DIR)
-
-$(DEP):
-include $(wildcard $(DEP))
-	
 clean:
-	$(DEL_FILES)
+	@$(DEL_FILES)
+
+-include $(wildcard $(DEPS))
