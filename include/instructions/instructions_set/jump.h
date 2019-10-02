@@ -13,8 +13,7 @@ class JumpSubRoutine : public Instruction {
  public:
   JumpSubRoutine() : Instruction(Opcodes::kJSR) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        std::string *out_str) override {
+  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
@@ -24,8 +23,7 @@ class JumpSubRoutineWide : public Instruction {
  public:
   JumpSubRoutineWide() : Instruction(Opcodes::kJSR_W) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        std::string *out_str) override {
+  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }

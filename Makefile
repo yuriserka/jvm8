@@ -54,6 +54,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc $(DEP_DIR)/%.d
 	@echo Compiling $<
 	@$(CC) -c $< $(DEPFLAGS) $(CXXFLAGS) $(CFLAGS) -o $@
 
+$(DEPS):
+include $(wildcard $(DEPS))
+
 clean:
 	@$(DEL_FILES)
 
