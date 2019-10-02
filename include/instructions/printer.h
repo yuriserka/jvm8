@@ -8,7 +8,7 @@
 class Viewer;
 
 namespace Instructions {
-int printBytecode(std::vector<Utils::Types::u1>::iterator *opcode, Viewer *v);
+int printBytecode(std::vector<Utils::Types::u1>::iterator *opcode, Viewer *v, const bool &wide = false);
 }
 
 #endif  // INCLUDE_INSTRUCTIONS_PRINTER_H_

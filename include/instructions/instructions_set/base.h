@@ -13,7 +13,7 @@ class Instruction {
   virtual ~Instruction() = default;
 
   // virtual void execute() = 0;
-  virtual int toBytecode(std::vector<Utils::Types::u1>::iterator *, int *) = 0;
+  virtual int toBytecode(std::vector<Utils::Types::u1>::iterator *, int *, const bool &) = 0;
 
   const Utils::Types::u1 opcode;
 };

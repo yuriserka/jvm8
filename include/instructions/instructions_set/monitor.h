@@ -13,7 +13,7 @@ class Enter : public Instruction {
  public:
   Enter() : Instruction(Opcodes::kMONITORENTER) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
+  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
@@ -23,7 +23,7 @@ class Exit : public Instruction {
  public:
   Exit() : Instruction(Opcodes::kMONITOREXIT) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
+  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }

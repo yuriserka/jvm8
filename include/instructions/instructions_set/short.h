@@ -13,7 +13,7 @@ class LoadFromArray : public Instruction {
  public:
   LoadFromArray() : Instruction(Opcodes::kSALOAD) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
+  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
@@ -23,7 +23,7 @@ class StoreIntoArray : public Instruction {
  public:
   StoreIntoArray() : Instruction(Opcodes::kSASTORE) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
+  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
@@ -33,8 +33,10 @@ class Push : public Instruction {
  public:
   Push() : Instruction(Opcodes::kSIPUSH) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
+    auto s = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << s << " ";
+    *delta_code = 2;
     return 0;
   }
 };
