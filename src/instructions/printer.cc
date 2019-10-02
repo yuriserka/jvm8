@@ -69,7 +69,7 @@ int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v, c
     case Opcodes::kANEWARRAY: {
       i = new Reference::NewArray();
       auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      std::wcout << "<" << v->getBytecodeOperandString(idx, false) << ">\n";
       break;
     }
     case Opcodes::kARETURN: {
@@ -705,17 +705,20 @@ int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v, c
     }
     case Opcodes::kINSTANCEOF: {
       i = new Misc::InstanceOf();
-      i->toBytecode(code_it, &delta_code, wide);
+      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
+      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
       break;
     }
     case Opcodes::kINVOKEDYNAMIC: {
       i = new Invokes::Dynamic();
-      i->toBytecode(code_it, &delta_code, wide);
+      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
+      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
       break;
     }
     case Opcodes::kINVOKEINTERFACE: {
       i = new Invokes::Interface();
-      i->toBytecode(code_it, &delta_code, wide);
+      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
+      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
       break;
     }
     case Opcodes::kINVOKESPECIAL: {
@@ -726,12 +729,14 @@ int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v, c
     }
     case Opcodes::kINVOKESTATIC: {
       i = new Invokes::Static();
-      i->toBytecode(code_it, &delta_code, wide);
+      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
+      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
       break;
     }
     case Opcodes::kINVOKEVIRTUAL: {
       i = new Invokes::Virtual();
-      i->toBytecode(code_it, &delta_code, wide);
+      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
+      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
       break;
     }
     case Opcodes::kIOR: {
@@ -948,7 +953,7 @@ int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v, c
       break;
     }
     case Opcodes::kLSTORE: {
-      i = new Long::StoreIntoArray();
+      i = new Long::Store();
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
@@ -999,12 +1004,14 @@ int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v, c
     }
     case Opcodes::kMULTIANEWARRAY: {
       i = new Misc::MultiDimArray();
-      i->toBytecode(code_it, &delta_code, wide);
+      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
+      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
       break;
     }
     case Opcodes::kNEW: {
       i = new Misc::New();
-      i->toBytecode(code_it, &delta_code, wide);
+      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
+      std::wcout << "<" << v->getBytecodeOperandString(idx, false) << ">\n";
       break;
     }
     case Opcodes::kNEWARRAY: {
@@ -1035,7 +1042,8 @@ int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v, c
     }
     case Opcodes::kPUTSTATIC: {
       i = new Misc::PutStatic();
-      i->toBytecode(code_it, &delta_code, wide);
+      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
+      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
       break;
     }
     case Opcodes::kRET: {

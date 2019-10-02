@@ -10,8 +10,8 @@ Utf8::Utf8(const Utils::Infos::CONSTANT_Utf8_info *kutf8Info) {
                                       L"\vv", L"\ff", L"\rr"};
   auto bytes = kutf8Info->bytes;
   Utils::Types::u2 byteRange[] = {0x0001, 0x0080, 0x8000, 0xFFFF};
-  for (size_t i = 0; i < unsigned(kutf8Info->length); ++i) {
-    auto ubyte = unsigned(bytes[i]);
+  for (size_t i = 0; i < kutf8Info->length; ++i) {
+    auto ubyte = +bytes[i];
 
     auto umByte = ubyte >= byteRange[0] && ubyte < byteRange[1];
     auto doisBytes = ubyte >= byteRange[1] && ubyte < byteRange[2];

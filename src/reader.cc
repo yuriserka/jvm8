@@ -201,10 +201,10 @@ void Reader::readConstantPoolInfo() {
       case cp::kCONSTANT_UTF8: {
         auto kutf8_info = constpool->setBase<info::CONSTANT_Utf8_info>(tag);
         this->readBytes(&kutf8_info->length);
-        kutf8_info->bytes.resize(unsigned(kutf8_info->length));
+        kutf8_info->bytes.resize(kutf8_info->length);
         for (size_t i = 0; i < kutf8_info->bytes.size(); ++i) {
           this->readBytes(&kutf8_info->bytes[i]);
-          auto ubyte = unsigned(kutf8_info->bytes[i]);
+          auto ubyte = +kutf8_info->bytes[i];
           if (ubyte == 0x0000 || (ubyte >= 0x00F0 && ubyte <= 0x00FF)) {
             std::stringstream err;
             err << "No byte may have the value 0x0000 or "
@@ -256,7 +256,7 @@ void Reader::readConstantPoolInfo() {
       }
       default: {
         std::stringstream err;
-        err << "Unknown constant pool tag = '" << unsigned(tag) << "'";
+        err << "Unknown constant pool tag = '" << +tag << "'";
         throw Utils::Errors::Exception(Utils::Errors::kCONSTANTPOOL, err.str());
       }
     }
@@ -625,7 +625,7 @@ void Reader::readAttributesInfo(
       }
       case attrs::kINVALID: {
         if (Utils::Flags::options.kVERBOSE) {
-          std::cout << "skipped attribute " << attrName.toString() << "\n";
+          std::wcout << "skipped attribute " << attrName.toString() << "\n";
         }
         break;
       }

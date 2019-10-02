@@ -120,7 +120,7 @@ class Goto : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto branchoffset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << branchoffset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << branchoffset << "\n";
     *delta_code = 2;
     return branchoffset;
   }
@@ -132,7 +132,7 @@ class GotoWide : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto branchoffset = (*++*code_it << 24) | (*++*code_it << 16) | (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << branchoffset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << branchoffset << "\n";
     *delta_code = 4;
     return branchoffset;
   }
@@ -170,7 +170,7 @@ class MultiDimArray : public Instruction {
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << unsigned(kpool_index) << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 3;
     return kpool_index;
   }
@@ -182,7 +182,7 @@ class New : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << unsigned(kpool_index) << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return kpool_index;
   }
@@ -194,10 +194,47 @@ class NewArray : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto atype = *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << unsigned(atype) << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << +atype << " ";
+    switch (+atype) {
+      case kT_BOOLEAN:
+        std::cout << "(boolean)\n";
+        break;
+      case kT_CHAR:
+        std::cout << "(char)\n";
+        break;
+      case kT_FLOAT:
+        std::cout << "(float)\n";
+        break;
+      case kT_DOUBLE:
+        std::cout << "(double)\n";
+        break;
+      case kT_BYTE:
+        std::cout << "(byte)\n";
+        break;
+      case kT_SHORT:
+        std::cout << "(short)\n";
+        break;
+      case kT_INT:
+        std::cout << "(int)\n";
+        break;
+      case kT_LONG:
+        std::cout << "(long)\n";
+        break;
+    }
     *delta_code = 1;
     return 0;
   }
+ private:
+  enum Types {
+    kT_BOOLEAN = 4,
+    kT_CHAR = 5,
+    kT_FLOAT = 6,
+    kT_DOUBLE = 7,
+    kT_BYTE = 8,
+    kT_SHORT = 9,
+    kT_INT = 10,
+    kT_LONG = 11
+  };
 };
 
 class Nop : public Instruction {

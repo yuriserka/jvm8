@@ -126,22 +126,20 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
       is.to_json(&(*j).at("/generic info/name/info"_json_pointer),
                  code_attr->attribute_name_index - 1);
 
-      int i = 0;
-      auto codeArr = code_attr->code;
-      for (auto it = codeArr.begin(); it != codeArr.end(); ++it) {
-        // clang-format off
-        (*j).at("/specific info/bytecode"_json_pointer)[i] = {
-          {"code position", i},
-          {"mnemonic", Instructions::Opcodes::getMnemonic(*it)},
-          {"arguments", json::array()}
-        };
-
-        // TODO(yuriserka):
-        // preencher os argumentos que a instrução precisa de forma correta
-        // será se isso realmente vale a pena tentar???? (PENSAR MELHOR)
-
-        // clang-format on
-      }
+      // TODO(yuriserka):
+      // preencher os argumentos que a instrução precisa de forma correta
+      // será se isso realmente vale a pena tentar???? (PENSAR MELHOR)
+      // int i = 0;
+      // auto codeArr = code_attr->code;
+      // for (auto it = codeArr.begin(); it != codeArr.end(); ++it) {
+      //   // clang-format off
+      //   (*j).at("/specific info/bytecode"_json_pointer)[i] = {
+      //     {"code position", i},
+      //     {"mnemonic", Instructions::Opcodes::getMnemonic(*it)},
+      //     {"arguments", json::array()}
+      //   };
+      //   // clang-format on
+      // }
 
       for (auto i = 0; i < code_attr->exception_table_length; ++i) {
         auto except = code_attr->exception_table[i];

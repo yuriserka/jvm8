@@ -16,7 +16,7 @@ class LoadCat1 : public Instruction {
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto kpool_index = *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #"
-              << unsigned(kpool_index) << " ";
+              << +kpool_index << " ";
     *delta_code = 1;
     return kpool_index;
   }
@@ -29,7 +29,7 @@ class LoadCat1Wide : public Instruction {
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #"
-              << unsigned(kpool_index) << " ";
+              << kpool_index << " ";
     *delta_code = 2;
     return kpool_index;
   }
@@ -42,7 +42,7 @@ class LoadCat2 : public Instruction {
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #"
-              << unsigned(kpool_index) << " ";
+              << kpool_index << " ";
     *delta_code = 2;
     return kpool_index;
   }

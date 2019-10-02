@@ -54,7 +54,7 @@ class Reader {
 
   template <class T>
   inline void endianSwap(T *objp) {
-    unsigned char *memp = reinterpret_cast<unsigned char *>(objp);
+    auto memp = reinterpret_cast<unsigned char *>(objp);
     std::reverse(memp, memp + sizeof(T));
   }
 

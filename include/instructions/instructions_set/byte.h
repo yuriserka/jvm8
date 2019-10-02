@@ -35,7 +35,7 @@ class Push : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto byte = *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << unsigned(byte)
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << +byte
               << "\n";
     *delta_code = 1;
     return 0;

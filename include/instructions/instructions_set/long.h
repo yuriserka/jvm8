@@ -125,7 +125,7 @@ class Load : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto index = *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << unsigned(index)
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << +index
               << "\n";
     *delta_code = 1;
     return 0;
@@ -248,7 +248,7 @@ class Store : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto index = *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << unsigned(index)
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << +index
               << "\n";
     *delta_code = 1;
     return 0;

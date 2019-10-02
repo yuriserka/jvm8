@@ -15,7 +15,7 @@ class RefCompareEqual : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -27,7 +27,7 @@ class RefCompareNotEqual : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -39,7 +39,7 @@ class IntegerCompareEqual : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -51,7 +51,7 @@ class IntegerCompareGreaterEqual : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -63,7 +63,7 @@ class IntegerCompareGreaterThan : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -75,7 +75,7 @@ class IntegerCompareLessEqual : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -87,7 +87,7 @@ class IntegerCompareLessThan : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -99,7 +99,7 @@ class IntegerCompareNotEqual : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -111,7 +111,7 @@ class EqualZero : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -123,7 +123,7 @@ class GreaterEqualZero : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -134,7 +134,9 @@ class GreaterThanZero : public Instruction {
   GreaterThanZero() : Instruction(Opcodes::kIFGT) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
+    *delta_code = 2;
     return 0;
   }
 };
@@ -145,7 +147,7 @@ class LessEqualZero : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -157,7 +159,7 @@ class LessThanZero : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -169,7 +171,7 @@ class NotEqualZero : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -181,7 +183,7 @@ class NonNull : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
@@ -193,7 +195,7 @@ class RefNull : public Instruction {
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << "\n";
     *delta_code = 2;
     return 0;
   }
