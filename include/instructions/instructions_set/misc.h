@@ -23,8 +23,10 @@ class Checkcast : public Instruction {
   Checkcast() : Instruction(Opcodes::kCHECKCAST) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
+    auto kpool_index = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
+    *delta_code = 2;
+    return kpool_index;
   }
 };
 
@@ -93,8 +95,10 @@ class GetField : public Instruction {
   GetField() : Instruction(Opcodes::kGETFIELD) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
+    auto kpool_index = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
+    *delta_code = 2;
+    return kpool_index;
   }
 };
 
@@ -103,8 +107,10 @@ class GetStatic : public Instruction {
   GetStatic() : Instruction(Opcodes::kGETSTATIC) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
+    auto kpool_index = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
+    *delta_code = 2;
+    return kpool_index;
   }
 };
 
@@ -113,8 +119,10 @@ class Goto : public Instruction {
   Goto() : Instruction(Opcodes::kGOTO) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
+    auto branchoffset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << branchoffset << " ";
+    *delta_code = 2;
+    return branchoffset;
   }
 };
 
@@ -123,8 +131,10 @@ class GotoWide : public Instruction {
   GotoWide() : Instruction(Opcodes::kGOTO_W) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
+    auto branchoffset = (*++*code_it << 24) | (*++*code_it << 16) | (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << branchoffset << " ";
+    *delta_code = 4;
+    return branchoffset;
   }
 };
 
@@ -133,8 +143,10 @@ class InstanceOf : public Instruction {
   InstanceOf() : Instruction(Opcodes::kINSTANCEOF) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
+    auto kpool_index = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
+    *delta_code = 2;
+    return kpool_index;
   }
 };
 
@@ -213,7 +225,7 @@ class PutField : public Instruction {
   PutField() : Instruction(Opcodes::kPUTFIELD) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    auto kpool_index = *++*code_it << 8 | *++*code_it;
+    auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return kpool_index;

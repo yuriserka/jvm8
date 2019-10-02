@@ -44,7 +44,9 @@ class Load : public Instruction {
   Load() : Instruction(Opcodes::kALOAD) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    auto index = *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << unsigned(index) << "\n";
+    *delta_code = 1;
     return 0;
   }
 };
@@ -94,8 +96,10 @@ class NewArray : public Instruction {
   NewArray() : Instruction(Opcodes::kANEWARRAY) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
+    auto kpool_index = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
+    *delta_code = 2;
+    return kpool_index;
   }
 };
 
@@ -124,7 +128,9 @@ class Store : public Instruction {
   Store() : Instruction(Opcodes::kASTORE) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    auto index = *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << unsigned(index) << "\n";
+    *delta_code = 1;
     return 0;
   }
 };

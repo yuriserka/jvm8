@@ -34,7 +34,7 @@ class Especial : public Instruction {
   Especial() : Instruction(Opcodes::kINVOKESPECIAL) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    auto kpool_index = *++*code_it << 8 | *++*code_it;
+    auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return kpool_index;

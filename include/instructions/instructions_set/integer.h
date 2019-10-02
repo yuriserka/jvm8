@@ -193,7 +193,11 @@ class Inc : public Instruction {
   Inc() : Instruction(Opcodes::kIINC) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    auto index = *++*code_it;
+    auto k = *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << unsigned(index) << " " << signed(k)
+              << "\n";
+    *delta_code = 2;
     return 0;
   }
 };
@@ -203,7 +207,10 @@ class Load : public Instruction {
   Load() : Instruction(Opcodes::kILOAD) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code) override {
-    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    auto index = *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << unsigned(index)
+              << "\n";
+    *delta_code = 1;
     return 0;
   }
 };
