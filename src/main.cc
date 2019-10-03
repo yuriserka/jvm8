@@ -15,11 +15,14 @@ int main(const int argc, const char **argv) {
   // argv[0] = ./jvm
   Utils::Flags::toggleAll(++argv);
 
-  auto cf = new ClassFile();
-  auto r = new Reader(cf, Utils::Flags::options.kFILE);
-  auto v = new Viewer(cf, r->fname);
-
+  ClassFile *cf = nullptr;
+  Reader *r = nullptr;
+  Viewer *v = nullptr;
+  
   try {
+    cf = new ClassFile();
+    r = new Reader(cf, Utils::Flags::options.kFILE);
+    v = new Viewer(cf, r->fname);
     r->readClassFile();
     if (Utils::Flags::options.kJSON) {
       dumpJsonFile(cf, r->fname);
@@ -35,7 +38,7 @@ int main(const int argc, const char **argv) {
     if (Utils::Flags::options.kVERBOSE) {
       std::cout << "\tA exception happened\n";
     }
-    std::cerr << "Error Code: " << e.errorCode() << "\nMessage: " << e.what()
+    std::cout << "Error Code: " << e.errorCode() << "\nMessage: " << e.what()
               << "\n";
     return EXIT_FAILURE;
   }
