@@ -21,7 +21,8 @@
 #include "viewer.h"
 
 namespace Instructions {
-int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v, const bool &wide) {
+int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
+                  const bool &wide) {
   auto opcode = **code_it;
   auto delta_code = 0;
   Instruction *i = nullptr;
@@ -457,13 +458,13 @@ int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v, c
     }
     case Opcodes::kGOTO: {
       i = new Misc::Goto();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kGOTO_W: {
       i = new Misc::GotoWide();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
@@ -559,97 +560,97 @@ int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v, c
     }
     case Opcodes::kIF_ACMPEQ: {
       i = new Branch::RefCompareEqual();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIF_ACMPNE: {
       i = new Branch::RefCompareNotEqual();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIF_ICMPEQ: {
       i = new Branch::IntegerCompareEqual();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIF_ICMPGE: {
       i = new Branch::IntegerCompareGreaterEqual();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIF_ICMPGT: {
       i = new Branch::IntegerCompareGreaterThan();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIF_ICMPLE: {
       i = new Branch::IntegerCompareLessEqual();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIF_ICMPLT: {
       i = new Branch::IntegerCompareLessThan();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIF_ICMPNE: {
       i = new Branch::IntegerCompareNotEqual();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIFEQ: {
       i = new Branch::EqualZero();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIFGE: {
       i = new Branch::GreaterEqualZero();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIFGT: {
       i = new Branch::GreaterThanZero();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIFLE: {
       i = new Branch::LessEqualZero();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIFLT: {
       i = new Branch::LessThanZero();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIFNE: {
       i = new Branch::NotEqualZero();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIFNONNULL: {
       i = new Branch::NonNull();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
     case Opcodes::kIFNULL: {
       i = new Branch::RefNull();
-      // auto offset = 
+      // auto offset =
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }

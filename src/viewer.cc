@@ -377,7 +377,8 @@ void Viewer::printConstantPoolInfo(const int &index) {
   }
 }
 
-std::wstring Viewer::getBytecodeOperandString(const int &index, const bool &putdot) {
+std::wstring Viewer::getBytecodeOperandString(const int &index,
+                                              const bool &putdot) {
   auto cpi = this->classfile->constant_pool[index];
   std::wstringstream ss;
   switch (cpi.base->tag) {
@@ -385,7 +386,8 @@ std::wstring Viewer::getBytecodeOperandString(const int &index, const bool &putd
     namespace info = Utils::Infos;
     case cp::kCONSTANT_CLASS: {
       auto kclass_info = cpi.getClass<info::CONSTANT_Class_info>();
-      ss << this->getBytecodeOperandString(kclass_info->name_index - 1) << (putdot ? "." : "");
+      ss << this->getBytecodeOperandString(kclass_info->name_index - 1)
+         << (putdot ? "." : "");
       break;
     }
     case cp::kCONSTANT_FIELDREF: {

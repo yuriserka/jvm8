@@ -13,7 +13,8 @@ class LoadFromArray : public Instruction {
  public:
   LoadFromArray() : Instruction(Opcodes::kCALOAD) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
+  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+                        int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
@@ -23,7 +24,8 @@ class StoreIntoArray : public Instruction {
  public:
   StoreIntoArray() : Instruction(Opcodes::kCASTORE) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code, const bool &wide) override {
+  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+                        int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
