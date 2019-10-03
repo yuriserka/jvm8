@@ -16,6 +16,9 @@ class Instruction {
   virtual int toBytecode(std::vector<Utils::Types::u1>::iterator *, int *,
                          const bool &) = 0;
 
+  virtual std::vector<std::string> toBytecode_json(std::vector<Utils::Types::u1>::iterator *, int *,
+                         int *, const bool &) = 0;
+
   const Utils::Types::u1 opcode;
 };
 }  // namespace Instructions

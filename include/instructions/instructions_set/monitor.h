@@ -18,6 +18,12 @@ class Enter : public Instruction {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
+  }
 };
 
 class Exit : public Instruction {
@@ -28,6 +34,12 @@ class Exit : public Instruction {
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
   }
 };
 }  // namespace Monitor

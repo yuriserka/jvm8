@@ -21,6 +21,14 @@ class LoadCat1 : public Instruction {
     *delta_code = 1;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = +(*++*code_it);
+    *delta_code = 1;
+    return {};
+  }
 };
 
 class LoadCat1Wide : public Instruction {
@@ -35,6 +43,14 @@ class LoadCat1Wide : public Instruction {
     *delta_code = 2;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {};
+  }
 };
 
 class LoadCat2 : public Instruction {
@@ -48,6 +64,14 @@ class LoadCat2 : public Instruction {
               << " ";
     *delta_code = 2;
     return kpool_index;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {};
   }
 };
 }  // namespace ConstantPool

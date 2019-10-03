@@ -23,6 +23,14 @@ class Dynamic : public Instruction {
     *delta_code = 4;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 4;
+    return {std::to_string(+(*++*code_it)), std::to_string(+(*++*code_it))};
+  }
 };
 
 class Interface : public Instruction {
@@ -39,6 +47,14 @@ class Interface : public Instruction {
     *delta_code = 4;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 4;
+    return {std::to_string(+(*++*code_it)), std::to_string(+(*++*code_it))};
+  }
 };
 
 class Especial : public Instruction {
@@ -52,6 +68,14 @@ class Especial : public Instruction {
               << " ";
     *delta_code = 2;
     return kpool_index;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {};
   }
 };
 
@@ -67,6 +91,14 @@ class Static : public Instruction {
     *delta_code = 2;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {};
+  }
 };
 
 class Virtual : public Instruction {
@@ -80,6 +112,14 @@ class Virtual : public Instruction {
               << " ";
     *delta_code = 2;
     return kpool_index;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {};
   }
 };
 }  // namespace Invokes

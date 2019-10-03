@@ -20,6 +20,14 @@ class JumpSubRoutine : public Instruction {
     *delta_code = 2;
     return 0;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    auto offset = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {std::to_string(+offset)};
+  }
 };
 
 class JumpSubRoutineWide : public Instruction {
@@ -33,6 +41,14 @@ class JumpSubRoutineWide : public Instruction {
     std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
     *delta_code = 4;
     return 0;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    auto offset = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {std::to_string(+offset)};
   }
 };
 }  // namespace Jump

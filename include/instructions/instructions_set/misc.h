@@ -17,6 +17,12 @@ class Breakpoint : public Instruction {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
+  }
 };
 
 class Checkcast : public Instruction {
@@ -31,6 +37,14 @@ class Checkcast : public Instruction {
     *delta_code = 2;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {};
+  }
 };
 
 class Dup : public Instruction {
@@ -41,6 +55,12 @@ class Dup : public Instruction {
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
   }
 };
 
@@ -53,6 +73,12 @@ class DupX1 : public Instruction {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
+  }
 };
 
 class DupX2 : public Instruction {
@@ -63,6 +89,12 @@ class DupX2 : public Instruction {
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
   }
 };
 
@@ -75,6 +107,12 @@ class Dup2 : public Instruction {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
+  }
 };
 
 class Dup2X1 : public Instruction {
@@ -86,6 +124,12 @@ class Dup2X1 : public Instruction {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
+  }
 };
 
 class Dup2X2 : public Instruction {
@@ -96,6 +140,12 @@ class Dup2X2 : public Instruction {
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
   }
 };
 
@@ -111,6 +161,14 @@ class GetField : public Instruction {
     *delta_code = 2;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {};
+  }
 };
 
 class GetStatic : public Instruction {
@@ -125,6 +183,14 @@ class GetStatic : public Instruction {
     *delta_code = 2;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {};
+  }
 };
 
 class Goto : public Instruction {
@@ -138,6 +204,14 @@ class Goto : public Instruction {
               << "\n";
     *delta_code = 2;
     return branchoffset;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {};
   }
 };
 
@@ -154,6 +228,15 @@ class GotoWide : public Instruction {
     *delta_code = 4;
     return branchoffset;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 24) | (*++*code_it << 16) | (*++*code_it << 8) |
+           *++*code_it;
+    *delta_code = 4;
+    return {};
+  }
 };
 
 class InstanceOf : public Instruction {
@@ -168,6 +251,14 @@ class InstanceOf : public Instruction {
     *delta_code = 2;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+  }
 };
 
 /**
@@ -181,6 +272,12 @@ class LookupSwitch : public Instruction {
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
   }
 };
 
@@ -197,6 +294,14 @@ class MultiDimArray : public Instruction {
     *delta_code = 3;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 3;
+    return {std::to_string(+(*++*code_it))};
+  }
 };
 
 class New : public Instruction {
@@ -211,6 +316,14 @@ class New : public Instruction {
     *delta_code = 2;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {};
+  }
 };
 
 class NewArray : public Instruction {
@@ -220,38 +333,43 @@ class NewArray : public Instruction {
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto atype = *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << +atype << " ";
-    switch (+atype) {
-      case kT_BOOLEAN:
-        std::cout << "(boolean)\n";
-        break;
-      case kT_CHAR:
-        std::cout << "(char)\n";
-        break;
-      case kT_FLOAT:
-        std::cout << "(float)\n";
-        break;
-      case kT_DOUBLE:
-        std::cout << "(double)\n";
-        break;
-      case kT_BYTE:
-        std::cout << "(byte)\n";
-        break;
-      case kT_SHORT:
-        std::cout << "(short)\n";
-        break;
-      case kT_INT:
-        std::cout << "(int)\n";
-        break;
-      case kT_LONG:
-        std::cout << "(long)\n";
-        break;
-    }
+    std::cout << Opcodes::getMnemonic(this->opcode) << " " << +atype << " "
+              << this->getType(+atype);
     *delta_code = 1;
     return 0;
   }
 
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    auto atype = *++*code_it;
+    *delta_code = 1;
+    return {this->getType(+atype)};
+  }
+
  private:
+  std::string getType(const int &type) {
+    switch (type) {
+      case kT_BOOLEAN:
+        return "(boolean)\n";
+      case kT_CHAR:
+        return "(char)\n";
+      case kT_FLOAT:
+        return "(float)\n";
+      case kT_DOUBLE:
+        return "(double)\n";
+      case kT_BYTE:
+        return "(byte)\n";
+      case kT_SHORT:
+        return "(short)\n";
+      case kT_INT:
+        return "(int)\n";
+      case kT_LONG:
+        return "(long)\n";
+    }
+    return "\0";
+  }
+
   enum Types {
     kT_BOOLEAN = 4,
     kT_CHAR = 5,
@@ -273,6 +391,12 @@ class Nop : public Instruction {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
+  }
 };
 
 class Pop : public Instruction {
@@ -284,6 +408,12 @@ class Pop : public Instruction {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
+  }
 };
 
 class Pop2 : public Instruction {
@@ -294,6 +424,12 @@ class Pop2 : public Instruction {
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
   }
 };
 
@@ -309,6 +445,14 @@ class PutField : public Instruction {
     *delta_code = 2;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {};
+  }
 };
 
 class PutStatic : public Instruction {
@@ -323,6 +467,14 @@ class PutStatic : public Instruction {
     *delta_code = 2;
     return kpool_index;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    *ret = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {};
+  }
 };
 
 class Ret : public Instruction {
@@ -336,6 +488,14 @@ class Ret : public Instruction {
     *delta_code = 1;
     return 0;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    auto index = *++*code_it;
+    *delta_code = 1;
+    return {std::to_string(+index)};
+  }
 };
 
 class Return : public Instruction {
@@ -347,6 +507,12 @@ class Return : public Instruction {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
+  }
 };
 
 class Swap : public Instruction {
@@ -357,6 +523,12 @@ class Swap : public Instruction {
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
   }
 };
 
@@ -372,6 +544,12 @@ class TableSwitch : public Instruction {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
   }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
+  }
 };
 
 /**
@@ -385,6 +563,12 @@ class Wide : public Instruction {
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
     return 0;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
   }
 };
 }  // namespace Misc

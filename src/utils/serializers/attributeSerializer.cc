@@ -2,6 +2,7 @@
 
 #include "instructions/opcodes.h"
 #include "utils/serializers/infoSerializer.h"
+#include "utils/serializers/instructionSerializer.h"
 #include "utils/utf8.h"
 
 namespace Utils {
@@ -129,17 +130,21 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
       // TODO(yuriserka):
       // preencher os argumentos que a instrução precisa de forma correta
       // será se isso realmente vale a pena tentar???? (PENSAR MELHOR)
-      // int i = 0;
-      // auto codeArr = code_attr->code;
-      // for (auto it = codeArr.begin(); it != codeArr.end(); ++it) {
-      //   // clang-format off
-      //   (*j).at("/specific info/bytecode"_json_pointer)[i] = {
-      //     {"code position", i},
-      //     {"mnemonic", Instructions::Opcodes::getMnemonic(*it)},
-      //     {"arguments", json::array()}
-      //   };
-      //   // clang-format on
-      // }
+      int i = 0;
+      auto codeArr = code_attr->code;
+      auto is = Instructions::InstructionSerializer(this->cf, codeArr);
+      for (auto it = codeArr.begin(); it != codeArr.end(); ++it) {
+        // clang-format off
+        (*j).at("/specific info/bytecode"_json_pointer)[i] = {
+          {"code position", i},
+          {"mnemonic", Instructions::Opcodes::getMnemonic(*it)},
+          {"arguments", json::array()}
+        };
+
+        auto delta_code = is.to_json(j.at("/arguments"_json_pointer), &it);
+        i += delta_code;
+        // clang-format on
+      }
 
       for (auto i = 0; i < code_attr->exception_table_length; ++i) {
         auto except = code_attr->exception_table[i];
