@@ -18,7 +18,7 @@ int main(const int argc, const char **argv) {
   ClassFile *cf = nullptr;
   Reader *r = nullptr;
   Viewer *v = nullptr;
-  
+
   try {
     cf = new ClassFile();
     r = new Reader(cf, Utils::Flags::options.kFILE);

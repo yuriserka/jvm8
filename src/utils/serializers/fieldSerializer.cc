@@ -13,13 +13,11 @@ static void create_json_str(json *j, const field_info &field) {
   // clang-format off
   *j = {
     {"name", {
-        {"cp_entry_index", field.name_index},
-        {"info", {}}
+        {"cp_entry_index", field.name_index}
       }
     },
     {"descriptor", {
-        {"cp_entry_index", field.descriptor_index},
-        {"info", {}}
+        {"cp_entry_index", field.descriptor_index}
       }
     },
     {"access flags", {
@@ -36,9 +34,8 @@ void FieldSerializer::to_json(json *j, const int &fieldindex) {
   auto is = ConstantPoolSerializer(this->cf);
   field_info field = this->cf->fields[fieldindex];
   create_json_str(j, field);
-  is.to_json(&(*j).at("/name/info"_json_pointer), field.name_index - 1);
-  is.to_json(&(*j).at("/descriptor/info"_json_pointer),
-             field.descriptor_index - 1);
+  is.to_json(&(*j).at("/name"_json_pointer), field.name_index - 1);
+  is.to_json(&(*j).at("/descriptor"_json_pointer), field.descriptor_index - 1);
   auto as = Utils::Attributes::AttributeSerializer(this->cf, field.attributes);
   for (auto i = 0; i < field.attributes_count; ++i) {
     as.to_json(&(*j).at("/attributes"_json_pointer)[i], i);

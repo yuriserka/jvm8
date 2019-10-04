@@ -11,11 +11,7 @@ static void create_json_str(json *j, const Code_attribute *code_attr) {
   // clang-format off
   *j = {
     {"generic info", {
-        {"name", {
-            {"cp_entry_index", code_attr->attribute_name_index},
-            {"info", {}}
-          }
-        },
+        {"name", {}},
         {"length", code_attr->attribute_length}
       }
     },
@@ -38,20 +34,12 @@ static void create_json_str(json *j, const ConstantValue_attribute *kval_attr) {
   // clang-format off
   *j = {
     {"generic info", {
-        {"name", {
-            {"cp_entry_index", kval_attr->attribute_name_index},
-            {"info", {}}
-          }
-        },
+        {"name", {}},
         {"length", kval_attr->attribute_length}
       }
     },
     {"specific info", {
-          {"constant value", {
-            {"cp_entry_index", kval_attr->constantvalue_index},
-            {"info", {}}
-          }
-        }
+          {"constant value", {}}
       }
     },
   };
@@ -69,11 +57,7 @@ static void create_json_str(json *j,
   // clang-format off
   *j = {
     {"generic info", {
-        {"name", {
-            {"cp_entry_index", lnt_attr->attribute_name_index},
-            {"info", {}}
-          }
-        },
+        {"name", {}},
         {"length", lnt_attr->attribute_length}
       }
     },
@@ -90,20 +74,12 @@ static void create_json_str(json *j,
   // clang-format off
   *j = {
     {"generic info", {
-        {"name", {
-            {"cp_entry_index", sourcefile_attr->attribute_name_index},
-            {"info", {}}
-          }
-        },
+        {"name", {}},
         {"length", sourcefile_attr->attribute_length}
       }
     },
     {"specific info", {
-        {"source file" , {
-            {"cp_entry_index", sourcefile_attr->sourcefile_index},
-            {"info", {}}
-          }
-        }
+        {"source file", {}}
       }
     },
   };
@@ -124,26 +100,26 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
     case kCODE: {
       auto code_attr = attr.getClass<Code_attribute>();
       create_json_str(j, code_attr);
-      is.to_json(&(*j).at("/generic info/name/info"_json_pointer),
+      is.to_json(&(*j).at("/generic info/name"_json_pointer),
                  code_attr->attribute_name_index - 1);
 
-      // TODO(yuriserka):
-      // preencher os argumentos que a instrução precisa de forma correta
-      // será se isso realmente vale a pena tentar???? (PENSAR MELHOR)
-      int i = 0;
+      int i = 0, count = 0;
       auto codeArr = code_attr->code;
       auto is = Instructions::InstructionSerializer(this->cf, codeArr);
-      for (auto it = codeArr.begin(); it != codeArr.end(); ++it) {
+      for (auto it = codeArr.begin(); it != codeArr.end(); ++it, ++count) {
         // clang-format off
-        (*j).at("/specific info/bytecode"_json_pointer)[i] = {
+        (*j).at("/specific info/bytecode"_json_pointer)[count] = {
           {"code position", i},
           {"mnemonic", Instructions::Opcodes::getMnemonic(*it)},
           {"arguments", json::array()}
         };
-
-        auto delta_code = is.to_json(j.at("/arguments"_json_pointer), &it);
-        i += delta_code;
         // clang-format on
+
+        auto delta_code = is.to_json(
+            &(*j).at("/specific info/bytecode"_json_pointer)[count].at(
+                "/arguments"_json_pointer),
+            &it);
+        i += delta_code;
       }
 
       for (auto i = 0; i < code_attr->exception_table_length; ++i) {
@@ -169,9 +145,9 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
     case kCONSTANTVALUE: {
       auto kval_attr = attr.getClass<ConstantValue_attribute>();
       create_json_str(j, kval_attr);
-      is.to_json(&(*j).at("/generic info/name/info"_json_pointer),
+      is.to_json(&(*j).at("/generic info/name"_json_pointer),
                  kval_attr->attribute_name_index - 1);
-      is.to_json(&(*j).at("/specific info/constant value/info"_json_pointer),
+      is.to_json(&(*j).at("/specific info/constant value"_json_pointer),
                  kval_attr->constantvalue_index - 1);
       break;
     }
@@ -184,7 +160,7 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
     case kLINENUMBERTABLE: {
       auto lnt_attr = attr.getClass<LineNumberTable_attribute>();
       create_json_str(j, lnt_attr);
-      is.to_json(&(*j).at("/generic info/name/info"_json_pointer),
+      is.to_json(&(*j).at("/generic info/name"_json_pointer),
                  lnt_attr->attribute_name_index - 1);
       for (auto i = 0; i < lnt_attr->line_number_table_length; ++i) {
         auto lnt_info = lnt_attr->line_number_table[i];
@@ -203,9 +179,9 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
     case kSOURCEFILE: {
       auto sourcefile_attr = attr.getClass<SourceFile_attribute>();
       create_json_str(j, sourcefile_attr);
-      is.to_json(&(*j).at("/generic info/name/info"_json_pointer),
+      is.to_json(&(*j).at("/generic info/name"_json_pointer),
                  sourcefile_attr->attribute_name_index - 1);
-      is.to_json(&(*j).at("/specific info/source file/info"_json_pointer),
+      is.to_json(&(*j).at("/specific info/source file"_json_pointer),
                  sourcefile_attr->sourcefile_index - 1);
     }
   }

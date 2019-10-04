@@ -1,6 +1,7 @@
 #ifndef INCLUDE_UTILS_SERIALIZERS_INSTRUCTIONSERIALIZER_H_
 #define INCLUDE_UTILS_SERIALIZERS_INSTRUCTIONSERIALIZER_H_
 
+#include <vector>
 #include "classfile.h"
 #include "utils/serializers/infoSerializer.h"
 
@@ -24,7 +25,7 @@ class InstructionSerializer {
  private:
   const ClassFile *cf;
   std::vector<Utils::Types::u1> code_array;
-  const Utils::Infos::ConstantPoolSerializer *kpool_serializer;
+  Utils::Infos::ConstantPoolSerializer *kpool_serializer;
 };
 }  // namespace Instructions
 

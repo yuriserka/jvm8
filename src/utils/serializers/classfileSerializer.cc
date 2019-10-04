@@ -93,7 +93,8 @@ void ClassFileSerializer::writeInterfaces(json *j) {
 
   auto kpoolserializer = Utils::Infos::ConstantPoolSerializer(this->cf);
   for (auto i = 0; i < this->cf->interfaces_count; ++i) {
-    kpoolserializer.to_json(&(*j).at("entries")[i], this->cf->interfaces[i]);
+    kpoolserializer.to_json(&(*j).at("entries")[i],
+                            this->cf->interfaces[i] - 1);
   }
 }
 
@@ -133,9 +134,9 @@ void ClassFileSerializer::writeAttributes(json *j) {
   };
   // clang-format on
 
-  auto as =
+  auto aserializer =
       Utils::Attributes::AttributeSerializer(this->cf, this->cf->attributes);
   for (auto i = 0; i < this->cf->attributes_count; ++i) {
-    as.to_json(&(*j).at("entries")[i], i);
+    aserializer.to_json(&(*j).at("entries")[i], i);
   }
 }
