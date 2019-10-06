@@ -1,20 +1,20 @@
 #include "utils/serializers/instructionSerializer.h"
 
-#include "instructions/instructions_set/base.h"
-#include "instructions/instructions_set/branch.h"
-#include "instructions/instructions_set/byte.h"
-#include "instructions/instructions_set/char.h"
-#include "instructions/instructions_set/constant_pool.h"
-#include "instructions/instructions_set/double.h"
-#include "instructions/instructions_set/float.h"
-#include "instructions/instructions_set/integer.h"
-#include "instructions/instructions_set/invokes.h"
-#include "instructions/instructions_set/jump.h"
-#include "instructions/instructions_set/long.h"
-#include "instructions/instructions_set/misc.h"
-#include "instructions/instructions_set/monitor.h"
-#include "instructions/instructions_set/reference.h"
-#include "instructions/instructions_set/short.h"
+#include "instructions/instruction_set/base.h"
+#include "instructions/instruction_set/branch.h"
+#include "instructions/instruction_set/byte.h"
+#include "instructions/instruction_set/char.h"
+#include "instructions/instruction_set/constant_pool.h"
+#include "instructions/instruction_set/double.h"
+#include "instructions/instruction_set/float.h"
+#include "instructions/instruction_set/integer.h"
+#include "instructions/instruction_set/invokes.h"
+#include "instructions/instruction_set/jump.h"
+#include "instructions/instruction_set/long.h"
+#include "instructions/instruction_set/misc.h"
+#include "instructions/instruction_set/monitor.h"
+#include "instructions/instruction_set/reference.h"
+#include "instructions/instruction_set/short.h"
 #include "instructions/opcodes.h"
 #include "utils/nlohmann_json.hpp"
 #include "utils/utf8.h"
@@ -633,17 +633,15 @@ int InstructionSerializer::to_json(
     }
     case Opcodes::kGOTO: {
       i = new Misc::Goto();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kGOTO_W: {
       i = new Misc::GotoWide();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
@@ -775,129 +773,113 @@ int InstructionSerializer::to_json(
     }
     case Opcodes::kIF_ACMPEQ: {
       i = new Branch::RefCompareEqual();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIF_ACMPNE: {
       i = new Branch::RefCompareNotEqual();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIF_ICMPEQ: {
       i = new Branch::IntegerCompareEqual();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIF_ICMPGE: {
       i = new Branch::IntegerCompareGreaterEqual();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIF_ICMPGT: {
       i = new Branch::IntegerCompareGreaterThan();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIF_ICMPLE: {
       i = new Branch::IntegerCompareLessEqual();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIF_ICMPLT: {
       i = new Branch::IntegerCompareLessThan();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIF_ICMPNE: {
       i = new Branch::IntegerCompareNotEqual();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIFEQ: {
       i = new Branch::EqualZero();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIFGE: {
       i = new Branch::GreaterEqualZero();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIFGT: {
       i = new Branch::GreaterThanZero();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIFLE: {
       i = new Branch::LessEqualZero();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIFLT: {
       i = new Branch::LessThanZero();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIFNE: {
       i = new Branch::NotEqualZero();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIFNONNULL: {
       i = new Branch::NonNull();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }
     case Opcodes::kIFNULL: {
       i = new Branch::RefNull();
-      // auto offset =
       auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+          i->toBytecode_json(code_it, &delta_code, nullptr, wide);
       *j = intern_args;
       break;
     }

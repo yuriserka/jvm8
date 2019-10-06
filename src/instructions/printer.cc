@@ -1,28 +1,30 @@
 #include "instructions/printer.h"
 
 #include <iostream>
-#include "instructions/instructions_set/base.h"
-#include "instructions/instructions_set/branch.h"
-#include "instructions/instructions_set/byte.h"
-#include "instructions/instructions_set/char.h"
-#include "instructions/instructions_set/constant_pool.h"
-#include "instructions/instructions_set/double.h"
-#include "instructions/instructions_set/float.h"
-#include "instructions/instructions_set/integer.h"
-#include "instructions/instructions_set/invokes.h"
-#include "instructions/instructions_set/jump.h"
-#include "instructions/instructions_set/long.h"
-#include "instructions/instructions_set/misc.h"
-#include "instructions/instructions_set/monitor.h"
-#include "instructions/instructions_set/reference.h"
-#include "instructions/instructions_set/short.h"
+#include "instructions/instruction_set/base.h"
+#include "instructions/instruction_set/branch.h"
+#include "instructions/instruction_set/byte.h"
+#include "instructions/instruction_set/char.h"
+#include "instructions/instruction_set/constant_pool.h"
+#include "instructions/instruction_set/double.h"
+#include "instructions/instruction_set/float.h"
+#include "instructions/instruction_set/integer.h"
+#include "instructions/instruction_set/invokes.h"
+#include "instructions/instruction_set/jump.h"
+#include "instructions/instruction_set/long.h"
+#include "instructions/instruction_set/misc.h"
+#include "instructions/instruction_set/monitor.h"
+#include "instructions/instruction_set/reference.h"
+#include "instructions/instruction_set/short.h"
 #include "instructions/opcodes.h"
 #include "utils/utf8.h"
 #include "viewer.h"
 
+static std::ios state(NULL);
+
 namespace Instructions {
-int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
-                  const bool &wide) {
+void printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
+                   int *code_index, const bool &wide) {
   auto opcode = **code_it;
   auto delta_code = 0;
   Instruction *i = nullptr;
@@ -458,14 +460,21 @@ int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
     }
     case Opcodes::kGOTO: {
       i = new Misc::Goto();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
+
       break;
     }
     case Opcodes::kGOTO_W: {
       i = new Misc::GotoWide();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kI2B: {
@@ -560,98 +569,146 @@ int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
     }
     case Opcodes::kIF_ACMPEQ: {
       i = new Branch::RefCompareEqual();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIF_ACMPNE: {
       i = new Branch::RefCompareNotEqual();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIF_ICMPEQ: {
       i = new Branch::IntegerCompareEqual();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIF_ICMPGE: {
       i = new Branch::IntegerCompareGreaterEqual();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIF_ICMPGT: {
       i = new Branch::IntegerCompareGreaterThan();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIF_ICMPLE: {
       i = new Branch::IntegerCompareLessEqual();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIF_ICMPLT: {
       i = new Branch::IntegerCompareLessThan();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIF_ICMPNE: {
       i = new Branch::IntegerCompareNotEqual();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIFEQ: {
       i = new Branch::EqualZero();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIFGE: {
       i = new Branch::GreaterEqualZero();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIFGT: {
       i = new Branch::GreaterThanZero();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIFLE: {
       i = new Branch::LessEqualZero();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIFLT: {
       i = new Branch::LessThanZero();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIFNE: {
       i = new Branch::NotEqualZero();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIFNONNULL: {
       i = new Branch::NonNull();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIFNULL: {
       i = new Branch::RefNull();
-      // auto offset =
-      i->toBytecode(code_it, &delta_code, wide);
+      auto offset = i->toBytecode(code_it, &delta_code, wide);
+      state.copyfmt(std::cout);
+      std::cout << static_cast<int>(char(offset + *code_index)) << " ("
+                << std::showpos << static_cast<int>(char(offset)) << ")\n";
+      std::cout.copyfmt(state);
       break;
     }
     case Opcodes::kIINC: {
@@ -1085,11 +1142,11 @@ int printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
     case Opcodes::kWIDE: {
       // i = new Misc::Wide();
       // i->toBytecode(code_it, &delta_code, wide);
-      printBytecode(++code_it, v, true);
+      printBytecode(++code_it, v, &++*code_index, true);
       break;
     }
   }
   if (i) delete i;
-  return 1 + delta_code;
+  *code_index += 1 + delta_code;
 }
 }  // namespace Instructions

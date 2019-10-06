@@ -233,7 +233,7 @@ void Reader::readConstantPoolInfo() {
           constpool->setBase<info::CONSTANT_Methodref_info>(tag);
         } else if (kmethodhandler_info->reference_kind == 6 ||
                    kmethodhandler_info->reference_kind == 7) {
-          if (this->classfile->major_version < Utils::Versions::Java8) {
+          if (this->classfile->major_version >= Utils::Versions::Java8) {
             constpool->setBase<info::CONSTANT_Methodref_info>(tag);
           }
         } else {
@@ -623,9 +623,29 @@ void Reader::readAttributesInfo(
             Utils::ConstantPool::kCONSTANT_UTF8);
         break;
       }
+      case attrs::kINNERCLASS: {
+        auto innerclass_attr =
+            attr->setBase<attrs::InnerClasses_attribute>(nameidx, attrlen);
+        this->readBytes(&innerclass_attr->number_of_classes);
+        innerclass_attr->classes.resize(innerclass_attr->number_of_classes);
+        for (auto i = 0; i < innerclass_attr->number_of_classes; ++i) {
+          innerclass_attr->classes[i] = innerClasses_info();
+          auto inner_info = &innerclass_attr->classes[i];
+          this->readBytes(&inner_info->inner_class_info_index);
+          this->readBytes(&inner_info->outer_class_info_index);
+          this->readBytes(&inner_info->inner_name_index);
+          this->readBytes(&inner_info->inner_class_access_flags);
+        }
+        break;
+      }
       case attrs::kINVALID: {
         if (Utils::Flags::options.kVERBOSE) {
           std::wcout << "skipped attribute " << attrName.toString() << "\n";
+        }
+        attr->setBase<attrs::NotImplemented>(nameidx, attrlen);
+        for (size_t i = 0; i < attrlen; ++i) {
+          Utils::Types::u1 byte;
+          this->readBytes(&byte);
         }
         break;
       }

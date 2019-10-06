@@ -67,6 +67,18 @@ class Viewer {
                         std::vector<std::string> (*getAccessTypeFunc)(
                             const Utils::Types::u2 &accessType));
 
+  void printTable(const std::vector<std::string> vars,
+                  Utils::Attributes::InnerClasses_attribute *innerclass_attr,
+                  const int &depth);
+
+  void printTable(const std::vector<std::string> vars,
+                  Utils::Attributes::LineNumberTable_attribute *lnt_attr,
+                  const int &depth);
+
+  void printTable(const std::vector<std::string> vars,
+                  Utils::Attributes::Code_attribute *code_attr,
+                  const int &depth);
+
   std::string classname;
   const ClassFile *classfile;
 };

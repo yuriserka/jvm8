@@ -70,6 +70,8 @@ std::vector<std::string> getClassAccessType(const Utils::Types::u2 &accessType);
 std::vector<std::string> getFieldAccessType(const Utils::Types::u2 &accessType);
 std::vector<std::string> getMethodAccessType(
     const Utils::Types::u2 &accessType);
+std::vector<std::string> getNestedClassAccessType(
+    const Utils::Types::u2 &accessType);
 }  // namespace Access
 }  // namespace Utils
 

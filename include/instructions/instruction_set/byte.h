@@ -4,8 +4,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "instructions/instructions_set/base.h"
+#include "instructions/instruction_set/base.h"
 #include "instructions/opcodes.h"
+#include "utils/num2str.h"
 
 namespace Instructions {
 namespace Byte {
@@ -50,7 +51,8 @@ class Push : public Instruction {
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto byte = *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << +byte << "\n";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " "
+              << static_cast<int>(char(byte)) << "\n";
     *delta_code = 1;
     return 0;
   }
@@ -60,7 +62,7 @@ class Push : public Instruction {
       int *ret, const bool &wide) {
     auto byte = *++*code_it;
     *delta_code = 1;
-    return {std::to_string(+byte)};
+    return {Utils::to_string(static_cast<int>(char(byte)))};
   }
 };
 }  // namespace Byte

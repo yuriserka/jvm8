@@ -99,6 +99,12 @@ void ClassFile::deleteAttributes(
       case attrs::kSOURCEFILE:
         attr.deleteclass<attrs::SourceFile_attribute>();
         break;
+      case attrs::kINNERCLASS:
+        attr.deleteclass<attrs::InnerClasses_attribute>();
+        break;
+      case attrs::kINVALID:
+        attr.deleteclass<attrs::NotImplemented>();
+        break;
     }
   }
 }

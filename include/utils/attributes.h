@@ -50,7 +50,7 @@ struct annotation {
   struct annotation_info {
     types::u2 element_name_index;
     element_value *value;
-  };
+  } info;
   std::vector<annotation_info> element_value_pairs;
 };
 
@@ -102,7 +102,8 @@ enum attr_types {
   kEXCEPTIONS,
   kLINENUMBERTABLE,
   kLOCALVARIABLETABLE,
-  kSOURCEFILE
+  kSOURCEFILE,
+  kINNERCLASS,
 };
 
 int getAttributeType(const std::wstring &attrname);
@@ -148,6 +149,14 @@ class attribute_info {
   }
 
   BaseAttribute *base;
+};
+
+class NotImplemented : public BaseAttribute {
+ public:
+  explicit NotImplemented(const types::u1 &nameIdx, const types::u4 &attrLen)
+      : BaseAttribute(nameIdx, attrLen) {}
+
+  ~NotImplemented() = default;
 };
 
 class ConstantValue_attribute : public BaseAttribute {
@@ -198,8 +207,6 @@ class InnerClasses_attribute : public BaseAttribute {
 
   ~InnerClasses_attribute() = default;
 
-  types::u2 attribute_name_index;
-  types::u4 attribute_length;
   types::u2 number_of_classes;
   std::vector<innerClasses_info> classes;
 };

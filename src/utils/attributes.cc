@@ -12,7 +12,8 @@ int getAttributeType(const std::wstring &attrname) {
       {L"Exceptions", kEXCEPTIONS},
       {L"LineNumberTable", kLINENUMBERTABLE},
       {L"LocalVariableTable", kLOCALVARIABLETABLE},
-      {L"SourceFile", kSOURCEFILE}};
+      {L"SourceFile", kSOURCEFILE},
+      {L"InnerClasses", kINNERCLASS}};
   try {
     auto type = attrTypes.at(attrname);
     return type;

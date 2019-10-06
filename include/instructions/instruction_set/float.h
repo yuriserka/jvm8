@@ -4,8 +4,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "instructions/instructions_set/base.h"
+#include "instructions/instruction_set/base.h"
 #include "instructions/opcodes.h"
+#include "utils/num2str.h"
 
 namespace Instructions {
 namespace Float {
@@ -230,7 +231,7 @@ class Load : public Instruction {
       int *ret, const bool &wide) {
     auto index = *++*code_it;
     *delta_code = 1;
-    return {std::to_string(+index)};
+    return {Utils::to_string(+index)};
   }
 };
 
@@ -387,7 +388,7 @@ class Store : public Instruction {
       int *ret, const bool &wide) {
     auto index = *++*code_it;
     *delta_code = 1;
-    return {std::to_string(+index)};
+    return {Utils::to_string(+index)};
   }
 };
 

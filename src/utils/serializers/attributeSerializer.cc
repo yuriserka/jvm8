@@ -86,6 +86,19 @@ static void create_json_str(json *j,
   // clang-format on
 }
 
+static void create_json_str(json *j, const NotImplemented *not_implemented) {
+  // clang-format off
+  *j = {
+    {"generic info", {
+        {"name", {}},
+        {"length", not_implemented->attribute_length}
+      }
+    },
+    {"specific info", nullptr},
+  };
+  // clang-format on
+}
+
 void AttributeSerializer::to_json(json *j, const int &attrindex) {
   auto is = Utils::Infos::ConstantPoolSerializer(this->cf);
   auto attr = this->attrs[attrindex];
@@ -122,6 +135,7 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
         i += delta_code;
       }
 
+      auto kpool_serializer = Utils::Infos::ConstantPoolSerializer(this->cf);
       for (auto i = 0; i < code_attr->exception_table_length; ++i) {
         auto except = code_attr->exception_table[i];
         // clang-format off
@@ -130,9 +144,14 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
           {"start pc", except.start_pc},
           {"end pc", except.end_pc},
           {"handler pc", except.handler_pc},
-          {"catch type", except.catch_type}
+          {"catch type", {}}
         };
         // clang-format on
+
+        kpool_serializer.to_json(
+            &(*j).at("/specific info/exception table"_json_pointer)[i].at(
+                "/catch type"_json_pointer),
+            except.catch_type - 1);
       }
       auto oldattrs = this->attrs;
       this->attrs = code_attr->attributes;
@@ -172,6 +191,7 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
         };
         // clang-format on
       }
+      break;
     }
     case kLOCALVARIABLETABLE: {
       break;
@@ -183,6 +203,14 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
                  sourcefile_attr->attribute_name_index - 1);
       is.to_json(&(*j).at("/specific info/source file"_json_pointer),
                  sourcefile_attr->sourcefile_index - 1);
+      break;
+    }
+    case kINVALID: {
+      auto not_implemented_attr = attr.getClass<NotImplemented>();
+      create_json_str(j, not_implemented_attr);
+      is.to_json(&(*j).at("/generic info/name"_json_pointer),
+                 not_implemented_attr->attribute_name_index - 1);
+      break;
     }
   }
 }

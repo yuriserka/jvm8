@@ -70,10 +70,12 @@ public class Instrucoes {
         return objs[3];
     }
 
-    // tem que implementar o atributo StackMapTable pra isso funcionar certo.  
-    static void GOTO() {
-        // for (int i = 0; i < 1; i++) continue;
-        // do {} while (false);
+    private final void GOTO() {
+        for (int i = 0; i < 1; i++) continue;
+        do {} while (false);
+        if (professor == null) {
+            nota = -1;
+        }
         return;
     }
 

@@ -4,8 +4,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "instructions/instructions_set/base.h"
+#include "instructions/instruction_set/base.h"
 #include "instructions/opcodes.h"
+#include "utils/num2str.h"
 
 namespace Instructions {
 namespace ConstantPool {

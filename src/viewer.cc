@@ -611,9 +611,9 @@ void Viewer::printAttributesCount(const int &depth, const int &attr_count) {
   std::cout.copyfmt(state);
 }
 
-static void printTable(const std::vector<std::string> vars,
-                       Utils::Attributes::Code_attribute *code_attr,
-                       const int &depth) {
+void Viewer::printTable(const std::vector<std::string> vars,
+                        Utils::Attributes::Code_attribute *code_attr,
+                        const int &depth) {
   state.copyfmt(std::cout);
   std::cout << std::string(depth, '\t') << std::left;
   for (size_t i = 0; i < vars.size(); ++i) {
@@ -626,18 +626,22 @@ static void printTable(const std::vector<std::string> vars,
   for (auto i = 0; i < code_attr->exception_table_length; ++i) {
     auto except = code_attr->exception_table[i];
     state.copyfmt(std::cout);
-    std::cout << std::string(depth, '\t') << std::left << std::setw(5) << i
-              << " | " << std::setw(10) << except.start_pc << " | "
-              << std::setw(13) << except.end_pc << " | " << std::setw(12)
-              << except.handler_pc << " | " << std::setw(12)
-              << except.catch_type << " |" << '\n';
+    std::cout << std::right;
+    std::cout << std::string(depth, '\t') << std::left << std::setw(5) << i;
+
+    std::cout << std::left << " | " << except.start_pc << " | " << except.end_pc
+              << " | " << except.handler_pc << " | ";
+
+    std::cout << "'cp_info #" << except.catch_type << "' ";
+    this->printConstantPoolInfo(except.catch_type - 1);
+    std::cout << " |" << '\n';
     std::cout.copyfmt(state);
   }
 }
 
-static void printTable(const std::vector<std::string> vars,
-                       Utils::Attributes::LineNumberTable_attribute *lnt_attr,
-                       const int &depth) {
+void Viewer::printTable(const std::vector<std::string> vars,
+                        Utils::Attributes::LineNumberTable_attribute *lnt_attr,
+                        const int &depth) {
   state.copyfmt(std::cout);
   std::cout << std::string(depth, '\t') << std::left;
   for (size_t i = 0; i < vars.size(); ++i) {
@@ -657,6 +661,52 @@ static void printTable(const std::vector<std::string> vars,
   }
 }
 
+void Viewer::printTable(
+    const std::vector<std::string> vars,
+    Utils::Attributes::InnerClasses_attribute *innerclass_attr,
+    const int &depth) {
+  state.copyfmt(std::cout);
+  std::cout << std::string(depth, '\t') << std::left;
+  for (size_t i = 0; i < vars.size(); ++i) {
+    auto var = vars[i];
+    std::cout << "[" << var << "] |" << (i < vars.size() - 1 ? " " : "");
+  }
+  std::cout.copyfmt(state);
+
+  std::cout << '\n';
+  for (auto i = 0; i < innerclass_attr->number_of_classes; ++i) {
+    auto innerclass = innerclass_attr->classes[i];
+    state.copyfmt(std::cout);
+    std::cout << std::right;
+    std::cout << std::string(depth, '\t') << std::setw(5) << i;
+
+    std::cout << std::left;
+    std::cout << " | "
+              << "'cp_info #" << innerclass.inner_class_info_index << "' ";
+    this->printConstantPoolInfo(innerclass.inner_class_info_index - 1);
+
+    std::cout << " | "
+              << "'cp_info #" << innerclass.outer_class_info_index << "' ";
+    this->printConstantPoolInfo(innerclass.outer_class_info_index - 1);
+
+    std::cout << " | "
+              << "'cp_info #" << innerclass.inner_name_index << "' ";
+    this->printConstantPoolInfo(innerclass.inner_name_index - 1);
+
+    std::cout << " | " << std::setw(-3) << "0x" << std::setfill('0')
+              << std::setw(4) << std::hex << std::uppercase
+              << innerclass.inner_class_access_flags;
+    std::cout.copyfmt(state);
+    std::cout << " [";
+    auto flags = Utils::Access::getNestedClassAccessType(
+        innerclass.inner_class_access_flags);
+    for (size_t i = 0; i < flags.size(); ++i) {
+      std::cout << flags[i] << (i < flags.size() - 1 ? " " : "");
+    }
+    std::cout << "] |\n";
+  }
+}
+
 void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
                                 const int &index, const int &depth) {
   auto utf8nameindex =
@@ -671,7 +721,7 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
   switch (attrtype) {
     namespace attrs = Utils::Attributes;
     case attrs::kCODE: {
-      auto code_attr = attribute->getClass<Utils::Attributes::Code_attribute>();
+      auto code_attr = attribute->getClass<attrs::Code_attribute>();
       std::cout << std::string(depth + 1, '\t') << "Generic Info: \n";
       std::cout << std::string(depth + 2, '\t')
                 << "Attribute name index: 'cp_info #"
@@ -689,15 +739,14 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
       auto codeArr = code_attr->code;
       for (auto it = codeArr.begin(); it != codeArr.end(); ++it) {
         std::cout << std::string(depth + 3, '\t') << i << ": ";
-        auto delta_code = Instructions::printBytecode(&it, this);
-        i += delta_code;
+        Instructions::printBytecode(&it, this, &i);
       }
 
       std::cout << std::string(depth + 2, '\t') << "Exception table: \n";
       std::vector<std::string> except_vars = {
           "Nr.", "Start PC", "End PC", "Handler PC", "Catch type",
       };
-      printTable(except_vars, code_attr, depth + 3);
+      this->printTable(except_vars, code_attr, depth + 3);
 
       std::cout << std::string(depth + 2, '\t') << "Misc: \n";
       std::cout << std::string(depth + 3, '\t')
@@ -709,8 +758,7 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
       break;
     }
     case attrs::kCONSTANTVALUE: {
-      auto kval_attr =
-          attribute->getClass<Utils::Attributes::ConstantValue_attribute>();
+      auto kval_attr = attribute->getClass<attrs::ConstantValue_attribute>();
       std::cout << std::string(depth + 1, '\t') << "Generic Info: \n";
       std::cout << std::string(depth + 2, '\t')
                 << "Attribute name index: 'cp_info #"
@@ -732,14 +780,27 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
       break;
     }
     case attrs::kDEPRECATED: {
+      auto deprecated_attr = attribute->getClass<attrs::Deprecated_attribute>();
+      std::cout << std::string(depth + 1, '\t') << "Generic Info: \n";
+      std::cout << std::string(depth + 2, '\t')
+                << "Attribute name index: 'cp_info #"
+                << deprecated_attr->attribute_name_index << "' ";
+      std::cout << "<";
+      this->printConstantPoolInfo(deprecated_attr->attribute_name_index - 1);
+      std::cout << ">\n";
+
+      std::cout << std::string(depth + 2, '\t')
+                << "Attribute length: " << deprecated_attr->attribute_length
+                << "\n";
+
+      std::cout << std::string(depth + 1, '\t') << "Specific Info: \n";
       break;
     }
     case attrs::kEXCEPTIONS: {
       break;
     }
     case attrs::kLINENUMBERTABLE: {
-      auto lnt_attr =
-          attribute->getClass<Utils::Attributes::LineNumberTable_attribute>();
+      auto lnt_attr = attribute->getClass<attrs::LineNumberTable_attribute>();
       std::cout << std::string(depth + 1, '\t') << "Generic Info: \n";
       std::cout << std::string(depth + 2, '\t')
                 << "Attribute name index: 'cp_info #"
@@ -753,15 +814,14 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
 
       std::cout << std::string(depth + 1, '\t') << "Specific Info: \n";
       std::vector<std::string> vars = {"Nr.", "Start PC", "Line number"};
-      printTable(vars, lnt_attr, depth + 3);
+      this->printTable(vars, lnt_attr, depth + 3);
       break;
     }
     case attrs::kLOCALVARIABLETABLE: {
       break;
     }
     case attrs::kSOURCEFILE: {
-      auto sourcefile_attr =
-          attribute->getClass<Utils::Attributes::SourceFile_attribute>();
+      auto sourcefile_attr = attribute->getClass<attrs::SourceFile_attribute>();
       std::cout << std::string(depth + 1, '\t') << "Generic Info: \n";
       std::cout << std::string(depth + 2, '\t')
                 << "Attribute name index: 'cp_info #"
@@ -782,6 +842,46 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
       this->printConstantPoolInfo(sourcefile_attr->sourcefile_index - 1);
       std::cout << ">\n";
       break;
+    }
+    case attrs::kINNERCLASS: {
+      auto innerclass_attr =
+          attribute->getClass<attrs::InnerClasses_attribute>();
+      std::cout << std::string(depth + 1, '\t') << "Generic Info: \n";
+      std::cout << std::string(depth + 2, '\t')
+                << "Attribute name index: 'cp_info #"
+                << innerclass_attr->attribute_name_index << "' ";
+      std::cout << "<";
+      this->printConstantPoolInfo(innerclass_attr->attribute_name_index - 1);
+      std::cout << ">\n";
+
+      std::cout << std::string(depth + 2, '\t')
+                << "Attribute length: " << innerclass_attr->attribute_length
+                << "\n";
+
+      std::cout << std::string(depth + 1, '\t') << "Specific Info: \n";
+
+      std::vector<std::string> inner_vars = {
+          "Nr.", "Inner Class", "Outer Class", "Inner Name", "Access Flags",
+      };
+      this->printTable(inner_vars, innerclass_attr, depth + 2);
+      break;
+    }
+    case attrs::kINVALID: {
+      auto not_implemented = attribute->getClass<attrs::NotImplemented>();
+      std::cout << std::string(depth + 1, '\t') << "Generic Info: \n";
+      std::cout << std::string(depth + 2, '\t')
+                << "Attribute name index: 'cp_info #"
+                << not_implemented->attribute_name_index << "' ";
+      std::cout << "<";
+      this->printConstantPoolInfo(not_implemented->attribute_name_index - 1);
+      std::cout << ">\n";
+
+      std::cout << std::string(depth + 2, '\t')
+                << "Attribute length: " << not_implemented->attribute_length
+                << "\n";
+
+      std::cout << std::string(depth + 1, '\t') << "Specific Info: \n";
+      std::cout << std::string(depth + 2, '\t') << "NOT IMPLEMENTED\n";
     }
   }
 }

@@ -5,8 +5,6 @@
 #include "classfile.h"
 #include "utils/serializers/infoSerializer.h"
 
-using nlohmann::json;
-
 namespace Instructions {
 class InstructionSerializer {
  public:

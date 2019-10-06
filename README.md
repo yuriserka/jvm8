@@ -29,7 +29,9 @@ Compile the program normally with `make clean && make` in Linux or for windows u
 mingw32-make.exe clean
 mingw32-make.exe
 ```
-then `gdb --args ./jvm -f ./.javasrc/Caixa.class` and `valgrind -v --leak-check=full ./jvm -f ./.javasrc/Caixa.class`
+then `gdb --args ./jvm -f ./.javasrc/Caixa.class` for debugging or
+```make && valgrind -v --leak-check=full --track-origins=yes --show-leak-kinds=all ./jvm -f ./.javasrc/Excpt.class -v -json```
+for dynamic analysis (only on Linux).
 
 ##### Basic commands
 consult the commands: [GDB Command Line Arguments](http://www.yolinux.com/TUTORIALS/GDB-Commands.html)

@@ -39,6 +39,18 @@ std::map<Utils::Types::u2, std::string> methodAccessNames = {
     {MethodAccess::ACC_STRICT, "strict"},
     {MethodAccess::ACC_SYNTHETIC, "synthetic"}};
 
+std::map<Utils::Types::u2, std::string> nestedAccessNames = {
+    {NestedClassAccess::ACC_PUBLIC, "public"},
+    {NestedClassAccess::ACC_PRIVATE, "private"},
+    {NestedClassAccess::ACC_PROTECTED, "protected"},
+    {NestedClassAccess::ACC_STATIC, "static"},
+    {NestedClassAccess::ACC_FINAL, "final"},
+    {NestedClassAccess::ACC_INTERFACE, "interface"},
+    {NestedClassAccess::ACC_ABSTRACT, "abstract"},
+    {NestedClassAccess::ACC_SYNTHETIC, "synthetic"},
+    {NestedClassAccess::ACC_ANNOTATION, "annotation"},
+    {NestedClassAccess::ACC_ENUM, "enum"}};
+
 std::vector<std::string> getClassAccessType(
     const Utils::Types::u2 &accessType) {
   std::vector<Utils::Types::u2> keys;
@@ -86,6 +98,25 @@ std::vector<std::string> getMethodAccessType(
   for (auto accessFlag : keys) {
     try {
       auto s = methodAccessNames.at(accessType & accessFlag);
+      flagsname.push_back(s);
+    } catch (const std::exception &e) {
+      continue;
+    }
+  }
+  return flagsname;
+}
+
+std::vector<std::string> getNestedClassAccessType(
+    const Utils::Types::u2 &accessType) {
+  std::vector<Utils::Types::u2> keys;
+  for (auto it = nestedAccessNames.begin(); it != nestedAccessNames.end();
+       ++it) {
+    keys.push_back(it->first);
+  }
+  std::vector<std::string> flagsname;
+  for (auto accessFlag : keys) {
+    try {
+      auto s = nestedAccessNames.at(accessType & accessFlag);
       flagsname.push_back(s);
     } catch (const std::exception &e) {
       continue;

@@ -1,17 +1,18 @@
-#ifndef INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_CHAR_H_
-#define INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_CHAR_H_
+#ifndef INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_MONITOR_H_
+#define INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_MONITOR_H_
 
 #include <iostream>
 #include <string>
 #include <vector>
-#include "instructions/instructions_set/base.h"
+#include "instructions/instruction_set/base.h"
 #include "instructions/opcodes.h"
+#include "utils/num2str.h"
 
 namespace Instructions {
-namespace Char {
-class LoadFromArray : public Instruction {
+namespace Monitor {
+class Enter : public Instruction {
  public:
-  LoadFromArray() : Instruction(Opcodes::kCALOAD) {}
+  Enter() : Instruction(Opcodes::kMONITORENTER) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
@@ -26,9 +27,9 @@ class LoadFromArray : public Instruction {
   }
 };
 
-class StoreIntoArray : public Instruction {
+class Exit : public Instruction {
  public:
-  StoreIntoArray() : Instruction(Opcodes::kCASTORE) {}
+  Exit() : Instruction(Opcodes::kMONITOREXIT) {}
 
   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
@@ -42,7 +43,7 @@ class StoreIntoArray : public Instruction {
     return {};
   }
 };
-}  // namespace Char
+}  // namespace Monitor
 }  // namespace Instructions
 
-#endif  // INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_CHAR_H_
+#endif  // INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_MONITOR_H_
