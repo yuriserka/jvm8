@@ -6,7 +6,7 @@
 #include <vector>
 #include "instructions/instruction_set/base.h"
 #include "instructions/opcodes.h"
-#include "utils/num2str.h"
+#include "utils/string.h"
 
 namespace Instructions {
 namespace Branch {
@@ -27,7 +27,7 @@ class RefCompareEqual : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -48,7 +48,7 @@ class RefCompareNotEqual : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -69,7 +69,7 @@ class IntegerCompareEqual : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -90,7 +90,7 @@ class IntegerCompareGreaterEqual : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -111,7 +111,7 @@ class IntegerCompareGreaterThan : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -132,7 +132,7 @@ class IntegerCompareLessEqual : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -153,7 +153,7 @@ class IntegerCompareLessThan : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -174,7 +174,7 @@ class IntegerCompareNotEqual : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -195,7 +195,7 @@ class EqualZero : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -216,7 +216,7 @@ class GreaterEqualZero : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -237,7 +237,7 @@ class GreaterThanZero : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -258,7 +258,7 @@ class LessEqualZero : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -279,7 +279,7 @@ class LessThanZero : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -300,7 +300,7 @@ class NotEqualZero : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -321,7 +321,7 @@ class NonNull : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 
@@ -342,7 +342,7 @@ class RefNull : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
   }
 };
 }  // namespace Branch

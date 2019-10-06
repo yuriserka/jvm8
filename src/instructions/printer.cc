@@ -71,8 +71,8 @@ void printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
     }
     case Opcodes::kANEWARRAY: {
       i = new Reference::NewArray();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx, false) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx, false) << ">\n";
       break;
     }
     case Opcodes::kARETURN: {
@@ -147,8 +147,8 @@ void printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
     }
     case Opcodes::kCHECKCAST: {
       i = new Misc::Checkcast();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kD2F: {
@@ -448,14 +448,14 @@ void printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
     }
     case Opcodes::kGETFIELD: {
       i = new Misc::GetField();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kGETSTATIC: {
       i = new Misc::GetStatic();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kGOTO: {
@@ -527,11 +527,11 @@ void printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
       i->toBytecode(code_it, &delta_code, wide);
       break;
     }
-    // case Opcodes::kICONST_M1: {
-    //   i = new Reference::LoadFromArray();
-    //   i->toBytecode(code_it, &delta_code, wide);
-    //   break;
-    // }
+    case Opcodes::kICONST_M1: {
+      i = new Integer::Const_m1();
+      i->toBytecode(code_it, &delta_code, wide);
+      break;
+    }
     case Opcodes::kICONST_0: {
       i = new Integer::Const_0();
       i->toBytecode(code_it, &delta_code, wide);
@@ -763,38 +763,38 @@ void printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
     }
     case Opcodes::kINSTANCEOF: {
       i = new Misc::InstanceOf();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kINVOKEDYNAMIC: {
       i = new Invokes::Dynamic();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kINVOKEINTERFACE: {
       i = new Invokes::Interface();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kINVOKESPECIAL: {
       i = new Invokes::Especial();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kINVOKESTATIC: {
       i = new Invokes::Static();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kINVOKEVIRTUAL: {
       i = new Invokes::Virtual();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kIOR: {
@@ -924,20 +924,20 @@ void printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
     }
     case Opcodes::kLDC: {
       i = new ConstantPool::LoadCat1();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kLDC_W: {
       i = new ConstantPool::LoadCat1Wide();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kLDC2_W: {
       i = new ConstantPool::LoadCat2();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kLDIV: {
@@ -1062,14 +1062,14 @@ void printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
     }
     case Opcodes::kMULTIANEWARRAY: {
       i = new Misc::MultiDimArray();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kNEW: {
       i = new Misc::New();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx, false) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx, false) << ">\n";
       break;
     }
     case Opcodes::kNEWARRAY: {
@@ -1094,14 +1094,14 @@ void printBytecode(std::vector<Utils::Types::u1>::iterator *code_it, Viewer *v,
     }
     case Opcodes::kPUTFIELD: {
       i = new Misc::PutField();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kPUTSTATIC: {
       i = new Misc::PutStatic();
-      auto idx = i->toBytecode(code_it, &delta_code, wide) - 1;
-      std::wcout << "<" << v->getBytecodeOperandString(idx) << ">\n";
+      auto idx = i->toBytecode(code_it, &delta_code, wide);
+      std::wcout << "<" << v->getConstantPoolInfo(idx) << ">\n";
       break;
     }
     case Opcodes::kRET: {

@@ -6,7 +6,7 @@
 #include <vector>
 #include "instructions/instruction_set/base.h"
 #include "instructions/opcodes.h"
-#include "utils/num2str.h"
+#include "utils/string.h"
 
 namespace Instructions {
 namespace Jump {
@@ -27,7 +27,7 @@ class JumpSubRoutine : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(+offset)};
+    return {Utils::String::to_string(+offset)};
   }
 };
 
@@ -49,7 +49,7 @@ class JumpSubRoutineWide : public Instruction {
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(+offset)};
+    return {Utils::String::to_string(+offset)};
   }
 };
 }  // namespace Jump

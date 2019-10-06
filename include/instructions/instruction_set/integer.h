@@ -6,7 +6,7 @@
 #include <vector>
 #include "instructions/instruction_set/base.h"
 #include "instructions/opcodes.h"
-#include "utils/num2str.h"
+#include "utils/string.h"
 
 namespace Instructions {
 namespace Integer {
@@ -180,14 +180,22 @@ class StoreIntoArray : public Instruction {
   }
 };
 
-// class ICONST_M1 : public Instruction {
-//  public:
-//   I2B() : Instruction(Opcodes::kI2B) {}
+class Const_m1 : public Instruction {
+ public:
+  Const_m1() : Instruction(Opcodes::kICONST_M1) {}
 
-//   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int
-//   *delta_code, const bool &wide, std::string *out_str) override
-//   {}
-// };
+  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+                        int *delta_code, const bool &wide) override {
+    std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return 0;
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) {
+    return {};
+  }
+};
 
 class Const_0 : public Instruction {
  public:
@@ -328,8 +336,8 @@ class Inc : public Instruction {
     auto index = *++*code_it;
     auto k = *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(+index),
-            Utils::to_string(static_cast<int>(char(k)))};
+    return {Utils::String::to_string(+index),
+            Utils::String::to_string(static_cast<int>(char(k)))};
   }
 };
 
@@ -350,7 +358,7 @@ class Load : public Instruction {
       int *ret, const bool &wide) {
     auto index = *++*code_it;
     *delta_code = 1;
-    return {Utils::to_string(+index)};
+    return {Utils::String::to_string(+index)};
   }
 };
 
@@ -576,7 +584,7 @@ class Store : public Instruction {
       int *ret, const bool &wide) {
     auto index = *++*code_it;
     *delta_code = 1;
-    return {Utils::to_string(+index)};
+    return {Utils::String::to_string(+index)};
   }
 };
 

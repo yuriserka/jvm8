@@ -6,7 +6,7 @@
 #include <vector>
 #include "instructions/instruction_set/base.h"
 #include "instructions/opcodes.h"
-#include "utils/num2str.h"
+#include "utils/string.h"
 
 namespace Instructions {
 namespace Byte {
@@ -62,7 +62,7 @@ class Push : public Instruction {
       int *ret, const bool &wide) {
     auto byte = *++*code_it;
     *delta_code = 1;
-    return {Utils::to_string(static_cast<int>(char(byte)))};
+    return {Utils::String::to_string(static_cast<int>(char(byte)))};
   }
 };
 }  // namespace Byte

@@ -6,7 +6,7 @@
 #include <vector>
 #include "instructions/instruction_set/base.h"
 #include "instructions/opcodes.h"
-#include "utils/num2str.h"
+#include "utils/string.h"
 
 namespace Instructions {
 namespace Long {
@@ -214,7 +214,7 @@ class Load : public Instruction {
       int *ret, const bool &wide) {
     auto index = *++*code_it;
     *delta_code = 1;
-    return {Utils::to_string(+index)};
+    return {Utils::String::to_string(+index)};
   }
 };
 
@@ -422,7 +422,7 @@ class Store : public Instruction {
       int *ret, const bool &wide) {
     auto index = *++*code_it;
     *delta_code = 1;
-    return {Utils::to_string(+index)};
+    return {Utils::String::to_string(+index)};
   }
 };
 

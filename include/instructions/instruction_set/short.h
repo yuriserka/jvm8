@@ -6,7 +6,7 @@
 #include <vector>
 #include "instructions/instruction_set/base.h"
 #include "instructions/opcodes.h"
-#include "utils/num2str.h"
+#include "utils/string.h"
 
 namespace Instructions {
 namespace Short {
@@ -61,7 +61,7 @@ class Push : public Instruction {
       int *ret, const bool &wide) {
     auto s = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::to_string(s)};
+    return {Utils::String::to_string(s)};
   }
 };
 }  // namespace Short

@@ -13,12 +13,12 @@ class Instruction {
   virtual ~Instruction() = default;
 
   // virtual void execute() = 0;
-  virtual int toBytecode(std::vector<Utils::Types::u1>::iterator *, int *,
-                         const bool &) = 0;
+  virtual int toBytecode(std::vector<Utils::Types::u1>::iterator *code_iterator,
+                         int *delta_code, const bool &wide) = 0;
 
   virtual std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *, int *, int *,
-      const bool &) = 0;
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      int *ret_val, const bool &wide) = 0;
 
   const Utils::Types::u1 opcode;
 };

@@ -6,7 +6,7 @@
 #include <vector>
 #include "instructions/instruction_set/base.h"
 #include "instructions/opcodes.h"
-#include "utils/num2str.h"
+#include "utils/string.h"
 
 namespace Instructions {
 namespace Invokes {
@@ -30,7 +30,8 @@ class Dynamic : public Instruction {
       int *ret, const bool &wide) {
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 4;
-    return {Utils::to_string(+(*++*code_it)), Utils::to_string(+(*++*code_it))};
+    return {Utils::String::to_string(+(*++*code_it)),
+            Utils::String::to_string(+(*++*code_it))};
   }
 };
 
@@ -54,7 +55,8 @@ class Interface : public Instruction {
       int *ret, const bool &wide) {
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 4;
-    return {Utils::to_string(+(*++*code_it)), Utils::to_string(+(*++*code_it))};
+    return {Utils::String::to_string(+(*++*code_it)),
+            Utils::String::to_string(+(*++*code_it))};
   }
 };
 
