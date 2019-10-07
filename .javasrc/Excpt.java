@@ -7,4 +7,8 @@ public class Excpt {
             e.printStackTrace();
         }
     }
+
+    private final void runtimeExecpt() throws RuntimeException {
+        throw new RuntimeException("motivos de teste xd");
+    }
 }

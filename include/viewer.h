@@ -79,6 +79,14 @@ class Viewer {
                   Utils::Attributes::Code_attribute *code_attr,
                   const int &tab_shift);
 
+  void printTable(const std::vector<std::string> vars,
+                  Utils::Attributes::Exceptions_attribute *excpt_attr,
+                  const int &tab_shift);
+
+  void printTable(const std::vector<std::string> vars,
+                  Utils::Attributes::LocalVariableTable_attribute *excpt_attr,
+                  const int &tab_shift);
+
   std::string classname;
   const ClassFile *classfile;
 };

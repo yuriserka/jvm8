@@ -100,10 +100,13 @@ enum attr_types {
   kCONSTANTVALUE,
   kDEPRECATED,
   kEXCEPTIONS,
+  kENCLOSINGMETHOD,
   kLINENUMBERTABLE,
   kLOCALVARIABLETABLE,
   kSOURCEFILE,
-  kINNERCLASS,
+  kSYNTHETIC,
+  kSIGNATURE,
+  kINNERCLASS
 };
 
 int getAttributeType(const std::wstring &attrname);

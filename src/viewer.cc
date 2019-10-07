@@ -31,7 +31,7 @@ void Viewer::printClassFile() {
   std::cout << "\n\tVisualizing ClassFile structure for " << this->classname
             << "\n";
   makeTitle("General Information", 80, 50);
-  this->printMagic();
+  // this->printMagic();
   this->printVersion();
   this->printConstantPoolCount();
   this->printAccessFlags();
@@ -176,8 +176,12 @@ bool Viewer::printConstantPoolInfo(const int &index, const int &tab_shift,
                                    const bool &inner,
                                    const bool &innerNameAndType,
                                    const int &utf8fmt) {
-  auto cpi = this->classfile->constant_pool[index - 1];
   bool jmpNextIndex = false;
+  if (!index) {
+    std::cout << "invalid constant pool reference";
+    return jmpNextIndex;
+  }
+  auto cpi = this->classfile->constant_pool[index - 1];
   if (!inner) {
     std::cout << std::string(tab_shift, '\t') << "[" << index << "] ";
     auto name = Utils::ConstantPool::getConstantTypename(cpi.base->tag);
@@ -306,8 +310,12 @@ bool Viewer::printConstantPoolInfo(const int &index, const int &tab_shift,
 }
 
 std::wstring Viewer::getConstantPoolInfo(const int &index, const bool &dot) {
-  auto cpi = this->classfile->constant_pool[index - 1];
   std::wstringstream wss;
+  if (!index) {
+    wss << "invalid constant pool reference";
+    return wss.str();
+  }
+  auto cpi = this->classfile->constant_pool[index - 1];
   switch (cpi.base->tag) {
     namespace cp = Utils::ConstantPool;
     namespace info = Utils::Infos;
@@ -542,13 +550,13 @@ void Viewer::printTable(const std::vector<std::string> vars,
   namespace tf = tableformatter;
 
   tf::CellFormatter nr_col(5);
-  nr_col.horizontalAlignment = tf::HORIZONTAL::CENTER;
+  nr_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
   tf::CellFormatter startpc_col(10);
-  startpc_col.horizontalAlignment = tf::HORIZONTAL::CENTER;
+  startpc_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
   tf::CellFormatter endpc_col(8);
-  endpc_col.horizontalAlignment = tf::HORIZONTAL::CENTER;
+  endpc_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
   tf::CellFormatter handlerpc_col(12);
-  handlerpc_col.horizontalAlignment = tf::HORIZONTAL::CENTER;
+  handlerpc_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
   tf::CellFormatter catchtype_col(35);
   catchtype_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
 
@@ -580,7 +588,7 @@ void Viewer::printTable(const std::vector<std::string> vars,
   namespace tf = tableformatter;
 
   tf::CellFormatter nr_col(5);
-  nr_col.horizontalAlignment = tf::HORIZONTAL::CENTER;
+  nr_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
   tf::CellFormatter startpc_col(10);
   startpc_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
   tf::CellFormatter linenum_col(15);
@@ -603,6 +611,41 @@ void Viewer::printTable(const std::vector<std::string> vars,
   std::cout << formatter.toString(tab_shift) << '\n';
 }
 
+void Viewer::printTable(const std::vector<std::string> vars,
+                        Utils::Attributes::Exceptions_attribute *excpt_attr,
+                        const int &tab_shift) {
+  namespace tf = tableformatter;
+
+  tf::CellFormatter nr_col(5);
+  nr_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+  tf::CellFormatter startpc_col(15);
+  startpc_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+  tf::CellFormatter linenum_col(30);
+  linenum_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+
+  tf::TableFormatter formatter({nr_col, startpc_col, linenum_col});
+
+  // Table header
+  for (auto v : vars) {
+    formatter << v;
+  }
+  formatter.addHorizontalLine('*');
+
+  for (auto i = 0; i < excpt_attr->number_of_exceptions; ++i) {
+    auto except = excpt_attr->exception_index_table[i];
+    std::wstringstream wss;
+    wss << "'cp_info #" << except << "'\n";
+    formatter << i << Utils::String::to_string(wss.str());
+    wss.str(L"");
+
+    wss << this->getConstantPoolInfo(except, false);
+    formatter << Utils::String::to_string(wss.str());
+    formatter.addHorizontalLine('_');
+  }
+
+  std::cout << formatter.toString(tab_shift) << '\n';
+}
+
 void Viewer::printTable(
     const std::vector<std::string> vars,
     Utils::Attributes::InnerClasses_attribute *innerclass_attr,
@@ -610,12 +653,12 @@ void Viewer::printTable(
   namespace tf = tableformatter;
 
   tf::CellFormatter nr_col(5);
-  nr_col.horizontalAlignment = tf::HORIZONTAL::CENTER;
-  tf::CellFormatter innerclass_col(15);
+  nr_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+  tf::CellFormatter innerclass_col(20);
   innerclass_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
-  tf::CellFormatter outerclass_col(15);
+  tf::CellFormatter outerclass_col(20);
   outerclass_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
-  tf::CellFormatter innername_col(15);
+  tf::CellFormatter innername_col(20);
   innername_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
   tf::CellFormatter accessflags_col(20);
   accessflags_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
@@ -666,6 +709,48 @@ void Viewer::printTable(
   std::cout << formatter.toString(tab_shift) << '\n';
 }
 
+void Viewer::printTable(
+    const std::vector<std::string> vars,
+    Utils::Attributes::LocalVariableTable_attribute *localvar_attr,
+    const int &tab_shift) {
+  namespace tf = tableformatter;
+
+  tf::CellFormatter nr_col(5);
+  nr_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+  tf::CellFormatter startpc_col(10);
+  startpc_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+  tf::CellFormatter len_col(8);
+  len_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+  tf::CellFormatter index_col(8);
+  index_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+  tf::CellFormatter name_col(15);
+  name_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+
+  tf::TableFormatter formatter(
+      {nr_col, startpc_col, len_col, index_col, name_col});
+
+  // Table header
+  for (auto v : vars) {
+    formatter << v;
+  }
+  formatter.addHorizontalLine('*');
+
+  for (auto i = 0; i < localvar_attr->local_variable_table_length; ++i) {
+    auto localvar_info = localvar_attr->local_variable_table[i];
+    formatter << i << localvar_info.start_pc << localvar_info.length
+              << localvar_info.index;
+
+    std::wstringstream wss;
+    wss << "'cp_info #" << localvar_info.name_index << "'\n"
+        << this->getConstantPoolInfo(localvar_info.name_index, false);
+
+    formatter << Utils::String::to_string(wss.str());
+    formatter.addHorizontalLine('_');
+  }
+
+  std::cout << formatter.toString(tab_shift) << '\n';
+}
+
 void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
                                 const int &index, const int &tab_shift) {
   auto utf8nameindex =
@@ -677,21 +762,23 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
   std::cout << std::string(tab_shift, '\t') << "[" << index << "] ";
   std::wcout << attrName << "\n";
 
+  std::cout << std::string(tab_shift + 1, '\t') << "Generic Info: \n";
+  std::cout << std::string(tab_shift + 2, '\t')
+            << "Attribute name index: 'cp_info #"
+            << attribute->base->attribute_name_index << "' ";
+
+  this->printConstantPoolInfo(attribute->base->attribute_name_index, 0, true);
+
+  std::cout << std::string(tab_shift + 2, '\t')
+            << "Attribute length: " << attribute->base->attribute_length
+            << "\n";
+
+  std::cout << std::string(tab_shift + 1, '\t') << "Specific Info: \n";
+
   switch (attrtype) {
     namespace attrs = Utils::Attributes;
     case attrs::kCODE: {
       auto code_attr = attribute->getClass<attrs::Code_attribute>();
-      std::cout << std::string(tab_shift + 1, '\t') << "Generic Info: \n";
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute name index: 'cp_info #"
-                << code_attr->attribute_name_index << "' ";
-
-      this->printConstantPoolInfo(code_attr->attribute_name_index, 0, true);
-
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute length: " << code_attr->attribute_length << "\n";
-
-      std::cout << std::string(tab_shift + 1, '\t') << "Specific Info: \n";
       std::cout << std::string(tab_shift + 2, '\t') << "Bytecode: \n";
       int i = 0;
       auto codeArr = code_attr->code;
@@ -717,16 +804,6 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
     }
     case attrs::kCONSTANTVALUE: {
       auto kval_attr = attribute->getClass<attrs::ConstantValue_attribute>();
-      std::cout << std::string(tab_shift + 1, '\t') << "Generic Info: \n";
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute name index: 'cp_info #"
-                << kval_attr->attribute_name_index << "' ";
-      this->printConstantPoolInfo(kval_attr->attribute_name_index, 0, true);
-
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute length: " << kval_attr->attribute_length << "\n";
-
-      std::cout << std::string(tab_shift + 1, '\t') << "Specific Info: \n";
       std::cout << std::string(tab_shift + 2, '\t')
                 << "Constant value index: 'cp_info #"
                 << kval_attr->constantvalue_index << "' ";
@@ -737,57 +814,65 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
       break;
     }
     case attrs::kDEPRECATED: {
-      auto deprecated_attr = attribute->getClass<attrs::Deprecated_attribute>();
-      std::cout << std::string(tab_shift + 1, '\t') << "Generic Info: \n";
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute name index: 'cp_info #"
-                << deprecated_attr->attribute_name_index << "' ";
-      this->printConstantPoolInfo(deprecated_attr->attribute_name_index, 0,
-                                  true);
-
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute length: " << deprecated_attr->attribute_length
-                << "\n";
-
-      std::cout << std::string(tab_shift + 1, '\t') << "Specific Info: \n";
       break;
     }
     case attrs::kEXCEPTIONS: {
+      auto exception_attr = attribute->getClass<attrs::Exceptions_attribute>();
+      std::vector<std::string> except_vars = {
+          "Nr.",
+          "Exception",
+          "Verbose",
+      };
+      this->printTable(except_vars, exception_attr, tab_shift + 2);
+      break;
+    }
+    case attrs::kENCLOSINGMETHOD: {
+      auto enclosing_attr =
+          attribute->getClass<attrs::EnclosingMethod_attribute>();
+      std::cout << std::string(tab_shift + 2, '\t') << "Class index: 'cp_info #"
+                << enclosing_attr->class_index << "' ";
+      std::wcout << "<"
+                 << this->getConstantPoolInfo(enclosing_attr->class_index,
+                                              false)
+                 << ">\n";
+
+      std::cout << std::string(tab_shift + 2, '\t')
+                << "Method index: 'cp_info #" << enclosing_attr->method_index
+                << "' <";
+      this->printConstantPoolInfo(enclosing_attr->method_index, 0, true, true);
+      std::cout << ">\n";
+      break;
+    }
+    case attrs::kSYNTHETIC: {
+      break;
+    }
+    case attrs::kSIGNATURE: {
+      auto signature_attr = attribute->getClass<attrs::Signature_attribute>();
+      std::cout << std::string(tab_shift + 2, '\t')
+                << "Signature index: 'cp_info #"
+                << signature_attr->signature_index << "' ";
+      std::wcout << "<"
+                 << this->getConstantPoolInfo(signature_attr->signature_index,
+                                              false)
+                 << ">\n";
       break;
     }
     case attrs::kLINENUMBERTABLE: {
       auto lnt_attr = attribute->getClass<attrs::LineNumberTable_attribute>();
-      std::cout << std::string(tab_shift + 1, '\t') << "Generic Info: \n";
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute name index: 'cp_info #"
-                << lnt_attr->attribute_name_index << "' ";
-      this->printConstantPoolInfo(lnt_attr->attribute_name_index, 0, true);
-
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute length: " << lnt_attr->attribute_length << "\n";
-
-      std::cout << std::string(tab_shift + 1, '\t') << "Specific Info: \n";
       std::vector<std::string> vars = {"Nr.", "Start PC", "Line number"};
       this->printTable(vars, lnt_attr, tab_shift + 2);
       break;
     }
     case attrs::kLOCALVARIABLETABLE: {
+      auto localvar_attr =
+          attribute->getClass<attrs::LocalVariableTable_attribute>();
+      std::vector<std::string> vars = {"Nr.", "Start PC", "Length", "Index",
+                                       "Name"};
+      this->printTable(vars, localvar_attr, tab_shift + 2);
       break;
     }
     case attrs::kSOURCEFILE: {
       auto sourcefile_attr = attribute->getClass<attrs::SourceFile_attribute>();
-      std::cout << std::string(tab_shift + 1, '\t') << "Generic Info: \n";
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute name index: 'cp_info #"
-                << sourcefile_attr->attribute_name_index << "' ";
-      this->printConstantPoolInfo(sourcefile_attr->attribute_name_index, 0,
-                                  true);
-
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute length: " << sourcefile_attr->attribute_length
-                << "\n";
-
-      std::cout << std::string(tab_shift + 1, '\t') << "Specific Info: \n";
       std::cout << std::string(tab_shift + 2, '\t')
                 << "Source file name index: 'cp_info #"
                 << sourcefile_attr->sourcefile_index << "' ";
@@ -800,18 +885,6 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
     case attrs::kINNERCLASS: {
       auto innerclass_attr =
           attribute->getClass<attrs::InnerClasses_attribute>();
-      std::cout << std::string(tab_shift + 1, '\t') << "Generic Info: \n";
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute name index: 'cp_info #"
-                << innerclass_attr->attribute_name_index << "' ";
-      this->printConstantPoolInfo(innerclass_attr->attribute_name_index, 0,
-                                  true);
-
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute length: " << innerclass_attr->attribute_length
-                << "\n";
-
-      std::cout << std::string(tab_shift + 1, '\t') << "Specific Info: \n";
 
       std::vector<std::string> inner_vars = {
           "Nr.", "Inner Class", "Outer Class", "Inner Name", "Access Flags",
@@ -820,20 +893,8 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
       break;
     }
     case attrs::kINVALID: {
-      auto not_implemented = attribute->getClass<attrs::NotImplemented>();
-      std::cout << std::string(tab_shift + 1, '\t') << "Generic Info: \n";
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute name index: 'cp_info #"
-                << not_implemented->attribute_name_index << "' ";
-      this->printConstantPoolInfo(not_implemented->attribute_name_index, 0,
-                                  true);
-
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Attribute length: " << not_implemented->attribute_length
-                << "\n";
-
-      std::cout << std::string(tab_shift + 1, '\t') << "Specific Info: \n";
       std::cout << std::string(tab_shift + 2, '\t') << "NOT IMPLEMENTED\n";
+      break;
     }
   }
 }

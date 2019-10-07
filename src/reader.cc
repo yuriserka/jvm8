@@ -531,7 +531,7 @@ void Reader::readAttributesInfo(
                     "the code array");
               }
               try {
-                code_attr->code.at(lvt_info.start_pc + lvt_info.length);
+                code_attr->code.at(lvt_info.start_pc + lvt_info.length - 1);
               } catch (const std::exception &e) {
                 throw Utils::Errors::Exception(
                     Utils::Errors::kATTRIBUTE,
@@ -570,6 +570,34 @@ void Reader::readAttributesInfo(
               exceptit, "exception_index_table",
               Utils::ConstantPool::kCONSTANT_CLASS);
         }
+        break;
+      }
+      case attrs::kENCLOSINGMETHOD: {
+        auto enclosing_attr =
+            attr->setBase<attrs::EnclosingMethod_attribute>(nameidx, attrlen);
+        this->readBytes(&enclosing_attr->class_index);
+        this->kpoolValidInfo<Utils::Infos::CONSTANT_Class_info>(
+            enclosing_attr->class_index, "class_index",
+            Utils::ConstantPool::kCONSTANT_CLASS);
+        this->readBytes(&enclosing_attr->method_index);
+        if (enclosing_attr->method_index) {
+          this->kpoolValidInfo<Utils::Infos::CONSTANT_NameAndType_info>(
+              enclosing_attr->method_index, "method_index",
+              Utils::ConstantPool::kCONSTANT_NAMEANDTYPE);
+        }
+        break;
+      }
+      case attrs::kSYNTHETIC: {
+        attr->setBase<attrs::Synthetic_attribute>(nameidx, attrlen);
+        break;
+      }
+      case attrs::kSIGNATURE: {
+        auto signature_attr =
+            attr->setBase<attrs::Signature_attribute>(nameidx, attrlen);
+        this->readBytes(&signature_attr->signature_index);
+        this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+            signature_attr->signature_index, "signature_index",
+            Utils::ConstantPool::kCONSTANT_UTF8);
         break;
       }
       case attrs::kLINENUMBERTABLE: {

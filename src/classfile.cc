@@ -102,6 +102,15 @@ void ClassFile::deleteAttributes(
       case attrs::kINNERCLASS:
         attr.deleteclass<attrs::InnerClasses_attribute>();
         break;
+      case attrs::kENCLOSINGMETHOD:
+        attr.deleteclass<attrs::EnclosingMethod_attribute>();
+        break;
+      case attrs::kSIGNATURE:
+        attr.deleteclass<attrs::Signature_attribute>();
+        break;
+      case attrs::kSYNTHETIC:
+        attr.deleteclass<attrs::Synthetic_attribute>();
+        break;
       case attrs::kINVALID:
         attr.deleteclass<attrs::NotImplemented>();
         break;
