@@ -16,6 +16,7 @@ int getAttributeType(const std::wstring &attrname) {
       {L"EnclosingMethod", kENCLOSINGMETHOD},
       {L"Synthetic", kSYNTHETIC},
       {L"Signature", kSIGNATURE},
+      {L"BootstrapMethods", kBOOTSTRAPMETHODS},
       {L"InnerClasses", kINNERCLASS}};
   try {
     auto type = attrTypes.at(attrname);

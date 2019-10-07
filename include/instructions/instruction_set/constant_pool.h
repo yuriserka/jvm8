@@ -11,15 +11,15 @@ namespace Instructions {
 namespace ConstantPool {
 class LoadCat1 : public Instruction {
  public:
-  LoadCat1() : Instruction(Opcodes::kLDC) {}
+  LoadCat1(Viewer *v) : Instruction(Opcodes::kLDC, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto kpool_index = *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << +kpool_index
               << " ";
+    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 1;
-    return kpool_index;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -33,15 +33,15 @@ class LoadCat1 : public Instruction {
 
 class LoadCat1Wide : public Instruction {
  public:
-  LoadCat1Wide() : Instruction(Opcodes::kLDC_W) {}
+  LoadCat1Wide(Viewer *v) : Instruction(Opcodes::kLDC_W, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
+    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 2;
-    return kpool_index;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -55,15 +55,15 @@ class LoadCat1Wide : public Instruction {
 
 class LoadCat2 : public Instruction {
  public:
-  LoadCat2() : Instruction(Opcodes::kLDC2_W) {}
+  LoadCat2(Viewer *v) : Instruction(Opcodes::kLDC2_W, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
+    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 2;
-    return kpool_index;
   }
 
   inline std::vector<std::string> toBytecode_json(

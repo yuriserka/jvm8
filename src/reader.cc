@@ -225,20 +225,20 @@ void Reader::readConstantPoolInfo() {
           throw Utils::Errors::Exception(Utils::Errors::kREFKIND, err.str());
         }
         this->readBytes(&kmethodhandler_info->reference_index);
-        if (kmethodhandler_info->reference_kind >= 1 &&
-            kmethodhandler_info->reference_kind <= 4) {
-          constpool->setBase<info::CONSTANT_FieldRef_info>(tag);
-        } else if (kmethodhandler_info->reference_kind == 5 ||
-                   kmethodhandler_info->reference_kind == 8) {
-          constpool->setBase<info::CONSTANT_Methodref_info>(tag);
-        } else if (kmethodhandler_info->reference_kind == 6 ||
-                   kmethodhandler_info->reference_kind == 7) {
-          if (this->classfile->major_version >= Utils::Versions::Java8) {
-            constpool->setBase<info::CONSTANT_Methodref_info>(tag);
-          }
-        } else {
-          constpool->setBase<info::CONSTANT_InterfaceMethodref_info>(tag);
-        }
+        // if (kmethodhandler_info->reference_kind >= 1 &&
+        //     kmethodhandler_info->reference_kind <= 4) {
+        //   constpool->setBase<info::CONSTANT_FieldRef_info>(tag);
+        // } else if (kmethodhandler_info->reference_kind == 5 ||
+        //            kmethodhandler_info->reference_kind == 8) {
+        //   constpool->setBase<info::CONSTANT_Methodref_info>(tag);
+        // } else if (kmethodhandler_info->reference_kind == 6 ||
+        //            kmethodhandler_info->reference_kind == 7) {
+        //   if (this->classfile->major_version >= Utils::Versions::Java8) {
+        //     constpool->setBase<info::CONSTANT_Methodref_info>(tag);
+        //   }
+        // } else {
+        //   constpool->setBase<info::CONSTANT_InterfaceMethodref_info>(tag);
+        // }
         break;
       }
       case cp::kCONSTANT_METHODTYPE: {
@@ -563,6 +563,7 @@ void Reader::readAttributesInfo(
 
         exceptions_attr->exception_index_table.resize(
             exceptions_attr->number_of_exceptions);
+            
         for (auto i = 0; i < exceptions_attr->number_of_exceptions; ++i) {
           this->readBytes(&exceptions_attr->exception_index_table[i]);
           auto exceptit = exceptions_attr->exception_index_table[i];
@@ -656,6 +657,7 @@ void Reader::readAttributesInfo(
             attr->setBase<attrs::InnerClasses_attribute>(nameidx, attrlen);
         this->readBytes(&innerclass_attr->number_of_classes);
         innerclass_attr->classes.resize(innerclass_attr->number_of_classes);
+
         for (auto i = 0; i < innerclass_attr->number_of_classes; ++i) {
           innerclass_attr->classes[i] = innerClasses_info();
           auto inner_info = &innerclass_attr->classes[i];
@@ -663,6 +665,33 @@ void Reader::readAttributesInfo(
           this->readBytes(&inner_info->outer_class_info_index);
           this->readBytes(&inner_info->inner_name_index);
           this->readBytes(&inner_info->inner_class_access_flags);
+        }
+        break;
+      }
+      case attrs::kBOOTSTRAPMETHODS: {
+        auto bootstrap_attr =
+            attr->setBase<attrs::BootstrapMethods_attribute>(nameidx, attrlen);
+        this->readBytes(&bootstrap_attr->num_bootstrap_methods);
+        bootstrap_attr->bootstrap_methods.resize(
+            bootstrap_attr->num_bootstrap_methods);
+
+        for (auto i = 0; i < bootstrap_attr->num_bootstrap_methods; ++i) {
+          bootstrap_attr->bootstrap_methods[i] = BootstrapMethods_info();
+          auto bootstrap_info = &bootstrap_attr->bootstrap_methods[i];
+          this->readBytes(&bootstrap_info->bootstrap_method_ref);
+
+          this->kpoolValidInfo<Utils::Infos::CONSTANT_MethodHandle_info>(
+              bootstrap_info->bootstrap_method_ref, "bootstrap_method_ref",
+              Utils::ConstantPool::kCONSTANT_METHODHANDLE);
+
+          this->readBytes(&bootstrap_info->num_bootstrap_arguments);
+          bootstrap_info->bootstrap_arguments.resize(
+              bootstrap_info->num_bootstrap_arguments);
+          for (auto j = 0; j < bootstrap_info->num_bootstrap_arguments; ++j) {
+            this->readBytes(&bootstrap_info->bootstrap_arguments[i]);
+            this->kpoolValidEntry(bootstrap_info->bootstrap_arguments[i],
+                                  "bootstrap_arguments");
+          }
         }
         break;
       }

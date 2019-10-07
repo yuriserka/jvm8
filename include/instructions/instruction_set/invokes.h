@@ -12,17 +12,17 @@ namespace Instructions {
 namespace Invokes {
 class Dynamic : public Instruction {
  public:
-  Dynamic() : Instruction(Opcodes::kINVOKEDYNAMIC) {}
+  Dynamic(Viewer *v) : Instruction(Opcodes::kINVOKEDYNAMIC, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     *++*code_it;
     *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
+    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 4;
-    return kpool_index;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -37,17 +37,17 @@ class Dynamic : public Instruction {
 
 class Interface : public Instruction {
  public:
-  Interface() : Instruction(Opcodes::kINVOKEINTERFACE) {}
+  Interface(Viewer *v) : Instruction(Opcodes::kINVOKEINTERFACE, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     *++*code_it;
     *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
+    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 4;
-    return kpool_index;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -62,15 +62,15 @@ class Interface : public Instruction {
 
 class Especial : public Instruction {
  public:
-  Especial() : Instruction(Opcodes::kINVOKESPECIAL) {}
+  Especial(Viewer *v) : Instruction(Opcodes::kINVOKESPECIAL, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
+    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 2;
-    return kpool_index;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -84,15 +84,15 @@ class Especial : public Instruction {
 
 class Static : public Instruction {
  public:
-  Static() : Instruction(Opcodes::kINVOKESTATIC) {}
+  Static(Viewer *v) : Instruction(Opcodes::kINVOKESTATIC, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
+    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 2;
-    return kpool_index;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -106,15 +106,15 @@ class Static : public Instruction {
 
 class Virtual : public Instruction {
  public:
-  Virtual() : Instruction(Opcodes::kINVOKEVIRTUAL) {}
+  Virtual(Viewer *v) : Instruction(Opcodes::kINVOKEVIRTUAL, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
+    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 2;
-    return kpool_index;
   }
 
   inline std::vector<std::string> toBytecode_json(

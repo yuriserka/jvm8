@@ -11,12 +11,11 @@ namespace Instructions {
 namespace Char {
 class LoadFromArray : public Instruction {
  public:
-  LoadFromArray() : Instruction(Opcodes::kCALOAD) {}
+  LoadFromArray(Viewer *v) : Instruction(Opcodes::kCALOAD, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -28,12 +27,11 @@ class LoadFromArray : public Instruction {
 
 class StoreIntoArray : public Instruction {
  public:
-  StoreIntoArray() : Instruction(Opcodes::kCASTORE) {}
+  StoreIntoArray(Viewer *v) : Instruction(Opcodes::kCASTORE, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(

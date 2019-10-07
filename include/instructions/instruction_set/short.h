@@ -12,12 +12,11 @@ namespace Instructions {
 namespace Short {
 class LoadFromArray : public Instruction {
  public:
-  LoadFromArray() : Instruction(Opcodes::kSALOAD) {}
+  LoadFromArray(Viewer *v) : Instruction(Opcodes::kSALOAD, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -29,12 +28,11 @@ class LoadFromArray : public Instruction {
 
 class StoreIntoArray : public Instruction {
  public:
-  StoreIntoArray() : Instruction(Opcodes::kSASTORE) {}
+  StoreIntoArray(Viewer *v) : Instruction(Opcodes::kSASTORE, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -46,14 +44,13 @@ class StoreIntoArray : public Instruction {
 
 class Push : public Instruction {
  public:
-  Push() : Instruction(Opcodes::kSIPUSH) {}
+  Push(Viewer *v) : Instruction(Opcodes::kSIPUSH, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto s = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " " << s << "\n";
     *delta_code = 2;
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(

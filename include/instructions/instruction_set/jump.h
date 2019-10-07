@@ -12,14 +12,16 @@ namespace Instructions {
 namespace Jump {
 class JumpSubRoutine : public Instruction {
  public:
-  JumpSubRoutine() : Instruction(Opcodes::kJSR) {}
+  JumpSubRoutine(Viewer *v) : Instruction(Opcodes::kJSR, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    // std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " "
+              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
+              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -33,15 +35,17 @@ class JumpSubRoutine : public Instruction {
 
 class JumpSubRoutineWide : public Instruction {
  public:
-  JumpSubRoutineWide() : Instruction(Opcodes::kJSR_W) {}
+  JumpSubRoutineWide(Viewer *v) : Instruction(Opcodes::kJSR_W, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
                   (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    // std::cout << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " "
+              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
+              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 4;
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(

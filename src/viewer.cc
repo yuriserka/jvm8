@@ -7,6 +7,7 @@
 #include "utils/accessFlags.h"
 #include "utils/constantPool.h"
 #include "utils/memory.h"
+#include "utils/reference_kind.h"
 #include "utils/string.h"
 #include "utils/table.h"
 #include "utils/utf8.h"
@@ -302,6 +303,46 @@ bool Viewer::printConstantPoolInfo(const int &index, const int &tab_shift,
       }
       std::wcout << toprint.c_str();
       std::cout << (innerNameAndType ? "" : "\n");
+      break;
+    }
+    case cp::kCONSTANT_METHODHANDLE: {
+      auto methodhandle_info = cpi.getClass<info::CONSTANT_MethodHandle_info>();
+      if (!inner) {
+        std::cout << std::string(tab_shift + 1, '\t') << "Reference kind: "
+                  << Utils::Reference::getReferenceType(
+                         methodhandle_info->reference_kind)
+                  << "\n";
+        std::cout << std::string(tab_shift + 1, '\t') << "Reference index: "
+                  << "'cp_info #" << methodhandle_info->reference_index << "' ";
+      }
+      std::wcout << "<"
+                 << this->getConstantPoolInfo(
+                        methodhandle_info->reference_index)
+                 << ">\n";
+      break;
+    }
+    case cp::kCONSTANT_METHODTYPE: {
+      auto methodtype_info = cpi.getClass<info::CONSTANT_MethodType_info>();
+      if (!inner) {
+        std::cout << std::string(tab_shift + 1, '\t') << "Type: "
+                  << "'cp_info #" << methodtype_info->descriptor_index << "' ";
+      }
+      this->printConstantPoolInfo(methodtype_info->descriptor_index,
+                                  inner ? tab_shift : tab_shift + 1, true);
+      break;
+    }
+    case cp::kCONSTANT_INVOKEDYNAMIC: {
+      auto invokedynamic_info = cpi.getClass<info::CONSTANT_InvokeDynamic_info>();
+      if (!inner) {
+        std::cout << std::string(tab_shift + 1, '\t') << "Name and type: "
+                  << "'cp_info #" << invokedynamic_info->name_and_type_index << "' ";
+      }
+      this->printConstantPoolInfo(invokedynamic_info->name_and_type_index,
+                                  inner ? tab_shift : tab_shift + 1, true);
+      if (!inner) {
+        std::cout << std::string(tab_shift + 1, '\t') << "Bootstrap method: "
+                  << "'BootstrapMethods #" << invokedynamic_info->bootstrap_method_attr_index << "'\n";
+      }
       break;
     }
   }
@@ -751,6 +792,51 @@ void Viewer::printTable(
   std::cout << formatter.toString(tab_shift) << '\n';
 }
 
+void Viewer::printTable(
+    const std::vector<std::string> vars,
+    Utils::Attributes::BootstrapMethods_attribute *bootstrap_attr,
+    const int &tab_shift) {
+  namespace tf = tableformatter;
+
+  tf::CellFormatter nr_col(5);
+  nr_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+  tf::CellFormatter bootstrap_col(30);
+  bootstrap_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+  tf::CellFormatter args_col(30);
+  args_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+
+  tf::TableFormatter formatter({nr_col, bootstrap_col, args_col});
+
+  // Table header
+  for (auto v : vars) {
+    formatter << v;
+  }
+  formatter.addHorizontalLine('*');
+
+  for (auto i = 0; i < bootstrap_attr->num_bootstrap_methods; ++i) {
+    auto bootstrap_info = bootstrap_attr->bootstrap_methods[i];
+    formatter << i;
+
+    std::wstringstream wss;
+    wss << "'cp_info #" << bootstrap_info.bootstrap_method_ref << "'\n"
+        << this->getConstantPoolInfo(bootstrap_info.bootstrap_method_ref,
+                                     false);
+    formatter << Utils::String::to_string(wss.str());
+    wss.str(L"");
+
+    for (auto j = 0; j < bootstrap_info.num_bootstrap_arguments; ++j) {
+      wss << "'cp_info #" << bootstrap_info.bootstrap_arguments[i] << "' "
+          << this->getConstantPoolInfo(bootstrap_info.bootstrap_arguments[i],
+                                       false)
+          << "\n";
+    }
+    formatter << Utils::String::to_string(wss.str());
+    formatter.addHorizontalLine('_');
+  }
+
+  std::cout << formatter.toString(tab_shift) << '\n';
+}
+
 void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
                                 const int &index, const int &tab_shift) {
   auto utf8nameindex =
@@ -890,6 +976,15 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
           "Nr.", "Inner Class", "Outer Class", "Inner Name", "Access Flags",
       };
       this->printTable(inner_vars, innerclass_attr, tab_shift + 2);
+      break;
+    }
+    case attrs::kBOOTSTRAPMETHODS: {
+      auto bootstrap_attr =
+          attribute->getClass<attrs::BootstrapMethods_attribute>();
+
+      std::vector<std::string> inner_vars = {"Nr.", "Bootstrap Method",
+                                             "Arguments"};
+      this->printTable(inner_vars, bootstrap_attr, tab_shift + 2);
       break;
     }
     case attrs::kINVALID: {

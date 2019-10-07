@@ -12,12 +12,11 @@ namespace Instructions {
 namespace Integer {
 class ToByte : public Instruction {
  public:
-  ToByte() : Instruction(Opcodes::kI2B) {}
+  ToByte(Viewer *v) : Instruction(Opcodes::kI2B, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -29,12 +28,11 @@ class ToByte : public Instruction {
 
 class ToChar : public Instruction {
  public:
-  ToChar() : Instruction(Opcodes::kI2C) {}
+  ToChar(Viewer *v) : Instruction(Opcodes::kI2C, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -46,12 +44,11 @@ class ToChar : public Instruction {
 
 class ToDouble : public Instruction {
  public:
-  ToDouble() : Instruction(Opcodes::kI2D) {}
+  ToDouble(Viewer *v) : Instruction(Opcodes::kI2D, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -63,12 +60,11 @@ class ToDouble : public Instruction {
 
 class ToFloat : public Instruction {
  public:
-  ToFloat() : Instruction(Opcodes::kI2F) {}
+  ToFloat(Viewer *v) : Instruction(Opcodes::kI2F, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -80,12 +76,11 @@ class ToFloat : public Instruction {
 
 class ToLong : public Instruction {
  public:
-  ToLong() : Instruction(Opcodes::kI2L) {}
+  ToLong(Viewer *v) : Instruction(Opcodes::kI2L, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -97,12 +92,11 @@ class ToLong : public Instruction {
 
 class ToShort : public Instruction {
  public:
-  ToShort() : Instruction(Opcodes::kI2S) {}
+  ToShort(Viewer *v) : Instruction(Opcodes::kI2S, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -114,12 +108,11 @@ class ToShort : public Instruction {
 
 class Add : public Instruction {
  public:
-  Add() : Instruction(Opcodes::kIADD) {}
+  Add(Viewer *v) : Instruction(Opcodes::kIADD, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -131,12 +124,11 @@ class Add : public Instruction {
 
 class LoadFromArray : public Instruction {
  public:
-  LoadFromArray() : Instruction(Opcodes::kIALOAD) {}
+  LoadFromArray(Viewer *v) : Instruction(Opcodes::kIALOAD, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -148,12 +140,11 @@ class LoadFromArray : public Instruction {
 
 class And : public Instruction {
  public:
-  And() : Instruction(Opcodes::kIAND) {}
+  And(Viewer *v) : Instruction(Opcodes::kIAND, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -165,12 +156,11 @@ class And : public Instruction {
 
 class StoreIntoArray : public Instruction {
  public:
-  StoreIntoArray() : Instruction(Opcodes::kIASTORE) {}
+  StoreIntoArray(Viewer *v) : Instruction(Opcodes::kIASTORE, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -182,12 +172,11 @@ class StoreIntoArray : public Instruction {
 
 class Const_m1 : public Instruction {
  public:
-  Const_m1() : Instruction(Opcodes::kICONST_M1) {}
+  Const_m1(Viewer *v) : Instruction(Opcodes::kICONST_M1, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -199,12 +188,11 @@ class Const_m1 : public Instruction {
 
 class Const_0 : public Instruction {
  public:
-  Const_0() : Instruction(Opcodes::kICONST_0) {}
+  Const_0(Viewer *v) : Instruction(Opcodes::kICONST_0, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -216,12 +204,11 @@ class Const_0 : public Instruction {
 
 class Const_1 : public Instruction {
  public:
-  Const_1() : Instruction(Opcodes::kICONST_1) {}
+  Const_1(Viewer *v) : Instruction(Opcodes::kICONST_1, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -233,12 +220,11 @@ class Const_1 : public Instruction {
 
 class Const_2 : public Instruction {
  public:
-  Const_2() : Instruction(Opcodes::kICONST_2) {}
+  Const_2(Viewer *v) : Instruction(Opcodes::kICONST_2, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -250,12 +236,11 @@ class Const_2 : public Instruction {
 
 class Const_3 : public Instruction {
  public:
-  Const_3() : Instruction(Opcodes::kICONST_3) {}
+  Const_3(Viewer *v) : Instruction(Opcodes::kICONST_3, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -267,12 +252,11 @@ class Const_3 : public Instruction {
 
 class Const_4 : public Instruction {
  public:
-  Const_4() : Instruction(Opcodes::kICONST_4) {}
+  Const_4(Viewer *v) : Instruction(Opcodes::kICONST_4, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -284,12 +268,11 @@ class Const_4 : public Instruction {
 
 class Const_5 : public Instruction {
  public:
-  Const_5() : Instruction(Opcodes::kICONST_5) {}
+  Const_5(Viewer *v) : Instruction(Opcodes::kICONST_5, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -301,12 +284,11 @@ class Const_5 : public Instruction {
 
 class Div : public Instruction {
  public:
-  Div() : Instruction(Opcodes::kIDIV) {}
+  Div(Viewer *v) : Instruction(Opcodes::kIDIV, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -318,16 +300,15 @@ class Div : public Instruction {
 
 class Inc : public Instruction {
  public:
-  Inc() : Instruction(Opcodes::kIINC) {}
+  Inc(Viewer *v) : Instruction(Opcodes::kIINC, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto index = *++*code_it;
     auto k = *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " " << +index << " by "
               << static_cast<int>(char(k)) << "\n";
     *delta_code = 2;
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -343,14 +324,13 @@ class Inc : public Instruction {
 
 class Load : public Instruction {
  public:
-  Load() : Instruction(Opcodes::kILOAD) {}
+  Load(Viewer *v) : Instruction(Opcodes::kILOAD, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto index = *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " " << +index << "\n";
     *delta_code = 1;
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -364,12 +344,11 @@ class Load : public Instruction {
 
 class Load_0 : public Instruction {
  public:
-  Load_0() : Instruction(Opcodes::kILOAD_0) {}
+  Load_0(Viewer *v) : Instruction(Opcodes::kILOAD_0, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -381,12 +360,11 @@ class Load_0 : public Instruction {
 
 class Load_1 : public Instruction {
  public:
-  Load_1() : Instruction(Opcodes::kILOAD_1) {}
+  Load_1(Viewer *v) : Instruction(Opcodes::kILOAD_1, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -398,12 +376,11 @@ class Load_1 : public Instruction {
 
 class Load_2 : public Instruction {
  public:
-  Load_2() : Instruction(Opcodes::kILOAD_2) {}
+  Load_2(Viewer *v) : Instruction(Opcodes::kILOAD_2, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -415,12 +392,11 @@ class Load_2 : public Instruction {
 
 class Load_3 : public Instruction {
  public:
-  Load_3() : Instruction(Opcodes::kILOAD_3) {}
+  Load_3(Viewer *v) : Instruction(Opcodes::kILOAD_3, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -432,30 +408,29 @@ class Load_3 : public Instruction {
 
 // class IMPDEP1 : public Instruction {
 //  public:
-//   I2B() : Instruction(Opcodes::kI2B) {}
+//   I2B(Viewer *v) : Instruction(Opcodes::kI2B, v) {}
 
-//   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int
+//   inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int
 //   *delta_code, const bool &wide, std::string *out_str) override
 //   {}
 // };
 
 // class IMPDEP2 : public Instruction {
 //  public:
-//   I2B() : Instruction(Opcodes::kI2B) {}
+//   I2B(Viewer *v) : Instruction(Opcodes::kI2B, v) {}
 
-//   inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int
+//   inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it, int
 //   *delta_code, const bool &wide, std::string *out_str) override
 //   {}
 // };
 
 class Mul : public Instruction {
  public:
-  Mul() : Instruction(Opcodes::kIMUL) {}
+  Mul(Viewer *v) : Instruction(Opcodes::kIMUL, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -467,12 +442,11 @@ class Mul : public Instruction {
 
 class Neg : public Instruction {
  public:
-  Neg() : Instruction(Opcodes::kINEG) {}
+  Neg(Viewer *v) : Instruction(Opcodes::kINEG, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -484,12 +458,11 @@ class Neg : public Instruction {
 
 class Or : public Instruction {
  public:
-  Or() : Instruction(Opcodes::kIOR) {}
+  Or(Viewer *v) : Instruction(Opcodes::kIOR, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -501,12 +474,11 @@ class Or : public Instruction {
 
 class Rem : public Instruction {
  public:
-  Rem() : Instruction(Opcodes::kIREM) {}
+  Rem(Viewer *v) : Instruction(Opcodes::kIREM, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -518,12 +490,11 @@ class Rem : public Instruction {
 
 class Return : public Instruction {
  public:
-  Return() : Instruction(Opcodes::kIRETURN) {}
+  Return(Viewer *v) : Instruction(Opcodes::kIRETURN, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -535,12 +506,11 @@ class Return : public Instruction {
 
 class ShiftLeft : public Instruction {
  public:
-  ShiftLeft() : Instruction(Opcodes::kISHL) {}
+  ShiftLeft(Viewer *v) : Instruction(Opcodes::kISHL, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -552,12 +522,11 @@ class ShiftLeft : public Instruction {
 
 class ArithmeticShiftRight : public Instruction {
  public:
-  ArithmeticShiftRight() : Instruction(Opcodes::kISHR) {}
+  ArithmeticShiftRight(Viewer *v) : Instruction(Opcodes::kISHR, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -569,14 +538,13 @@ class ArithmeticShiftRight : public Instruction {
 
 class Store : public Instruction {
  public:
-  Store() : Instruction(Opcodes::kISTORE) {}
+  Store(Viewer *v) : Instruction(Opcodes::kISTORE, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     auto index = *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " " << +index << "\n";
     *delta_code = 1;
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -590,12 +558,11 @@ class Store : public Instruction {
 
 class Store_0 : public Instruction {
  public:
-  Store_0() : Instruction(Opcodes::kISTORE_0) {}
+  Store_0(Viewer *v) : Instruction(Opcodes::kISTORE_0, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -607,12 +574,11 @@ class Store_0 : public Instruction {
 
 class Store_1 : public Instruction {
  public:
-  Store_1() : Instruction(Opcodes::kISTORE_1) {}
+  Store_1(Viewer *v) : Instruction(Opcodes::kISTORE_1, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -624,12 +590,11 @@ class Store_1 : public Instruction {
 
 class Store_2 : public Instruction {
  public:
-  Store_2() : Instruction(Opcodes::kISTORE_2) {}
+  Store_2(Viewer *v) : Instruction(Opcodes::kISTORE_2, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -641,12 +606,11 @@ class Store_2 : public Instruction {
 
 class Store_3 : public Instruction {
  public:
-  Store_3() : Instruction(Opcodes::kISTORE_3) {}
+  Store_3(Viewer *v) : Instruction(Opcodes::kISTORE_3, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -658,12 +622,11 @@ class Store_3 : public Instruction {
 
 class Sub : public Instruction {
  public:
-  Sub() : Instruction(Opcodes::kISUB) {}
+  Sub(Viewer *v) : Instruction(Opcodes::kISUB, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -675,12 +638,11 @@ class Sub : public Instruction {
 
 class LogicalShiftRight : public Instruction {
  public:
-  LogicalShiftRight() : Instruction(Opcodes::kIUSHR) {}
+  LogicalShiftRight(Viewer *v) : Instruction(Opcodes::kIUSHR, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -692,12 +654,11 @@ class LogicalShiftRight : public Instruction {
 
 class Xor : public Instruction {
  public:
-  Xor() : Instruction(Opcodes::kIXOR) {}
+  Xor(Viewer *v) : Instruction(Opcodes::kIXOR, v) {}
 
-  inline int toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
+  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         int *delta_code, const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
-    return 0;
   }
 
   inline std::vector<std::string> toBytecode_json(

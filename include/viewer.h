@@ -84,7 +84,11 @@ class Viewer {
                   const int &tab_shift);
 
   void printTable(const std::vector<std::string> vars,
-                  Utils::Attributes::LocalVariableTable_attribute *excpt_attr,
+                  Utils::Attributes::LocalVariableTable_attribute *localvar_attr,
+                  const int &tab_shift);
+
+  void printTable(const std::vector<std::string> vars,
+                  Utils::Attributes::BootstrapMethods_attribute *bootstrap_attr,
                   const int &tab_shift);
 
   std::string classname;
