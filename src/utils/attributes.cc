@@ -6,18 +6,19 @@ namespace Utils {
 namespace Attributes {
 int getAttributeType(const std::wstring &attrname) {
   std::map<std::wstring, int> attrTypes = {
-      {L"Code", kCODE},
       {L"ConstantValue", kCONSTANTVALUE},
-      {L"Deprecated", kDEPRECATED},
+      {L"Code", kCODE},
       {L"Exceptions", kEXCEPTIONS},
-      {L"LineNumberTable", kLINENUMBERTABLE},
-      {L"LocalVariableTable", kLOCALVARIABLETABLE},
-      {L"SourceFile", kSOURCEFILE},
+      {L"InnerClasses", kINNERCLASS},
       {L"EnclosingMethod", kENCLOSINGMETHOD},
       {L"Synthetic", kSYNTHETIC},
       {L"Signature", kSIGNATURE},
+      {L"SourceFile", kSOURCEFILE},
+      {L"LineNumberTable", kLINENUMBERTABLE},
+      {L"LocalVariableTable", kLOCALVARIABLETABLE},
+      {L"Deprecated", kDEPRECATED},
       {L"BootstrapMethods", kBOOTSTRAPMETHODS},
-      {L"InnerClasses", kINNERCLASS}};
+      {L"MethodParameters", kMETHODPARAMETERS}};
   try {
     auto type = attrTypes.at(attrname);
     return type;

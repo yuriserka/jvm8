@@ -888,6 +888,17 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
 
   switch (attrtype) {
     namespace attrs = Utils::Attributes;
+    case attrs::kCONSTANTVALUE: {
+      auto kval_attr = attribute->getClass<attrs::ConstantValue_attribute>();
+      std::cout << std::string(tab_shift + 2, '\t')
+                << "Constant value index: 'cp_info #"
+                << kval_attr->constantvalue_index << "' ";
+      std::wcout << "<"
+                 << this->getConstantPoolInfo(kval_attr->constantvalue_index,
+                                              false)
+                 << ">\n";
+      break;
+    }
     case attrs::kCODE: {
       auto code_attr = attribute->getClass<attrs::Code_attribute>();
       std::cout << std::string(tab_shift + 2, '\t') << "Bytecode: \n";
@@ -913,20 +924,6 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
                             tab_shift + 1, 20, 47);
       break;
     }
-    case attrs::kCONSTANTVALUE: {
-      auto kval_attr = attribute->getClass<attrs::ConstantValue_attribute>();
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Constant value index: 'cp_info #"
-                << kval_attr->constantvalue_index << "' ";
-      std::wcout << "<"
-                 << this->getConstantPoolInfo(kval_attr->constantvalue_index,
-                                              false)
-                 << ">\n";
-      break;
-    }
-    case attrs::kDEPRECATED: {
-      break;
-    }
     case attrs::kEXCEPTIONS: {
       auto exception_attr = attribute->getClass<attrs::Exceptions_attribute>();
       std::vector<std::string> except_vars = {
@@ -935,6 +932,16 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
           "Verbose",
       };
       this->printTable(except_vars, exception_attr, tab_shift + 2);
+      break;
+    }
+    case attrs::kINNERCLASS: {
+      auto innerclass_attr =
+          attribute->getClass<attrs::InnerClasses_attribute>();
+
+      std::vector<std::string> inner_vars = {
+          "Nr.", "Inner Class", "Outer Class", "Inner Name", "Access Flags",
+      };
+      this->printTable(inner_vars, innerclass_attr, tab_shift + 2);
       break;
     }
     case attrs::kENCLOSINGMETHOD: {
@@ -968,6 +975,17 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
                  << ">\n";
       break;
     }
+    case attrs::kSOURCEFILE: {
+      auto sourcefile_attr = attribute->getClass<attrs::SourceFile_attribute>();
+      std::cout << std::string(tab_shift + 2, '\t')
+                << "Source file name index: 'cp_info #"
+                << sourcefile_attr->sourcefile_index << "' ";
+      std::wcout << "<"
+                 << this->getConstantPoolInfo(sourcefile_attr->sourcefile_index,
+                                              false)
+                 << ">\n";
+      break;
+    }
     case attrs::kLINENUMBERTABLE: {
       auto lnt_attr = attribute->getClass<attrs::LineNumberTable_attribute>();
       std::vector<std::string> vars = {"Nr.", "Start PC", "Line number"};
@@ -982,25 +1000,7 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
       this->printTable(vars, localvar_attr, tab_shift + 2);
       break;
     }
-    case attrs::kSOURCEFILE: {
-      auto sourcefile_attr = attribute->getClass<attrs::SourceFile_attribute>();
-      std::cout << std::string(tab_shift + 2, '\t')
-                << "Source file name index: 'cp_info #"
-                << sourcefile_attr->sourcefile_index << "' ";
-      std::wcout << "<"
-                 << this->getConstantPoolInfo(sourcefile_attr->sourcefile_index,
-                                              false)
-                 << ">\n";
-      break;
-    }
-    case attrs::kINNERCLASS: {
-      auto innerclass_attr =
-          attribute->getClass<attrs::InnerClasses_attribute>();
-
-      std::vector<std::string> inner_vars = {
-          "Nr.", "Inner Class", "Outer Class", "Inner Name", "Access Flags",
-      };
-      this->printTable(inner_vars, innerclass_attr, tab_shift + 2);
+    case attrs::kDEPRECATED: {
       break;
     }
     case attrs::kBOOTSTRAPMETHODS: {
@@ -1010,6 +1010,9 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
       std::vector<std::string> inner_vars = {"Nr.", "Bootstrap Method",
                                              "Arguments"};
       this->printTable(inner_vars, bootstrap_attr, tab_shift + 2);
+      break;
+    }
+    case attrs::kMETHODPARAMETERS: {
       break;
     }
     case attrs::kINVALID: {

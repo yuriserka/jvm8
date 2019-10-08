@@ -96,18 +96,19 @@ namespace Utils {
 namespace Attributes {
 enum attr_types {
   kINVALID = -1,
-  kCODE,
   kCONSTANTVALUE,
-  kDEPRECATED,
+  kCODE,
   kEXCEPTIONS,
+  kINNERCLASS,
   kENCLOSINGMETHOD,
+  kSYNTHETIC,
+  kSIGNATURE,
+  kSOURCEFILE,
   kLINENUMBERTABLE,
   kLOCALVARIABLETABLE,
-  kSOURCEFILE,
-  kSYNTHETIC,
+  kDEPRECATED,
   kBOOTSTRAPMETHODS,
-  kSIGNATURE,
-  kINNERCLASS
+  kMETHODPARAMETERS
 };
 
 int getAttributeType(const std::wstring &attrname);

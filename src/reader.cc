@@ -424,6 +424,15 @@ void Reader::readAttributesInfo(
 
     switch (attrtype) {
       namespace attrs = Utils::Attributes;
+      case attrs::kCONSTANTVALUE: {
+        auto kvalue_attr =
+            attr->setBase<attrs::ConstantValue_attribute>(nameidx, attrlen);
+        this->readBytes(&kvalue_attr->constantvalue_index);
+
+        this->kpoolValidEntry(kvalue_attr->constantvalue_index,
+                              "constantvalue_index");
+        break;
+      }
       case attrs::kCODE: {
         auto code_attr = attr->setBase<attrs::Code_attribute>(nameidx, attrlen);
         this->readBytes(&code_attr->max_stack);
@@ -529,19 +538,6 @@ void Reader::readAttributesInfo(
         }
         break;
       }
-      case attrs::kCONSTANTVALUE: {
-        auto kvalue_attr =
-            attr->setBase<attrs::ConstantValue_attribute>(nameidx, attrlen);
-        this->readBytes(&kvalue_attr->constantvalue_index);
-
-        this->kpoolValidEntry(kvalue_attr->constantvalue_index,
-                              "constantvalue_index");
-        break;
-      }
-      case attrs::kDEPRECATED: {
-        attr->setBase<attrs::Deprecated_attribute>(nameidx, attrlen);
-        break;
-      }
       case attrs::kEXCEPTIONS: {
         auto exceptions_attr =
             attr->setBase<attrs::Exceptions_attribute>(nameidx, attrlen);
@@ -556,6 +552,22 @@ void Reader::readAttributesInfo(
           this->kpoolValidInfo<Utils::Infos::CONSTANT_Class_info>(
               exceptit, "exception_index_table",
               Utils::ConstantPool::kCONSTANT_CLASS);
+        }
+        break;
+      }
+      case attrs::kINNERCLASS: {
+        auto innerclass_attr =
+            attr->setBase<attrs::InnerClasses_attribute>(nameidx, attrlen);
+        this->readBytes(&innerclass_attr->number_of_classes);
+        innerclass_attr->classes.resize(innerclass_attr->number_of_classes);
+
+        for (auto i = 0; i < innerclass_attr->number_of_classes; ++i) {
+          innerclass_attr->classes[i] = innerClasses_info();
+          auto inner_info = &innerclass_attr->classes[i];
+          this->readBytes(&inner_info->inner_class_info_index);
+          this->readBytes(&inner_info->outer_class_info_index);
+          this->readBytes(&inner_info->inner_name_index);
+          this->readBytes(&inner_info->inner_class_access_flags);
         }
         break;
       }
@@ -584,6 +596,15 @@ void Reader::readAttributesInfo(
         this->readBytes(&signature_attr->signature_index);
         this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
             signature_attr->signature_index, "signature_index",
+            Utils::ConstantPool::kCONSTANT_UTF8);
+        break;
+      }
+      case attrs::kSOURCEFILE: {
+        auto sourcefile_attr =
+            attr->setBase<attrs::SourceFile_attribute>(nameidx, attrlen);
+        this->readBytes(&sourcefile_attr->sourcefile_index);
+        this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+            sourcefile_attr->sourcefile_index, "sourcefile_index",
             Utils::ConstantPool::kCONSTANT_UTF8);
         break;
       }
@@ -629,29 +650,8 @@ void Reader::readAttributesInfo(
         }
         break;
       }
-      case attrs::kSOURCEFILE: {
-        auto sourcefile_attr =
-            attr->setBase<attrs::SourceFile_attribute>(nameidx, attrlen);
-        this->readBytes(&sourcefile_attr->sourcefile_index);
-        this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
-            sourcefile_attr->sourcefile_index, "sourcefile_index",
-            Utils::ConstantPool::kCONSTANT_UTF8);
-        break;
-      }
-      case attrs::kINNERCLASS: {
-        auto innerclass_attr =
-            attr->setBase<attrs::InnerClasses_attribute>(nameidx, attrlen);
-        this->readBytes(&innerclass_attr->number_of_classes);
-        innerclass_attr->classes.resize(innerclass_attr->number_of_classes);
-
-        for (auto i = 0; i < innerclass_attr->number_of_classes; ++i) {
-          innerclass_attr->classes[i] = innerClasses_info();
-          auto inner_info = &innerclass_attr->classes[i];
-          this->readBytes(&inner_info->inner_class_info_index);
-          this->readBytes(&inner_info->outer_class_info_index);
-          this->readBytes(&inner_info->inner_name_index);
-          this->readBytes(&inner_info->inner_class_access_flags);
-        }
+      case attrs::kDEPRECATED: {
+        attr->setBase<attrs::Deprecated_attribute>(nameidx, attrlen);
         break;
       }
       case attrs::kBOOTSTRAPMETHODS: {
@@ -678,6 +678,22 @@ void Reader::readAttributesInfo(
             this->kpoolValidEntry(bootstrap_info->bootstrap_arguments[j],
                                   "bootstrap_arguments");
           }
+        }
+        break;
+      }
+      case attrs::kMETHODPARAMETERS: {
+        auto methodparams_attr =
+            attr->setBase<attrs::MethodParameters_attribute>(nameidx, attrlen);
+        this->readBytes(&methodparams_attr->parameters_count);
+        for (auto i = 0; i < methodparams_attr->parameters_count; ++i) {
+          auto param = methodparams_attr->parameters[i];
+          this->readBytes(&param.name_index);
+          if (param.name_index) {
+            this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+                param.name_index, "name_index",
+                Utils::ConstantPool::kCONSTANT_UTF8);
+          }
+          this->readBytes(&param.access_flags);
         }
         break;
       }
