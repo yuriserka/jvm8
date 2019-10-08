@@ -45,6 +45,15 @@ void ClassFile::deleteConstantPool() {
       case cp::kCONSTANT_UTF8:
         cpi.deleteclass<info::CONSTANT_Utf8_info>();
         break;
+      case cp::kCONSTANT_METHODHANDLE:
+        cpi.deleteclass<info::CONSTANT_MethodHandle_info>();
+        break;
+      case cp::kCONSTANT_METHODTYPE:
+        cpi.deleteclass<info::CONSTANT_MethodType_info>();
+        break;
+      case cp::kCONSTANT_INVOKEDYNAMIC:
+        cpi.deleteclass<info::CONSTANT_InvokeDynamic_info>();
+        break;
     }
   }
 }
@@ -110,6 +119,9 @@ void ClassFile::deleteAttributes(
         break;
       case attrs::kSYNTHETIC:
         attr.deleteclass<attrs::Synthetic_attribute>();
+        break;
+      case attrs::kBOOTSTRAPMETHODS:
+        attr.deleteclass<attrs::BootstrapMethods_attribute>();
         break;
       case attrs::kINVALID:
         attr.deleteclass<attrs::NotImplemented>();

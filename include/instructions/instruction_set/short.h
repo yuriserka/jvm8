@@ -12,11 +12,13 @@ namespace Instructions {
 namespace Short {
 class LoadFromArray : public Instruction {
  public:
-  LoadFromArray(Viewer *v) : Instruction(Opcodes::kSALOAD, v) {}
+  LoadFromArray() : Instruction(Opcodes::kSALOAD) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -28,11 +30,13 @@ class LoadFromArray : public Instruction {
 
 class StoreIntoArray : public Instruction {
  public:
-  StoreIntoArray(Viewer *v) : Instruction(Opcodes::kSASTORE, v) {}
+  StoreIntoArray() : Instruction(Opcodes::kSASTORE) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -44,13 +48,15 @@ class StoreIntoArray : public Instruction {
 
 class Push : public Instruction {
  public:
-  Push(Viewer *v) : Instruction(Opcodes::kSIPUSH, v) {}
+  Push() : Instruction(Opcodes::kSIPUSH) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto s = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " " << s << "\n";
     *delta_code = 2;
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(

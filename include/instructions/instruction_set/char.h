@@ -11,11 +11,13 @@ namespace Instructions {
 namespace Char {
 class LoadFromArray : public Instruction {
  public:
-  LoadFromArray(Viewer *v) : Instruction(Opcodes::kCALOAD, v) {}
+  LoadFromArray() : Instruction(Opcodes::kCALOAD) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -27,11 +29,13 @@ class LoadFromArray : public Instruction {
 
 class StoreIntoArray : public Instruction {
  public:
-  StoreIntoArray(Viewer *v) : Instruction(Opcodes::kCASTORE, v) {}
+  StoreIntoArray() : Instruction(Opcodes::kCASTORE) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(

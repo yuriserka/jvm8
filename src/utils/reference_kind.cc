@@ -16,7 +16,7 @@ static std::map<Utils::Types::u2, std::string> reftypes = {
     {kREF_invokeInterface, "REF_invokeInterface"}};
 
 std::string getReferenceType(const Utils::Types::u2 &ref_index) {
-    return reftypes.at(ref_index);
+  return reftypes.at(ref_index);
 }
 }  // namespace Reference
 }  // namespace Utils

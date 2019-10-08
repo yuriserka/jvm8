@@ -12,10 +12,12 @@ namespace Instructions {
 namespace Misc {
 class Breakpoint : public Instruction {
  public:
-  Breakpoint(Viewer *v) : Instruction(Opcodes::kBREAKPOINT, v) {}
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  Breakpoint() : Instruction(Opcodes::kBREAKPOINT) {}
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -27,15 +29,16 @@ class Breakpoint : public Instruction {
 
 class Checkcast : public Instruction {
  public:
-  Checkcast(Viewer *v) : Instruction(Opcodes::kCHECKCAST, v) {}
+  Checkcast() : Instruction(Opcodes::kCHECKCAST) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
-    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 2;
+    return {kpool_index};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -49,11 +52,13 @@ class Checkcast : public Instruction {
 
 class Dup : public Instruction {
  public:
-  Dup(Viewer *v) : Instruction(Opcodes::kDUP, v) {}
+  Dup() : Instruction(Opcodes::kDUP) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -65,11 +70,13 @@ class Dup : public Instruction {
 
 class DupX1 : public Instruction {
  public:
-  DupX1(Viewer *v) : Instruction(Opcodes::kDUP_X1, v) {}
+  DupX1() : Instruction(Opcodes::kDUP_X1) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -81,11 +88,13 @@ class DupX1 : public Instruction {
 
 class DupX2 : public Instruction {
  public:
-  DupX2(Viewer *v) : Instruction(Opcodes::kDUP_X2, v) {}
+  DupX2() : Instruction(Opcodes::kDUP_X2) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -97,11 +106,13 @@ class DupX2 : public Instruction {
 
 class Dup2 : public Instruction {
  public:
-  Dup2(Viewer *v) : Instruction(Opcodes::kDUP2, v) {}
+  Dup2() : Instruction(Opcodes::kDUP2) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -113,11 +124,13 @@ class Dup2 : public Instruction {
 
 class Dup2X1 : public Instruction {
  public:
-  Dup2X1(Viewer *v) : Instruction(Opcodes::kDUP2_X1, v) {}
+  Dup2X1() : Instruction(Opcodes::kDUP2_X1) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -129,11 +142,13 @@ class Dup2X1 : public Instruction {
 
 class Dup2X2 : public Instruction {
  public:
-  Dup2X2(Viewer *v) : Instruction(Opcodes::kDUP2_X2, v) {}
+  Dup2X2() : Instruction(Opcodes::kDUP2_X2) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -145,15 +160,16 @@ class Dup2X2 : public Instruction {
 
 class GetField : public Instruction {
  public:
-  GetField(Viewer *v) : Instruction(Opcodes::kGETFIELD, v) {}
+  GetField() : Instruction(Opcodes::kGETFIELD) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
-    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 2;
+    return {kpool_index};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -167,15 +183,16 @@ class GetField : public Instruction {
 
 class GetStatic : public Instruction {
  public:
-  GetStatic(Viewer *v) : Instruction(Opcodes::kGETSTATIC, v) {}
+  GetStatic() : Instruction(Opcodes::kGETSTATIC) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
-    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 2;
+    return {kpool_index};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -189,16 +206,15 @@ class GetStatic : public Instruction {
 
 class Goto : public Instruction {
  public:
-  Goto(Viewer *v) : Instruction(Opcodes::kGOTO, v) {}
+  Goto() : Instruction(Opcodes::kGOTO) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    // std::cout << Opcodes::getMnemonic(this->opcode) << " ";
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
+    return {offset};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -212,17 +228,16 @@ class Goto : public Instruction {
 
 class GotoWide : public Instruction {
  public:
-  GotoWide(Viewer *v) : Instruction(Opcodes::kGOTO_W, v) {}
+  GotoWide() : Instruction(Opcodes::kGOTO_W) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
                   (*++*code_it << 8) | *++*code_it;
-    // std::cout << Opcodes::getMnemonic(this->opcode) << " ";
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 4;
+    return {offset};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -237,15 +252,16 @@ class GotoWide : public Instruction {
 
 class InstanceOf : public Instruction {
  public:
-  InstanceOf(Viewer *v) : Instruction(Opcodes::kINSTANCEOF, v) {}
+  InstanceOf() : Instruction(Opcodes::kINSTANCEOF) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
-    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 2;
+    return {kpool_index};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -262,11 +278,13 @@ class InstanceOf : public Instruction {
  * */
 class LookupSwitch : public Instruction {
  public:
-  LookupSwitch(Viewer *v) : Instruction(Opcodes::kLOOKUPSWITCH, v) {}
+  LookupSwitch() : Instruction(Opcodes::kLOOKUPSWITCH) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -278,16 +296,17 @@ class LookupSwitch : public Instruction {
 
 class MultiDimArray : public Instruction {
  public:
-  MultiDimArray(Viewer *v) : Instruction(Opcodes::kMULTIANEWARRAY, v) {}
+  MultiDimArray() : Instruction(Opcodes::kMULTIANEWARRAY) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    *++*code_it;
+    auto dims = *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
-    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 3;
+    return {kpool_index, dims};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -301,15 +320,16 @@ class MultiDimArray : public Instruction {
 
 class New : public Instruction {
  public:
-  New(Viewer *v) : Instruction(Opcodes::kNEW, v) {}
+  New() : Instruction(Opcodes::kNEW) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
-    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 2;
+    return {kpool_index};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -323,14 +343,16 @@ class New : public Instruction {
 
 class NewArray : public Instruction {
  public:
-  NewArray(Viewer *v) : Instruction(Opcodes::kNEWARRAY, v) {}
+  NewArray() : Instruction(Opcodes::kNEWARRAY) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto atype = *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " " << +atype << " "
               << this->getType(+atype);
     *delta_code = 1;
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -378,11 +400,13 @@ class NewArray : public Instruction {
 
 class Nop : public Instruction {
  public:
-  Nop(Viewer *v) : Instruction(Opcodes::kNOP, v) {}
+  Nop() : Instruction(Opcodes::kNOP) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -394,11 +418,13 @@ class Nop : public Instruction {
 
 class Pop : public Instruction {
  public:
-  Pop(Viewer *v) : Instruction(Opcodes::kPOP, v) {}
+  Pop() : Instruction(Opcodes::kPOP) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -410,11 +436,13 @@ class Pop : public Instruction {
 
 class Pop2 : public Instruction {
  public:
-  Pop2(Viewer *v) : Instruction(Opcodes::kPOP2, v) {}
+  Pop2() : Instruction(Opcodes::kPOP2) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -426,15 +454,16 @@ class Pop2 : public Instruction {
 
 class PutField : public Instruction {
  public:
-  PutField(Viewer *v) : Instruction(Opcodes::kPUTFIELD, v) {}
+  PutField() : Instruction(Opcodes::kPUTFIELD) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
-    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 2;
+    return {kpool_index};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -448,15 +477,16 @@ class PutField : public Instruction {
 
 class PutStatic : public Instruction {
  public:
-  PutStatic(Viewer *v) : Instruction(Opcodes::kPUTSTATIC, v) {}
+  PutStatic() : Instruction(Opcodes::kPUTSTATIC) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
               << " ";
-    std::wcout << "<" << this->viewer->getConstantPoolInfo(+kpool_index, false) << ">\n";
     *delta_code = 2;
+    return {kpool_index};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -470,13 +500,15 @@ class PutStatic : public Instruction {
 
 class Ret : public Instruction {
  public:
-  Ret(Viewer *v) : Instruction(Opcodes::kRET, v) {}
+  Ret() : Instruction(Opcodes::kRET) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto index = *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " " << index << "\n";
     *delta_code = 1;
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -490,11 +522,13 @@ class Ret : public Instruction {
 
 class Return : public Instruction {
  public:
-  Return(Viewer *v) : Instruction(Opcodes::kRETURN, v) {}
+  Return() : Instruction(Opcodes::kRETURN) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -506,11 +540,13 @@ class Return : public Instruction {
 
 class Swap : public Instruction {
  public:
-  Swap(Viewer *v) : Instruction(Opcodes::kSWAP, v) {}
+  Swap() : Instruction(Opcodes::kSWAP) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -525,11 +561,13 @@ class Swap : public Instruction {
  * */
 class TableSwitch : public Instruction {
  public:
-  TableSwitch(Viewer *v) : Instruction(Opcodes::kTABLESWITCH, v) {}
+  TableSwitch() : Instruction(Opcodes::kTABLESWITCH) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -544,11 +582,13 @@ class TableSwitch : public Instruction {
  * */
 class Wide : public Instruction {
  public:
-  Wide(Viewer *v) : Instruction(Opcodes::kWIDE, v) {}
+  Wide() : Instruction(Opcodes::kWIDE) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(

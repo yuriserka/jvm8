@@ -83,9 +83,10 @@ class Viewer {
                   Utils::Attributes::Exceptions_attribute *excpt_attr,
                   const int &tab_shift);
 
-  void printTable(const std::vector<std::string> vars,
-                  Utils::Attributes::LocalVariableTable_attribute *localvar_attr,
-                  const int &tab_shift);
+  void printTable(
+      const std::vector<std::string> vars,
+      Utils::Attributes::LocalVariableTable_attribute *localvar_attr,
+      const int &tab_shift);
 
   void printTable(const std::vector<std::string> vars,
                   Utils::Attributes::BootstrapMethods_attribute *bootstrap_attr,

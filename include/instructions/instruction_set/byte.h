@@ -12,11 +12,13 @@ namespace Instructions {
 namespace Byte {
 class LoadFromArray : public Instruction {
  public:
-  LoadFromArray(Viewer *v) : Instruction(Opcodes::kBALOAD, v) {}
+  LoadFromArray() : Instruction(Opcodes::kBALOAD) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -28,11 +30,13 @@ class LoadFromArray : public Instruction {
 
 class StoreIntoArray : public Instruction {
  public:
-  StoreIntoArray(Viewer *v) : Instruction(Opcodes::kBASTORE, v) {}
+  StoreIntoArray() : Instruction(Opcodes::kBASTORE) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -44,14 +48,16 @@ class StoreIntoArray : public Instruction {
 
 class Push : public Instruction {
  public:
-  Push(Viewer *v) : Instruction(Opcodes::kBIPUSH, v) {}
+  Push() : Instruction(Opcodes::kBIPUSH) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto byte = *++*code_it;
     std::cout << Opcodes::getMnemonic(this->opcode) << " "
               << static_cast<int>(char(byte)) << "\n";
     *delta_code = 1;
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(

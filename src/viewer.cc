@@ -332,16 +332,19 @@ bool Viewer::printConstantPoolInfo(const int &index, const int &tab_shift,
       break;
     }
     case cp::kCONSTANT_INVOKEDYNAMIC: {
-      auto invokedynamic_info = cpi.getClass<info::CONSTANT_InvokeDynamic_info>();
+      auto invokedynamic_info =
+          cpi.getClass<info::CONSTANT_InvokeDynamic_info>();
       if (!inner) {
         std::cout << std::string(tab_shift + 1, '\t') << "Name and type: "
-                  << "'cp_info #" << invokedynamic_info->name_and_type_index << "' ";
+                  << "'cp_info #" << invokedynamic_info->name_and_type_index
+                  << "' ";
       }
       this->printConstantPoolInfo(invokedynamic_info->name_and_type_index,
                                   inner ? tab_shift : tab_shift + 1, true);
       if (!inner) {
         std::cout << std::string(tab_shift + 1, '\t') << "Bootstrap method: "
-                  << "'BootstrapMethods #" << invokedynamic_info->bootstrap_method_attr_index << "'\n";
+                  << "'BootstrapMethods #"
+                  << invokedynamic_info->bootstrap_method_attr_index << "'\n";
       }
       break;
     }
@@ -432,6 +435,29 @@ std::wstring Viewer::getConstantPoolInfo(const int &index, const bool &dot) {
       wss << utf8string.toString();
       break;
     }
+    case cp::kCONSTANT_METHODHANDLE: {
+      auto kmethodhandle_info =
+          cpi.getClass<info::CONSTANT_MethodHandle_info>();
+      wss << "Constant_"
+          << Utils::String::to_wide(Utils::ConstantPool::getConstantTypename(
+                 cp::kCONSTANT_METHODHANDLE))
+          << "_info "
+          << this->getConstantPoolInfo(kmethodhandle_info->reference_index,
+                                       dot);
+      break;
+    }
+    case cp::kCONSTANT_METHODTYPE: {
+      auto methodtype_info = cpi.getClass<info::CONSTANT_MethodType_info>();
+      wss << this->getConstantPoolInfo(methodtype_info->descriptor_index, dot);
+      break;
+    }
+    case cp::kCONSTANT_INVOKEDYNAMIC: {
+      auto invokedynamic_info =
+          cpi.getClass<info::CONSTANT_InvokeDynamic_info>();
+      wss << this->getConstantPoolInfo(invokedynamic_info->name_and_type_index)
+          << ", BootstrapMethods #"
+          << invokedynamic_info->bootstrap_method_attr_index;
+    } break;
   }
   return wss.str();
 }
@@ -701,7 +727,7 @@ void Viewer::printTable(
   outerclass_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
   tf::CellFormatter innername_col(20);
   innername_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
-  tf::CellFormatter accessflags_col(20);
+  tf::CellFormatter accessflags_col(35);
   accessflags_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
 
   tf::TableFormatter formatter(
@@ -802,7 +828,7 @@ void Viewer::printTable(
   nr_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
   tf::CellFormatter bootstrap_col(30);
   bootstrap_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
-  tf::CellFormatter args_col(30);
+  tf::CellFormatter args_col(55);
   args_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
 
   tf::TableFormatter formatter({nr_col, bootstrap_col, args_col});
@@ -825,10 +851,9 @@ void Viewer::printTable(
     wss.str(L"");
 
     for (auto j = 0; j < bootstrap_info.num_bootstrap_arguments; ++j) {
-      wss << "'cp_info #" << bootstrap_info.bootstrap_arguments[i] << "' "
-          << this->getConstantPoolInfo(bootstrap_info.bootstrap_arguments[i],
-                                       false)
-          << "\n";
+      wss << "'cp_info #" << bootstrap_info.bootstrap_arguments[j] << "' <"
+          << this->getConstantPoolInfo(bootstrap_info.bootstrap_arguments[j])
+          << ">\n";
     }
     formatter << Utils::String::to_string(wss.str());
     formatter.addHorizontalLine('_');

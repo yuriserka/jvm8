@@ -225,20 +225,6 @@ void Reader::readConstantPoolInfo() {
           throw Utils::Errors::Exception(Utils::Errors::kREFKIND, err.str());
         }
         this->readBytes(&kmethodhandler_info->reference_index);
-        // if (kmethodhandler_info->reference_kind >= 1 &&
-        //     kmethodhandler_info->reference_kind <= 4) {
-        //   constpool->setBase<info::CONSTANT_FieldRef_info>(tag);
-        // } else if (kmethodhandler_info->reference_kind == 5 ||
-        //            kmethodhandler_info->reference_kind == 8) {
-        //   constpool->setBase<info::CONSTANT_Methodref_info>(tag);
-        // } else if (kmethodhandler_info->reference_kind == 6 ||
-        //            kmethodhandler_info->reference_kind == 7) {
-        //   if (this->classfile->major_version >= Utils::Versions::Java8) {
-        //     constpool->setBase<info::CONSTANT_Methodref_info>(tag);
-        //   }
-        // } else {
-        //   constpool->setBase<info::CONSTANT_InterfaceMethodref_info>(tag);
-        // }
         break;
       }
       case cp::kCONSTANT_METHODTYPE: {
@@ -563,7 +549,7 @@ void Reader::readAttributesInfo(
 
         exceptions_attr->exception_index_table.resize(
             exceptions_attr->number_of_exceptions);
-            
+
         for (auto i = 0; i < exceptions_attr->number_of_exceptions; ++i) {
           this->readBytes(&exceptions_attr->exception_index_table[i]);
           auto exceptit = exceptions_attr->exception_index_table[i];
@@ -688,8 +674,8 @@ void Reader::readAttributesInfo(
           bootstrap_info->bootstrap_arguments.resize(
               bootstrap_info->num_bootstrap_arguments);
           for (auto j = 0; j < bootstrap_info->num_bootstrap_arguments; ++j) {
-            this->readBytes(&bootstrap_info->bootstrap_arguments[i]);
-            this->kpoolValidEntry(bootstrap_info->bootstrap_arguments[i],
+            this->readBytes(&bootstrap_info->bootstrap_arguments[j]);
+            this->kpoolValidEntry(bootstrap_info->bootstrap_arguments[j],
                                   "bootstrap_arguments");
           }
         }

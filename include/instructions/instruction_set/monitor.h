@@ -11,11 +11,13 @@ namespace Instructions {
 namespace Monitor {
 class Enter : public Instruction {
  public:
-  Enter(Viewer *v) : Instruction(Opcodes::kMONITORENTER, v) {}
+  Enter() : Instruction(Opcodes::kMONITORENTER) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
@@ -27,11 +29,13 @@ class Enter : public Instruction {
 
 class Exit : public Instruction {
  public:
-  Exit(Viewer *v) : Instruction(Opcodes::kMONITOREXIT, v) {}
+  Exit() : Instruction(Opcodes::kMONITOREXIT) {}
 
-  inline void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                        int *delta_code, const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     std::cout << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
   inline std::vector<std::string> toBytecode_json(

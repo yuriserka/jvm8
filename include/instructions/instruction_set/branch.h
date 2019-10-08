@@ -12,32 +12,39 @@ namespace Instructions {
 namespace Branch {
 class RefCompareEqual : public Instruction {
  public:
-  RefCompareEqual(Viewer *v) : Instruction(Opcodes::kIF_ACMPEQ, v) {}
+  RefCompareEqual() : Instruction(Opcodes::kIF_ACMPEQ) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override;
-
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) override;
+      const bool &wide) override {
+    auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
+    *delta_code = 2;
+    return {offset};
+  }
+
+  inline std::vector<std::string> toBytecode_json(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      int *ret, const bool &wide) override {
+    auto offset = (*++*code_it << 8) | *++*code_it;
+    *delta_code = 2;
+    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+  }
 };
 
 class RefCompareNotEqual : public Instruction {
  public:
-  RefCompareNotEqual(Viewer *v) : Instruction(Opcodes::kIF_ACMPNE, v) {}
+  RefCompareNotEqual() : Instruction(Opcodes::kIF_ACMPNE) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -48,19 +55,17 @@ class RefCompareNotEqual : public Instruction {
 
 class IntegerCompareEqual : public Instruction {
  public:
-  IntegerCompareEqual(Viewer *v) : Instruction(Opcodes::kIF_ICMPEQ, v) {}
+  IntegerCompareEqual() : Instruction(Opcodes::kIF_ICMPEQ) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -71,19 +76,17 @@ class IntegerCompareEqual : public Instruction {
 
 class IntegerCompareGreaterEqual : public Instruction {
  public:
-  IntegerCompareGreaterEqual(Viewer *v) : Instruction(Opcodes::kIF_ICMPGE, v) {}
+  IntegerCompareGreaterEqual() : Instruction(Opcodes::kIF_ICMPGE) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -94,19 +97,17 @@ class IntegerCompareGreaterEqual : public Instruction {
 
 class IntegerCompareGreaterThan : public Instruction {
  public:
-  IntegerCompareGreaterThan(Viewer *v) : Instruction(Opcodes::kIF_ICMPGT, v) {}
+  IntegerCompareGreaterThan() : Instruction(Opcodes::kIF_ICMPGT) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -117,19 +118,17 @@ class IntegerCompareGreaterThan : public Instruction {
 
 class IntegerCompareLessEqual : public Instruction {
  public:
-  IntegerCompareLessEqual(Viewer *v) : Instruction(Opcodes::kIF_ICMPLE, v) {}
+  IntegerCompareLessEqual() : Instruction(Opcodes::kIF_ICMPLE) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -140,19 +139,17 @@ class IntegerCompareLessEqual : public Instruction {
 
 class IntegerCompareLessThan : public Instruction {
  public:
-  IntegerCompareLessThan(Viewer *v) : Instruction(Opcodes::kIF_ICMPLT, v) {}
+  IntegerCompareLessThan() : Instruction(Opcodes::kIF_ICMPLT) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -163,19 +160,17 @@ class IntegerCompareLessThan : public Instruction {
 
 class IntegerCompareNotEqual : public Instruction {
  public:
-  IntegerCompareNotEqual(Viewer *v) : Instruction(Opcodes::kIF_ICMPNE, v) {}
+  IntegerCompareNotEqual() : Instruction(Opcodes::kIF_ICMPNE) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -186,19 +181,17 @@ class IntegerCompareNotEqual : public Instruction {
 
 class EqualZero : public Instruction {
  public:
-  EqualZero(Viewer *v) : Instruction(Opcodes::kIFEQ, v) {}
+  EqualZero() : Instruction(Opcodes::kIFEQ) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -209,19 +202,17 @@ class EqualZero : public Instruction {
 
 class GreaterEqualZero : public Instruction {
  public:
-  GreaterEqualZero(Viewer *v) : Instruction(Opcodes::kIFGE, v) {}
+  GreaterEqualZero() : Instruction(Opcodes::kIFGE) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -232,19 +223,17 @@ class GreaterEqualZero : public Instruction {
 
 class GreaterThanZero : public Instruction {
  public:
-  GreaterThanZero(Viewer *v) : Instruction(Opcodes::kIFGT, v) {}
+  GreaterThanZero() : Instruction(Opcodes::kIFGT) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -255,19 +244,17 @@ class GreaterThanZero : public Instruction {
 
 class LessEqualZero : public Instruction {
  public:
-  LessEqualZero(Viewer *v) : Instruction(Opcodes::kIFLE, v) {}
+  LessEqualZero() : Instruction(Opcodes::kIFLE) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -278,19 +265,17 @@ class LessEqualZero : public Instruction {
 
 class LessThanZero : public Instruction {
  public:
-  LessThanZero(Viewer *v) : Instruction(Opcodes::kIFLT, v) {}
+  LessThanZero() : Instruction(Opcodes::kIFLT) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -301,19 +286,17 @@ class LessThanZero : public Instruction {
 
 class NotEqualZero : public Instruction {
  public:
-  NotEqualZero(Viewer *v) : Instruction(Opcodes::kIFNE, v) {}
+  NotEqualZero() : Instruction(Opcodes::kIFNE) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -324,19 +307,17 @@ class NotEqualZero : public Instruction {
 
 class NonNull : public Instruction {
  public:
-  NonNull(Viewer *v) : Instruction(Opcodes::kIFNONNULL, v) {}
+  NonNull() : Instruction(Opcodes::kIFNONNULL) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
@@ -347,19 +328,17 @@ class NonNull : public Instruction {
 
 class RefNull : public Instruction {
  public:
-  RefNull(Viewer *v) : Instruction(Opcodes::kIFNULL, v) {}
+  RefNull() : Instruction(Opcodes::kIFNULL) {}
 
-  void toBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                  const int &code_pos, int *delta_code,
-                  const bool &wide) override {
+  inline std::vector<int> toBytecode(
+      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " "
-              << static_cast<int>(char(offset + offset)) << " (" << std::showpos
-              << static_cast<int>(char(offset)) << ")\n";
     *delta_code = 2;
+    return {offset};
   }
 
-  std::vector<std::string> toBytecode_json(
+  inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide) {
     auto offset = (*++*code_it << 8) | *++*code_it;
