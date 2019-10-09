@@ -40,6 +40,7 @@ class RefCompareNotEqual : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -61,6 +62,7 @@ class IntegerCompareEqual : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -82,6 +84,7 @@ class IntegerCompareGreaterEqual : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -103,6 +106,7 @@ class IntegerCompareGreaterThan : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -124,6 +128,7 @@ class IntegerCompareLessEqual : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -145,6 +150,7 @@ class IntegerCompareLessThan : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -166,6 +172,7 @@ class IntegerCompareNotEqual : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -187,6 +194,7 @@ class EqualZero : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -208,6 +216,7 @@ class GreaterEqualZero : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -229,6 +238,7 @@ class GreaterThanZero : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -250,6 +260,7 @@ class LessEqualZero : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -271,6 +282,7 @@ class LessThanZero : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -292,6 +304,7 @@ class NotEqualZero : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -313,6 +326,7 @@ class NonNull : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -334,6 +348,7 @@ class RefNull : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       const bool &wide) override {
     auto offset = (*++*code_it << 8) | *++*code_it;
+    std::cout << Opcodes::getMnemonic(this->opcode) << " ";
     *delta_code = 2;
     return {offset};
   }

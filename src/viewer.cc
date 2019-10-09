@@ -481,6 +481,23 @@ void Viewer::printAccessFlags(const T *obj, const int &tab_shift,
   std::cout << "]\n";
 }
 
+std::wstring Viewer::getAccessFlags(
+    const Utils::Types::u2 &access_flags,
+    std::vector<std::string> (*getAccessTypeFunc)(
+        const Utils::Types::u2 &accessType)) {
+  std::stringstream ss;
+  auto flags = getAccessTypeFunc(access_flags);
+  ss << "Access Flags: "
+     << "0x" << std::setfill('0') << std::setw(4) << std::hex << std::uppercase
+     << access_flags << " [";
+  for (size_t i = 0; i < flags.size(); ++i) {
+    ss << flags[i] << (i < flags.size() - 1 ? " " : "");
+  }
+  ss << "]\n";
+
+  return Utils::String::to_wide(ss.str());
+}
+
 void Viewer::printAccessFlags() {
   this->printAccessFlags(this->classfile, 0, 11,
                          Utils::Access::getClassAccessType);
@@ -759,16 +776,8 @@ void Viewer::printTable(
     formatter << Utils::String::to_string(wss.str());
     wss.str(L"");
 
-    wss << "0x" << std::setfill(L'0') << std::setw(4) << std::hex
-        << std::uppercase << innerclass.inner_class_access_flags << " ";
-    auto flags = Utils::Access::getNestedClassAccessType(
-        innerclass.inner_class_access_flags);
-    wss << " [";
-    for (size_t i = 0; i < flags.size(); ++i) {
-      wss << Utils::String::to_wide(flags[i])
-          << (i < flags.size() - 1 ? L" " : L"");
-    }
-    wss << " ]";
+    wss << this->getAccessFlags(innerclass.inner_class_access_flags,
+                                Utils::Access::getNestedClassAccessType);
     formatter << Utils::String::to_string(wss.str());
     formatter.addHorizontalLine('_');
   }
@@ -855,6 +864,46 @@ void Viewer::printTable(
           << this->getConstantPoolInfo(bootstrap_info.bootstrap_arguments[j])
           << ">\n";
     }
+    formatter << Utils::String::to_string(wss.str());
+    formatter.addHorizontalLine('_');
+  }
+
+  std::cout << formatter.toString(tab_shift) << '\n';
+}
+
+void Viewer::printTable(
+    const std::vector<std::string> vars,
+    Utils::Attributes::MethodParameters_attribute *methodparams_attr,
+    const int &tab_shift) {
+  namespace tf = tableformatter;
+
+  tf::CellFormatter nr_col(5);
+  nr_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+  tf::CellFormatter paramname_col(25);
+  paramname_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+  tf::CellFormatter accessflags_col(35);
+  accessflags_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
+
+  tf::TableFormatter formatter({nr_col, paramname_col, accessflags_col});
+
+  // Table header
+  for (auto v : vars) {
+    formatter << v;
+  }
+  formatter.addHorizontalLine('*');
+
+  for (auto i = 0; i < methodparams_attr->parameters_count; ++i) {
+    auto param_info = methodparams_attr->parameters[i];
+    formatter << i;
+    std::wstringstream wss;
+
+    wss << "'cp_info #" << param_info.name_index << "'\n"
+        << this->getConstantPoolInfo(param_info.name_index, false);
+    formatter << Utils::String::to_string(wss.str());
+    wss.str(L"");
+
+    wss << this->getAccessFlags(param_info.access_flags,
+                                Utils::Access::getMethodParamsAccessType);
     formatter << Utils::String::to_string(wss.str());
     formatter.addHorizontalLine('_');
   }
@@ -1013,6 +1062,11 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
       break;
     }
     case attrs::kMETHODPARAMETERS: {
+      auto methodparams_attr =
+          attribute->getClass<attrs::MethodParameters_attribute>();
+      std::vector<std::string> inner_vars = {"Nr.", "Parameter Name",
+                                             "Access Flags"};
+      this->printTable(inner_vars, methodparams_attr, tab_shift + 2);
       break;
     }
     case attrs::kINVALID: {

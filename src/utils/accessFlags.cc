@@ -5,51 +5,56 @@
 namespace Utils {
 namespace Access {
 std::map<Utils::Types::u2, std::string> classAccessNames = {
-    {ClassAccess::ACC_PUBLIC, "public"},
-    {ClassAccess::ACC_FINAL, "final"},
-    {ClassAccess::ACC_SUPER, "super"},
-    {ClassAccess::ACC_INTERFACE, "interface"},
-    {ClassAccess::ACC_ABSTRACT, "abstract"},
-    {ClassAccess::ACC_SYNTHETIC, "synthetic"},
-    {ClassAccess::ACC_ANNOTATION, "annotation"},
-    {ClassAccess::ACC_ENUM, "enum"}};
+    {ClassAccess::kACC_PUBLIC, "public"},
+    {ClassAccess::kACC_FINAL, "final"},
+    {ClassAccess::kACC_SUPER, "super"},
+    {ClassAccess::kACC_INTERFACE, "interface"},
+    {ClassAccess::kACC_ABSTRACT, "abstract"},
+    {ClassAccess::kACC_SYNTHETIC, "synthetic"},
+    {ClassAccess::kACC_ANNOTATION, "annotation"},
+    {ClassAccess::kACC_ENUM, "enum"}};
 
 std::map<Utils::Types::u2, std::string> fieldAccessNames = {
-    {FieldAccess::ACC_PUBLIC, "public"},
-    {FieldAccess::ACC_PRIVATE, "private"},
-    {FieldAccess::ACC_PROTECTED, "protected"},
-    {FieldAccess::ACC_STATIC, "static"},
-    {FieldAccess::ACC_FINAL, "final"},
-    {FieldAccess::ACC_VOLATILE, "volatile"},
-    {FieldAccess::ACC_TRANSIENT, "transient"},
-    {FieldAccess::ACC_SYNTHETIC, "synthetic"},
-    {FieldAccess::ACC_ENUM, "enum"}};
+    {FieldAccess::kACC_PUBLIC, "public"},
+    {FieldAccess::kACC_PRIVATE, "private"},
+    {FieldAccess::kACC_PROTECTED, "protected"},
+    {FieldAccess::kACC_STATIC, "static"},
+    {FieldAccess::kACC_FINAL, "final"},
+    {FieldAccess::kACC_VOLATILE, "volatile"},
+    {FieldAccess::kACC_TRANSIENT, "transient"},
+    {FieldAccess::kACC_SYNTHETIC, "synthetic"},
+    {FieldAccess::kACC_ENUM, "enum"}};
 
 std::map<Utils::Types::u2, std::string> methodAccessNames = {
-    {MethodAccess::ACC_PUBLIC, "public"},
-    {MethodAccess::ACC_PRIVATE, "private"},
-    {MethodAccess::ACC_PROTECTED, "protected"},
-    {MethodAccess::ACC_STATIC, "static"},
-    {MethodAccess::ACC_FINAL, "final"},
-    {MethodAccess::ACC_SYNCHRONIZED, "syncronized"},
-    {MethodAccess::ACC_BRIDGE, "bridge"},
-    {MethodAccess::ACC_VARARGS, "varargs"},
-    {MethodAccess::ACC_NATIVE, "native"},
-    {MethodAccess::ACC_ABSTRACT, "abstract"},
-    {MethodAccess::ACC_STRICT, "strict"},
-    {MethodAccess::ACC_SYNTHETIC, "synthetic"}};
+    {MethodAccess::kACC_PUBLIC, "public"},
+    {MethodAccess::kACC_PRIVATE, "private"},
+    {MethodAccess::kACC_PROTECTED, "protected"},
+    {MethodAccess::kACC_STATIC, "static"},
+    {MethodAccess::kACC_FINAL, "final"},
+    {MethodAccess::kACC_SYNCHRONIZED, "syncronized"},
+    {MethodAccess::kACC_BRIDGE, "bridge"},
+    {MethodAccess::kACC_VARARGS, "varargs"},
+    {MethodAccess::kACC_NATIVE, "native"},
+    {MethodAccess::kACC_ABSTRACT, "abstract"},
+    {MethodAccess::kACC_STRICT, "strict"},
+    {MethodAccess::kACC_SYNTHETIC, "synthetic"}};
 
 std::map<Utils::Types::u2, std::string> nestedAccessNames = {
-    {NestedClassAccess::ACC_PUBLIC, "public"},
-    {NestedClassAccess::ACC_PRIVATE, "private"},
-    {NestedClassAccess::ACC_PROTECTED, "protected"},
-    {NestedClassAccess::ACC_STATIC, "static"},
-    {NestedClassAccess::ACC_FINAL, "final"},
-    {NestedClassAccess::ACC_INTERFACE, "interface"},
-    {NestedClassAccess::ACC_ABSTRACT, "abstract"},
-    {NestedClassAccess::ACC_SYNTHETIC, "synthetic"},
-    {NestedClassAccess::ACC_ANNOTATION, "annotation"},
-    {NestedClassAccess::ACC_ENUM, "enum"}};
+    {NestedClassAccess::kACC_PUBLIC, "public"},
+    {NestedClassAccess::kACC_PRIVATE, "private"},
+    {NestedClassAccess::kACC_PROTECTED, "protected"},
+    {NestedClassAccess::kACC_STATIC, "static"},
+    {NestedClassAccess::kACC_FINAL, "final"},
+    {NestedClassAccess::kACC_INTERFACE, "interface"},
+    {NestedClassAccess::kACC_ABSTRACT, "abstract"},
+    {NestedClassAccess::kACC_SYNTHETIC, "synthetic"},
+    {NestedClassAccess::kACC_ANNOTATION, "annotation"},
+    {NestedClassAccess::kACC_ENUM, "enum"}};
+
+std::map<Utils::Types::u2, std::string> methodparamsNames = {
+    {MethodParamsAccess::kACC_FINAL, "final"},
+    {MethodParamsAccess::kACC_SYNTHETIC, "synthetic"},
+    {MethodParamsAccess::kACC_MANDATED, "mandated"}};
 
 std::vector<std::string> getClassAccessType(
     const Utils::Types::u2 &accessType) {
@@ -117,6 +122,25 @@ std::vector<std::string> getNestedClassAccessType(
   for (auto accessFlag : keys) {
     try {
       auto s = nestedAccessNames.at(accessType & accessFlag);
+      flagsname.push_back(s);
+    } catch (const std::exception &e) {
+      continue;
+    }
+  }
+  return flagsname;
+}
+
+std::vector<std::string> getMethodParamsAccessType(
+    const Utils::Types::u2 &accessType) {
+  std::vector<Utils::Types::u2> keys;
+  for (auto it = methodparamsNames.begin(); it != methodparamsNames.end();
+       ++it) {
+    keys.push_back(it->first);
+  }
+  std::vector<std::string> flagsname;
+  for (auto accessFlag : keys) {
+    try {
+      auto s = methodparamsNames.at(accessType & accessFlag);
       flagsname.push_back(s);
     } catch (const std::exception &e) {
       continue;

@@ -108,23 +108,6 @@ void Reader::readConstantPoolCount() {
   }
 }
 
-/**
- * @brief fancy way to create any class with many args as necessary for the
- * constructor.
- *
- * @tparam T the class that will be created.
- * @tparam TArgs will be a list of all the args types passed.
- * @param[in] mArgs the multiple arguments used in constructor of class T.
- * @returns a pointer to the class.
- */
-// template <typename T, typename... TArgs>
-// T *createClass(TArgs &&...mArgs) {
-//     void *objptr = std::malloc(sizeof(T));
-//     auto constinfo = new (objptr) T(std::forward<TArgs>(mArgs)...);
-
-//     return constinfo;
-// }
-
 void Reader::readConstantPoolInfo() {
   for (auto i = 0; i < this->classfile->constant_pool_count - 1; ++i) {
     this->classfile->constant_pool[i] = Utils::Infos::cp_info();
@@ -202,7 +185,7 @@ void Reader::readConstantPoolInfo() {
         auto kutf8_info = constpool->setBase<info::CONSTANT_Utf8_info>(tag);
         this->readBytes(&kutf8_info->length);
         kutf8_info->bytes.resize(kutf8_info->length);
-        for (size_t i = 0; i < kutf8_info->bytes.size(); ++i) {
+        for (auto i = 0; i < kutf8_info->length; ++i) {
           this->readBytes(&kutf8_info->bytes[i]);
           auto ubyte = +kutf8_info->bytes[i];
           if (ubyte == 0x0000 || (ubyte >= 0x00F0 && ubyte <= 0x00FF)) {
@@ -685,15 +668,19 @@ void Reader::readAttributesInfo(
         auto methodparams_attr =
             attr->setBase<attrs::MethodParameters_attribute>(nameidx, attrlen);
         this->readBytes(&methodparams_attr->parameters_count);
+        methodparams_attr->parameters.resize(
+            methodparams_attr->parameters_count);
+
         for (auto i = 0; i < methodparams_attr->parameters_count; ++i) {
-          auto param = methodparams_attr->parameters[i];
-          this->readBytes(&param.name_index);
-          if (param.name_index) {
+          methodparams_attr->parameters[i] = MethodParameters_info();
+          auto param = &methodparams_attr->parameters[i];
+          this->readBytes(&param->name_index);
+          if (param->name_index) {
             this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
-                param.name_index, "name_index",
+                param->name_index, "name_index",
                 Utils::ConstantPool::kCONSTANT_UTF8);
           }
-          this->readBytes(&param.access_flags);
+          this->readBytes(&param->access_flags);
         }
         break;
       }

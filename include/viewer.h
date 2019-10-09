@@ -67,6 +67,10 @@ class Viewer {
                         std::vector<std::string> (*getAccessTypeFunc)(
                             const Utils::Types::u2 &accessType));
 
+  std::wstring getAccessFlags(const Utils::Types::u2 &access_flags,
+                              std::vector<std::string> (*getAccessTypeFunc)(
+                                  const Utils::Types::u2 &accessType));
+
   void printTable(const std::vector<std::string> vars,
                   Utils::Attributes::InnerClasses_attribute *innerclass_attr,
                   const int &tab_shift);
@@ -91,6 +95,11 @@ class Viewer {
   void printTable(const std::vector<std::string> vars,
                   Utils::Attributes::BootstrapMethods_attribute *bootstrap_attr,
                   const int &tab_shift);
+
+  void printTable(
+      const std::vector<std::string> vars,
+      Utils::Attributes::MethodParameters_attribute *methodparams_attr,
+      const int &tab_shift);
 
   std::string classname;
   const ClassFile *classfile;
