@@ -9,13 +9,16 @@ Utf8::Utf8(const Utils::Infos::CONSTANT_Utf8_info *kutf8Info) {
   std::vector<std::wstring> scapes = {L"\aa", L"\bb", L"\tt", L"\nn",
                                       L"\vv", L"\ff", L"\rr"};
   auto bytes = kutf8Info->bytes;
-  Utils::Types::u2 byteRange[] = {0x0001, 0x0080, 0x8000, 0xFFFF};
   for (size_t i = 0; i < kutf8Info->length; ++i) {
-    auto ubyte = +bytes[i];
-
-    auto umByte = ubyte >= byteRange[0] && ubyte < byteRange[1];
-    auto doisBytes = ubyte >= byteRange[1] && ubyte < byteRange[2];
-    auto tresBytes = ubyte >= byteRange[0] && ubyte <= byteRange[3];
+    auto umByte = (bytes[i] & 0x80) == 0;
+    auto doisBytes = (bytes[i] & 0xE0) == 0xC0 && (bytes[i + 1] & 0xC0) == 0x80;
+    auto tresBytes = (bytes[i] & 0xF0) == 0xE0 &&
+                     (bytes[i + 1] & 0xC0) == 0x80 &&
+                     (bytes[i + 2] & 0xC0) == 0x80;
+    auto sixBytes = (bytes[i] == 0xED) && (bytes[i + 1] & 0xF0) == 0xA0 &&
+                    (bytes[i + 2] & 0xC0) == 0x80 && (bytes[i + 3] == 0xED) &&
+                    (bytes[i + 4] & 0xF0) == 0xB0 &&
+                    (bytes[i + 5] & 0xC0) == 0x80;
 
     wchar_t utf8c = L'\0';
     if (umByte) {
@@ -36,18 +39,18 @@ Utf8::Utf8(const Utils::Infos::CONSTANT_Utf8_info *kutf8Info) {
       utf8c = static_cast<wchar_t>(b1 | b2);
       ++i;
     } else if (tresBytes) {
-      auto b1 = (bytes[i] & 0x0F) << 12;
+      auto b1 = (bytes[i] & 0xF) << 12;
       auto b2 = (bytes[i + 1] & 0x3F) << 6;
       auto b3 = bytes[i + 2] & 0x3F;
       utf8c = static_cast<wchar_t>(b1 | b2 | b3);
       i += 2;
-    } else if (ubyte > byteRange[3]) {
-      auto b1 = (bytes[i] & 0x0F) << 16;
-      auto b2 = (bytes[i + 1] & 0x3F) << 10;
-      auto b3 = (bytes[i + 2] & 0x0F) << 6;
-      auto b4 = bytes[i + 3] & 0x3F;
+    } else if (sixBytes) {
+      auto b1 = (bytes[i + 1] & 0x0F) << 16;
+      auto b2 = (bytes[i + 2] & 0x3F) << 10;
+      auto b3 = (bytes[i + 4] & 0x0F) << 6;
+      auto b4 = bytes[i + 5] & 0x3F;
       utf8c = static_cast<wchar_t>(0x10000 | b1 | b2 | b3 | b4);
-      i += 3;
+      i += 5;
     }
     this->str.push_back(utf8c);
   }
