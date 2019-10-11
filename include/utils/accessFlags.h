@@ -70,6 +70,9 @@ namespace MethodParamsAccess {
 enum { kACC_FINAL = 0x0010, kACC_SYNTHETIC = 0x1000, kACC_MANDATED = 0x8000 };
 }  // namespace MethodParamsAccess
 
+std::wstring getAccessFlags(const Utils::Types::u2 &access_flags,
+                            std::vector<std::string> (*getAccessTypeFunc)(
+                                const Utils::Types::u2 &accessType));
 std::vector<std::string> getClassAccessType(const Utils::Types::u2 &accessType);
 std::vector<std::string> getFieldAccessType(const Utils::Types::u2 &accessType);
 std::vector<std::string> getMethodAccessType(

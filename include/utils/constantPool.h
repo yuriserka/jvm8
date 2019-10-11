@@ -90,9 +90,9 @@ class CONSTANT_Class_info : public BaseConstantInfo {
 
   ~CONSTANT_Class_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool) const;
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool) const;
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u2 name_index;
 };
@@ -104,10 +104,10 @@ class CONSTANT_FieldRef_info : public BaseConstantInfo {
 
   ~CONSTANT_FieldRef_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool,
-                        const bool dot) const;
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool,
+                        const bool &dot) const;
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u2 class_index;
   Utils::Types::u2 name_and_type_index;
@@ -120,10 +120,10 @@ class CONSTANT_Methodref_info : public BaseConstantInfo {
 
   ~CONSTANT_Methodref_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool,
-                        const bool dot) const;
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool,
+                        const bool &dot) const;
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u2 class_index;
   Utils::Types::u2 name_and_type_index;
@@ -136,10 +136,10 @@ class CONSTANT_InterfaceMethodref_info : public BaseConstantInfo {
 
   ~CONSTANT_InterfaceMethodref_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool,
-                        const bool dot) const;
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool,
+                        const bool &dot) const;
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u2 class_index;
   Utils::Types::u2 name_and_type_index;
@@ -152,9 +152,9 @@ class CONSTANT_String_info : public BaseConstantInfo {
 
   ~CONSTANT_String_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool) const;
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool) const;
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u2 string_index;
 };
@@ -166,9 +166,9 @@ class CONSTANT_Integer_info : public BaseConstantInfo {
 
   ~CONSTANT_Integer_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool) const;
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool) const;
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u4 bytes;
 };
@@ -180,9 +180,9 @@ class CONSTANT_Float_info : public BaseConstantInfo {
 
   ~CONSTANT_Float_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool) const;
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool) const;
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u4 bytes;
 };
@@ -194,9 +194,9 @@ class CONSTANT_Long_info : public BaseConstantInfo {
 
   ~CONSTANT_Long_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool) const;
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool) const;
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u4 high_bytes;
   Utils::Types::u4 low_bytes;
@@ -209,10 +209,10 @@ class CONSTANT_Double_info : public BaseConstantInfo {
 
   ~CONSTANT_Double_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool) const;
+  std::wstring getValue(const std::vector<cp_info> &constpool) const;
 
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u4 high_bytes;
   Utils::Types::u4 low_bytes;
@@ -225,9 +225,9 @@ class CONSTANT_NameAndType_info : public BaseConstantInfo {
 
   ~CONSTANT_NameAndType_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool) const;
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool) const;
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u2 name_index;
   Utils::Types::u2 descriptor_index;
@@ -240,8 +240,8 @@ class CONSTANT_Utf8_info : public BaseConstantInfo {
 
   ~CONSTANT_Utf8_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool) const;
-  std::wstring getGeneralInfo(const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool) const;
+  std::wstring getGeneralInfo(const int &delta_tab);
 
   Utils::Types::u2 length;
   std::vector<Utils::Types::u1> bytes;
@@ -254,9 +254,9 @@ class CONSTANT_MethodHandle_info : public BaseConstantInfo {
 
   ~CONSTANT_MethodHandle_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool) const;
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool) const;
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u1 reference_kind;
   Utils::Types::u2 reference_index;
@@ -269,9 +269,9 @@ class CONSTANT_MethodType_info : public BaseConstantInfo {
 
   ~CONSTANT_MethodType_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool) const;
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool) const;
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u2 descriptor_index;
 };
@@ -283,9 +283,9 @@ class CONSTANT_InvokeDynamic_info : public BaseConstantInfo {
 
   ~CONSTANT_InvokeDynamic_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> *constpool) const;
-  std::wstring getGeneralInfo(const std::vector<cp_info> *constpool,
-                              const int delta_tab);
+  std::wstring getValue(const std::vector<cp_info> &constpool) const;
+  std::wstring getGeneralInfo(const std::vector<cp_info> &constpool,
+                              const int &delta_tab);
 
   Utils::Types::u2 bootstrap_method_attr_index;
   Utils::Types::u2 name_and_type_index;

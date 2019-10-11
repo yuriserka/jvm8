@@ -5,13 +5,9 @@
 #include <map>
 #include "utils/errors.h"
 
-Options Utils::Flags::options = Options();
-
 namespace Utils {
 namespace Flags {
-std::map<std::string, bool *> optionsNames = {{"-v", &options.kVERBOSE},
-                                              {"-i", &options.kIGNORE},
-                                              {"-json", &options.kJSON}};
+Options options = Options();
 
 void toggleAll(const char **flags) {
   for (; *flags;) {
@@ -25,10 +21,13 @@ void toggleAll(const char **flags) {
 }
 
 void toggle(const char *flag) {
+  std::map<std::string, bool *> optionsNames = {{"-v", &options.kVERBOSE},
+                                                {"-i", &options.kIGNORE},
+                                                {"-json", &options.kJSON}};
   bool *f = nullptr;
   try {
     f = optionsNames.at(flag);
-  } catch (const std::exception &e) {
+  } catch (const std::out_of_range &oor) {
     throw Errors::Exception(Errors::kFLAG,
                             "invalid flag: " + std::string(flag));
   }

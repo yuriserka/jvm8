@@ -88,10 +88,8 @@ void Viewer::printConstantPoolCount() {
 
 bool Viewer::printConstantPoolInfo(const int index, const int delta_tab) {
   bool jmpNextIndex = false;
-  auto kpool = const_cast<std::vector<Utils::ConstantPool::cp_info> *>(
-      &this->classfile->constant_pool);
+  auto kpool = this->classfile->constant_pool;
   auto cpi = this->classfile->constant_pool[index - 1];
-  // auto cpi = kpool->at(index - 1);
 
   std::cout << std::string(delta_tab, '\t') << "[" << index << "] ";
   auto name = Utils::ConstantPool::getConstantTypename(cpi.base->tag);
@@ -191,10 +189,7 @@ std::wstring Viewer::getConstantPoolInfo(const int &index, const bool &dot) {
     return wss.str();
   }
   auto cpi = this->classfile->constant_pool[index - 1];
-  auto kpool = &this->classfile->constant_pool;
-  // auto kpool = const_cast<std::vector<Utils::ConstantPool::cp_info> *>(
-  //     &this->classfile->constant_pool);
-  // auto cpi = kpool->at(index - 1);
+  auto kpool = this->classfile->constant_pool;
 
   switch (cpi.base->tag) {
     namespace cp = Utils::ConstantPool;
@@ -275,45 +270,18 @@ std::wstring Viewer::getConstantPoolInfo(const int &index, const bool &dot) {
   return wss.str();
 }
 
-template <typename T>
-void Viewer::printAccessFlags(const T *obj, const int &tab_shift,
-                              const int &width,
-                              std::vector<std::string> (*getAccessTypeFunc)(
-                                  const Utils::Types::u2 &accessType)) {
-  auto flags = getAccessTypeFunc(obj->access_flags);
+void Viewer::printAccessFlags() {
+  auto flags = Utils::Access::getClassAccessType(this->classfile->access_flags);
   state.copyfmt(std::cout);
-  std::cout << std::string(tab_shift, '\t')
-            << "Access Flags: " << std::setw(width);
+  std::cout << "Access Flags: " << std::setw(11);
   std::cout << "0x" << std::setfill('0') << std::setw(4) << std::hex
-            << std::uppercase << obj->access_flags;
+            << std::uppercase << this->classfile->access_flags;
   std::cout.copyfmt(state);
   std::cout << " [";
   for (size_t i = 0; i < flags.size(); ++i) {
     std::cout << flags[i] << (i < flags.size() - 1 ? " " : "");
   }
   std::cout << "]\n";
-}
-
-std::wstring Viewer::getAccessFlags(
-    const Utils::Types::u2 &access_flags,
-    std::vector<std::string> (*getAccessTypeFunc)(
-        const Utils::Types::u2 &accessType)) {
-  std::stringstream ss;
-  auto flags = getAccessTypeFunc(access_flags);
-  ss << "Access Flags: "
-     << "0x" << std::setfill('0') << std::setw(4) << std::hex << std::uppercase
-     << access_flags << " [";
-  for (size_t i = 0; i < flags.size(); ++i) {
-    ss << flags[i] << (i < flags.size() - 1 ? " " : "");
-  }
-  ss << "]\n";
-
-  return Utils::String::to_wide(ss.str());
-}
-
-void Viewer::printAccessFlags() {
-  this->printAccessFlags(this->classfile, 0, 11,
-                         Utils::Access::getClassAccessType);
 }
 
 void Viewer::printThisClass() {
@@ -383,8 +351,8 @@ void Viewer::printFieldInfo(const int &index, const int &tab_shift) {
   std::wcout << "<" << this->getConstantPoolInfo(field.descriptor_index, false)
              << ">\n";
 
-  this->printAccessFlags(&field, tab_shift + 1, 0,
-                         Utils::Access::getFieldAccessType);
+  Utils::Access::getAccessFlags(field.access_flags,
+                                Utils::Access::getFieldAccessType);
   this->printAttributes(field.attributes, field.attributes_count, tab_shift + 1,
                         20, 30);
 }
@@ -418,8 +386,8 @@ void Viewer::printMethodInfo(const int &index, const int &tab_shift) {
   std::wcout << "<" << this->getConstantPoolInfo(method.descriptor_index, false)
              << ">\n";
 
-  this->printAccessFlags(&method, tab_shift + 1, 0,
-                         Utils::Access::getMethodAccessType);
+  Utils::Access::getAccessFlags(method.access_flags,
+                                Utils::Access::getMethodAccessType);
   this->printAttributes(method.attributes, method.attributes_count,
                         tab_shift + 1, 20, 30);
 }
@@ -593,8 +561,9 @@ void Viewer::printTable(
     formatter << Utils::String::to_string(wss.str());
     wss.str(L"");
 
-    wss << this->getAccessFlags(innerclass.inner_class_access_flags,
-                                Utils::Access::getNestedClassAccessType);
+    wss << Utils::Access::getAccessFlags(
+        innerclass.inner_class_access_flags,
+        Utils::Access::getNestedClassAccessType);
     formatter << Utils::String::to_string(wss.str());
     formatter.addHorizontalLine('_');
   }
@@ -719,8 +688,8 @@ void Viewer::printTable(
     formatter << Utils::String::to_string(wss.str());
     wss.str(L"");
 
-    wss << this->getAccessFlags(param_info.access_flags,
-                                Utils::Access::getMethodParamsAccessType);
+    wss << Utils::Access::getAccessFlags(
+        param_info.access_flags, Utils::Access::getMethodParamsAccessType);
     formatter << Utils::String::to_string(wss.str());
     formatter.addHorizontalLine('_');
   }

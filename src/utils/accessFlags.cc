@@ -1,6 +1,9 @@
 #include "utils/accessFlags.h"
 
+#include <iomanip>
 #include <map>
+#include <sstream>
+#include "utils/string.h"
 
 namespace Utils {
 namespace Access {
@@ -55,6 +58,22 @@ std::map<Utils::Types::u2, std::string> methodparamsNames = {
     {MethodParamsAccess::kACC_FINAL, "final"},
     {MethodParamsAccess::kACC_SYNTHETIC, "synthetic"},
     {MethodParamsAccess::kACC_MANDATED, "mandated"}};
+
+std::wstring getAccessFlags(const Utils::Types::u2 &access_flags,
+                            std::vector<std::string> (*getAccessTypeFunc)(
+                                const Utils::Types::u2 &accessType)) {
+  std::wstringstream wss;
+  auto flags = getAccessTypeFunc(access_flags);
+  wss << "Access Flags: "
+      << "0x" << std::setfill(L'0') << std::setw(4) << std::hex
+      << std::uppercase << access_flags << " [";
+  for (size_t i = 0; i < flags.size(); ++i) {
+    wss << String::to_wide(flags[i]) << (i < flags.size() - 1 ? " " : "");
+  }
+  wss << "]\n";
+
+  return wss.str();
+}
 
 std::vector<std::string> getClassAccessType(
     const Utils::Types::u2 &accessType) {

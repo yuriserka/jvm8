@@ -123,6 +123,9 @@ void ClassFile::deleteAttributes(
       case attrs::kBOOTSTRAPMETHODS:
         attr.deleteclass<attrs::BootstrapMethods_attribute>();
         break;
+      case attrs::kMETHODPARAMETERS:
+        attr.deleteclass<attrs::MethodParameters_attribute>();
+        break;
       case attrs::kINVALID:
         attr.deleteclass<attrs::NotImplemented>();
         break;

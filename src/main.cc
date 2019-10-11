@@ -12,17 +12,19 @@ void dumpJsonFile(const ClassFile *cf, const std::string &filename);
 
 int main(const int argc, const char **argv) {
   setlocale(LC_ALL, "");
-  // argv[0] = ./jvm
-  Utils::Flags::toggleAll(++argv);
 
   ClassFile *cf = nullptr;
   Reader *r = nullptr;
   Viewer *v = nullptr;
 
   try {
+    // argv[0] = ./jvm
+    Utils::Flags::toggleAll(++argv);
+
     cf = new ClassFile();
     r = new Reader(cf, Utils::Flags::options.kFILE);
     v = new Viewer(cf, r->fname);
+
     r->readClassFile();
     if (Utils::Flags::options.kJSON) {
       dumpJsonFile(cf, r->fname);

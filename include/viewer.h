@@ -48,26 +48,6 @@ class Viewer {
   void printAttributeInfo(Utils::Attributes::attribute_info *attribute,
                           const int &index, const int &tab_shift);
 
-  template <typename T>
-  void printReferences(const T *kinfo, const int &tab_shift);
-
-  template <typename T>
-  void print4bytesNumeral(const T *kinfo, const int &tab_shift,
-                          const bool &inner);
-
-  template <typename T>
-  void print8bytesNumeral(const T *kinfo, const int &tab_shift,
-                          const bool &inner);
-
-  template <typename T>
-  void printAccessFlags(const T *obj, const int &tab_shift, const int &width,
-                        std::vector<std::string> (*getAccessTypeFunc)(
-                            const Utils::Types::u2 &accessType));
-
-  std::wstring getAccessFlags(const Utils::Types::u2 &access_flags,
-                              std::vector<std::string> (*getAccessTypeFunc)(
-                                  const Utils::Types::u2 &accessType));
-
   void printTable(const std::vector<std::string> vars,
                   Utils::Attributes::InnerClasses_attribute *innerclass_attr,
                   const int &tab_shift);
