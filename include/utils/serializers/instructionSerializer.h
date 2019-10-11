@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "classfile.h"
-#include "utils/serializers/infoSerializer.h"
+#include "utils/serializers/constpoolSerializer.h"
 
 namespace Instructions {
 class InstructionSerializer {
@@ -12,7 +12,8 @@ class InstructionSerializer {
                         const std::vector<Utils::Types::u1> &code) {
     this->cf = cf;
     this->code_array = code;
-    this->kpool_serializer = new Utils::Infos::ConstantPoolSerializer(cf);
+    this->kpool_serializer =
+        new Utils::ConstantPool::ConstantPoolSerializer(cf);
   }
 
   ~InstructionSerializer() { delete this->kpool_serializer; }
@@ -23,7 +24,7 @@ class InstructionSerializer {
  private:
   const ClassFile *cf;
   std::vector<Utils::Types::u1> code_array;
-  Utils::Infos::ConstantPoolSerializer *kpool_serializer;
+  Utils::ConstantPool::ConstantPoolSerializer *kpool_serializer;
 };
 }  // namespace Instructions
 

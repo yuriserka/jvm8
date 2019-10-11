@@ -1,7 +1,7 @@
 #include "utils/serializers/attributeSerializer.h"
 
 #include "instructions/opcodes.h"
-#include "utils/serializers/infoSerializer.h"
+#include "utils/serializers/constpoolSerializer.h"
 #include "utils/serializers/instructionSerializer.h"
 #include "utils/utf8.h"
 
@@ -100,12 +100,13 @@ static void create_json_str(json *j, const NotImplemented *not_implemented) {
 }
 
 void AttributeSerializer::to_json(json *j, const int &attrindex) {
-  auto is = Utils::Infos::ConstantPoolSerializer(this->cf);
+  auto is = Utils::ConstantPool::ConstantPoolSerializer(this->cf);
   auto attr = this->attrs[attrindex];
 
   auto utf8nameindex =
       this->cf->constant_pool[attr.base->attribute_name_index - 1];
-  auto kutf8 = utf8nameindex.getClass<Utils::Infos::CONSTANT_Utf8_info>();
+  auto kutf8 =
+      utf8nameindex.getClass<Utils::ConstantPool::CONSTANT_Utf8_info>();
   auto attrName = Utf8(kutf8);
   auto attrtype = getAttributeType(attrName.str);
 
@@ -135,7 +136,8 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
         i += delta_code;
       }
 
-      auto kpool_serializer = Utils::Infos::ConstantPoolSerializer(this->cf);
+      auto kpool_serializer =
+          Utils::ConstantPool::ConstantPoolSerializer(this->cf);
       for (auto i = 0; i < code_attr->exception_table_length; ++i) {
         auto except = code_attr->exception_table[i];
         // clang-format off

@@ -7,7 +7,7 @@
 using nlohmann::json;
 
 namespace Utils {
-namespace Infos {
+namespace ConstantPool {
 class ConstantPoolSerializer {
  public:
   explicit ConstantPoolSerializer(const ClassFile *cf) { this->cf = cf; }
@@ -20,7 +20,7 @@ class ConstantPoolSerializer {
 
   const ClassFile *cf;
 };
-}  // namespace Infos
+}  // namespace ConstantPool
 }  // namespace Utils
 
 #endif  // INCLUDE_UTILS_SERIALIZERS_INFOSERIALIZER_H_

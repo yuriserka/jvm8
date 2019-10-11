@@ -25,7 +25,7 @@ class ClassFile {
   Utils::Types::u2 major_version;
 
   Utils::Types::u2 constant_pool_count;
-  std::vector<Utils::Infos::cp_info> constant_pool;
+  std::vector<Utils::ConstantPool::cp_info> constant_pool;
 
   Utils::Types::u2 access_flags;
   Utils::Types::u2 this_class;

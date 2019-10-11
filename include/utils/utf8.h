@@ -3,11 +3,11 @@
 
 #include <iostream>
 #include <string>
-#include "utils/infos.h"
+#include "utils/constantpool.h"
 
 class Utf8 {
  public:
-  explicit Utf8(const Utils::Infos::CONSTANT_Utf8_info *kutf8Info);
+  explicit Utf8(const Utils::ConstantPool::CONSTANT_Utf8_info *kutf8Info);
 
   explicit Utf8(const std::string &str) {
     this->str = std::wstring(str.begin(), str.end());

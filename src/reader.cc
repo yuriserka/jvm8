@@ -110,65 +110,63 @@ void Reader::readConstantPoolCount() {
 
 void Reader::readConstantPoolInfo() {
   for (auto i = 0; i < this->classfile->constant_pool_count - 1; ++i) {
-    this->classfile->constant_pool[i] = Utils::Infos::cp_info();
+    this->classfile->constant_pool[i] = Utils::ConstantPool::cp_info();
     auto constpool = &this->classfile->constant_pool[i];
     Utils::Types::u1 tag;
     this->readBytes(&tag);
 
     switch (tag) {
       namespace cp = Utils::ConstantPool;
-      namespace info = Utils::Infos;
       case cp::kCONSTANT_CLASS: {
-        auto kclass_info = constpool->setBase<info::CONSTANT_Class_info>(tag);
+        auto kclass_info = constpool->setBase<cp::CONSTANT_Class_info>(tag);
         this->readBytes(&kclass_info->name_index);
         break;
       }
       case cp::kCONSTANT_FIELDREF: {
         auto kfieldref_info =
-            constpool->setBase<info::CONSTANT_FieldRef_info>(tag);
+            constpool->setBase<cp::CONSTANT_FieldRef_info>(tag);
         this->readBytes(&kfieldref_info->class_index);
         this->readBytes(&kfieldref_info->name_and_type_index);
         break;
       }
       case cp::kCONSTANT_METHODREF: {
         auto kmethodref_info =
-            constpool->setBase<info::CONSTANT_Methodref_info>(tag);
+            constpool->setBase<cp::CONSTANT_Methodref_info>(tag);
         this->readBytes(&kmethodref_info->class_index);
         this->readBytes(&kmethodref_info->name_and_type_index);
         break;
       }
       case cp::kCONSTANT_INTERFACEMETHODREF: {
         auto kInterfacemethodref_info =
-            constpool->setBase<info::CONSTANT_InterfaceMethodref_info>(tag);
+            constpool->setBase<cp::CONSTANT_InterfaceMethodref_info>(tag);
         this->readBytes(&kInterfacemethodref_info->class_index);
         this->readBytes(&kInterfacemethodref_info->name_and_type_index);
         break;
       }
       case cp::kCONSTANT_STRING: {
-        auto kstring_info = constpool->setBase<info::CONSTANT_String_info>(tag);
+        auto kstring_info = constpool->setBase<cp::CONSTANT_String_info>(tag);
         this->readBytes(&kstring_info->string_index);
         break;
       }
       case cp::kCONSTANT_INTEGER: {
-        auto kinteger_info =
-            constpool->setBase<info::CONSTANT_Integer_info>(tag);
+        auto kinteger_info = constpool->setBase<cp::CONSTANT_Integer_info>(tag);
         this->readBytes(&kinteger_info->bytes);
         break;
       }
       case cp::kCONSTANT_FLOAT: {
-        auto kfloat_info = constpool->setBase<info::CONSTANT_Float_info>(tag);
+        auto kfloat_info = constpool->setBase<cp::CONSTANT_Float_info>(tag);
         this->readBytes(&kfloat_info->bytes);
         break;
       }
       case cp::kCONSTANT_LONG: {
-        auto klong_info = constpool->setBase<info::CONSTANT_Long_info>(tag);
+        auto klong_info = constpool->setBase<cp::CONSTANT_Long_info>(tag);
         this->readBytes(&klong_info->high_bytes);
         this->readBytes(&klong_info->low_bytes);
         ++i;
         break;
       }
       case cp::kCONSTANT_DOUBLE: {
-        auto kdouble_info = constpool->setBase<info::CONSTANT_Double_info>(tag);
+        auto kdouble_info = constpool->setBase<cp::CONSTANT_Double_info>(tag);
         this->readBytes(&kdouble_info->high_bytes);
         this->readBytes(&kdouble_info->low_bytes);
         ++i;
@@ -176,13 +174,13 @@ void Reader::readConstantPoolInfo() {
       }
       case cp::kCONSTANT_NAMEANDTYPE: {
         auto knameandtype_info =
-            constpool->setBase<info::CONSTANT_NameAndType_info>(tag);
+            constpool->setBase<cp::CONSTANT_NameAndType_info>(tag);
         this->readBytes(&knameandtype_info->name_index);
         this->readBytes(&knameandtype_info->descriptor_index);
         break;
       }
       case cp::kCONSTANT_UTF8: {
-        auto kutf8_info = constpool->setBase<info::CONSTANT_Utf8_info>(tag);
+        auto kutf8_info = constpool->setBase<cp::CONSTANT_Utf8_info>(tag);
         this->readBytes(&kutf8_info->length);
         kutf8_info->bytes.resize(kutf8_info->length);
         for (auto i = 0; i < kutf8_info->length; ++i) {
@@ -199,7 +197,7 @@ void Reader::readConstantPoolInfo() {
       }
       case cp::kCONSTANT_METHODHANDLE: {
         auto kmethodhandler_info =
-            constpool->setBase<info::CONSTANT_MethodHandle_info>(tag);
+            constpool->setBase<cp::CONSTANT_MethodHandle_info>(tag);
         this->readBytes(&kmethodhandler_info->reference_kind);
         if (kmethodhandler_info->reference_kind < 1 ||
             kmethodhandler_info->reference_kind > 9) {
@@ -212,13 +210,13 @@ void Reader::readConstantPoolInfo() {
       }
       case cp::kCONSTANT_METHODTYPE: {
         auto kmethodtype_info =
-            constpool->setBase<info::CONSTANT_MethodType_info>(tag);
+            constpool->setBase<cp::CONSTANT_MethodType_info>(tag);
         this->readBytes(&kmethodtype_info->descriptor_index);
         break;
       }
       case cp::kCONSTANT_INVOKEDYNAMIC: {
         auto kinvokedynamic_info =
-            constpool->setBase<info::CONSTANT_InvokeDynamic_info>(tag);
+            constpool->setBase<cp::CONSTANT_InvokeDynamic_info>(tag);
         this->readBytes(&kinvokedynamic_info->bootstrap_method_attr_index);
         this->readBytes(&kinvokedynamic_info->name_and_type_index);
         break;
@@ -304,20 +302,19 @@ void Reader::readFieldsCount() {
 }
 
 void Reader::readFieldsInfo() {
-  namespace info = Utils::Infos;
   auto kpool = this->classfile->constant_pool;
   for (auto i = 0; i < this->classfile->fields_count; ++i) {
-    this->classfile->fields[i] = info::field_info();
+    this->classfile->fields[i] = Utils::Infos::field_info();
     auto field = &this->classfile->fields[i];
 
     this->readBytes(&field->access_flags);
 
     this->readBytes(&field->name_index);
-    this->kpoolValidInfo<info::CONSTANT_Utf8_info>(
+    this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
         field->name_index, "name_index", Utils::ConstantPool::kCONSTANT_UTF8);
 
     this->readBytes(&field->descriptor_index);
-    this->kpoolValidInfo<info::CONSTANT_Utf8_info>(
+    this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
         field->descriptor_index, "descriptor_index",
         Utils::ConstantPool::kCONSTANT_UTF8);
 
@@ -397,7 +394,7 @@ void Reader::readAttributesInfo(
     types::u4 attrlen;
 
     this->readBytes(&nameidx);
-    auto kutf8 = this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+    auto kutf8 = this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
         nameidx, "name_index", Utils::ConstantPool::kCONSTANT_UTF8);
 
     this->readBytes(&attrlen);
@@ -464,7 +461,7 @@ void Reader::readAttributesInfo(
           }
           this->readBytes(&excpt->catch_type);
           if (excpt->catch_type != 0) {
-            this->kpoolValidInfo<Utils::Infos::CONSTANT_Class_info>(
+            this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Class_info>(
                 excpt->catch_type, "catch_type",
                 Utils::ConstantPool::kCONSTANT_CLASS);
           }
@@ -532,7 +529,7 @@ void Reader::readAttributesInfo(
         for (auto i = 0; i < exceptions_attr->number_of_exceptions; ++i) {
           this->readBytes(&exceptions_attr->exception_index_table[i]);
           auto exceptit = exceptions_attr->exception_index_table[i];
-          this->kpoolValidInfo<Utils::Infos::CONSTANT_Class_info>(
+          this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Class_info>(
               exceptit, "exception_index_table",
               Utils::ConstantPool::kCONSTANT_CLASS);
         }
@@ -558,12 +555,12 @@ void Reader::readAttributesInfo(
         auto enclosing_attr =
             attr->setBase<attrs::EnclosingMethod_attribute>(nameidx, attrlen);
         this->readBytes(&enclosing_attr->class_index);
-        this->kpoolValidInfo<Utils::Infos::CONSTANT_Class_info>(
+        this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Class_info>(
             enclosing_attr->class_index, "class_index",
             Utils::ConstantPool::kCONSTANT_CLASS);
         this->readBytes(&enclosing_attr->method_index);
         if (enclosing_attr->method_index) {
-          this->kpoolValidInfo<Utils::Infos::CONSTANT_NameAndType_info>(
+          this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_NameAndType_info>(
               enclosing_attr->method_index, "method_index",
               Utils::ConstantPool::kCONSTANT_NAMEANDTYPE);
         }
@@ -577,7 +574,7 @@ void Reader::readAttributesInfo(
         auto signature_attr =
             attr->setBase<attrs::Signature_attribute>(nameidx, attrlen);
         this->readBytes(&signature_attr->signature_index);
-        this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+        this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
             signature_attr->signature_index, "signature_index",
             Utils::ConstantPool::kCONSTANT_UTF8);
         break;
@@ -586,7 +583,7 @@ void Reader::readAttributesInfo(
         auto sourcefile_attr =
             attr->setBase<attrs::SourceFile_attribute>(nameidx, attrlen);
         this->readBytes(&sourcefile_attr->sourcefile_index);
-        this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+        this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
             sourcefile_attr->sourcefile_index, "sourcefile_index",
             Utils::ConstantPool::kCONSTANT_UTF8);
         break;
@@ -620,12 +617,12 @@ void Reader::readAttributesInfo(
           this->readBytes(&localvar_info->length);
 
           this->readBytes(&localvar_info->name_index);
-          this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+          this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
               localvar_info->name_index, "name_index",
               Utils::ConstantPool::kCONSTANT_UTF8);
 
           this->readBytes(&localvar_info->descriptor_index);
-          this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+          this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
               localvar_info->descriptor_index, "descriptor_index",
               Utils::ConstantPool::kCONSTANT_UTF8);
 
@@ -649,7 +646,7 @@ void Reader::readAttributesInfo(
           auto bootstrap_info = &bootstrap_attr->bootstrap_methods[i];
           this->readBytes(&bootstrap_info->bootstrap_method_ref);
 
-          this->kpoolValidInfo<Utils::Infos::CONSTANT_MethodHandle_info>(
+          this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_MethodHandle_info>(
               bootstrap_info->bootstrap_method_ref, "bootstrap_method_ref",
               Utils::ConstantPool::kCONSTANT_METHODHANDLE);
 
@@ -676,7 +673,7 @@ void Reader::readAttributesInfo(
           auto param = &methodparams_attr->parameters[i];
           this->readBytes(&param->name_index);
           if (param->name_index) {
-            this->kpoolValidInfo<Utils::Infos::CONSTANT_Utf8_info>(
+            this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
                 param->name_index, "name_index",
                 Utils::ConstantPool::kCONSTANT_UTF8);
           }

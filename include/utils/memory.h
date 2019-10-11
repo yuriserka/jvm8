@@ -1,6 +1,8 @@
 #ifndef INCLUDE_UTILS_MEMORY_H_
 #define INCLUDE_UTILS_MEMORY_H_
 
+#include <cstring>
+#include <memory>
 #include "utils/errors.h"
 
 namespace Utils {

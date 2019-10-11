@@ -5,7 +5,7 @@
 #include <locale>
 #include <string>
 
-Utf8::Utf8(const Utils::Infos::CONSTANT_Utf8_info *kutf8Info) {
+Utf8::Utf8(const Utils::ConstantPool::CONSTANT_Utf8_info *kutf8Info) {
   std::vector<std::wstring> scapes = {L"\aa", L"\bb", L"\tt", L"\nn",
                                       L"\vv", L"\ff", L"\rr"};
   auto bytes = kutf8Info->bytes;

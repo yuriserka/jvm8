@@ -2,7 +2,7 @@
 
 #include "utils/accessFlags.h"
 #include "utils/serializers/attributeSerializer.h"
-#include "utils/serializers/infoSerializer.h"
+#include "utils/serializers/constpoolSerializer.h"
 
 namespace Utils {
 namespace Infos {
@@ -31,7 +31,7 @@ static void create_json_str(json *j, const method_info &method) {
 }
 
 void MethodSerializer::to_json(json *j, const int &methodindex) {
-  auto is = ConstantPoolSerializer(this->cf);
+  auto is = Utils::ConstantPool::ConstantPoolSerializer(this->cf);
   method_info method = this->cf->methods[methodindex];
   create_json_str(j, method);
   is.to_json(&(*j).at("/name"_json_pointer), method.name_index - 1);

@@ -2,8 +2,8 @@
 
 #include "utils/accessFlags.h"
 #include "utils/serializers/attributeSerializer.h"
+#include "utils/serializers/constpoolSerializer.h"
 #include "utils/serializers/fieldSerializer.h"
-#include "utils/serializers/infoSerializer.h"
 #include "utils/serializers/methodSerializer.h"
 #include "utils/utf8.h"
 #include "utils/versions.h"
@@ -47,7 +47,7 @@ void ClassFileSerializer::writeConstantPool(json *j) {
   };
   // clang-format on
 
-  auto kpoolserializer = Utils::Infos::ConstantPoolSerializer(this->cf);
+  auto kpoolserializer = Utils::ConstantPool::ConstantPoolSerializer(this->cf);
   for (auto i = 0; i < this->cf->constant_pool_count - 1; ++i) {
     auto jmp = kpoolserializer.to_json(&(*j).at("entries")[i], i);
     if (jmp) {
@@ -74,12 +74,12 @@ void ClassFileSerializer::writeAccessFlags(json *j) {
 }
 
 void ClassFileSerializer::writeThisClass(json *j) {
-  auto kpoolserializer = Utils::Infos::ConstantPoolSerializer(this->cf);
+  auto kpoolserializer = Utils::ConstantPool::ConstantPoolSerializer(this->cf);
   kpoolserializer.to_json(j, this->cf->this_class - 1);
 }
 
 void ClassFileSerializer::writeSuperClass(json *j) {
-  auto kpoolserializer = Utils::Infos::ConstantPoolSerializer(this->cf);
+  auto kpoolserializer = Utils::ConstantPool::ConstantPoolSerializer(this->cf);
   kpoolserializer.to_json(j, this->cf->super_class - 1);
 }
 
@@ -91,7 +91,7 @@ void ClassFileSerializer::writeInterfaces(json *j) {
   };
   // clang-format on
 
-  auto kpoolserializer = Utils::Infos::ConstantPoolSerializer(this->cf);
+  auto kpoolserializer = Utils::ConstantPool::ConstantPoolSerializer(this->cf);
   for (auto i = 0; i < this->cf->interfaces_count; ++i) {
     kpoolserializer.to_json(&(*j).at("entries")[i],
                             this->cf->interfaces[i] - 1);

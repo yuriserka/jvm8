@@ -30,7 +30,9 @@ enum errorTypes {
   kFIELD,
   kATTRIBUTE,
   kMKDIR,
-  kMEMCPY
+  kMEMCPY,
+  kVIEWER,
+  kFLAG
 };
 }  // namespace Errors
 }  // namespace Utils

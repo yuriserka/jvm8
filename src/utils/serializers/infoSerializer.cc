@@ -1,4 +1,4 @@
-#include "utils/serializers/infoSerializer.h"
+#include "utils/serializers/constpoolSerializer.h"
 
 #include <sstream>
 #include "utils/constantPool.h"
@@ -13,7 +13,7 @@ static std::string getHexByteString(types::u4 bytes, const int &size) {
 }
 
 namespace Utils {
-namespace Infos {
+namespace ConstantPool {
 static void create_json_str(json *j, const CONSTANT_Class_info *kinfo,
                             const int &index) {
   // clang-format off
@@ -262,5 +262,5 @@ bool ConstantPoolSerializer::to_json(json *j, const int &kpoolindex) {
   }
   return jmpNextIndex;
 }
-}  // namespace Infos
+}  // namespace ConstantPool
 }  // namespace Utils

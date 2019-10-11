@@ -3,6 +3,7 @@
 #include <string.h>
 #include <iostream>
 #include <map>
+#include "utils/errors.h"
 
 Options Utils::Flags::options = Options();
 
@@ -24,7 +25,14 @@ void toggleAll(const char **flags) {
 }
 
 void toggle(const char *flag) {
-  *optionsNames.at(flag) = !*optionsNames.at(flag);
+  bool *f = nullptr;
+  try {
+    f = optionsNames.at(flag);
+  } catch (const std::exception &e) {
+    throw Errors::Exception(Errors::kFLAG,
+                            "invalid flag: " + std::string(flag));
+  }
+  *f = !*f;
 }
 }  // namespace Flags
 }  // namespace Utils

@@ -9,50 +9,49 @@ void ClassFile::deleteConstantPool() {
     auto cpi = this->constant_pool[i];
     switch (cpi.base->tag) {
       namespace cp = Utils::ConstantPool;
-      namespace info = Utils::Infos;
       case cp::kCONSTANT_CLASS:
-        cpi.deleteclass<info::CONSTANT_Class_info>();
+        cpi.deleteclass<cp::CONSTANT_Class_info>();
         break;
       case cp::kCONSTANT_DOUBLE:
-        cpi.deleteclass<info::CONSTANT_Double_info>();
+        cpi.deleteclass<cp::CONSTANT_Double_info>();
         ++i;
         break;
       case cp::kCONSTANT_FIELDREF:
-        cpi.deleteclass<info::CONSTANT_FieldRef_info>();
+        cpi.deleteclass<cp::CONSTANT_FieldRef_info>();
         break;
       case cp::kCONSTANT_FLOAT:
-        cpi.deleteclass<info::CONSTANT_Float_info>();
+        cpi.deleteclass<cp::CONSTANT_Float_info>();
         break;
       case cp::kCONSTANT_INTEGER:
-        cpi.deleteclass<info::CONSTANT_Integer_info>();
+        cpi.deleteclass<cp::CONSTANT_Integer_info>();
         break;
       case cp::kCONSTANT_INTERFACEMETHODREF:
-        cpi.deleteclass<info::CONSTANT_InterfaceMethodref_info>();
+        cpi.deleteclass<cp::CONSTANT_InterfaceMethodref_info>();
         break;
       case cp::kCONSTANT_LONG:
-        cpi.deleteclass<info::CONSTANT_Long_info>();
+        cpi.deleteclass<cp::CONSTANT_Long_info>();
         ++i;
         break;
       case cp::kCONSTANT_METHODREF:
-        cpi.deleteclass<info::CONSTANT_Methodref_info>();
+        cpi.deleteclass<cp::CONSTANT_Methodref_info>();
         break;
       case cp::kCONSTANT_NAMEANDTYPE:
-        cpi.deleteclass<info::CONSTANT_NameAndType_info>();
+        cpi.deleteclass<cp::CONSTANT_NameAndType_info>();
         break;
       case cp::kCONSTANT_STRING:
-        cpi.deleteclass<info::CONSTANT_String_info>();
+        cpi.deleteclass<cp::CONSTANT_String_info>();
         break;
       case cp::kCONSTANT_UTF8:
-        cpi.deleteclass<info::CONSTANT_Utf8_info>();
+        cpi.deleteclass<cp::CONSTANT_Utf8_info>();
         break;
       case cp::kCONSTANT_METHODHANDLE:
-        cpi.deleteclass<info::CONSTANT_MethodHandle_info>();
+        cpi.deleteclass<cp::CONSTANT_MethodHandle_info>();
         break;
       case cp::kCONSTANT_METHODTYPE:
-        cpi.deleteclass<info::CONSTANT_MethodType_info>();
+        cpi.deleteclass<cp::CONSTANT_MethodType_info>();
         break;
       case cp::kCONSTANT_INVOKEDYNAMIC:
-        cpi.deleteclass<info::CONSTANT_InvokeDynamic_info>();
+        cpi.deleteclass<cp::CONSTANT_InvokeDynamic_info>();
         break;
     }
   }
@@ -78,7 +77,8 @@ void ClassFile::deleteAttributes(
     Utils::Attributes::attribute_info attr = attributes->at(i);
     auto utf8nameindex =
         this->constant_pool[attr.base->attribute_name_index - 1];
-    auto kutf8 = utf8nameindex.getClass<Utils::Infos::CONSTANT_Utf8_info>();
+    auto kutf8 =
+        utf8nameindex.getClass<Utils::ConstantPool::CONSTANT_Utf8_info>();
     auto attrName = Utf8(kutf8);
     auto attrtype = Utils::Attributes::getAttributeType(attrName.str);
 

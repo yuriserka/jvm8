@@ -22,10 +22,7 @@ class Viewer {
 
   void printConstantPool();
   void printConstantPoolCount();
-  bool printConstantPoolInfo(const int &index, const int &tab_shift,
-                             const bool &inner,
-                             const bool &innerNameAndType = false,
-                             const int &utf8fmt = -1);
+  bool printConstantPoolInfo(const int index, const int delta_tab);
 
   void printAccessFlags();
   void printThisClass();
