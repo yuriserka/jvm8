@@ -7,12 +7,19 @@ public class Methodparams {
         return "Vish...";
     }
 
-    public static void main(String javalatte[]) {
+    private String met1(final double... reais) {
+        if (reais[0] == 0.0) {
+            return "Zerinho";
+        }
+        return "ta no eixo";
+    }
+
+    public static void main(String args[]) {
         TwoArgInterface plusOperation = (a, b) -> a + b;
         System.out.println("Sum of 10, 34 : " + plusOperation.operation(10, 34));
     }
 }
 
 interface TwoArgInterface {
-    public int operation(final int a, final int b);
+    public int operation(final int x, final int y);
 }

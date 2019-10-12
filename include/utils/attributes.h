@@ -5,94 +5,101 @@
 #include <vector>
 #include "utils/types.h"
 
-namespace types = Utils::Types;
-
 struct excption_info {
-  types::u2 start_pc;
-  types::u2 end_pc;
-  types::u2 handler_pc;
-  types::u2 catch_type;
+  Utils::Types::u2 start_pc;
+  Utils::Types::u2 end_pc;
+  Utils::Types::u2 handler_pc;
+  Utils::Types::u2 catch_type;
 };
 
 struct innerClasses_info {
-  types::u2 inner_class_info_index;
-  types::u2 outer_class_info_index;
-  types::u2 inner_name_index;
-  types::u2 inner_class_access_flags;
+  Utils::Types::u2 inner_class_info_index;
+  Utils::Types::u2 outer_class_info_index;
+  Utils::Types::u2 inner_name_index;
+  Utils::Types::u2 inner_class_access_flags;
 };
 
 struct lineNumberTable_info {
-  types::u2 start_pc;
-  types::u2 line_number;
+  Utils::Types::u2 start_pc;
+  Utils::Types::u2 line_number;
 };
 
 struct localVariableTable_info {
-  types::u2 start_pc;
-  types::u2 length;
-  types::u2 name_index;
-  types::u2 descriptor_index;
-  types::u2 index;
+  Utils::Types::u2 start_pc;
+  Utils::Types::u2 length;
+  Utils::Types::u2 name_index;
+  Utils::Types::u2 descriptor_index;
+  Utils::Types::u2 index;
 };
 
 struct localVariableTypetable_info {
-  types::u2 start_pc;
-  types::u2 length;
-  types::u2 name_index;
-  types::u2 signature_index;
-  types::u2 index;
+  Utils::Types::u2 start_pc;
+  Utils::Types::u2 length;
+  Utils::Types::u2 name_index;
+  Utils::Types::u2 signature_index;
+  Utils::Types::u2 index;
 };
 
 struct element_value;
 
 struct annotation {
-  types::u2 type_index;
-  types::u2 num_element_value_pairs;
+  Utils::Types::u2 type_index;
+  Utils::Types::u2 num_element_value_pairs;
   struct annotation_info {
-    types::u2 element_name_index;
+    Utils::Types::u2 element_name_index;
     element_value *value;
   } info;
   std::vector<annotation_info> element_value_pairs;
 };
 
 struct element_value {
-  types::u1 tag;
+  Utils::Types::u1 tag;
   union {
-    types::u2 const_value_index;
+    Utils::Types::u2 const_value_index;
     struct {
-      types::u2 type_name_index;
-      types::u2 const_name_index;
+      Utils::Types::u2 type_name_index;
+      Utils::Types::u2 const_name_index;
     } enum_const_value;
-    types::u2 class_info_index;
+    Utils::Types::u2 class_info_index;
     annotation annotation_value;
     struct {
-      types::u2 num_values;
+      Utils::Types::u2 num_values;
       std::vector<element_value> values;
     } array_value;
   } value;
 };
 
 struct runtimeVisibleParameterAnnotations_info {
-  types::u2 num_annotations;
+  Utils::Types::u2 num_annotations;
   std::vector<annotation> annotations;
 };
 
 struct runtimeInvisibleParameterAnnotations_info {
-  types::u2 num_annotations;
+  Utils::Types::u2 num_annotations;
   std::vector<annotation> annotations;
 };
 
 struct BootstrapMethods_info {
-  types::u2 bootstrap_method_ref;
-  types::u2 num_bootstrap_arguments;
-  std::vector<types::u2> bootstrap_arguments;
+  Utils::Types::u2 bootstrap_method_ref;
+  Utils::Types::u2 num_bootstrap_arguments;
+  std::vector<Utils::Types::u2> bootstrap_arguments;
 };
 
 struct MethodParameters_info {
-  types::u2 name_index;
-  types::u2 access_flags;
+  Utils::Types::u2 name_index;
+  Utils::Types::u2 access_flags;
 };
 
+// forward declaration
+class Viewer;
+class ClassFile;
+
 namespace Utils {
+namespace ConstantPool {
+// forward declaration
+class cp_info;
+}  // namespace ConstantPool
+
 namespace Attributes {
 enum attr_types {
   kINVALID = -1,
@@ -117,15 +124,16 @@ class BaseAttribute {
  public:
   BaseAttribute() = default;
 
-  explicit BaseAttribute(const types::u1 &nameIdx, const types::u4 &attrLen) {
+  explicit BaseAttribute(const Utils::Types::u1 &nameIdx,
+                         const Utils::Types::u4 &attrLen) {
     this->attribute_name_index = nameIdx;
     this->attribute_length = attrLen;
   }
 
   virtual ~BaseAttribute() = default;
 
-  types::u2 attribute_name_index;
-  types::u4 attribute_length;
+  Utils::Types::u2 attribute_name_index;
+  Utils::Types::u4 attribute_length;
 };
 
 class attribute_info {
@@ -143,13 +151,13 @@ class attribute_info {
   }
 
   template <typename T>
-  T *setBase(const types::u1 &nameIdx, const types::u4 &attrLen) {
+  T *setBase(const Utils::Types::u1 &nameIdx, const Utils::Types::u4 &attrLen) {
     this->base = new T(nameIdx, attrLen);
     return this->getClass<T>();
   }
 
   template <typename T>
-  T *getClass() {
+  T *getClass() const {
     return dynamic_cast<T *>(this->base);
   }
 
@@ -158,80 +166,118 @@ class attribute_info {
 
 class NotImplemented : public BaseAttribute {
  public:
-  explicit NotImplemented(const types::u1 &nameIdx, const types::u4 &attrLen)
+  explicit NotImplemented(const Utils::Types::u1 &nameIdx,
+                          const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~NotImplemented() = default;
+
+  std::wstring getSpecificInfo(const int &delta_tab);
 };
 
 class ConstantValue_attribute : public BaseAttribute {
  public:
-  explicit ConstantValue_attribute(const types::u1 &nameIdx,
-                                   const types::u4 &attrLen)
+  explicit ConstantValue_attribute(const Utils::Types::u1 &nameIdx,
+                                   const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~ConstantValue_attribute() = default;
 
-  types::u2 constantvalue_index;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u2 constantvalue_index;
 };
 
 class Code_attribute : public BaseAttribute {
  public:
-  explicit Code_attribute(const types::u1 &nameIdx, const types::u4 &attrLen)
+  explicit Code_attribute(const Utils::Types::u1 &nameIdx,
+                          const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~Code_attribute() = default;
 
-  types::u2 max_stack;
-  types::u2 max_locals;
-  types::u4 code_length;
-  std::vector<types::u1> code;
-  types::u2 exception_table_length;
-  types::u2 attributes_count;
+  std::wstring getSpecificInfo(Viewer *v, const ClassFile *cf,
+                               const int &delta_tab);
+
+  Utils::Types::u2 max_stack;
+  Utils::Types::u2 max_locals;
+  Utils::Types::u4 code_length;
+  std::vector<Utils::Types::u1> code;
+  Utils::Types::u2 exception_table_length;
+  Utils::Types::u2 attributes_count;
   std::vector<attribute_info> attributes;
   std::vector<excption_info> exception_table;
+
+ private:
+  std::wstring getTable(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const std::vector<std::string> &header_vars, const int &delta_tab);
 };
 
 class Exceptions_attribute : public BaseAttribute {
  public:
-  explicit Exceptions_attribute(const types::u1 &nameIdx,
-                                const types::u4 &attrLen)
+  explicit Exceptions_attribute(const Utils::Types::u1 &nameIdx,
+                                const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~Exceptions_attribute() = default;
 
-  types::u2 number_of_exceptions;
-  std::vector<types::u2> exception_index_table;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u2 number_of_exceptions;
+  std::vector<Utils::Types::u2> exception_index_table;
+
+ private:
+  std::wstring getTable(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const std::vector<std::string> &header_vars, const int &delta_tab);
 };
 
 class InnerClasses_attribute : public BaseAttribute {
  public:
-  explicit InnerClasses_attribute(const types::u1 &nameIdx,
-                                  const types::u4 &attrLen)
+  explicit InnerClasses_attribute(const Utils::Types::u1 &nameIdx,
+                                  const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~InnerClasses_attribute() = default;
 
-  types::u2 number_of_classes;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u2 number_of_classes;
   std::vector<innerClasses_info> classes;
+
+ private:
+  std::wstring getTable(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const std::vector<std::string> &header_vars, const int &delta_tab);
 };
 
 class EnclosingMethod_attribute : public BaseAttribute {
  public:
-  explicit EnclosingMethod_attribute(const types::u1 &nameIdx,
-                                     const types::u4 &attrLen)
+  explicit EnclosingMethod_attribute(const Utils::Types::u1 &nameIdx,
+                                     const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~EnclosingMethod_attribute() = default;
 
-  types::u2 class_index;
-  types::u2 method_index;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u2 class_index;
+  Utils::Types::u2 method_index;
 };
 
 class Synthetic_attribute : public BaseAttribute {
  public:
-  explicit Synthetic_attribute(const types::u1 &nameIdx,
-                               const types::u4 &attrLen)
+  explicit Synthetic_attribute(const Utils::Types::u1 &nameIdx,
+                               const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~Synthetic_attribute() = default;
@@ -239,77 +285,111 @@ class Synthetic_attribute : public BaseAttribute {
 
 class Signature_attribute : public BaseAttribute {
  public:
-  explicit Signature_attribute(const types::u1 &nameIdx,
-                               const types::u4 &attrLen)
+  explicit Signature_attribute(const Utils::Types::u1 &nameIdx,
+                               const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~Signature_attribute() = default;
 
-  types::u2 signature_index;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u2 signature_index;
 };
 
 class SourceFile_attribute : public BaseAttribute {
  public:
-  explicit SourceFile_attribute(const types::u1 &nameIdx,
-                                const types::u4 &attrLen)
+  explicit SourceFile_attribute(const Utils::Types::u1 &nameIdx,
+                                const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~SourceFile_attribute() = default;
 
-  types::u2 sourcefile_index;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u2 sourcefile_index;
 };
 
 class SourceDebugExtension_attribute : public BaseAttribute {
  public:
-  explicit SourceDebugExtension_attribute(const types::u1 &nameIdx,
-                                          const types::u4 &attrLen)
+  explicit SourceDebugExtension_attribute(const Utils::Types::u1 &nameIdx,
+                                          const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~SourceDebugExtension_attribute() = default;
 
-  std::vector<types::u1> debug_extension;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  std::vector<Utils::Types::u1> debug_extension;
 };
 
 class LineNumberTable_attribute : public BaseAttribute {
  public:
-  explicit LineNumberTable_attribute(const types::u1 &nameIdx,
-                                     const types::u4 &attrLen)
+  explicit LineNumberTable_attribute(const Utils::Types::u1 &nameIdx,
+                                     const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~LineNumberTable_attribute() = default;
 
-  types::u2 line_number_table_length;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u2 line_number_table_length;
   std::vector<lineNumberTable_info> line_number_table;
+
+ private:
+  std::wstring getTable(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const std::vector<std::string> &header_vars, const int &delta_tab);
 };
 
 class LocalVariableTable_attribute : public BaseAttribute {
  public:
-  explicit LocalVariableTable_attribute(const types::u1 &nameIdx,
-                                        const types::u4 &attrLen)
+  explicit LocalVariableTable_attribute(const Utils::Types::u1 &nameIdx,
+                                        const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~LocalVariableTable_attribute() = default;
 
-  types::u2 local_variable_table_length;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u2 local_variable_table_length;
   std::vector<localVariableTable_info> local_variable_table;
+
+ private:
+  std::wstring getTable(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const std::vector<std::string> &header_vars, const int &delta_tab);
 };
 
 class LocalVariableTypeTable_attribute : public BaseAttribute {
  public:
-  explicit LocalVariableTypeTable_attribute(const types::u1 &nameIdx,
-                                            const types::u4 &attrLen)
+  explicit LocalVariableTypeTable_attribute(const Utils::Types::u1 &nameIdx,
+                                            const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~LocalVariableTypeTable_attribute() = default;
 
-  types::u2 local_variable_type_table_length;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u2 local_variable_type_table_length;
   std::vector<localVariableTypetable_info> local_variable_type_table;
 };
 
 class Deprecated_attribute : public BaseAttribute {
  public:
-  explicit Deprecated_attribute(const types::u1 &nameIdx,
-                                const types::u4 &attrLen)
+  explicit Deprecated_attribute(const Utils::Types::u1 &nameIdx,
+                                const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~Deprecated_attribute() = default;
@@ -317,74 +397,108 @@ class Deprecated_attribute : public BaseAttribute {
 
 class RuntimeVisibleAnnotations_attribute : public BaseAttribute {
  public:
-  explicit RuntimeVisibleAnnotations_attribute(const types::u1 &nameIdx,
-                                               const types::u4 &attrLen)
+  explicit RuntimeVisibleAnnotations_attribute(const Utils::Types::u1 &nameIdx,
+                                               const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~RuntimeVisibleAnnotations_attribute() = default;
 
-  types::u2 num_annotations;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u2 num_annotations;
   std::vector<annotation> annotations;
 };
 
 class RuntimeInvisibleAnnotations_attribute : public BaseAttribute {
  public:
-  explicit RuntimeInvisibleAnnotations_attribute(const types::u1 &nameIdx,
-                                                 const types::u4 &attrLen)
+  explicit RuntimeInvisibleAnnotations_attribute(
+      const Utils::Types::u1 &nameIdx, const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~RuntimeInvisibleAnnotations_attribute() = default;
 
-  types::u2 num_annotations;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u2 num_annotations;
   std::vector<annotation> annotations;
 };
 
 class RuntimeVisibleParameterAnnotations_attribute : public BaseAttribute {
  public:
   explicit RuntimeVisibleParameterAnnotations_attribute(
-      const types::u1 &nameIdx, const types::u4 &attrLen)
+      const Utils::Types::u1 &nameIdx, const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~RuntimeVisibleParameterAnnotations_attribute() = default;
 
-  types::u1 num_parameters;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u1 num_parameters;
   std::vector<runtimeVisibleParameterAnnotations_info> parameter_annotations;
 };
 
 class RuntimeInvisibleParameterAnnotations_attribute : public BaseAttribute {
  public:
   explicit RuntimeInvisibleParameterAnnotations_attribute(
-      const types::u1 &nameIdx, const types::u4 &attrLen)
+      const Utils::Types::u1 &nameIdx, const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~RuntimeInvisibleParameterAnnotations_attribute() = default;
 
-  types::u1 num_parameters;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u1 num_parameters;
   std::vector<runtimeInvisibleParameterAnnotations_info> parameter_annotations;
 };
 
 class BootstrapMethods_attribute : public BaseAttribute {
  public:
-  explicit BootstrapMethods_attribute(const types::u1 &nameIdx,
-                                      const types::u4 &attrLen)
+  explicit BootstrapMethods_attribute(const Utils::Types::u1 &nameIdx,
+                                      const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~BootstrapMethods_attribute() = default;
 
-  types::u2 num_bootstrap_methods;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u2 num_bootstrap_methods;
   std::vector<BootstrapMethods_info> bootstrap_methods;
+
+ private:
+  std::wstring getTable(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const std::vector<std::string> &header_vars, const int &delta_tab);
 };
 
 class MethodParameters_attribute : public BaseAttribute {
  public:
-  explicit MethodParameters_attribute(const types::u1 &nameIdx,
-                                      const types::u4 &attrLen)
+  explicit MethodParameters_attribute(const Utils::Types::u1 &nameIdx,
+                                      const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~MethodParameters_attribute() = default;
 
-  types::u1 parameters_count;
+  std::wstring getSpecificInfo(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const int &delta_tab);
+
+  Utils::Types::u1 parameters_count;
   std::vector<MethodParameters_info> parameters;
+
+ private:
+  std::wstring getTable(
+      const std::vector<Utils::ConstantPool::cp_info> &constpool,
+      const std::vector<std::string> &header_vars, const int &delta_tab);
 };
 }  // namespace Attributes
 }  // namespace Utils

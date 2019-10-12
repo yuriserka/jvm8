@@ -1,6 +1,7 @@
 #ifndef INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_BASE_H_
 #define INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_BASE_H_
 
+#include <sstream>
 #include <string>
 #include <vector>
 #include "utils/types.h"
@@ -17,7 +18,7 @@ class Instruction {
   // virtual void execute() = 0;
   virtual std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide) = 0;
+      std::wstringstream *wss, const bool &wide) = 0;
 
   virtual std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,

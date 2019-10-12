@@ -7,6 +7,7 @@
 #include "utils/errors.h"
 #include "utils/flags.h"
 #include "utils/infos.h"
+#include "utils/string.h"
 #include "utils/utf8.h"
 #include "utils/versions.h"
 
@@ -31,6 +32,19 @@ void Reader::readClassFile() {
   this->readMagic();
   this->readMinorVersion();
   this->readMajorVersion();
+  if (!Utils::Flags::options.kIGNORE) {
+    auto minver = Utils::String::to_string(this->classfile->minor_version);
+    auto maxver = Utils::String::to_string(Utils::Versions::Java8) + minver;
+
+    auto v =
+        stod(Utils::String::to_string(this->classfile->major_version) + minver);
+    if (v < std::stod(minver + ".0") || v > std::stod(maxver)) {
+      throw Utils::Errors::Exception(
+          Utils::Errors::kMAJOR,
+          "file format of version v if and only if v lies in some contiguous "
+          "range minor.0 ≤ v ≤ Major.Minor");
+    }
+  }
   this->readConstantPool();
   this->readAccessFlags();
   this->readThisClass();
@@ -65,12 +79,12 @@ void Reader::readMinorVersion() {
               << std::uppercase << this->classfile->minor_version << "'\n";
     std::cout.copyfmt(state);
   }
-  if (this->classfile->minor_version > Utils::Versions::Java8) {
-    std::stringstream err;
-    err << "Minor version superior to 0x" << std::hex << std::uppercase
-        << Utils::Versions::Java8;
-    throw Utils::Errors::Exception(Utils::Errors::kMINOR, err.str());
-  }
+  // if (this->classfile->minor_version > Utils::Versions::Java8) {
+  //   std::stringstream err;
+  //   err << "Minor version superior to 0x" << std::hex << std::uppercase
+  //       << Utils::Versions::Java8;
+  //   throw Utils::Errors::Exception(Utils::Errors::kMINOR, err.str());
+  // }
 }
 
 void Reader::readMajorVersion() {
@@ -82,12 +96,12 @@ void Reader::readMajorVersion() {
               << this->classfile->major_version << "'\n";
     std::cout.copyfmt(state);
   }
-  if (this->classfile->major_version < Utils::Versions::Java8) {
-    std::stringstream err;
-    err << "Major version inferior to 0x" << std::hex << std::uppercase
-        << Utils::Versions::Java8;
-    throw Utils::Errors::Exception(Utils::Errors::kMAJOR, err.str());
-  }
+  // if (this->classfile->major_version < Utils::Versions::Java8) {
+  //   std::stringstream err;
+  //   err << "Major version inferior to 0x" << std::hex << std::uppercase
+  //       << Utils::Versions::Java8;
+  //   throw Utils::Errors::Exception(Utils::Errors::kMAJOR, err.str());
+  // }
 }
 
 void Reader::readConstantPool() {

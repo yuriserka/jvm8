@@ -16,12 +16,12 @@ class Dynamic : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      const bool &wide) override {
+      std::wstringstream *wss, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     *++*code_it;
     *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
-              << " ";
+    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
+           << kpool_index << " ";
     *delta_code = 4;
     return {kpool_index};
   }
@@ -42,12 +42,12 @@ class Interface : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      const bool &wide) override {
+      std::wstringstream *wss, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     auto count = *++*code_it;
     *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
-              << " ";
+    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
+           << kpool_index << " ";
     *delta_code = 4;
     return {kpool_index, count};
   }
@@ -68,10 +68,10 @@ class Especial : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      const bool &wide) override {
+      std::wstringstream *wss, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
-              << " ";
+    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
+           << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }
@@ -91,10 +91,10 @@ class Static : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      const bool &wide) override {
+      std::wstringstream *wss, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
-              << " ";
+    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
+           << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }
@@ -114,10 +114,10 @@ class Virtual : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      const bool &wide) override {
+      std::wstringstream *wss, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
-              << " ";
+    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
+           << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }

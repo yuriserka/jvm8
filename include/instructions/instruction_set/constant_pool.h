@@ -15,10 +15,10 @@ class LoadCat1 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      const bool &wide) override {
+      std::wstringstream *wss, const bool &wide) override {
     auto kpool_index = *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << +kpool_index
-              << " ";
+    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
+           << +kpool_index << " ";
     *delta_code = 1;
     return {kpool_index};
   }
@@ -38,10 +38,10 @@ class LoadCat1Wide : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      const bool &wide) override {
+      std::wstringstream *wss, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
-              << " ";
+    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
+           << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }
@@ -61,10 +61,10 @@ class LoadCat2 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      const bool &wide) override {
+      std::wstringstream *wss, const bool &wide) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    std::cout << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index
-              << " ";
+    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
+           << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }

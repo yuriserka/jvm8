@@ -48,36 +48,6 @@ class Viewer {
   void printAttributeInfo(Utils::Attributes::attribute_info *attribute,
                           const int &index, const int &tab_shift);
 
-  void printTable(const std::vector<std::string> vars,
-                  Utils::Attributes::InnerClasses_attribute *innerclass_attr,
-                  const int &tab_shift);
-
-  void printTable(const std::vector<std::string> vars,
-                  Utils::Attributes::LineNumberTable_attribute *lnt_attr,
-                  const int &tab_shift);
-
-  void printTable(const std::vector<std::string> vars,
-                  Utils::Attributes::Code_attribute *code_attr,
-                  const int &tab_shift);
-
-  void printTable(const std::vector<std::string> vars,
-                  Utils::Attributes::Exceptions_attribute *excpt_attr,
-                  const int &tab_shift);
-
-  void printTable(
-      const std::vector<std::string> vars,
-      Utils::Attributes::LocalVariableTable_attribute *localvar_attr,
-      const int &tab_shift);
-
-  void printTable(const std::vector<std::string> vars,
-                  Utils::Attributes::BootstrapMethods_attribute *bootstrap_attr,
-                  const int &tab_shift);
-
-  void printTable(
-      const std::vector<std::string> vars,
-      Utils::Attributes::MethodParameters_attribute *methodparams_attr,
-      const int &tab_shift);
-
   std::string classname;
   const ClassFile *classfile;
 };
