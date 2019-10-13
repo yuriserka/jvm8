@@ -86,7 +86,7 @@ std::vector<std::string> getClassAccessType(
     try {
       auto s = classAccessNames.at(accessType & accessFlag);
       flagsname.push_back(s);
-    } catch (const std::exception &e) {
+    } catch (const std::out_of_range &oor) {
       continue;
     }
   }
@@ -104,7 +104,7 @@ std::vector<std::string> getFieldAccessType(
     try {
       auto s = fieldAccessNames.at(accessType & accessFlag);
       flagsname.push_back(s);
-    } catch (const std::exception &e) {
+    } catch (const std::out_of_range &oor) {
       continue;
     }
   }
@@ -123,7 +123,7 @@ std::vector<std::string> getMethodAccessType(
     try {
       auto s = methodAccessNames.at(accessType & accessFlag);
       flagsname.push_back(s);
-    } catch (const std::exception &e) {
+    } catch (const std::out_of_range &oor) {
       continue;
     }
   }
@@ -142,7 +142,7 @@ std::vector<std::string> getNestedClassAccessType(
     try {
       auto s = nestedAccessNames.at(accessType & accessFlag);
       flagsname.push_back(s);
-    } catch (const std::exception &e) {
+    } catch (const std::out_of_range &oor) {
       continue;
     }
   }
@@ -161,7 +161,7 @@ std::vector<std::string> getMethodParamsAccessType(
     try {
       auto s = methodparamsNames.at(accessType & accessFlag);
       flagsname.push_back(s);
-    } catch (const std::exception &e) {
+    } catch (const std::out_of_range &oor) {
       continue;
     }
   }

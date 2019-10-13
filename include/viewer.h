@@ -45,8 +45,11 @@ class Viewer {
       const int &attr_count, const int &tab_shift, const int &qtd_stars,
       const int &width_shift);
   void printAttributesCount(const int &tab_shift, const int &attr_count);
-  void printAttributeInfo(Utils::Attributes::attribute_info *attribute,
+  void printAttributeInfo(const Utils::Attributes::attribute_info *attribute,
                           const int &index, const int &tab_shift);
+
+  std::wstring getAttributeHeader(const Utils::Attributes::attribute_info *attr,
+                                  const int &tab_shift);
 
   std::string classname;
   const ClassFile *classfile;

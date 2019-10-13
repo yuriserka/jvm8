@@ -415,40 +415,43 @@ void Viewer::printAttributesCount(const int &tab_shift, const int &attr_count) {
   std::cout.copyfmt(state);
 }
 
-void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
-                                const int &index, const int &tab_shift) {
-  auto utf8nameindex =
-      this->classfile->constant_pool[attribute->base->attribute_name_index - 1];
-  auto kutf8_info =
-      utf8nameindex.getClass<Utils::ConstantPool::CONSTANT_Utf8_info>();
-  auto attrName = Utf8(kutf8_info);
-  auto attrtype = Utils::Attributes::getAttributeType(attrName.str);
+std::wstring Viewer::getAttributeHeader(
+    const Utils::Attributes::attribute_info *attr, const int &tab_shift) {
+  std::wstringstream wss;
+  wss << std::wstring(tab_shift, '\t') << "Generic Info: \n";
+  wss << std::wstring(tab_shift + 1, '\t') << "Attribute name index: 'cp_info #"
+      << attr->base->attribute_name_index << "' ";
+  auto name =
+      this->classfile->constant_pool[attr->base->attribute_name_index - 1]
+          .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>();
+  wss << "<" << name->getValue(this->classfile->constant_pool) << ">\n";
 
-  std::cout << std::string(tab_shift, '\t') << "[" << index << "] ";
-  std::wcout << attrName << "\n";
+  wss << std::wstring(tab_shift + 1, '\t')
+      << "Attribute length: " << attr->base->attribute_length << "\n";
 
-  std::cout << std::string(tab_shift + 1, '\t') << "Generic Info: \n";
-  std::cout << std::string(tab_shift + 2, '\t')
-            << "Attribute name index: 'cp_info #"
-            << attribute->base->attribute_name_index << "' ";
+  return wss.str();
+}
 
-  std::wcout << "<"
-             << this->getConstantPoolInfo(attribute->base->attribute_name_index,
-                                          false)
-             << ">\n";
+void Viewer::printAttributeInfo(
+    const Utils::Attributes::attribute_info *attribute, const int &index,
+    const int &tab_shift) {
+  auto kpool = this->classfile->constant_pool;
+  auto kutf8_info = kpool[attribute->base->attribute_name_index - 1]
+                        .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>();
+  auto attr_name = Utf8(kutf8_info);
 
-  std::cout << std::string(tab_shift + 2, '\t')
-            << "Attribute length: " << attribute->base->attribute_length
-            << "\n";
+  std::wcout << std::wstring(tab_shift, '\t') << "[" << index << "] "
+             << attr_name << "\n";
 
+  std::wcout << this->getAttributeHeader(attribute, tab_shift + 1);
   std::cout << std::string(tab_shift + 1, '\t') << "Specific Info: \n";
 
+  auto attrtype = Utils::Attributes::getAttributeType(attr_name.str);
   switch (attrtype) {
     namespace attrs = Utils::Attributes;
     case attrs::kCONSTANTVALUE: {
       auto kval_attr = attribute->getClass<attrs::ConstantValue_attribute>();
-      std::wcout << kval_attr->getSpecificInfo(this->classfile->constant_pool,
-                                               tab_shift + 2);
+      std::wcout << kval_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kCODE: {
@@ -461,61 +464,52 @@ void Viewer::printAttributeInfo(Utils::Attributes::attribute_info *attribute,
     }
     case attrs::kEXCEPTIONS: {
       auto exception_attr = attribute->getClass<attrs::Exceptions_attribute>();
-      std::wcout << exception_attr->getSpecificInfo(
-          this->classfile->constant_pool, tab_shift + 2);
+      std::wcout << exception_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kINNERCLASS: {
       auto innerclass_attr =
           attribute->getClass<attrs::InnerClasses_attribute>();
-      std::wcout << innerclass_attr->getSpecificInfo(
-          this->classfile->constant_pool, tab_shift + 2);
+      std::wcout << innerclass_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kENCLOSINGMETHOD: {
       auto enclosing_attr =
           attribute->getClass<attrs::EnclosingMethod_attribute>();
-      std::wcout << enclosing_attr->getSpecificInfo(
-          this->classfile->constant_pool, tab_shift + 2);
+      std::wcout << enclosing_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kSIGNATURE: {
       auto signature_attr = attribute->getClass<attrs::Signature_attribute>();
-      std::wcout << signature_attr->getSpecificInfo(
-          this->classfile->constant_pool, tab_shift + 2);
+      std::wcout << signature_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kSOURCEFILE: {
       auto sourcefile_attr = attribute->getClass<attrs::SourceFile_attribute>();
-      std::wcout << sourcefile_attr->getSpecificInfo(
-          this->classfile->constant_pool, tab_shift + 2);
+      std::wcout << sourcefile_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kLINENUMBERTABLE: {
       auto lnt_attr = attribute->getClass<attrs::LineNumberTable_attribute>();
-      std::wcout << lnt_attr->getSpecificInfo(this->classfile->constant_pool,
-                                              tab_shift + 2);
+      std::wcout << lnt_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kLOCALVARIABLETABLE: {
       auto localvar_attr =
           attribute->getClass<attrs::LocalVariableTable_attribute>();
-      std::wcout << localvar_attr->getSpecificInfo(
-          this->classfile->constant_pool, tab_shift + 2);
+      std::wcout << localvar_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kBOOTSTRAPMETHODS: {
       auto bootstrap_attr =
           attribute->getClass<attrs::BootstrapMethods_attribute>();
-      std::wcout << bootstrap_attr->getSpecificInfo(
-          this->classfile->constant_pool, tab_shift + 2);
+      std::wcout << bootstrap_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kMETHODPARAMETERS: {
       auto methodparams_attr =
           attribute->getClass<attrs::MethodParameters_attribute>();
-      std::wcout << methodparams_attr->getSpecificInfo(
-          this->classfile->constant_pool, tab_shift + 2);
+      std::wcout << methodparams_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kINVALID: {

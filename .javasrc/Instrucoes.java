@@ -53,13 +53,13 @@ public class Instrucoes {
         return x;
     }
 
-    private static long LONG() {
+    private static long LONG() throws ArithmeticException {
         long lk = 1;
         long li = (long) 980;
         long ld = (long) 6468.864;
         long lf = (long) 2131.34f;
 
-        long x = 32132121313213L+3165165464646L-54654646L*(5313156L/2313131L);
+        long x = 32132121313213L+3165165464646L-54654646L*(5313156L/0L);
 
         return x;
     }
@@ -82,5 +82,13 @@ public class Instrucoes {
     public static void main(String[] args) {
         String especial = "tenho \ttabs\trs \\:";
         especial += "\\\"hahahahah\\\"";
+
+        try {
+            LONG();
+        } catch(final ArithmeticException ae){
+            System.err.println("O número do divisor deve ser diferente de 0!");
+        } finally{
+            System.out.println("Execução do Finally!");
+        }
     }
 }

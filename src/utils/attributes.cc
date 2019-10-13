@@ -108,9 +108,13 @@ std::wstring Code_attribute::getTable(
     auto except = this->exception_table[i];
     std::wstringstream wss;
     wss << "'cp_info #" << except.catch_type << "'\n";
-    auto classname = constpool[except.catch_type - 1]
-                         .getClass<ConstantPool::CONSTANT_Class_info>();
-    wss << classname->getValue(constpool);
+    if (except.catch_type) {
+      auto classname = constpool[except.catch_type - 1]
+                           .getClass<ConstantPool::CONSTANT_Class_info>();
+      wss << classname->getValue(constpool);
+    } else {
+      wss << "any";
+    }
     formatter << i << except.start_pc << except.end_pc << except.handler_pc
               << Utils::String::to_string(wss.str());
     formatter.addHorizontalLine('_');
@@ -206,7 +210,7 @@ std::wstring InnerClasses_attribute::getTable(
   outerclass_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
   tf::CellFormatter innername_col(20);
   innername_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
-  tf::CellFormatter accessflags_col(35);
+  tf::CellFormatter accessflags_col(25);
   accessflags_col.horizontalAlignment = tf::HORIZONTAL::LEFT;
 
   tf::TableFormatter formatter(
