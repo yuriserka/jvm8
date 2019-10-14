@@ -224,7 +224,7 @@ std::wstring CONSTANT_Integer_info::getGeneralInfo(
       << "0x" << std::setfill(L'0') << std::setw(8) << std::hex
       << std::uppercase << this->bytes << "\n";
 
-  wss << std::wstring(delta_tab, '\t') << "Value: " << this->bytes;
+  wss << std::wstring(delta_tab, '\t') << "Value: " << std::dec << this->bytes;
 
   return wss.str();
 }
@@ -246,7 +246,7 @@ std::wstring CONSTANT_Float_info::getGeneralInfo(
       << std::uppercase << this->bytes << "\n";
 
   wss << std::wstring(delta_tab, '\t')
-      << "Value: " << copyCast<float>(&this->bytes);
+      << "Value: " << std::dec << copyCast<float>(&this->bytes);
 
   return wss.str();
 }
@@ -275,7 +275,7 @@ std::wstring CONSTANT_Long_info::getGeneralInfo(
   wss << "0x" << std::setfill(L'0') << std::setw(8) << std::hex
       << std::uppercase << this->low_bytes << "\n";
 
-  wss << std::wstring(delta_tab, '\t') << "Long: " << u8val;
+  wss << std::wstring(delta_tab, '\t') << "Long: " << std::dec << u8val;
 
   return wss.str();
 }
@@ -306,7 +306,7 @@ std::wstring CONSTANT_Double_info::getGeneralInfo(
       << std::uppercase << this->low_bytes << "\n";
 
   wss << std::wstring(delta_tab, '\t')
-      << "Double: " << copyCast<double>(&u8val);
+      << "Double: " << std::dec << copyCast<double>(&u8val);
 
   return wss.str();
 }
