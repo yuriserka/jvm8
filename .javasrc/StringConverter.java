@@ -32,9 +32,8 @@ public class StringConverter {
    }
  
    public static void main(String[] args) {
- 
-      System.out.println(System.getProperty("file.encoding"));
-      String original = new String("Ɣ matilde");
+ 	  String del = Character.toString((char)8706);
+      String original = new String(del + "x/" + del + "y");
     
       System.out.println("original = " + original);
       System.out.println();
