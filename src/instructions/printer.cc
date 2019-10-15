@@ -947,7 +947,7 @@ std::wstring getBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
     }
     case Opcodes::kLOOKUPSWITCH: {
       i = new Misc::LookupSwitch();
-      i->toBytecode(code_it, &delta_code, &wss, wide);
+      i->toBytecode(code_it, code_index, &wss, wide);
       break;
     }
     case Opcodes::kLOR: {

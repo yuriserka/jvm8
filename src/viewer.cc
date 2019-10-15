@@ -179,6 +179,8 @@ bool Viewer::printConstantPoolInfo(const int index, const int delta_tab) {
     }
   }
   std::cout << "\n";
+  std::cout.clear();
+
   return jmpNextIndex;
 }
 

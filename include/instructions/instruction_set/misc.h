@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include "instructions/instruction_set/base.h"
 #include "instructions/opcodes.h"
 #include "utils/string.h"
@@ -288,11 +289,46 @@ class LookupSwitch : public Instruction {
   LookupSwitch() : Instruction(Opcodes::kLOOKUPSWITCH) {}
 
   inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
+      std::vector<Utils::Types::u1>::iterator *code_it, int *code_index,
       std::wstringstream *wss, const bool &wide) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
-    return {};
+    ++*code_it;
+    auto getAlinhamento = [] (int a) -> int {
+      return a ? (4 - a) : 0;
+    };
+    auto alinhamento = (*code_index + 1) % 4;
+    *code_it += getAlinhamento(alinhamento) - 1;
+    std::vector<Utils::Types::u1>::iterator it = *code_it;
+    // for(int i = 0; i < 16; i++, it++){
+    //   printf("%x\n", *it);
+    // }
+    // std::cout << "code pos = " << *code_index << "\n\n";
+    auto getU4 = [] (std::vector<Utils::Types::u1>::iterator *code_it) -> int {
+      auto offset = (*++*code_it << 24) | (*++*code_it << 16) 
+          | (*++*code_it << 8) | *++*code_it;
+      
+      // auto flip = [] (int *offset) -> void {
+      //   auto memp = reinterpret_cast<unsigned char *>(offset);
+      //   std::reverse(memp, memp + sizeof(int));
+      // };
+      
+      // flip(&offset);
+      return offset;
+    };
+
+    auto default_bytes = getU4(code_it);
+    std::cout << default_bytes << "\n\n";
+    auto npairs = getU4(code_it);
+    std::cout << npairs << "\n\n";    
+    std::vector<int> match_offset_pairs;
+    for (int i = 0; i < npairs; ++i) {
+      auto match = static_cast<int>(getU4(code_it));
+      auto offset = static_cast<int>(getU4(code_it));
+      std::cout << match << ":" << offset << "\n";
+    }
+    auto delta_code = 1 + getAlinhamento(alinhamento) + 4 + 4 + 8*npairs;
+    return {delta_code};
   }
 
   inline std::vector<std::string> toBytecode_json(
