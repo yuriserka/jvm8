@@ -24,7 +24,8 @@ static std::ios state(NULL);
 
 namespace Instructions {
 std::wstring getBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
-                         Viewer *v, int *code_index, const bool &wide) {
+                         Viewer *v, int *code_index, const int &delta_tab,
+                         const bool &wide) {
   std::wstringstream wss;
   auto opcode = **code_it;
   auto delta_code = 0;
@@ -461,16 +462,12 @@ std::wstring getBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
     }
     case Opcodes::kGOTO: {
       i = new Misc::Goto();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kGOTO_W: {
       i = new Misc::GotoWide();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kI2B: {
@@ -565,114 +562,82 @@ std::wstring getBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
     }
     case Opcodes::kIF_ACMPEQ: {
       i = new Branch::RefCompareEqual();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIF_ACMPNE: {
       i = new Branch::RefCompareNotEqual();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIF_ICMPEQ: {
       i = new Branch::IntegerCompareEqual();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIF_ICMPGE: {
       i = new Branch::IntegerCompareGreaterEqual();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIF_ICMPGT: {
       i = new Branch::IntegerCompareGreaterThan();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIF_ICMPLE: {
       i = new Branch::IntegerCompareLessEqual();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIF_ICMPLT: {
       i = new Branch::IntegerCompareLessThan();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIF_ICMPNE: {
       i = new Branch::IntegerCompareNotEqual();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIFEQ: {
       i = new Branch::EqualZero();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIFGE: {
       i = new Branch::GreaterEqualZero();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIFGT: {
       i = new Branch::GreaterThanZero();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIFLE: {
       i = new Branch::LessEqualZero();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIFLT: {
       i = new Branch::LessThanZero();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIFNE: {
       i = new Branch::NotEqualZero();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIFNONNULL: {
       i = new Branch::NonNull();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIFNULL: {
       i = new Branch::RefNull();
-      auto args = i->toBytecode(code_it, &delta_code, &wss, wide);
-      wss << static_cast<int>(char(args[0] + *code_index)) << " ("
-          << std::showpos << static_cast<int>(char(args[0])) << ")\n";
+      auto args = i->toBytecode(code_it, &delta_code, &wss, wide, code_index);
       break;
     }
     case Opcodes::kIINC: {
@@ -947,7 +912,7 @@ std::wstring getBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
     }
     case Opcodes::kLOOKUPSWITCH: {
       i = new Misc::LookupSwitch();
-      i->toBytecode(code_it, code_index, &wss, wide);
+      i->toBytecode(code_it, &delta_code, &wss, wide, code_index, delta_tab);
       break;
     }
     case Opcodes::kLOR: {
@@ -1101,7 +1066,7 @@ std::wstring getBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
     }
     case Opcodes::kTABLESWITCH: {
       i = new Misc::TableSwitch();
-      i->toBytecode(code_it, &delta_code, &wss, wide);
+      i->toBytecode(code_it, &delta_code, &wss, wide, code_index, delta_tab);
       break;
     }
     case Opcodes::kWIDE: {

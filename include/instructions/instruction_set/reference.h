@@ -16,7 +16,7 @@ class LoadFromArray : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -35,7 +35,7 @@ class StoreIntoArray : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -54,7 +54,7 @@ class ConstNull : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -73,7 +73,7 @@ class Load : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     auto index = *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << +index << "\n";
@@ -96,7 +96,7 @@ class Load_0 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -115,7 +115,7 @@ class Load_1 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -134,7 +134,7 @@ class Load_2 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -153,7 +153,7 @@ class Load_3 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -172,7 +172,7 @@ class NewArray : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
            << kpool_index << " ";
@@ -195,7 +195,7 @@ class Return : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -214,7 +214,7 @@ class ArrayLength : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -233,7 +233,7 @@ class Store : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     auto index = *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << +index << "\n";
@@ -256,7 +256,7 @@ class Store_0 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -275,7 +275,7 @@ class Store_1 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -294,7 +294,7 @@ class Store_2 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -313,7 +313,7 @@ class Store_3 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -332,7 +332,7 @@ class Throw : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide) override {
+      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};

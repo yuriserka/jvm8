@@ -131,7 +131,7 @@ std::wstring Code_attribute::getSpecificInfo(Viewer *v, const ClassFile *cf,
   auto codeArr = this->code;
   for (auto it = codeArr.begin(); it != codeArr.end(); ++it) {
     wss << std::wstring(delta_tab + 1, '\t') << i << ": ";
-    wss << Instructions::getBytecode(&it, v, &i);
+    wss << Instructions::getBytecode(&it, v, &i, delta_tab + 2);
   }
 
   wss << std::wstring(delta_tab, '\t') << "Exception table: \n";

@@ -13,5 +13,14 @@ public class LookAtMe {
       	default:
       		System.out.println("achou");
     }
+    
+    switch(x) {
+    	case 10:
+      	case 100:
+      	case 1000:
+      	case 100000:
+      	default:
+      		break;
+    }
   }
 }
