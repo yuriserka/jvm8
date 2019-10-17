@@ -84,29 +84,17 @@ void ClassFile::deleteAttributes(
 
     switch (attrtype) {
       namespace attrs = Utils::Attributes;
+      case attrs::kCONSTANTVALUE:
+        attr.deleteclass<attrs::ConstantValue_attribute>();
+        break;
       case attrs::kCODE: {
         auto code_attr = attr.getClass<attrs::Code_attribute>();
         this->deleteAttributes(&code_attr->attributes);
         attr.deleteclass<attrs::Code_attribute>();
         break;
       }
-      case attrs::kCONSTANTVALUE:
-        attr.deleteclass<attrs::ConstantValue_attribute>();
-        break;
-      case attrs::kDEPRECATED:
-        attr.deleteclass<attrs::Deprecated_attribute>();
-        break;
       case attrs::kEXCEPTIONS:
         attr.deleteclass<attrs::Exceptions_attribute>();
-        break;
-      case attrs::kLINENUMBERTABLE:
-        attr.deleteclass<attrs::LineNumberTable_attribute>();
-        break;
-      case attrs::kLOCALVARIABLETABLE:
-        attr.deleteclass<attrs::LocalVariableTable_attribute>();
-        break;
-      case attrs::kSOURCEFILE:
-        attr.deleteclass<attrs::SourceFile_attribute>();
         break;
       case attrs::kINNERCLASS:
         attr.deleteclass<attrs::InnerClasses_attribute>();
@@ -114,11 +102,23 @@ void ClassFile::deleteAttributes(
       case attrs::kENCLOSINGMETHOD:
         attr.deleteclass<attrs::EnclosingMethod_attribute>();
         break;
+      case attrs::kSYNTHETIC:
+        attr.deleteclass<attrs::Synthetic_attribute>();
+        break;
       case attrs::kSIGNATURE:
         attr.deleteclass<attrs::Signature_attribute>();
         break;
-      case attrs::kSYNTHETIC:
-        attr.deleteclass<attrs::Synthetic_attribute>();
+      case attrs::kSOURCEFILE:
+        attr.deleteclass<attrs::SourceFile_attribute>();
+        break;
+      case attrs::kLINENUMBERTABLE:
+        attr.deleteclass<attrs::LineNumberTable_attribute>();
+        break;
+      case attrs::kLOCALVARIABLETABLE:
+        attr.deleteclass<attrs::LocalVariableTable_attribute>();
+        break;
+      case attrs::kDEPRECATED:
+        attr.deleteclass<attrs::Deprecated_attribute>();
         break;
       case attrs::kBOOTSTRAPMETHODS:
         attr.deleteclass<attrs::BootstrapMethods_attribute>();

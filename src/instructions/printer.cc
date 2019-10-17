@@ -17,6 +17,7 @@
 #include "instructions/instruction_set/reference.h"
 #include "instructions/instruction_set/short.h"
 #include "instructions/opcodes.h"
+#include "utils/errors.h"
 #include "utils/utf8.h"
 #include "viewer.h"
 
@@ -133,8 +134,11 @@ std::wstring getBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
       break;
     }
     case Opcodes::kBREAKPOINT: {
-      i = new Misc::Breakpoint();
-      i->toBytecode(code_it, &delta_code, &wss, wide);
+      throw Utils::Errors::Exception(
+          Utils::Errors::kINSTRUCTION,
+          Opcodes::getMnemonic(opcode) +
+              " should not appear in any class file");
+      break;
       break;
     }
     case Opcodes::kCALOAD: {
@@ -670,16 +674,13 @@ std::wstring getBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
       i->toBytecode(code_it, &delta_code, &wss, wide);
       break;
     }
-    // case Opcodes::kIMPDEP1: {
-    //   i = new Reference::LoadFromArray();
-    //   i->toBytecode(code_it, &delta_code, &wss, wide);
-    //   break;
-    // }
-    // case Opcodes::kIMPDEP2: {
-    //   i = new Reference::LoadFromArray();
-    //   i->toBytecode(code_it, &delta_code, &wss, wide);
-    //   break;
-    // }
+    case Opcodes::kIMPDEP1:
+    case Opcodes::kIMPDEP2:
+      throw Utils::Errors::Exception(
+          Utils::Errors::kINSTRUCTION,
+          Opcodes::getMnemonic(opcode) +
+              " should not appear in any class file");
+      break;
     case Opcodes::kIMUL: {
       i = new Integer::Mul();
       i->toBytecode(code_it, &delta_code, &wss, wide);

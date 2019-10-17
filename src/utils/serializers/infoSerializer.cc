@@ -188,6 +188,12 @@ void ConstantPoolSerializer::writeReferences(json *j, const T *kinfo) {
 
 bool ConstantPoolSerializer::to_json(json *j, const int &kpoolindex) {
   bool jmpNextIndex = false;
+  if (kpoolindex < 0) {
+    *j = {{"cp_entry_index", kpoolindex + 1},
+          {"value", "invalid constant pool reference"}};
+    return jmpNextIndex;
+  }
+
   auto cpi = this->cf->constant_pool[kpoolindex];
   switch (cpi.base->tag) {
     namespace cp = Utils::ConstantPool;

@@ -15,17 +15,18 @@ class LoadCat1 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
-    auto kpool_index = *++*code_it;
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
+    unsigned char kpool_index = *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << +kpool_index << " ";
+           << int{kpool_index} << " ";
     *delta_code = 1;
-    return {kpool_index};
+    return {int{kpool_index}};
   }
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
+      int *ret, const bool &wide, int *code_index) override {
     *ret = +(*++*code_it);
     *delta_code = 1;
     return {};
@@ -38,8 +39,9 @@ class LoadCat1Wide : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
-    auto kpool_index = (*++*code_it << 8) | *++*code_it;
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
+    short kpool_index = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
            << kpool_index << " ";
     *delta_code = 2;
@@ -48,7 +50,7 @@ class LoadCat1Wide : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
+      int *ret, const bool &wide, int *code_index) override {
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {};
@@ -61,8 +63,9 @@ class LoadCat2 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
-    auto kpool_index = (*++*code_it << 8) | *++*code_it;
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
+    short kpool_index = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
            << kpool_index << " ";
     *delta_code = 2;
@@ -71,7 +74,7 @@ class LoadCat2 : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
+      int *ret, const bool &wide, int *code_index) override {
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {};

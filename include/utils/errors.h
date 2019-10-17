@@ -29,6 +29,7 @@ enum errorTypes {
   kREFKIND,
   kFIELD,
   kATTRIBUTE,
+  kINSTRUCTION,
   kMKDIR,
   kMEMCPY,
   kVIEWER,

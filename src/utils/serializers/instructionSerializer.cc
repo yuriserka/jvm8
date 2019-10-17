@@ -16,12 +16,13 @@
 #include "instructions/instruction_set/reference.h"
 #include "instructions/instruction_set/short.h"
 #include "instructions/opcodes.h"
+#include "utils/errors.h"
 #include "utils/nlohmann_json.hpp"
 #include "utils/utf8.h"
 
 namespace Instructions {
 int InstructionSerializer::to_json(
-    json *j, std::vector<Utils::Types::u1>::iterator *code_it,
+    json *j, std::vector<Utils::Types::u1>::iterator *code_it, int *code_index,
     const bool &wide) {
   auto opcode = **code_it;
   auto delta_code = 0;
@@ -171,10 +172,10 @@ int InstructionSerializer::to_json(
       break;
     }
     case Opcodes::kBREAKPOINT: {
-      i = new Misc::Breakpoint();
-      auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
-      *j = intern_args;
+      throw Utils::Errors::Exception(
+          Utils::Errors::kINSTRUCTION,
+          Opcodes::getMnemonic(opcode) +
+              " should not appear in any class file");
       break;
     }
     case Opcodes::kCALOAD: {
@@ -925,20 +926,13 @@ int InstructionSerializer::to_json(
       *j = intern_args;
       break;
     }
-    // case Opcodes::kIMPDEP1: {
-    //   i = new Reference::LoadFromArray();
-    //   auto intern_args = i->toBytecode_json(code_it, &delta_code,
-    //   &kpool_index, wide);
-    // *j = intern_args;
-    //   break;
-    // }
-    // case Opcodes::kIMPDEP2: {
-    //   i = new Reference::LoadFromArray();
-    //   auto intern_args = i->toBytecode_json(code_it, &delta_code,
-    //   &kpool_index, wide);
-    // *j = intern_args;
-    //   break;
-    // }
+    case Opcodes::kIMPDEP1:
+    case Opcodes::kIMPDEP2:
+      throw Utils::Errors::Exception(
+          Utils::Errors::kINSTRUCTION,
+          Opcodes::getMnemonic(opcode) +
+              " should not appear in any class file");
+      break;
     case Opcodes::kIMUL: {
       i = new Integer::Mul();
       auto intern_args =
@@ -1267,8 +1261,8 @@ int InstructionSerializer::to_json(
     }
     case Opcodes::kLOOKUPSWITCH: {
       i = new Misc::LookupSwitch();
-      auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+      auto intern_args = i->toBytecode_json(code_it, &delta_code, &kpool_index,
+                                            wide, code_index);
       *j = intern_args;
       break;
     }
@@ -1485,8 +1479,8 @@ int InstructionSerializer::to_json(
     }
     case Opcodes::kTABLESWITCH: {
       i = new Misc::TableSwitch();
-      auto intern_args =
-          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide);
+      auto intern_args = i->toBytecode_json(code_it, &delta_code, &kpool_index,
+                                            wide, code_index);
       *j = intern_args;
       break;
     }
@@ -1494,7 +1488,7 @@ int InstructionSerializer::to_json(
       // i = new Misc::Wide();
       // auto intern_args = i->toBytecode_json(code_it, &delta_code,
       // &kpool_index, wide); *j = intern_args;
-      this->to_json(j, code_it, true);
+      this->to_json(j, code_it, &++*code_index, true);
       break;
     }
   }

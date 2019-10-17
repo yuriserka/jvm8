@@ -16,7 +16,8 @@ class LoadFromArray : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -24,7 +25,7 @@ class LoadFromArray : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
+      int *ret, const bool &wide, int *code_index) override {
     return {};
   }
 };
@@ -35,7 +36,8 @@ class StoreIntoArray : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
            << "\n";
     return {};
@@ -43,7 +45,7 @@ class StoreIntoArray : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
+      int *ret, const bool &wide, int *code_index) override {
     return {};
   }
 };
@@ -54,8 +56,9 @@ class Push : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
-    auto s = (*++*code_it << 8) | *++*code_it;
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
+    short int s = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << s << "\n";
     *delta_code = 2;
@@ -64,8 +67,8 @@ class Push : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto s = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short s = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {Utils::String::to_string(s)};
   }

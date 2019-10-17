@@ -16,7 +16,8 @@ class RefCompareEqual : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -27,10 +28,10 @@ class RefCompareEqual : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) override {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -40,7 +41,8 @@ class RefCompareNotEqual : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -51,10 +53,10 @@ class RefCompareNotEqual : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -64,7 +66,8 @@ class IntegerCompareEqual : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -75,10 +78,10 @@ class IntegerCompareEqual : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -88,7 +91,8 @@ class IntegerCompareGreaterEqual : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -99,10 +103,10 @@ class IntegerCompareGreaterEqual : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -112,7 +116,8 @@ class IntegerCompareGreaterThan : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -123,10 +128,10 @@ class IntegerCompareGreaterThan : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -136,7 +141,8 @@ class IntegerCompareLessEqual : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -147,10 +153,10 @@ class IntegerCompareLessEqual : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -160,7 +166,8 @@ class IntegerCompareLessThan : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -171,10 +178,10 @@ class IntegerCompareLessThan : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -184,7 +191,8 @@ class IntegerCompareNotEqual : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -195,10 +203,10 @@ class IntegerCompareNotEqual : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -208,7 +216,8 @@ class EqualZero : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -219,10 +228,10 @@ class EqualZero : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -232,7 +241,8 @@ class GreaterEqualZero : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -243,10 +253,10 @@ class GreaterEqualZero : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -256,7 +266,8 @@ class GreaterThanZero : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -267,10 +278,10 @@ class GreaterThanZero : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -280,7 +291,8 @@ class LessEqualZero : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -291,10 +303,10 @@ class LessEqualZero : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -304,7 +316,8 @@ class LessThanZero : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -315,10 +328,10 @@ class LessThanZero : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -328,7 +341,8 @@ class NotEqualZero : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -339,10 +353,10 @@ class NotEqualZero : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -352,7 +366,8 @@ class NonNull : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -363,10 +378,10 @@ class NonNull : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 
@@ -376,7 +391,8 @@ class RefNull : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index, const int &delta_tab) override {
+      std::wstringstream *wss, const bool &wide, int *code_index,
+      const int &delta_tab) override {
     short offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
            << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
@@ -387,10 +403,10 @@ class RefNull : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide) {
-    auto offset = (*++*code_it << 8) | *++*code_it;
+      int *ret, const bool &wide, int *code_index) override {
+    short offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(static_cast<int>(char(offset)))};
+    return {Utils::String::to_string(offset)};
   }
 };
 }  // namespace Branch
