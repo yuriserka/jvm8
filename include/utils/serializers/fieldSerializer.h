@@ -2,7 +2,7 @@
 #define INCLUDE_UTILS_SERIALIZERS_FIELDSERIALIZER_H_
 
 #include "classfile.h"
-#include "utils/nlohmann_json.hpp"
+#include "utils/external/nlohmann_json.hpp"
 
 using nlohmann::json;
 

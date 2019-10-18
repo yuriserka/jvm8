@@ -1,5 +1,5 @@
-#ifndef INCLUDE_UTILS_TABLE_H_
-#define INCLUDE_UTILS_TABLE_H_
+#ifndef INCLUDE_UTILS_EXTERNAL_TABLEFORMATTER_H_
+#define INCLUDE_UTILS_EXTERNAL_TABLEFORMATTER_H_
 
 // https://github.com/ToniBig/cpp-tableformatter
 
@@ -185,7 +185,7 @@ class TableFormatter {
   RowStream& operator<<(const T& input);
 
  private:
-  explicit TableFormatter(const TableFormatter&);
+  TableFormatter(const TableFormatter&);
   TableFormatter& operator=(const TableFormatter&);
   void digestRowStream();
 
@@ -228,8 +228,8 @@ inline StringVector CellFormatter::formatCellContent(
     } else if (horizontalAlignment == HORIZONTAL::RIGHT) {
       formattedLine = std::string(paddingWidth, paddingCharacter) + line;
     } else {
-      short leftWidth = paddingWidth / 2;
-      short rightWidth = paddingWidth - leftWidth;
+      int16_t leftWidth = paddingWidth / 2;
+      int16_t rightWidth = paddingWidth - leftWidth;
       formattedLine = std::string(leftWidth, paddingCharacter) + line +
                       std::string(rightWidth, paddingCharacter);
     }
@@ -420,7 +420,6 @@ inline std::string TableFormatter::toString(const int& tab_shift) {
       }  // end of iCell-loop
 
       result << "\n";
-
     }  // end of iCellRow-loop
   }    // end of iRow-loop
 
@@ -461,4 +460,4 @@ RowStream& TableFormatter::operator<<(const T& input) {
 
 }  // namespace tableformatter
 
-#endif  // INCLUDE_UTILS_TABLE_H_
+#endif  // INCLUDE_UTILS_EXTERNAL_TABLEFORMATTER_H_

@@ -379,12 +379,16 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
           {"start pc", lvt_info.start_pc},
           {"length", lvt_info.length},
           {"index", lvt_info.index},
-          {"name", {}}
+          {"name", {}},
+          {"descriptor", {}}
         };
         // clang-format on
         kpool_serializer.to_json(
             &(*j).at("/specific info"_json_pointer)[i].at("/name"_json_pointer),
             lvt_info.name_index - 1);
+        kpool_serializer.to_json(
+            &(*j).at("/specific info"_json_pointer)[i].at("/descriptor"_json_pointer),
+            lvt_info.descriptor_index - 1);
       }
       break;
     }

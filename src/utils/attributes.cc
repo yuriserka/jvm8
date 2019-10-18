@@ -6,8 +6,8 @@
 #include "instructions/printer.h"
 #include "utils/accessFlags.h"
 #include "utils/constantPool.h"
+#include "utils/external/tableformatter.h"
 #include "utils/string.h"
-#include "utils/table.h"
 #include "viewer.h"
 
 namespace Utils {
@@ -249,7 +249,7 @@ std::wstring InnerClasses_attribute::getTable(
     if (innerclass.inner_name_index) {
       auto innername = constpool[innerclass.inner_name_index - 1]
                            .getClass<ConstantPool::CONSTANT_Utf8_info>();
-      wss << innername->getValue(constpool);
+      wss << innername->getValue();
     } else {
       wss << L"invalid constant pool reference";
     }
@@ -309,7 +309,7 @@ std::wstring Signature_attribute::getSpecificInfo(
       << this->signature_index << "' ";
   auto signature = constpool[this->signature_index - 1]
                        .getClass<ConstantPool::CONSTANT_Utf8_info>();
-  wss << "<" << signature->getValue(constpool) << ">\n";
+  wss << "<" << signature->getValue() << ">\n";
 
   return wss.str();
 }
@@ -322,7 +322,7 @@ std::wstring SourceFile_attribute::getSpecificInfo(
       << this->sourcefile_index << "' ";
   auto sourcefile = constpool[this->sourcefile_index - 1]
                         .getClass<ConstantPool::CONSTANT_Utf8_info>();
-  wss << "<" << sourcefile->getValue(constpool) << ">\n";
+  wss << "<" << sourcefile->getValue() << ">\n";
 
   return wss.str();
 }
@@ -402,14 +402,14 @@ std::wstring LocalVariableTable_attribute::getTable(
     wss << "'cp_info #" << localvar_info.name_index << "'\n";
     auto name = constpool[localvar_info.name_index - 1]
                     .getClass<ConstantPool::CONSTANT_Utf8_info>();
-    wss << name->getValue(constpool);
+    wss << name->getValue();
     formatter << Utils::String::to_string(wss.str());
     wss.str(L"");
 
     wss << "'cp_info #" << localvar_info.descriptor_index << "'\n";
     auto descriptor = constpool[localvar_info.descriptor_index - 1]
                           .getClass<ConstantPool::CONSTANT_Utf8_info>();
-    wss << descriptor->getValue(constpool);
+    wss << descriptor->getValue();
     formatter << Utils::String::to_string(wss.str());
 
     formatter.addHorizontalLine('_');
@@ -556,7 +556,7 @@ std::wstring MethodParameters_attribute::getTable(
     if (param_info.name_index) {
       auto name = constpool[param_info.name_index - 1]
                       .getClass<ConstantPool::CONSTANT_Utf8_info>();
-      wss << name->getValue(constpool);
+      wss << name->getValue();
     } else if (!param_info.name_index) {
       wss << "no formal parameter name";
     } else {

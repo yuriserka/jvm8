@@ -240,7 +240,7 @@ class CONSTANT_Utf8_info : public BaseConstantInfo {
 
   ~CONSTANT_Utf8_info() = default;
 
-  std::wstring getValue(const std::vector<cp_info> &constpool) const;
+  std::wstring getValue() const;
   std::wstring getGeneralInfo(const int &delta_tab);
 
   Utils::Types::u2 length;

@@ -9,7 +9,6 @@
 #include "utils/memory.h"
 #include "utils/reference_kind.h"
 #include "utils/string.h"
-#include "utils/table.h"
 #include "utils/utf8.h"
 #include "utils/versions.h"
 
@@ -249,7 +248,7 @@ std::wstring Viewer::getConstantPoolInfo(const int &index, const bool &dot) {
     }
     case cp::kCONSTANT_UTF8: {
       auto kutf8_info = cpi.getClass<cp::CONSTANT_Utf8_info>();
-      wss << kutf8_info->getValue(kpool);
+      wss << kutf8_info->getValue();
       break;
     }
     case cp::kCONSTANT_METHODHANDLE: {
@@ -426,7 +425,7 @@ std::wstring Viewer::getAttributeHeader(
   auto name =
       this->classfile->constant_pool[attr->base->attribute_name_index - 1]
           .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>();
-  wss << "<" << name->getValue(this->classfile->constant_pool) << ">\n";
+  wss << "<" << name->getValue() << ">\n";
 
   wss << std::wstring(tab_shift + 1, '\t')
       << "Attribute length: " << attr->base->attribute_length << "\n";

@@ -1,8 +1,8 @@
-#ifndef INCLUDE_UTILS_SERIALIZERS_INFOSERIALIZER_H_
-#define INCLUDE_UTILS_SERIALIZERS_INFOSERIALIZER_H_
+#ifndef INCLUDE_UTILS_SERIALIZERS_CONSTPOOLSERIALIZER_H_
+#define INCLUDE_UTILS_SERIALIZERS_CONSTPOOLSERIALIZER_H_
 
 #include "classfile.h"
-#include "utils/nlohmann_json.hpp"
+#include "utils/external/nlohmann_json.hpp"
 
 using nlohmann::json;
 
@@ -23,4 +23,4 @@ class ConstantPoolSerializer {
 }  // namespace ConstantPool
 }  // namespace Utils
 
-#endif  // INCLUDE_UTILS_SERIALIZERS_INFOSERIALIZER_H_
+#endif  // INCLUDE_UTILS_SERIALIZERS_CONSTPOOLSERIALIZER_H_

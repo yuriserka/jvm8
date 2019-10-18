@@ -8,6 +8,7 @@ struct Options {
   bool kIGNORE;
   bool kJSON;
   std::string kFILE;
+  std::string kPATH;
 };
 
 namespace Utils {

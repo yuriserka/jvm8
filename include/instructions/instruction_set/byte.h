@@ -1,5 +1,5 @@
-#ifndef INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_BYTE_H_
-#define INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_BYTE_H_
+#ifndef INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_BYTE_H_
+#define INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_BYTE_H_
 
 #include <iostream>
 #include <string>
@@ -76,4 +76,4 @@ class Push : public Instruction {
 }  // namespace Byte
 }  // namespace Instructions
 
-#endif  // INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_BYTE_H_
+#endif  // INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_BYTE_H_

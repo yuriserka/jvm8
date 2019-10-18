@@ -1,5 +1,5 @@
-#ifndef INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_CONSTANT_POOL_H_
-#define INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_CONSTANT_POOL_H_
+#ifndef INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_CONSTANT_POOL_H_
+#define INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_CONSTANT_POOL_H_
 
 #include <iostream>
 #include <string>
@@ -41,7 +41,7 @@ class LoadCat1Wide : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       std::wstringstream *wss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    short kpool_index = (*++*code_it << 8) | *++*code_it;
+    int16_t kpool_index = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
            << kpool_index << " ";
     *delta_code = 2;
@@ -65,7 +65,7 @@ class LoadCat2 : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       std::wstringstream *wss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    short kpool_index = (*++*code_it << 8) | *++*code_it;
+    int16_t kpool_index = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
            << kpool_index << " ";
     *delta_code = 2;
@@ -83,4 +83,4 @@ class LoadCat2 : public Instruction {
 }  // namespace ConstantPool
 }  // namespace Instructions
 
-#endif  // INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_CONSTANT_POOL_H_
+#endif  // INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_CONSTANT_POOL_H_

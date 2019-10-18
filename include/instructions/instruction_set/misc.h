@@ -1,5 +1,5 @@
-#ifndef INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_MISC_H_
-#define INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_MISC_H_
+#ifndef INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_MISC_H_
+#define INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_MISC_H_
 
 #include <algorithm>
 #include <iostream>
@@ -211,10 +211,10 @@ class Goto : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       std::wstringstream *wss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    short offset = (*++*code_it << 8) | *++*code_it;
+    int16_t offset = (*++*code_it << 8) | *++*code_it;
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
-           << (static_cast<short>(*code_index) + offset) << " (" << std::showpos
-           << offset << ")\n";
+           << (static_cast<int16_t>(*code_index) + offset) << " ("
+           << std::showpos << offset << ")\n";
     *delta_code = 2;
     return {};
   }
@@ -222,7 +222,7 @@ class Goto : public Instruction {
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide, int *code_index) override {
-    short offset = (*++*code_it << 8) | *++*code_it;
+    int16_t offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {Utils::String::to_string(offset)};
   }
@@ -331,7 +331,7 @@ class LookupSwitch : public Instruction {
 
     auto alinhamento = (*code_index + 1) % 4;
     *code_it += getAlinhamento(alinhamento) - 1;
-    args.push_back(Utils::String::to_string(alinhamento));
+    args.push_back(Utils::String::to_string(alinhamento - 1));
 
     auto getU4 = [](std::vector<Utils::Types::u1>::iterator *code_it) -> int {
       auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
@@ -686,7 +686,7 @@ class TableSwitch : public Instruction {
 
     auto alinhamento = (*code_index + 1) % 4;
     *code_it += getAlinhamento(alinhamento) - 1;
-    args.push_back(Utils::String::to_string(alinhamento));
+    args.push_back(Utils::String::to_string(alinhamento - 1));
 
     auto getU4 = [](std::vector<Utils::Types::u1>::iterator *code_it) -> int {
       auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
@@ -736,4 +736,4 @@ class Wide : public Instruction {
 }  // namespace Misc
 }  // namespace Instructions
 
-#endif  // INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_MISC_H_
+#endif  // INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_MISC_H_

@@ -26,11 +26,13 @@ enum errorTypes {
   kCONSTANTPOOL,
   kBYTE,
   kUTF8,
+  kSOURCE,
   kREFKIND,
   kFIELD,
   kATTRIBUTE,
   kINSTRUCTION,
   kMKDIR,
+  kLS,
   kMEMCPY,
   kVIEWER,
   kFLAG

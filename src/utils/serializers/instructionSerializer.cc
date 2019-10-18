@@ -17,7 +17,7 @@
 #include "instructions/instruction_set/short.h"
 #include "instructions/opcodes.h"
 #include "utils/errors.h"
-#include "utils/nlohmann_json.hpp"
+#include "utils/external/nlohmann_json.hpp"
 #include "utils/utf8.h"
 
 namespace Instructions {

@@ -1,5 +1,5 @@
-#ifndef INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_LONG_H_
-#define INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_LONG_H_
+#ifndef INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_LONG_H_
+#define INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_LONG_H_
 
 #include <iostream>
 #include <string>
@@ -640,4 +640,4 @@ class Xor : public Instruction {
 }  // namespace Long
 }  // namespace Instructions
 
-#endif  // INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_LONG_H_
+#endif  // INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_LONG_H_

@@ -16,6 +16,11 @@ void toggleAll(const char **flags) {
       flags++;
       continue;
     }
+    if (!strcmp(*flags, "-p")) {
+      options.kPATH = std::string(*++flags);
+      flags++;
+      continue;
+    }
     toggle(*flags++);
   }
 }

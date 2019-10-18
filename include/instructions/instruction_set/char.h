@@ -1,5 +1,5 @@
-#ifndef INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_CHAR_H_
-#define INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_CHAR_H_
+#ifndef INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_CHAR_H_
+#define INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_CHAR_H_
 
 #include <iostream>
 #include <string>
@@ -51,4 +51,4 @@ class StoreIntoArray : public Instruction {
 }  // namespace Char
 }  // namespace Instructions
 
-#endif  // INCLUDE_INSTRUCTIONS_INSTRUCTIONS_SET_CHAR_H_
+#endif  // INCLUDE_INSTRUCTIONS_INSTRUCTION_SET_CHAR_H_

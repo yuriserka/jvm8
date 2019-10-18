@@ -5,6 +5,7 @@
 #include <sstream>
 #include "utils/constantPool.h"
 #include "utils/errors.h"
+#include "utils/fileSystem.h"
 #include "utils/flags.h"
 #include "utils/infos.h"
 #include "utils/string.h"
@@ -597,9 +598,29 @@ void Reader::readAttributesInfo(
         auto sourcefile_attr =
             attr->setBase<attrs::SourceFile_attribute>(nameidx, attrlen);
         this->readBytes(&sourcefile_attr->sourcefile_index);
-        this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
-            sourcefile_attr->sourcefile_index, "sourcefile_index",
-            Utils::ConstantPool::kCONSTANT_UTF8);
+
+        auto filename =
+            this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
+                sourcefile_attr->sourcefile_index, "sourcefile_index",
+                Utils::ConstantPool::kCONSTANT_UTF8);
+                
+        auto path_files =
+            Utils::FileSystem::getFileNames(Utils::Flags::options.kPATH);
+
+        auto class_name = Utils::String::to_string(filename->getValue());
+        class_name = class_name.substr(0, class_name.find_last_of('.'));
+
+        auto it_class_file = std::find_if(
+            path_files.begin(), path_files.end(),
+            [&class_name](const std::string &s) {
+              return class_name.compare(s.substr(0, s.find_last_of('.'))) == 0;
+            });
+        if (it_class_file == path_files.end()) {
+          throw Utils::Errors::Exception(Utils::Errors::kSOURCE,
+                                         "Class file " + class_name +
+                                             " not found on path " +
+                                             Utils::Flags::options.kPATH);
+        }
         break;
       }
       case attrs::kLINENUMBERTABLE: {

@@ -3,8 +3,8 @@
 
 #include <vector>
 #include "utils/constantPool.h"
+#include "utils/external/nlohmann_json.hpp"
 #include "utils/infos.h"
-#include "utils/nlohmann_json.hpp"
 #include "utils/types.h"
 
 using nlohmann::json;

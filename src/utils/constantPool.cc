@@ -35,7 +35,7 @@ std::wstring CONSTANT_Class_info::getValue(
     const std::vector<cp_info> &constpool) const {
   auto classname =
       constpool[this->name_index - 1].getClass<CONSTANT_Utf8_info>();
-  return classname->getValue(constpool);
+  return classname->getValue();
 }
 
 std::wstring CONSTANT_Class_info::getGeneralInfo(
@@ -169,7 +169,7 @@ std::wstring CONSTANT_NameAndType_info::getValue(
       constpool[this->descriptor_index - 1].getClass<CONSTANT_Utf8_info>();
 
   std::wstringstream wss;
-  wss << name->getValue(constpool) << ":" << descriptor->getValue(constpool);
+  wss << name->getValue() << ":" << descriptor->getValue();
 
   return wss.str();
 }
@@ -183,11 +183,11 @@ std::wstring CONSTANT_NameAndType_info::getGeneralInfo(
   std::wstringstream wss;
   wss << std::wstring(delta_tab, '\t') << "Name: 'cp_info #" << this->name_index
       << "' ";
-  wss << "<" << name->getValue(constpool) << ">";
+  wss << "<" << name->getValue() << ">";
   wss << "\n";
   wss << std::wstring(delta_tab, '\t') << "Descriptor: 'cp_info #"
       << this->descriptor_index << "' ";
-  wss << "<" << descriptor->getValue(constpool) << ">";
+  wss << "<" << descriptor->getValue() << ">";
 
   return wss.str();
 }
@@ -197,7 +197,7 @@ std::wstring CONSTANT_String_info::getValue(
   auto string =
       constpool[this->string_index - 1].getClass<CONSTANT_Utf8_info>();
 
-  return string->getValue(constpool);
+  return string->getValue();
 }
 
 std::wstring CONSTANT_String_info::getGeneralInfo(
@@ -311,8 +311,7 @@ std::wstring CONSTANT_Double_info::getGeneralInfo(
   return wss.str();
 }
 // ----------------------------------------------------------------------------
-std::wstring CONSTANT_Utf8_info::getValue(
-    const std::vector<cp_info> &constpool) const {
+std::wstring CONSTANT_Utf8_info::getValue() const {
   auto utf8_str = Utf8(this);
   return utf8_str.str;
 }
@@ -397,7 +396,7 @@ std::wstring CONSTANT_MethodType_info::getValue(
   auto type =
       constpool[this->descriptor_index - 1].getClass<CONSTANT_Utf8_info>();
 
-  wss << type->getValue(constpool);
+  wss << type->getValue();
 
   return wss.str();
 }
@@ -411,7 +410,7 @@ std::wstring CONSTANT_MethodType_info::getGeneralInfo(
   auto type =
       constpool[this->descriptor_index - 1].getClass<CONSTANT_Utf8_info>();
 
-  wss << type->getValue(constpool);
+  wss << type->getValue();
 
   return wss.str();
 }

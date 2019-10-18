@@ -57,7 +57,7 @@ void dumpJsonFile(const ClassFile *cf, const std::string &filename) {
   json j;
   cfSerializer.to_json(&j);
   const std::string outdir = "./.out/";
-  Utils::makeDirectory(outdir.c_str());
+  Utils::FileSystem::makeDirectory(outdir.c_str());
   const std::string classname = filename.substr(0, filename.find_last_of('.'));
   const std::string path = outdir + '/' + classname + "_structure.json";
   std::ofstream o(path);
