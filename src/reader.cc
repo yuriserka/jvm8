@@ -603,7 +603,7 @@ void Reader::readAttributesInfo(
             this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
                 sourcefile_attr->sourcefile_index, "sourcefile_index",
                 Utils::ConstantPool::kCONSTANT_UTF8);
-                
+
         auto path_files =
             Utils::FileSystem::getFileNames(Utils::Flags::options.kPATH);
 
@@ -723,7 +723,7 @@ void Reader::readAttributesInfo(
         attr->setBase<attrs::NotImplemented>(nameidx, attrlen);
         for (size_t i = 0; i < attrlen; ++i) {
           Utils::Types::u1 byte;
-          this->readBytes(&byte);
+          this->readBytes(&byte, false);
         }
         break;
       }

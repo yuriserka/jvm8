@@ -19,7 +19,7 @@ class InstructionSerializer {
   ~InstructionSerializer() { delete this->kpool_serializer; }
 
   int to_json(json *j, std::vector<Utils::Types::u1>::iterator *code_it,
-              int *code_index, const bool &wide = false);
+              int *code_index, bool *wide);
 
  private:
   const ClassFile *cf;

@@ -421,7 +421,7 @@ class Load : public Instruction {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " ";
     if (wide) {
       int16_t index = (*++*code_it << 8) | *++*code_it;
-      (*wss) << int{index};
+      (*wss) << index;
       *delta_code = 2;
     } else {
       unsigned char index = *++*code_it;
@@ -677,7 +677,7 @@ class Store : public Instruction {
     (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " ";
     if (wide) {
       int16_t index = (*++*code_it << 8) | *++*code_it;
-      (*wss) << int{index};
+      (*wss) << index;
       *delta_code = 2;
     } else {
       unsigned char index = *++*code_it;
@@ -693,9 +693,8 @@ class Store : public Instruction {
       int *ret, const bool &wide, int *code_index) override {
     if (wide) {
       int16_t index = (*++*code_it << 8) | *++*code_it;
-      int16_t k = (*++*code_it << 8) | *++*code_it;
-      *delta_code = 4;
-      return {Utils::String::to_string(index), Utils::String::to_string(k)};
+      *delta_code = 2;
+      return {Utils::String::to_string(index)};
     }
     unsigned char index = *++*code_it;
     *delta_code = 1;

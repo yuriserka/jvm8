@@ -230,6 +230,7 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
       auto codeArr = code_attr->code;
       auto instr_serializer =
           Instructions::InstructionSerializer(this->cf, codeArr);
+      bool iswide = false;
       for (auto it = codeArr.begin(); it != codeArr.end(); ++it, ++count) {
         // clang-format off
         (*j).at("/specific info/bytecode"_json_pointer)[count] = {
@@ -242,7 +243,13 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
         auto delta_code = instr_serializer.to_json(
             &(*j).at("/specific info/bytecode"_json_pointer)[count].at(
                 "/arguments"_json_pointer),
-            &it, &i);
+            &it, &i, &iswide);
+        if (delta_code < 0) {
+          iswide = true;
+          delta_code = std::abs(delta_code);
+        } else {
+          iswide = false;
+        }
         i += delta_code;
       }
 
@@ -386,9 +393,9 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
         kpool_serializer.to_json(
             &(*j).at("/specific info"_json_pointer)[i].at("/name"_json_pointer),
             lvt_info.name_index - 1);
-        kpool_serializer.to_json(
-            &(*j).at("/specific info"_json_pointer)[i].at("/descriptor"_json_pointer),
-            lvt_info.descriptor_index - 1);
+        kpool_serializer.to_json(&(*j).at("/specific info"_json_pointer)[i].at(
+                                     "/descriptor"_json_pointer),
+                                 lvt_info.descriptor_index - 1);
       }
       break;
     }

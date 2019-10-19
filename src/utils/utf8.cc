@@ -52,9 +52,6 @@ Utf8::Utf8(const Utils::ConstantPool::CONSTANT_Utf8_info *kutf8Info) {
       auto b4 = bytes[i + 5] & 0x3F;
       utf8c = static_cast<wchar_t>(0x10000 | b1 | b2 | b3 | b4);
       i += 5;
-    } else {
-      std::wcout << "deu erro aaaaaaaaaaaa => utf8 char = "
-                 << std::hex << static_cast<int>(utf8c) << "\n";
     }
     this->str.push_back(utf8c);
   }

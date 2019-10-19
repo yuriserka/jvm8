@@ -124,8 +124,8 @@ class BaseAttribute {
  public:
   BaseAttribute() = default;
 
-  explicit BaseAttribute(const Utils::Types::u1 &nameIdx,
-                         const Utils::Types::u4 &attrLen) {
+  BaseAttribute(const Utils::Types::u2 &nameIdx,
+                const Utils::Types::u4 &attrLen) {
     this->attribute_name_index = nameIdx;
     this->attribute_length = attrLen;
   }
@@ -151,7 +151,7 @@ class attribute_info {
   }
 
   template <typename T>
-  T *setBase(const Utils::Types::u1 &nameIdx, const Utils::Types::u4 &attrLen) {
+  T *setBase(const Utils::Types::u2 &nameIdx, const Utils::Types::u4 &attrLen) {
     this->base = new T(nameIdx, attrLen);
     return this->getClass<T>();
   }
@@ -166,8 +166,8 @@ class attribute_info {
 
 class NotImplemented : public BaseAttribute {
  public:
-  explicit NotImplemented(const Utils::Types::u1 &nameIdx,
-                          const Utils::Types::u4 &attrLen)
+  NotImplemented(const Utils::Types::u2 &nameIdx,
+                 const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~NotImplemented() = default;
@@ -177,8 +177,8 @@ class NotImplemented : public BaseAttribute {
 
 class ConstantValue_attribute : public BaseAttribute {
  public:
-  explicit ConstantValue_attribute(const Utils::Types::u1 &nameIdx,
-                                   const Utils::Types::u4 &attrLen)
+  ConstantValue_attribute(const Utils::Types::u2 &nameIdx,
+                          const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~ConstantValue_attribute() = default;
@@ -192,8 +192,8 @@ class ConstantValue_attribute : public BaseAttribute {
 
 class Code_attribute : public BaseAttribute {
  public:
-  explicit Code_attribute(const Utils::Types::u1 &nameIdx,
-                          const Utils::Types::u4 &attrLen)
+  Code_attribute(const Utils::Types::u2 &nameIdx,
+                 const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~Code_attribute() = default;
@@ -218,8 +218,8 @@ class Code_attribute : public BaseAttribute {
 
 class Exceptions_attribute : public BaseAttribute {
  public:
-  explicit Exceptions_attribute(const Utils::Types::u1 &nameIdx,
-                                const Utils::Types::u4 &attrLen)
+  Exceptions_attribute(const Utils::Types::u2 &nameIdx,
+                       const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~Exceptions_attribute() = default;
@@ -239,8 +239,8 @@ class Exceptions_attribute : public BaseAttribute {
 
 class InnerClasses_attribute : public BaseAttribute {
  public:
-  explicit InnerClasses_attribute(const Utils::Types::u1 &nameIdx,
-                                  const Utils::Types::u4 &attrLen)
+  InnerClasses_attribute(const Utils::Types::u2 &nameIdx,
+                         const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~InnerClasses_attribute() = default;
@@ -260,8 +260,8 @@ class InnerClasses_attribute : public BaseAttribute {
 
 class EnclosingMethod_attribute : public BaseAttribute {
  public:
-  explicit EnclosingMethod_attribute(const Utils::Types::u1 &nameIdx,
-                                     const Utils::Types::u4 &attrLen)
+  EnclosingMethod_attribute(const Utils::Types::u2 &nameIdx,
+                            const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~EnclosingMethod_attribute() = default;
@@ -276,8 +276,8 @@ class EnclosingMethod_attribute : public BaseAttribute {
 
 class Synthetic_attribute : public BaseAttribute {
  public:
-  explicit Synthetic_attribute(const Utils::Types::u1 &nameIdx,
-                               const Utils::Types::u4 &attrLen)
+  Synthetic_attribute(const Utils::Types::u2 &nameIdx,
+                      const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~Synthetic_attribute() = default;
@@ -285,8 +285,8 @@ class Synthetic_attribute : public BaseAttribute {
 
 class Signature_attribute : public BaseAttribute {
  public:
-  explicit Signature_attribute(const Utils::Types::u1 &nameIdx,
-                               const Utils::Types::u4 &attrLen)
+  Signature_attribute(const Utils::Types::u2 &nameIdx,
+                      const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~Signature_attribute() = default;
@@ -300,8 +300,8 @@ class Signature_attribute : public BaseAttribute {
 
 class SourceFile_attribute : public BaseAttribute {
  public:
-  explicit SourceFile_attribute(const Utils::Types::u1 &nameIdx,
-                                const Utils::Types::u4 &attrLen)
+  SourceFile_attribute(const Utils::Types::u2 &nameIdx,
+                       const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~SourceFile_attribute() = default;
@@ -315,8 +315,8 @@ class SourceFile_attribute : public BaseAttribute {
 
 class SourceDebugExtension_attribute : public BaseAttribute {
  public:
-  explicit SourceDebugExtension_attribute(const Utils::Types::u1 &nameIdx,
-                                          const Utils::Types::u4 &attrLen)
+  SourceDebugExtension_attribute(const Utils::Types::u2 &nameIdx,
+                                 const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~SourceDebugExtension_attribute() = default;
@@ -330,8 +330,8 @@ class SourceDebugExtension_attribute : public BaseAttribute {
 
 class LineNumberTable_attribute : public BaseAttribute {
  public:
-  explicit LineNumberTable_attribute(const Utils::Types::u1 &nameIdx,
-                                     const Utils::Types::u4 &attrLen)
+  LineNumberTable_attribute(const Utils::Types::u2 &nameIdx,
+                            const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~LineNumberTable_attribute() = default;
@@ -351,8 +351,8 @@ class LineNumberTable_attribute : public BaseAttribute {
 
 class LocalVariableTable_attribute : public BaseAttribute {
  public:
-  explicit LocalVariableTable_attribute(const Utils::Types::u1 &nameIdx,
-                                        const Utils::Types::u4 &attrLen)
+  LocalVariableTable_attribute(const Utils::Types::u2 &nameIdx,
+                               const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~LocalVariableTable_attribute() = default;
@@ -372,8 +372,8 @@ class LocalVariableTable_attribute : public BaseAttribute {
 
 class LocalVariableTypeTable_attribute : public BaseAttribute {
  public:
-  explicit LocalVariableTypeTable_attribute(const Utils::Types::u1 &nameIdx,
-                                            const Utils::Types::u4 &attrLen)
+  LocalVariableTypeTable_attribute(const Utils::Types::u2 &nameIdx,
+                                   const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~LocalVariableTypeTable_attribute() = default;
@@ -388,8 +388,8 @@ class LocalVariableTypeTable_attribute : public BaseAttribute {
 
 class Deprecated_attribute : public BaseAttribute {
  public:
-  explicit Deprecated_attribute(const Utils::Types::u1 &nameIdx,
-                                const Utils::Types::u4 &attrLen)
+  Deprecated_attribute(const Utils::Types::u2 &nameIdx,
+                       const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~Deprecated_attribute() = default;
@@ -397,8 +397,8 @@ class Deprecated_attribute : public BaseAttribute {
 
 class RuntimeVisibleAnnotations_attribute : public BaseAttribute {
  public:
-  explicit RuntimeVisibleAnnotations_attribute(const Utils::Types::u1 &nameIdx,
-                                               const Utils::Types::u4 &attrLen)
+  RuntimeVisibleAnnotations_attribute(const Utils::Types::u2 &nameIdx,
+                                      const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~RuntimeVisibleAnnotations_attribute() = default;
@@ -413,8 +413,8 @@ class RuntimeVisibleAnnotations_attribute : public BaseAttribute {
 
 class RuntimeInvisibleAnnotations_attribute : public BaseAttribute {
  public:
-  explicit RuntimeInvisibleAnnotations_attribute(
-      const Utils::Types::u1 &nameIdx, const Utils::Types::u4 &attrLen)
+  RuntimeInvisibleAnnotations_attribute(const Utils::Types::u2 &nameIdx,
+                                        const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~RuntimeInvisibleAnnotations_attribute() = default;
@@ -429,8 +429,8 @@ class RuntimeInvisibleAnnotations_attribute : public BaseAttribute {
 
 class RuntimeVisibleParameterAnnotations_attribute : public BaseAttribute {
  public:
-  explicit RuntimeVisibleParameterAnnotations_attribute(
-      const Utils::Types::u1 &nameIdx, const Utils::Types::u4 &attrLen)
+  RuntimeVisibleParameterAnnotations_attribute(const Utils::Types::u2 &nameIdx,
+                                               const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~RuntimeVisibleParameterAnnotations_attribute() = default;
@@ -445,8 +445,8 @@ class RuntimeVisibleParameterAnnotations_attribute : public BaseAttribute {
 
 class RuntimeInvisibleParameterAnnotations_attribute : public BaseAttribute {
  public:
-  explicit RuntimeInvisibleParameterAnnotations_attribute(
-      const Utils::Types::u1 &nameIdx, const Utils::Types::u4 &attrLen)
+  RuntimeInvisibleParameterAnnotations_attribute(
+      const Utils::Types::u2 &nameIdx, const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~RuntimeInvisibleParameterAnnotations_attribute() = default;
@@ -461,8 +461,8 @@ class RuntimeInvisibleParameterAnnotations_attribute : public BaseAttribute {
 
 class BootstrapMethods_attribute : public BaseAttribute {
  public:
-  explicit BootstrapMethods_attribute(const Utils::Types::u1 &nameIdx,
-                                      const Utils::Types::u4 &attrLen)
+  BootstrapMethods_attribute(const Utils::Types::u2 &nameIdx,
+                             const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~BootstrapMethods_attribute() = default;
@@ -482,8 +482,8 @@ class BootstrapMethods_attribute : public BaseAttribute {
 
 class MethodParameters_attribute : public BaseAttribute {
  public:
-  explicit MethodParameters_attribute(const Utils::Types::u1 &nameIdx,
-                                      const Utils::Types::u4 &attrLen)
+  MethodParameters_attribute(const Utils::Types::u2 &nameIdx,
+                             const Utils::Types::u4 &attrLen)
       : BaseAttribute(nameIdx, attrLen) {}
 
   ~MethodParameters_attribute() = default;
