@@ -28,6 +28,7 @@ std::wstring getBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                          Viewer *v, int *code_index, const int &delta_tab,
                          const bool &wide) {
   std::wstringstream wss;
+  wss << std::wstring(delta_tab - 1, '\t') << *code_index << ": ";
   auto opcode = **code_it;
   auto delta_code = 0;
   Instruction *i = nullptr;
@@ -1071,14 +1072,14 @@ std::wstring getBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
       break;
     }
     case Opcodes::kWIDE: {
-      // i = new Misc::Wide();
-      // i->toBytecode(code_it, &delta_code, &wss, wide);
-      getBytecode(++code_it, v, &++*code_index, true);
+      i = new Misc::Wide();
+      i->toBytecode(code_it, &delta_code, &wss, wide);
+      wss << getBytecode(&++*code_it, v, &++*code_index, delta_tab, true);
       break;
     }
   }
   if (i) delete i;
-  *code_index += 1 + delta_code;
+  *code_index += (wide ? 0 : 1) + delta_code;
   return wss.str();
 }
 }  // namespace Instructions

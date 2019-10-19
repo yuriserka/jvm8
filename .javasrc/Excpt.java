@@ -3,7 +3,7 @@ public class Excpt {
         String s = null;
         try {
             s = s + null;
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }

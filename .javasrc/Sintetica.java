@@ -1,7 +1,6 @@
 public final class Sintetica {
    public static void main(final String[] args) {
-      Sintetica.NestedClass nested =
-         new Sintetica.NestedClass();
+      Sintetica.NestedClass nested = new Sintetica.NestedClass();
       System.out.println("String: " + nested.highlyConfidential);
    }
 

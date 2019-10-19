@@ -59,9 +59,11 @@ class Reader {
   }
 
   template <typename T>
-  inline void readBytes(T *objp) {
+  inline void readBytes(T *objp, const bool &flip = true) {
     this->file.read(reinterpret_cast<char *>(objp), sizeof(T));
-    this->endianSwap(objp);
+    if (flip) {
+      this->endianSwap(objp);
+    }
   }
 
   void kpoolValidEntry(const Utils::Types::u2 &index,

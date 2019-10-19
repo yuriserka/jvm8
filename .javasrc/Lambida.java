@@ -6,7 +6,8 @@ import java.util.HashMap;
 
 interface ListaInteira {
   List<Integer> list = new ArrayList<Integer>();
-	void printList();
+
+  void printList();
 }
 
 public class Lambida {
@@ -16,7 +17,7 @@ public class Lambida {
     list.add("World");
     list.forEach(System.out::println);
   }
-  
+
   public static void main(String[] args) {
     foo();
   }
@@ -28,19 +29,19 @@ public class Lambida {
     list.add(13);
     list.add(140);
     list.add(103);
-    list.stream().map((x) -> x*x).forEach(System.out::println);
+    list.stream().map((x) -> x * x).forEach(System.out::println);
   }
 
   void doidera() {
     ListaInteira obj1 = new ListaInteira() {
-			@Override
-			public void printList() {
-				this.list.forEach(System.out::println);
-			}
-		};
+      @Override
+      public void printList() {
+        this.list.forEach(System.out::println);
+      }
+    };
     obj1.list.add(10);
     obj1.list.add(12);
     obj1.list.add(13);
-		obj1.printList();
+    obj1.printList();
   }
 }

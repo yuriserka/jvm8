@@ -11,25 +11,25 @@ public class BranchOffset {
           i++;
         }
       }
-    	String s = "vou pra constant pool";
+      String s = "vou pra constant pool";
       int dec_num, rem;
-      String hexdec_num="";
-      
+      String hexdec_num = "";
+
       /* hexadecimal number digits */
-      char hex[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+      char hex[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
       dec_num = i;
-  
-      while(dec_num > 0) {
+
+      while (dec_num > 0) {
         rem = dec_num % 16;
         hexdec_num = hex[rem] + hexdec_num;
         dec_num = dec_num / 16;
       }
-    
+
       System.out.println("Hexadecimal number is: 0x" + hexdec_num);
       try {
-        String out = new String(Character.toString((char)Integer.parseInt(hexdec_num, 16)).getBytes(), "UTF-8");
+        String out = new String(Character.toString((char) Integer.parseInt(hexdec_num, 16)).getBytes(), "UTF-8");
         System.out.printf("unicode era pra ser = %s%n", out);
-      } catch(final UnsupportedEncodingException uee) {
+      } catch (final UnsupportedEncodingException uee) {
         uee.printStackTrace();
         break;
       } catch (final NumberFormatException nfe) {

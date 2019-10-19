@@ -1,6 +1,7 @@
 public final class localvar {
     void instanceMethod(short argS, long argL) {
-        int localI = argS;	 long localLong = argL;
+        int localI = argS;
+        long localLong = argL;
     }
 
     static int staticMethod() {

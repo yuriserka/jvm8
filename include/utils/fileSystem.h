@@ -33,6 +33,8 @@ inline std::vector<std::string> getFileNames(const std::string &path) {
   }
   std::vector<std::string> files;
   while ((entry = readdir(dir)) != NULL) {
+    auto f = std::string(entry->d_name);
+    if (!f.substr(f.find_last_of('.'), f.size()).compare(".java")) continue;
     files.push_back(entry->d_name);
   }
   closedir(dir);

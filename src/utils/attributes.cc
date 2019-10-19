@@ -129,8 +129,10 @@ std::wstring Code_attribute::getSpecificInfo(Viewer *v, const ClassFile *cf,
   wss << std::wstring(delta_tab, '\t') << "Bytecode: \n";
   int i = 0;
   auto codeArr = this->code;
+    // for (auto it = codeArr.begin(); it != codeArr.end(); ++it) {
+    //   std::cout << std::hex << +(*it) << "\n";
+    // }
   for (auto it = codeArr.begin(); it != codeArr.end(); ++it) {
-    wss << std::wstring(delta_tab + 1, '\t') << i << ": ";
     wss << Instructions::getBytecode(&it, v, &i, delta_tab + 2);
   }
 

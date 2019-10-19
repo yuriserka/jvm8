@@ -3,6 +3,7 @@ public class Nested {
         public int getX() {
             return this.x;
         }
+
         private int x;
     }
 

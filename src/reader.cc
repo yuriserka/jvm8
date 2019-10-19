@@ -128,7 +128,7 @@ void Reader::readConstantPoolInfo() {
     this->classfile->constant_pool[i] = Utils::ConstantPool::cp_info();
     auto constpool = &this->classfile->constant_pool[i];
     Utils::Types::u1 tag;
-    this->readBytes(&tag);
+    this->readBytes(&tag, false);
 
     switch (tag) {
       namespace cp = Utils::ConstantPool;
@@ -199,7 +199,7 @@ void Reader::readConstantPoolInfo() {
         this->readBytes(&kutf8_info->length);
         kutf8_info->bytes.resize(kutf8_info->length);
         for (auto i = 0; i < kutf8_info->length; ++i) {
-          this->readBytes(&kutf8_info->bytes[i]);
+          this->readBytes(&kutf8_info->bytes[i], false);
           auto ubyte = +kutf8_info->bytes[i];
           if (ubyte == 0x0000 || (ubyte >= 0x00F0 && ubyte <= 0x00FF)) {
             std::stringstream err;
@@ -213,7 +213,7 @@ void Reader::readConstantPoolInfo() {
       case cp::kCONSTANT_METHODHANDLE: {
         auto kmethodhandler_info =
             constpool->setBase<cp::CONSTANT_MethodHandle_info>(tag);
-        this->readBytes(&kmethodhandler_info->reference_kind);
+        this->readBytes(&kmethodhandler_info->reference_kind, false);
         if (kmethodhandler_info->reference_kind < 1 ||
             kmethodhandler_info->reference_kind > 9) {
           std::stringstream err;
@@ -442,7 +442,7 @@ void Reader::readAttributesInfo(
         }
         code_attr->code.resize(code_attr->code_length);
         for (size_t i = 0; i < code_attr->code_length; ++i) {
-          this->readBytes(&code_attr->code[i]);
+          this->readBytes(&code_attr->code[i], false);
         }
 
         this->readBytes(&code_attr->exception_table_length);
@@ -613,7 +613,7 @@ void Reader::readAttributesInfo(
         auto it_class_file = std::find_if(
             path_files.begin(), path_files.end(),
             [&class_name](const std::string &s) {
-              return class_name.compare(s.substr(0, s.find_last_of('.'))) == 0;
+              return !class_name.compare(s.substr(0, s.find_last_of('.')));
             });
         if (it_class_file == path_files.end()) {
           throw Utils::Errors::Exception(Utils::Errors::kSOURCE,
@@ -699,7 +699,7 @@ void Reader::readAttributesInfo(
       case attrs::kMETHODPARAMETERS: {
         auto methodparams_attr =
             attr->setBase<attrs::MethodParameters_attribute>(nameidx, attrlen);
-        this->readBytes(&methodparams_attr->parameters_count);
+        this->readBytes(&methodparams_attr->parameters_count, false);
         methodparams_attr->parameters.resize(
             methodparams_attr->parameters_count);
 

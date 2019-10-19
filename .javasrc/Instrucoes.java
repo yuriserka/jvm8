@@ -6,7 +6,7 @@ public class Instrucoes {
 
     static void BYTE() {
         byte x = 22;
-        byte[] ba = {1,23,4};
+        byte[] ba = { 1, 23, 4 };
         byte y = ba[2];
     }
 
@@ -26,7 +26,7 @@ public class Instrucoes {
         double dk = 0;
         double di = (double) 1;
         double df = (double) 2.5f;
-        double x = 1.2 + 3.8 - (4.1 * 5.0/2.0);
+        double x = 1.2 + 3.8 - (4.1 * 5.0 / 2.0);
 
         return x;
     }
@@ -36,7 +36,7 @@ public class Instrucoes {
         float fi = (float) 4;
         float fd = (float) 45.647684564;
 
-        float x = (1.2f + 2.2f) * 3.2f/4.67f;
+        float x = (1.2f + 2.2f) * 3.2f / 4.67f;
         return fk;
     }
 
@@ -48,7 +48,7 @@ public class Instrucoes {
         int iinc = ik++;
         iinc--;
 
-        int x = 1+2-3*(4/2);
+        int x = 1 + 2 - 3 * (4 / 2);
 
         return x;
     }
@@ -59,7 +59,7 @@ public class Instrucoes {
         long ld = (long) 6468.864;
         long lf = (long) 2131.34f;
 
-        long x = 32132121313213L+3165165464646L-54654646L*(5313156L/0L);
+        long x = 32132121313213L + 3165165464646L - 54654646L * (5313156L / 0L);
 
         return x;
     }
@@ -71,8 +71,10 @@ public class Instrucoes {
     }
 
     private final void GOTO() {
-        for (int i = 0; i < 1; i++) continue;
-        do {} while (false);
+        for (int i = 0; i < 1; i++)
+            continue;
+        do {
+        } while (false);
         if (professor == null) {
             nota = -1;
         }
@@ -85,9 +87,9 @@ public class Instrucoes {
 
         try {
             LONG();
-        } catch(final ArithmeticException ae){
+        } catch (final ArithmeticException ae) {
             System.err.println("O número do divisor deve ser diferente de 0!");
-        } finally{
+        } finally {
             System.out.println("Execução do Finally!");
         }
     }

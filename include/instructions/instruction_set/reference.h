@@ -78,16 +78,28 @@ class Load : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       std::wstringstream *wss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    auto index = *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
-           << +index << "\n";
-    *delta_code = 1;
+    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " ";
+    if (wide) {
+      int16_t index = (*++*code_it << 8) | *++*code_it;
+      (*wss) << int{index};
+      *delta_code = 2;
+    } else {
+      unsigned char index = *++*code_it;
+      (*wss) << int{index};
+      *delta_code = 1;
+    }
+    (*wss) << "\n";
     return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide, int *code_index) override {
+    if (wide) {
+      int16_t index = (*++*code_it << 8) | *++*code_it;
+      *delta_code = 2;
+      return {Utils::String::to_string(index)};
+    }
     auto index = *++*code_it;
     *delta_code = 1;
     return {Utils::String::to_string(+index)};
@@ -246,19 +258,32 @@ class Store : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       std::wstringstream *wss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    auto index = *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
-           << +index << "\n";
-    *delta_code = 1;
+    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " ";
+    if (wide) {
+      int16_t index = (*++*code_it << 8) | *++*code_it;
+      (*wss) << int{index};
+      *delta_code = 2;
+    } else {
+      unsigned char index = *++*code_it;
+      (*wss) << int{index};
+      *delta_code = 1;
+    }
+    (*wss) << "\n";
     return {};
   }
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide, int *code_index) override {
-    auto index = *++*code_it;
+    if (wide) {
+      int16_t index = (*++*code_it << 8) | *++*code_it;
+      int16_t k = (*++*code_it << 8) | *++*code_it;
+      *delta_code = 4;
+      return {Utils::String::to_string(index), Utils::String::to_string(k)};
+    }
+    unsigned char index = *++*code_it;
     *delta_code = 1;
-    return {Utils::String::to_string(+index)};
+    return {Utils::String::to_string(int{index})};
   }
 };
 

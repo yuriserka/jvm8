@@ -1,10 +1,11 @@
 //Java program to demonstrate Anonymous inner class
 interface Age {
 	int x = 21;
+
 	void getAge();
 }
 
-class Anon  {
+class Anon {
 	public static void main(String[] args) {
 		// Myclass is hidden inner class of Age interface
 		// whose name is not written but an object to it
