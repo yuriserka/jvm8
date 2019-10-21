@@ -16,7 +16,26 @@ static std::ios state(NULL);
 
 Reader::Reader(ClassFile *cf, const std::string &fpath) {
   this->fname = fpath.substr(fpath.find_last_of("/\\") + 1);
-  this->file = std::fstream(fpath, std::ios::binary | std::ios::in);
+  std::string p;
+
+  auto has_path = fpath.find(Utils::Flags::options.kPATH);
+  if (has_path == std::string::npos) {
+    p = Utils::Flags::options.kPATH + [&p]() -> std::string {
+      auto has_end_slash = Utils::Flags::options.kPATH.find_last_of("/\\");
+      if (has_end_slash != Utils::Flags::options.kPATH.size() - 1) {
+#if defined(_WIN32) || defined(WIN32)
+        return "\\";
+#else
+        return "/";
+#endif
+      }
+      return "";
+    }() + fpath;
+  } else {
+    p = fpath;
+  }
+
+  this->file.open(p, std::ios::binary | std::ios::in);
   this->classfile = cf;
 
   if (!this->file.is_open()) {
@@ -40,10 +59,12 @@ void Reader::readClassFile() {
     auto v =
         stod(Utils::String::to_string(this->classfile->major_version) + minver);
     if (v < std::stod(minver + ".0") || v > std::stod(maxver)) {
-      throw Utils::Errors::Exception(
-          Utils::Errors::kMAJOR,
-          "file format of version v if and only if v lies in some contiguous "
-          "range minor.0 ≤ v ≤ Major.Minor");
+      std::stringstream ss;
+      ss << "This JVM implementation support a class file of version v "
+         << "if and only if v lies in range " << this->classfile->minor_version
+         << ".0 ≤ v ≤ " << Utils::Versions::Java8 << "."
+         << this->classfile->minor_version;
+      throw Utils::Errors::Exception(Utils::Errors::kMAJOR, ss.str());
     }
   }
   this->readConstantPool();

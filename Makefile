@@ -30,7 +30,7 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $(DEP_DIR)/$*.d
 CC := g++
 INCLUDES := -I"include/"
 CXXFLAGS := $(INCLUDES) -std=c++11
-CFLAGS := -g -Wall -pedantic -pthread -Wpedantic -Werror -lm
+CFLAGS := -g -Wall -pedantic -Wpedantic -Werror
 
 # $@  Nome da regra. 
 # $<  Nome da primeira dependência 

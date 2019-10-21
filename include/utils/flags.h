@@ -7,6 +7,10 @@ struct Options {
   bool kVERBOSE;
   bool kIGNORE;
   bool kJSON;
+  struct {
+    bool kVIEWER;
+    bool kINTERPRETER;
+  } KMODE;
   std::string kFILE;
   std::string kPATH;
 };

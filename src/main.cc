@@ -26,13 +26,18 @@ int main(const int argc, const char **argv) {
     v = new Viewer(cf, r->fname);
 
     r->readClassFile();
-    if (Utils::Flags::options.kJSON) {
-      dumpJsonFile(cf, r->fname);
-      if (Utils::Flags::options.kVERBOSE) {
-        std::cout << "json file dump complete\n";
+    if (Utils::Flags::options.KMODE.kVIEWER) {
+      if (Utils::Flags::options.kJSON) {
+        dumpJsonFile(cf, r->fname);
+        if (Utils::Flags::options.kVERBOSE) {
+          std::cout << "json file dump complete\n";
+        }
       }
+      v->printClassFile();
+    } else {
+      throw Utils::Errors::Exception(Utils::Errors::kNOTIMPLEMENTED,
+                                     "Interpreter is not implemented yet");
     }
-    v->printClassFile();
   } catch (const Utils::Errors::Exception &e) {
     delete r;
     delete v;

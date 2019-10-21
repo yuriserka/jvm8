@@ -11,14 +11,18 @@ repositório com o fim de fazer a JVM 8.
 ##### Linux:
 `make clean && make`
 
-`./jvm -p ./.javasrc/ -f ./.javasrc/Caixa.class -v`
+`./jvm viewer ./.javasrc/ Java12.class -v -json`
 
 ##### Windows:
 `mingw32-make.exe clean`
 
 `mingw32-make.exe`
 
-`.\jvm.exe -p .\.javasrc\ -f .\.javasrc\Anon.class -v -json`
+`.\jvm.exe viewer .\.javasrc\ .\.javasrc\Anon.class -json`
+
+##### General formula
+usage: 
+```.(\\|/)jvm(.exe)? {viewer, interpreter} <path_to_class_file(\\|/)?> <(path_to_class_file)?class_file> [-v, -json]```
 
 ### Debugging
 
@@ -29,8 +33,8 @@ Compile the program normally with `make clean && make` in Linux or for windows u
 mingw32-make.exe clean
 mingw32-make.exe
 ```
-then `gdb --args ./jvm -p ./.javasrc/ -f ./.javasrc/Caixa.class` for debugging or
-```make && valgrind -v --leak-check=full --track-origins=yes --show-leak-kinds=all ./jvm -p ./.javasrc/ -f ./.javasrc/LookAtMe.class -v -json```
+then `gdb --args ./jvm viewer ./.javasrc/ ./.javasrc/Caixa.class` for debugging or
+```make && valgrind -v --leak-check=full --track-origins=yes --show-leak-kinds=all ./jvm viewer ./.javasrc/ ./.javasrc/LookAtMe.class -v -json```
 for dynamic analysis (only on Linux).
 
 ##### Basic commands

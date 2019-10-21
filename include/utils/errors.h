@@ -20,6 +20,7 @@ class Exception : public std::exception {
 
 enum errorTypes {
   kCLASSFILE = 1,
+  kMODE,
   KMAGIC,
   kMINOR,
   kMAJOR,
@@ -32,6 +33,7 @@ enum errorTypes {
   kATTRIBUTE,
   kINSTRUCTION,
   kMKDIR,
+  kNOTIMPLEMENTED,
   kLS,
   kMEMCPY,
   kVIEWER,
