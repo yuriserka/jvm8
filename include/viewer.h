@@ -14,7 +14,7 @@ class Viewer {
   }
 
   void printClassFile();
-  std::wstring getConstantPoolInfo(const int &index, const bool &dot = true);
+  std::string getConstantPoolInfo(const int &index, const bool &dot = true);
 
  private:
   void printMagic();
@@ -48,8 +48,8 @@ class Viewer {
   void printAttributeInfo(const Utils::Attributes::attribute_info *attribute,
                           const int &index, const int &tab_shift);
 
-  std::wstring getAttributeHeader(const Utils::Attributes::attribute_info *attr,
-                                  const int &tab_shift);
+  std::string getAttributeHeader(const Utils::Attributes::attribute_info *attr,
+                                 const int &tab_shift);
 
   std::string classname;
   const ClassFile *classfile;

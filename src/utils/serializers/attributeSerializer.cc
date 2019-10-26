@@ -3,9 +3,9 @@
 #include "instructions/opcodes.h"
 #include "utils/serializers/constpoolSerializer.h"
 #include "utils/serializers/instructionSerializer.h"
-#include "utils/utf8.h"
+#include "utils/string.h"
 
-static std::string getHexByteString(types::u4 bytes, const int &size) {
+static std::string getHexByteString(Utils::Types::u4 bytes, const int &size) {
   std::stringstream ss;
   ss << "0x" << std::setfill('0') << std::setw(size) << std::hex
      << std::uppercase << bytes;
@@ -199,15 +199,14 @@ static void create_json_str(json *j, const NotImplemented *not_implemented) {
 }
 
 void AttributeSerializer::to_json(json *j, const int &attrindex) {
-  auto kpool_serializer = Utils::ConstantPool::ConstantPoolSerializer(this->cf);
+  auto kpool_serializer = ConstantPool::ConstantPoolSerializer(this->cf);
   auto attr = this->attrs[attrindex];
 
   auto utf8nameindex =
       this->cf->constant_pool[attr.base->attribute_name_index - 1];
-  auto kutf8 =
-      utf8nameindex.getClass<Utils::ConstantPool::CONSTANT_Utf8_info>();
-  auto attrName = Utf8(kutf8);
-  auto attrtype = getAttributeType(attrName.str);
+  auto kutf8 = utf8nameindex.getClass<ConstantPool::CONSTANT_Utf8_info>();
+  auto attrName = String::getUtf8Modified(kutf8);
+  auto attrtype = getAttributeType(attrName);
 
   switch (attrtype) {
     case kCONSTANTVALUE: {

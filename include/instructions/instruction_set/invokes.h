@@ -16,13 +16,12 @@ class Dynamic : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     *++*code_it;
     *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 4;
     return {kpool_index};
   }
@@ -32,8 +31,8 @@ class Dynamic : public Instruction {
       int *ret, const bool &wide, int *code_index) override {
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 4;
-    return {Utils::String::to_string(+(*++*code_it)),
-            Utils::String::to_string(+(*++*code_it))};
+    return {Utils::String::toString(+(*++*code_it)),
+            Utils::String::toString(+(*++*code_it))};
   }
 };
 
@@ -43,13 +42,12 @@ class Interface : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     unsigned char count = *++*code_it;
     *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 4;
     return {kpool_index, int{count}};
   }
@@ -59,8 +57,8 @@ class Interface : public Instruction {
       int *ret, const bool &wide, int *code_index) override {
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 4;
-    return {Utils::String::to_string(+(*++*code_it)),
-            Utils::String::to_string(+(*++*code_it))};
+    return {Utils::String::toString(+(*++*code_it)),
+            Utils::String::toString(+(*++*code_it))};
   }
 };
 
@@ -70,11 +68,10 @@ class Especial : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }
@@ -94,11 +91,10 @@ class Static : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }
@@ -118,11 +114,10 @@ class Virtual : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }

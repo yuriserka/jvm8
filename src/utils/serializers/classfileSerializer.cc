@@ -5,7 +5,6 @@
 #include "utils/serializers/constpoolSerializer.h"
 #include "utils/serializers/fieldSerializer.h"
 #include "utils/serializers/methodSerializer.h"
-#include "utils/utf8.h"
 #include "utils/versions.h"
 
 void ClassFileSerializer::to_json(json *j) {

@@ -4,8 +4,8 @@
 
 namespace Utils {
 namespace Reference {
-std::string getReferenceType(const Utils::Types::u2 &ref_index) {
-  std::map<Utils::Types::u2, std::string> reftypes = {
+std::string getReferenceType(const Types::u2 &ref_index) {
+  std::map<Types::u2, std::string> reftypes = {
       {kREF_getField, "REF_getField"},
       {kREF_getStatic, "REF_getStatic"},
       {kREF_putField, "REF_putField"},

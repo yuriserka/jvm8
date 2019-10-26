@@ -22,7 +22,7 @@ static void create_json_str(json *j, const field_info &field) {
     },
     {"access flags", {
         {"bytes", ss.str()},
-        {"values", Utils::Access::getFieldAccessType(field.access_flags)}
+        {"values", Access::getFieldAccessType(field.access_flags)}
       }
     },
     {"attributes", json::array()}
@@ -31,12 +31,12 @@ static void create_json_str(json *j, const field_info &field) {
 }
 
 void FieldSerializer::to_json(json *j, const int &fieldindex) {
-  auto is = Utils::ConstantPool::ConstantPoolSerializer(this->cf);
+  auto is = ConstantPool::ConstantPoolSerializer(this->cf);
   field_info field = this->cf->fields[fieldindex];
   create_json_str(j, field);
   is.to_json(&(*j).at("/name"_json_pointer), field.name_index - 1);
   is.to_json(&(*j).at("/descriptor"_json_pointer), field.descriptor_index - 1);
-  auto as = Utils::Attributes::AttributeSerializer(this->cf, field.attributes);
+  auto as = Attributes::AttributeSerializer(this->cf, field.attributes);
   for (auto i = 0; i < field.attributes_count; ++i) {
     as.to_json(&(*j).at("/attributes"_json_pointer)[i], i);
   }

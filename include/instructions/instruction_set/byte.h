@@ -16,10 +16,9 @@ class LoadFromArray : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -36,10 +35,9 @@ class StoreIntoArray : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -56,11 +54,10 @@ class Push : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     signed char byte = *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
-           << int{byte} << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " " << int{byte} << "\n";
     *delta_code = 1;
     return {};
   }
@@ -70,7 +67,7 @@ class Push : public Instruction {
       int *ret, const bool &wide, int *code_index) override {
     signed char byte = *++*code_it;
     *delta_code = 1;
-    return {Utils::String::to_string(int{byte})};
+    return {Utils::String::toString(int{byte})};
   }
 };
 }  // namespace Byte

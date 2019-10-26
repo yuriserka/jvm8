@@ -21,6 +21,17 @@ int main(const int argc, const char **argv) {
     // argv[0] = ./jvm
     Utils::Flags::toggleAll(++argv);
 
+    std::string comando;
+#if defined(_WIN32) || defined(WIN32)
+    comando = "cmd /C chcp 65001";
+#endif
+    auto ret = system(comando.c_str());
+    if (ret == -1) {
+      namespace err = Utils::Errors;
+      throw err::Exception(err::kUTF8,
+                           "Error Setting UTF-8 enconding to terminal");
+    }
+
     cf = new ClassFile();
     r = new Reader(cf, Utils::Flags::options.kFILE);
     v = new Viewer(cf, r->fname);

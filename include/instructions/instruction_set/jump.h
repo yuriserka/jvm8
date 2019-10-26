@@ -16,11 +16,10 @@ class JumpSubRoutine : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
-           << offset << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
     *delta_code = 2;
     return {offset};
   }
@@ -30,7 +29,7 @@ class JumpSubRoutine : public Instruction {
       int *ret, const bool &wide, int *code_index) override {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(offset)};
+    return {Utils::String::toString(offset)};
   }
 };
 
@@ -40,12 +39,11 @@ class JumpSubRoutineWide : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
                   (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
-           << offset << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " " << offset << " ";
     *delta_code = 4;
     return {offset};
   }
@@ -56,7 +54,7 @@ class JumpSubRoutineWide : public Instruction {
     auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
                   (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(offset)};
+    return {Utils::String::toString(offset)};
   }
 };
 }  // namespace Jump

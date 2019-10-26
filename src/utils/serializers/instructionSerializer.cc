@@ -18,7 +18,6 @@
 #include "instructions/opcodes.h"
 #include "utils/errors.h"
 #include "utils/external/nlohmann_json.hpp"
-#include "utils/utf8.h"
 
 namespace Instructions {
 int InstructionSerializer::to_json(

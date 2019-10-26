@@ -70,17 +70,15 @@ namespace MethodParamsAccess {
 enum { kACC_FINAL = 0x0010, kACC_SYNTHETIC = 0x1000, kACC_MANDATED = 0x8000 };
 }  // namespace MethodParamsAccess
 
-std::wstring getAccessFlags(const Utils::Types::u2 &access_flags,
-                            std::vector<std::string> (*getAccessTypeFunc)(
-                                const Utils::Types::u2 &accessType));
-std::vector<std::string> getClassAccessType(const Utils::Types::u2 &accessType);
-std::vector<std::string> getFieldAccessType(const Utils::Types::u2 &accessType);
-std::vector<std::string> getMethodAccessType(
-    const Utils::Types::u2 &accessType);
-std::vector<std::string> getNestedClassAccessType(
-    const Utils::Types::u2 &accessType);
-std::vector<std::string> getMethodParamsAccessType(
-    const Utils::Types::u2 &accessType);
+std::string getAccessFlags(
+    const Types::u2 &access_flags,
+    std::vector<std::string> (*getAccessTypeFunc)(const Types::u2 &accessType));
+
+std::vector<std::string> getClassAccessType(const Types::u2 &accessType);
+std::vector<std::string> getFieldAccessType(const Types::u2 &accessType);
+std::vector<std::string> getMethodAccessType(const Types::u2 &accessType);
+std::vector<std::string> getNestedClassAccessType(const Types::u2 &accessType);
+std::vector<std::string> getMethodParamsAccessType(const Types::u2 &accessType);
 }  // namespace Access
 }  // namespace Utils
 

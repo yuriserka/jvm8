@@ -18,7 +18,7 @@ class Instruction {
   // virtual void execute() = 0;
   virtual std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index = nullptr,
+      std::stringstream *ss, const bool &wide, int *code_index = nullptr,
       const int &delta_tab = 0) = 0;
 
   virtual std::vector<std::string> toBytecode_json(

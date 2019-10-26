@@ -3,8 +3,8 @@
 
 namespace Utils {
 namespace Versions {
-std::string getVersion(const Utils::Types::u2 &major) {
-  std::map<Utils::Types::u2, std::string> vs = {
+std::string getVersion(const Types::u2 &major) {
+  std::map<Types::u2, std::string> vs = {
       {0x3A, "Java SE 14"},  {0x39, "Java SE 13"}, {0x38, "Java SE 12"},
       {0x37, "Java SE 11"},  {0x36, "Java SE 10"}, {0x35, "Java SE 9"},
       {0x34, "Java SE 8"},   {0x33, "Java SE 7"},  {0x32, "Java SE 6.0"},

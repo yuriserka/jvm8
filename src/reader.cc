@@ -9,7 +9,6 @@
 #include "utils/flags.h"
 #include "utils/infos.h"
 #include "utils/string.h"
-#include "utils/utf8.h"
 #include "utils/versions.h"
 
 static std::ios state(NULL);
@@ -53,11 +52,11 @@ void Reader::readClassFile() {
   this->readMinorVersion();
   this->readMajorVersion();
   if (!Utils::Flags::options.kIGNORE) {
-    auto minver = Utils::String::to_string(this->classfile->minor_version);
-    auto maxver = Utils::String::to_string(Utils::Versions::Java8) + minver;
+    auto minver = Utils::String::toString(this->classfile->minor_version);
+    auto maxver = Utils::String::toString(Utils::Versions::Java8) + minver;
 
     auto v =
-        stod(Utils::String::to_string(this->classfile->major_version) + minver);
+        stod(Utils::String::toString(this->classfile->major_version) + minver);
     if (v < std::stod(minver + ".0") || v > std::stod(maxver)) {
       std::stringstream ss;
       ss << "This JVM implementation support a class file of version v "
@@ -280,8 +279,8 @@ void Reader::readAccessFlags() {
 void Reader::readThisClass() {
   this->readBytes(&this->classfile->this_class);
   if (Utils::Flags::options.kVERBOSE) {
-    std::cout << "Read classfile->this_class = 'cp_info #"
-              << this->classfile->this_class << "'\n";
+    std::cout << "Read classfile->this_class = #" << this->classfile->this_class
+              << "\n";
   }
 }
 
@@ -291,8 +290,8 @@ void Reader::readSuperClass() {
     if (!this->classfile->super_class) {
       std::cout << "Read classfile->super_class = none\n";
     } else {
-      std::cout << "Read classfile->super_class = 'cp_info #"
-                << this->classfile->super_class << "'\n";
+      std::cout << "Read classfile->super_class = #"
+                << this->classfile->super_class << "\n";
     }
   }
 }
@@ -426,8 +425,8 @@ void Reader::readAttributesInfo(
   for (size_t i = 0; i < attributes->size(); ++i) {
     attributes->at(i) = Utils::Attributes::attribute_info();
     Utils::Attributes::attribute_info *attr = &attributes->at(i);
-    types::u2 nameidx;
-    types::u4 attrlen;
+    Utils::Types::u2 nameidx;
+    Utils::Types::u4 attrlen;
 
     this->readBytes(&nameidx);
     auto kutf8 = this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
@@ -435,8 +434,8 @@ void Reader::readAttributesInfo(
 
     this->readBytes(&attrlen);
 
-    auto attrName = Utf8(kutf8);
-    auto attrtype = Utils::Attributes::getAttributeType(attrName.str);
+    auto attrName = Utils::String::getUtf8Modified(kutf8);
+    auto attrtype = Utils::Attributes::getAttributeType(attrName);
 
     switch (attrtype) {
       namespace attrs = Utils::Attributes;
@@ -628,7 +627,7 @@ void Reader::readAttributesInfo(
         auto path_files =
             Utils::FileSystem::getFileNames(Utils::Flags::options.kPATH);
 
-        auto class_name = Utils::String::to_string(filename->getValue());
+        auto class_name = Utils::String::toString(filename->getValue());
         class_name = class_name.substr(0, class_name.find_last_of('.'));
 
         auto it_class_file = std::find_if(
@@ -739,7 +738,7 @@ void Reader::readAttributesInfo(
       }
       case attrs::kINVALID: {
         if (Utils::Flags::options.kVERBOSE) {
-          std::wcout << "skipped attribute " << attrName.toString() << "\n";
+          std::cout << "skipped attribute " << attrName << "\n";
         }
         attr->setBase<attrs::NotImplemented>(nameidx, attrlen);
         for (size_t i = 0; i < attrlen; ++i) {

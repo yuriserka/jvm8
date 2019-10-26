@@ -17,11 +17,10 @@ class Checkcast : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }
@@ -41,10 +40,9 @@ class Dup : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -61,10 +59,9 @@ class DupX1 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -81,10 +78,9 @@ class DupX2 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -101,10 +97,9 @@ class Dup2 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -121,10 +116,9 @@ class Dup2X1 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -141,10 +135,9 @@ class Dup2X2 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -161,11 +154,10 @@ class GetField : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }
@@ -185,11 +177,10 @@ class GetStatic : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }
@@ -209,12 +200,12 @@ class Goto : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
-           << (static_cast<int16_t>(*code_index) + offset) << " ("
-           << std::showpos << offset << ")\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
+          << (static_cast<int16_t>(*code_index) + offset) << " ("
+          << std::showpos << offset << ")\n";
     *delta_code = 2;
     return {};
   }
@@ -224,7 +215,7 @@ class Goto : public Instruction {
       int *ret, const bool &wide, int *code_index) override {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
-    return {Utils::String::to_string(offset)};
+    return {Utils::String::toString(offset)};
   }
 };
 
@@ -234,12 +225,12 @@ class GotoWide : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
                   (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
-           << *code_index + offset << " (" << std::showpos << offset << ")\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " " << *code_index + offset
+          << " (" << std::showpos << offset << ")\n";
     *delta_code = 4;
     return {};
   }
@@ -250,7 +241,7 @@ class GotoWide : public Instruction {
     auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
                   (*++*code_it << 8) | *++*code_it;
     *delta_code = 4;
-    return {Utils::String::to_string(offset)};
+    return {Utils::String::toString(offset)};
   }
 };
 
@@ -260,11 +251,10 @@ class InstanceOf : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }
@@ -284,9 +274,9 @@ class LookupSwitch : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " ";
     ++*code_it;
     auto getAlinhamento = [](int a) -> int { return a ? (4 - a) : 0; };
 
@@ -301,23 +291,23 @@ class LookupSwitch : public Instruction {
 
     auto default_bytes = getU4(code_it);
     auto npairs = getU4(code_it);
-    (*wss) << npairs << "\n";
+    (*ss) << npairs << "\n";
 
-    auto oldFlags = wss->flags();
+    auto oldFlags = ss->flags();
     for (int i = 0; i < npairs; ++i) {
       auto match = static_cast<int>(getU4(code_it));
       auto offset = static_cast<int>(getU4(code_it));
 
-      (*wss) << std::wstring(delta_tab, '\t') << match << ": "
-             << (*code_index + offset) << " (";
-      (*wss) << std::showpos << offset << ")\n";
-      wss->flags(oldFlags);
+      (*ss) << std::string(delta_tab, '\t') << match << ": "
+            << (*code_index + offset) << " (";
+      (*ss) << std::showpos << offset << ")\n";
+      ss->flags(oldFlags);
     }
 
-    (*wss) << std::wstring(delta_tab, '\t')
-           << "default: " << (*code_index + default_bytes) << " ("
-           << std::showpos << default_bytes << ")"
-           << "\n";
+    (*ss) << std::string(delta_tab, '\t')
+          << "default: " << (*code_index + default_bytes) << " ("
+          << std::showpos << default_bytes << ")"
+          << "\n";
     *delta_code = getAlinhamento(alinhamento) + 4 + 4 + 8 * npairs;
     return {};
   }
@@ -331,7 +321,7 @@ class LookupSwitch : public Instruction {
 
     auto alinhamento = (*code_index + 1) % 4;
     *code_it += getAlinhamento(alinhamento) - 1;
-    args.push_back(Utils::String::to_string(alinhamento - 1));
+    args.push_back(Utils::String::toString(alinhamento - 1));
 
     auto getU4 = [](std::vector<Utils::Types::u1>::iterator *code_it) -> int {
       auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
@@ -340,16 +330,16 @@ class LookupSwitch : public Instruction {
     };
 
     auto default_bytes = getU4(code_it);
-    args.push_back(Utils::String::to_string(default_bytes));
+    args.push_back(Utils::String::toString(default_bytes));
     auto npairs = getU4(code_it);
-    args.push_back(Utils::String::to_string(npairs));
+    args.push_back(Utils::String::toString(npairs));
     std::vector<int> match_offset_pairs;
     for (int i = 0; i < npairs; ++i) {
       auto match = static_cast<int>(getU4(code_it));
       auto offset = static_cast<int>(getU4(code_it));
 
-      args.push_back(Utils::String::to_string(match));
-      args.push_back(Utils::String::to_string(offset));
+      args.push_back(Utils::String::toString(match));
+      args.push_back(Utils::String::toString(offset));
     }
     *delta_code = getAlinhamento(alinhamento) + 4 + 4 + 8 * npairs;
     return args;
@@ -362,12 +352,11 @@ class MultiDimArray : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
     unsigned char dims = *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 3;
     return {kpool_index, int{dims}};
   }
@@ -377,7 +366,7 @@ class MultiDimArray : public Instruction {
       int *ret, const bool &wide, int *code_index) override {
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 3;
-    return {Utils::String::to_string(+(*++*code_it))};
+    return {Utils::String::toString(+(*++*code_it))};
   }
 };
 
@@ -387,11 +376,10 @@ class New : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }
@@ -411,11 +399,11 @@ class NewArray : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     unsigned char atype = *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " "
-           << atype << " " << Utils::String::to_wide(this->getType(atype));
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " " << atype << " "
+          << this->getType(atype);
     *delta_code = 1;
     return {};
   }
@@ -425,7 +413,7 @@ class NewArray : public Instruction {
       int *ret, const bool &wide, int *code_index) override {
     unsigned char atype = *++*code_it;
     *delta_code = 1;
-    return {Utils::String::to_string(int{atype})};
+    return {Utils::String::toString(int{atype})};
   }
 
  private:
@@ -469,10 +457,9 @@ class Nop : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -489,10 +476,9 @@ class Pop : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -509,10 +495,9 @@ class Pop2 : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -529,11 +514,10 @@ class PutField : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }
@@ -553,11 +537,10 @@ class PutStatic : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
     auto kpool_index = (*++*code_it << 8) | *++*code_it;
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " #"
-           << kpool_index << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " #" << kpool_index << " ";
     *delta_code = 2;
     return {kpool_index};
   }
@@ -577,19 +560,19 @@ class Ret : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " ";
     if (wide) {
       int16_t index = (*++*code_it << 8) | *++*code_it;
-      (*wss) << index;
+      (*ss) << index;
       *delta_code = 2;
     } else {
       unsigned char index = *++*code_it;
-      (*wss) << int{index};
+      (*ss) << int{index};
       *delta_code = 1;
     }
-    (*wss) << "\n";
+    (*ss) << "\n";
     return {};
   }
 
@@ -599,11 +582,11 @@ class Ret : public Instruction {
     if (wide) {
       int16_t index = (*++*code_it << 8) | *++*code_it;
       *delta_code = 2;
-      return {Utils::String::to_string(index)};
+      return {Utils::String::toString(index)};
     }
     unsigned char index = *++*code_it;
     *delta_code = 1;
-    return {Utils::String::to_string(int{index})};
+    return {Utils::String::toString(int{index})};
   }
 };
 
@@ -613,10 +596,9 @@ class Return : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -633,10 +615,9 @@ class Swap : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 
@@ -653,9 +634,9 @@ class TableSwitch : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode)) << " ";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " ";
     ++*code_it;
     auto getAlinhamento = [](int a) -> int { return a ? (4 - a) : 0; };
 
@@ -672,19 +653,19 @@ class TableSwitch : public Instruction {
     auto low = getU4(code_it);
     auto high = getU4(code_it);
     auto qtd_entries = high - low + 1;
-    (*wss) << low << " to " << high << "\n";
-    auto oldFlags = wss->flags();
+    (*ss) << low << " to " << high << "\n";
+    auto oldFlags = ss->flags();
     for (int i = low; i < high + 1; ++i) {
       auto offset = static_cast<int>(getU4(code_it));
-      (*wss) << std::wstring(delta_tab, '\t') << i << ": "
-             << (*code_index + offset) << " (";
-      (*wss) << std::showpos << offset << ")\n";
-      wss->flags(oldFlags);
+      (*ss) << std::string(delta_tab, '\t') << i << ": "
+            << (*code_index + offset) << " (";
+      (*ss) << std::showpos << offset << ")\n";
+      ss->flags(oldFlags);
     }
-    (*wss) << std::wstring(delta_tab, '\t')
-           << "default: " << (*code_index + default_bytes) << " ("
-           << std::showpos << default_bytes << ")"
-           << "\n";
+    (*ss) << std::string(delta_tab, '\t')
+          << "default: " << (*code_index + default_bytes) << " ("
+          << std::showpos << default_bytes << ")"
+          << "\n";
     *delta_code = getAlinhamento(alinhamento) + 4 + 4 + 4 + 4 * qtd_entries;
     return {};
   }
@@ -698,7 +679,7 @@ class TableSwitch : public Instruction {
 
     auto alinhamento = (*code_index + 1) % 4;
     *code_it += getAlinhamento(alinhamento) - 1;
-    args.push_back(Utils::String::to_string(alinhamento - 1));
+    args.push_back(Utils::String::toString(alinhamento - 1));
 
     auto getU4 = [](std::vector<Utils::Types::u1>::iterator *code_it) -> int {
       auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
@@ -707,16 +688,16 @@ class TableSwitch : public Instruction {
     };
 
     auto default_bytes = getU4(code_it);
-    args.push_back(Utils::String::to_string(default_bytes));
+    args.push_back(Utils::String::toString(default_bytes));
     auto low = getU4(code_it);
-    args.push_back(Utils::String::to_string(low));
+    args.push_back(Utils::String::toString(low));
     auto high = getU4(code_it);
-    args.push_back(Utils::String::to_string(high));
+    args.push_back(Utils::String::toString(high));
     auto qtd_entries = high - low + 1;
 
     for (int i = low; i < high + 1; ++i) {
       auto offset = static_cast<int>(getU4(code_it));
-      args.push_back(Utils::String::to_string(offset));
+      args.push_back(Utils::String::toString(offset));
     }
     *delta_code = getAlinhamento(alinhamento) + 4 + 4 + 4 + 4 * qtd_entries;
     return args;
@@ -732,10 +713,9 @@ class Wide : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::wstringstream *wss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *code_index,
       const int &delta_tab) override {
-    (*wss) << Utils::String::to_wide(Opcodes::getMnemonic(this->opcode))
-           << "\n";
+    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 

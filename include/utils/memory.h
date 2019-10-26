@@ -7,11 +7,11 @@
 
 namespace Utils {
 template <typename T, typename U>
-inline T copyCast(const U *in) {
+inline T castTo(const U *in) {
   T dest;
   if (sizeof(U) > sizeof(T)) {
-    throw Utils::Errors::Exception(Utils::Errors::kMEMCPY,
-                                   "size of input greater than size of dest");
+    throw Errors::Exception(Errors::kMEMCPY,
+                            "size of input greater than size of dest");
   }
   std::memcpy(&dest, in, sizeof(U));
 

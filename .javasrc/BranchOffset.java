@@ -37,7 +37,7 @@ public class BranchOffset {
         break;
       }
     }
-    System.out.println("só printa o unicode se for copiado e colado... => ∑");
-    System.out.println("integral dupla ctrl+c ctrl+v => ∬ sin(x)cos(y)∂x∂y");
+    System.out.println("só printa alguns unicodes como Σ, mas não esse Δ");
+    System.out.println("δf(x)/δx = sin(x)cos(x) => δf(x) = sin(x)cos(x)δx => f(x) = -cos^2(x)/2 + K");
   }
 }
