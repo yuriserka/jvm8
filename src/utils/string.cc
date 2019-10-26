@@ -80,7 +80,10 @@ std::string getUtf8Modified(
     }
   }
 
-  return std::string(chararr, chararr_count);
+  auto str = std::string(chararr, chararr_count);
+  delete[] chararr;
+
+  return str;
 }
 }  // namespace String
 }  // namespace Utils
