@@ -6,7 +6,7 @@
 
 namespace Utils {
 namespace Reference {
-std::string getReferenceType(const Utils::Types::u2 &ref_index);
+std::string getReferenceType(const Types::u2 &ref_index);
 
 enum reftypes {
   kREF_getField = 1,

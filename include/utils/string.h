@@ -5,29 +5,31 @@
 #include <locale>
 #include <sstream>
 #include <string>
+// #include "utils/constantPool.h"
 
 namespace Utils {
+
+namespace ConstantPool {
+// forward declaration
+class CONSTANT_Utf8_info;
+}  // namespace ConstantPool
+
 namespace String {
 template <typename T>
-inline std::string to_string(const T &num) {
+inline std::string toString(const T &num) {
   std::ostringstream ss;
   ss << num;
   return ss.str();
 }
 
-inline std::string to_string(const std::wstring &wstr) {
-  using convert_typeX = std::codecvt_utf8<wchar_t>;
-  std::wstring_convert<convert_typeX, wchar_t> converterX;
-
-  return converterX.to_bytes(wstr);
-}
-
-inline std::wstring to_wide(const std::string &str) {
+inline std::wstring toWString(const std::string &str) {
   using convert_typeX = std::codecvt_utf8<wchar_t>;
   std::wstring_convert<convert_typeX, wchar_t> converterX;
 
   return converterX.from_bytes(str);
 }
+
+std::string getUtf8Modified(const ConstantPool::CONSTANT_Utf8_info *kutf8Info);
 }  // namespace String
 }  // namespace Utils
 

@@ -40,45 +40,6 @@ struct localVariableTypetable_info {
   Utils::Types::u2 index;
 };
 
-struct element_value;
-
-struct annotation {
-  Utils::Types::u2 type_index;
-  Utils::Types::u2 num_element_value_pairs;
-  struct annotation_info {
-    Utils::Types::u2 element_name_index;
-    element_value *value;
-  } info;
-  std::vector<annotation_info> element_value_pairs;
-};
-
-struct element_value {
-  Utils::Types::u1 tag;
-  union {
-    Utils::Types::u2 const_value_index;
-    struct {
-      Utils::Types::u2 type_name_index;
-      Utils::Types::u2 const_name_index;
-    } enum_const_value;
-    Utils::Types::u2 class_info_index;
-    annotation annotation_value;
-    struct {
-      Utils::Types::u2 num_values;
-      std::vector<element_value> values;
-    } array_value;
-  } value;
-};
-
-struct runtimeVisibleParameterAnnotations_info {
-  Utils::Types::u2 num_annotations;
-  std::vector<annotation> annotations;
-};
-
-struct runtimeInvisibleParameterAnnotations_info {
-  Utils::Types::u2 num_annotations;
-  std::vector<annotation> annotations;
-};
-
 struct BootstrapMethods_info {
   Utils::Types::u2 bootstrap_method_ref;
   Utils::Types::u2 num_bootstrap_arguments;
@@ -118,7 +79,7 @@ enum attr_types {
   kMETHODPARAMETERS
 };
 
-int getAttributeType(const std::wstring &attrname);
+int getAttributeType(const std::string &attrname);
 
 class BaseAttribute {
  public:
@@ -172,7 +133,7 @@ class NotImplemented : public BaseAttribute {
 
   ~NotImplemented() = default;
 
-  std::wstring getSpecificInfo(const int &delta_tab);
+  std::string getSpecificInfo(const int &delta_tab);
 };
 
 class ConstantValue_attribute : public BaseAttribute {
@@ -183,7 +144,7 @@ class ConstantValue_attribute : public BaseAttribute {
 
   ~ConstantValue_attribute() = default;
 
-  std::wstring getSpecificInfo(
+  std::string getSpecificInfo(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const int &delta_tab);
 
@@ -198,8 +159,8 @@ class Code_attribute : public BaseAttribute {
 
   ~Code_attribute() = default;
 
-  std::wstring getSpecificInfo(Viewer *v, const ClassFile *cf,
-                               const int &delta_tab);
+  std::string getSpecificInfo(Viewer *v, const ClassFile *cf,
+                              const int &delta_tab);
 
   Utils::Types::u2 max_stack;
   Utils::Types::u2 max_locals;
@@ -211,7 +172,7 @@ class Code_attribute : public BaseAttribute {
   std::vector<excption_info> exception_table;
 
  private:
-  std::wstring getTable(
+  std::string getTable(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const std::vector<std::string> &header_vars, const int &delta_tab);
 };
@@ -224,7 +185,7 @@ class Exceptions_attribute : public BaseAttribute {
 
   ~Exceptions_attribute() = default;
 
-  std::wstring getSpecificInfo(
+  std::string getSpecificInfo(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const int &delta_tab);
 
@@ -232,7 +193,7 @@ class Exceptions_attribute : public BaseAttribute {
   std::vector<Utils::Types::u2> exception_index_table;
 
  private:
-  std::wstring getTable(
+  std::string getTable(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const std::vector<std::string> &header_vars, const int &delta_tab);
 };
@@ -245,7 +206,7 @@ class InnerClasses_attribute : public BaseAttribute {
 
   ~InnerClasses_attribute() = default;
 
-  std::wstring getSpecificInfo(
+  std::string getSpecificInfo(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const int &delta_tab);
 
@@ -253,7 +214,7 @@ class InnerClasses_attribute : public BaseAttribute {
   std::vector<innerClasses_info> classes;
 
  private:
-  std::wstring getTable(
+  std::string getTable(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const std::vector<std::string> &header_vars, const int &delta_tab);
 };
@@ -266,7 +227,7 @@ class EnclosingMethod_attribute : public BaseAttribute {
 
   ~EnclosingMethod_attribute() = default;
 
-  std::wstring getSpecificInfo(
+  std::string getSpecificInfo(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const int &delta_tab);
 
@@ -291,7 +252,7 @@ class Signature_attribute : public BaseAttribute {
 
   ~Signature_attribute() = default;
 
-  std::wstring getSpecificInfo(
+  std::string getSpecificInfo(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const int &delta_tab);
 
@@ -306,7 +267,7 @@ class SourceFile_attribute : public BaseAttribute {
 
   ~SourceFile_attribute() = default;
 
-  std::wstring getSpecificInfo(
+  std::string getSpecificInfo(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const int &delta_tab);
 
@@ -321,7 +282,7 @@ class SourceDebugExtension_attribute : public BaseAttribute {
 
   ~SourceDebugExtension_attribute() = default;
 
-  std::wstring getSpecificInfo(
+  std::string getSpecificInfo(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const int &delta_tab);
 
@@ -336,7 +297,7 @@ class LineNumberTable_attribute : public BaseAttribute {
 
   ~LineNumberTable_attribute() = default;
 
-  std::wstring getSpecificInfo(
+  std::string getSpecificInfo(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const int &delta_tab);
 
@@ -344,7 +305,7 @@ class LineNumberTable_attribute : public BaseAttribute {
   std::vector<lineNumberTable_info> line_number_table;
 
  private:
-  std::wstring getTable(
+  std::string getTable(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const std::vector<std::string> &header_vars, const int &delta_tab);
 };
@@ -357,7 +318,7 @@ class LocalVariableTable_attribute : public BaseAttribute {
 
   ~LocalVariableTable_attribute() = default;
 
-  std::wstring getSpecificInfo(
+  std::string getSpecificInfo(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const int &delta_tab);
 
@@ -365,7 +326,7 @@ class LocalVariableTable_attribute : public BaseAttribute {
   std::vector<localVariableTable_info> local_variable_table;
 
  private:
-  std::wstring getTable(
+  std::string getTable(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const std::vector<std::string> &header_vars, const int &delta_tab);
 };
@@ -378,7 +339,7 @@ class LocalVariableTypeTable_attribute : public BaseAttribute {
 
   ~LocalVariableTypeTable_attribute() = default;
 
-  std::wstring getSpecificInfo(
+  std::string getSpecificInfo(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const int &delta_tab);
 
@@ -395,70 +356,6 @@ class Deprecated_attribute : public BaseAttribute {
   ~Deprecated_attribute() = default;
 };
 
-class RuntimeVisibleAnnotations_attribute : public BaseAttribute {
- public:
-  RuntimeVisibleAnnotations_attribute(const Utils::Types::u2 &nameIdx,
-                                      const Utils::Types::u4 &attrLen)
-      : BaseAttribute(nameIdx, attrLen) {}
-
-  ~RuntimeVisibleAnnotations_attribute() = default;
-
-  std::wstring getSpecificInfo(
-      const std::vector<Utils::ConstantPool::cp_info> &constpool,
-      const int &delta_tab);
-
-  Utils::Types::u2 num_annotations;
-  std::vector<annotation> annotations;
-};
-
-class RuntimeInvisibleAnnotations_attribute : public BaseAttribute {
- public:
-  RuntimeInvisibleAnnotations_attribute(const Utils::Types::u2 &nameIdx,
-                                        const Utils::Types::u4 &attrLen)
-      : BaseAttribute(nameIdx, attrLen) {}
-
-  ~RuntimeInvisibleAnnotations_attribute() = default;
-
-  std::wstring getSpecificInfo(
-      const std::vector<Utils::ConstantPool::cp_info> &constpool,
-      const int &delta_tab);
-
-  Utils::Types::u2 num_annotations;
-  std::vector<annotation> annotations;
-};
-
-class RuntimeVisibleParameterAnnotations_attribute : public BaseAttribute {
- public:
-  RuntimeVisibleParameterAnnotations_attribute(const Utils::Types::u2 &nameIdx,
-                                               const Utils::Types::u4 &attrLen)
-      : BaseAttribute(nameIdx, attrLen) {}
-
-  ~RuntimeVisibleParameterAnnotations_attribute() = default;
-
-  std::wstring getSpecificInfo(
-      const std::vector<Utils::ConstantPool::cp_info> &constpool,
-      const int &delta_tab);
-
-  Utils::Types::u1 num_parameters;
-  std::vector<runtimeVisibleParameterAnnotations_info> parameter_annotations;
-};
-
-class RuntimeInvisibleParameterAnnotations_attribute : public BaseAttribute {
- public:
-  RuntimeInvisibleParameterAnnotations_attribute(
-      const Utils::Types::u2 &nameIdx, const Utils::Types::u4 &attrLen)
-      : BaseAttribute(nameIdx, attrLen) {}
-
-  ~RuntimeInvisibleParameterAnnotations_attribute() = default;
-
-  std::wstring getSpecificInfo(
-      const std::vector<Utils::ConstantPool::cp_info> &constpool,
-      const int &delta_tab);
-
-  Utils::Types::u1 num_parameters;
-  std::vector<runtimeInvisibleParameterAnnotations_info> parameter_annotations;
-};
-
 class BootstrapMethods_attribute : public BaseAttribute {
  public:
   BootstrapMethods_attribute(const Utils::Types::u2 &nameIdx,
@@ -467,7 +364,7 @@ class BootstrapMethods_attribute : public BaseAttribute {
 
   ~BootstrapMethods_attribute() = default;
 
-  std::wstring getSpecificInfo(
+  std::string getSpecificInfo(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const int &delta_tab);
 
@@ -475,7 +372,7 @@ class BootstrapMethods_attribute : public BaseAttribute {
   std::vector<BootstrapMethods_info> bootstrap_methods;
 
  private:
-  std::wstring getTable(
+  std::string getTable(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const std::vector<std::string> &header_vars, const int &delta_tab);
 };
@@ -488,7 +385,7 @@ class MethodParameters_attribute : public BaseAttribute {
 
   ~MethodParameters_attribute() = default;
 
-  std::wstring getSpecificInfo(
+  std::string getSpecificInfo(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const int &delta_tab);
 
@@ -496,7 +393,7 @@ class MethodParameters_attribute : public BaseAttribute {
   std::vector<MethodParameters_info> parameters;
 
  private:
-  std::wstring getTable(
+  std::string getTable(
       const std::vector<Utils::ConstantPool::cp_info> &constpool,
       const std::vector<std::string> &header_vars, const int &delta_tab);
 };

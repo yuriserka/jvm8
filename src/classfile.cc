@@ -2,7 +2,7 @@
 
 #include <iomanip>
 #include <sstream>
-#include "utils/utf8.h"
+#include "utils/string.h"
 
 void ClassFile::deleteConstantPool() {
   for (int i = 0; i < this->constant_pool_count - 1; ++i) {
@@ -79,8 +79,8 @@ void ClassFile::deleteAttributes(
         this->constant_pool[attr.base->attribute_name_index - 1];
     auto kutf8 =
         utf8nameindex.getClass<Utils::ConstantPool::CONSTANT_Utf8_info>();
-    auto attrName = Utf8(kutf8);
-    auto attrtype = Utils::Attributes::getAttributeType(attrName.str);
+    auto attrName = Utils::String::getUtf8Modified(kutf8);
+    auto attrtype = Utils::Attributes::getAttributeType(attrName);
 
     switch (attrtype) {
       namespace attrs = Utils::Attributes;

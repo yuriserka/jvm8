@@ -7,7 +7,7 @@
 
 namespace Utils {
 namespace Access {
-std::map<Utils::Types::u2, std::string> classAccessNames = {
+std::map<Types::u2, std::string> classAccessNames = {
     {ClassAccess::kACC_PUBLIC, "public"},
     {ClassAccess::kACC_FINAL, "final"},
     {ClassAccess::kACC_SUPER, "super"},
@@ -17,7 +17,7 @@ std::map<Utils::Types::u2, std::string> classAccessNames = {
     {ClassAccess::kACC_ANNOTATION, "annotation"},
     {ClassAccess::kACC_ENUM, "enum"}};
 
-std::map<Utils::Types::u2, std::string> fieldAccessNames = {
+std::map<Types::u2, std::string> fieldAccessNames = {
     {FieldAccess::kACC_PUBLIC, "public"},
     {FieldAccess::kACC_PRIVATE, "private"},
     {FieldAccess::kACC_PROTECTED, "protected"},
@@ -28,7 +28,7 @@ std::map<Utils::Types::u2, std::string> fieldAccessNames = {
     {FieldAccess::kACC_SYNTHETIC, "synthetic"},
     {FieldAccess::kACC_ENUM, "enum"}};
 
-std::map<Utils::Types::u2, std::string> methodAccessNames = {
+std::map<Types::u2, std::string> methodAccessNames = {
     {MethodAccess::kACC_PUBLIC, "public"},
     {MethodAccess::kACC_PRIVATE, "private"},
     {MethodAccess::kACC_PROTECTED, "protected"},
@@ -42,7 +42,7 @@ std::map<Utils::Types::u2, std::string> methodAccessNames = {
     {MethodAccess::kACC_STRICT, "strict"},
     {MethodAccess::kACC_SYNTHETIC, "synthetic"}};
 
-std::map<Utils::Types::u2, std::string> nestedAccessNames = {
+std::map<Types::u2, std::string> nestedAccessNames = {
     {NestedClassAccess::kACC_PUBLIC, "public"},
     {NestedClassAccess::kACC_PRIVATE, "private"},
     {NestedClassAccess::kACC_PROTECTED, "protected"},
@@ -54,30 +54,29 @@ std::map<Utils::Types::u2, std::string> nestedAccessNames = {
     {NestedClassAccess::kACC_ANNOTATION, "annotation"},
     {NestedClassAccess::kACC_ENUM, "enum"}};
 
-std::map<Utils::Types::u2, std::string> methodparamsNames = {
+std::map<Types::u2, std::string> methodparamsNames = {
     {MethodParamsAccess::kACC_FINAL, "final"},
     {MethodParamsAccess::kACC_SYNTHETIC, "synthetic"},
     {MethodParamsAccess::kACC_MANDATED, "mandated"}};
 
-std::wstring getAccessFlags(const Utils::Types::u2 &access_flags,
-                            std::vector<std::string> (*getAccessTypeFunc)(
-                                const Utils::Types::u2 &accessType)) {
-  std::wstringstream wss;
+std::string getAccessFlags(const Types::u2 &access_flags,
+                           std::vector<std::string> (*getAccessTypeFunc)(
+                               const Types::u2 &accessType)) {
+  std::stringstream ss;
   auto flags = getAccessTypeFunc(access_flags);
-  wss << "Access Flags: "
-      << "0x" << std::setfill(L'0') << std::setw(4) << std::hex
-      << std::uppercase << access_flags << " [";
+  ss << "Access Flags: "
+     << "0x" << std::setfill('0') << std::setw(4) << std::hex << std::uppercase
+     << access_flags << " [";
   for (size_t i = 0; i < flags.size(); ++i) {
-    wss << String::to_wide(flags[i]) << (i < flags.size() - 1 ? " " : "");
+    ss << flags[i] << (i < flags.size() - 1 ? " " : "");
   }
-  wss << "]\n";
+  ss << "]\n";
 
-  return wss.str();
+  return ss.str();
 }
 
-std::vector<std::string> getClassAccessType(
-    const Utils::Types::u2 &accessType) {
-  std::vector<Utils::Types::u2> keys;
+std::vector<std::string> getClassAccessType(const Types::u2 &accessType) {
+  std::vector<Types::u2> keys;
   for (auto it = classAccessNames.begin(); it != classAccessNames.end(); ++it) {
     keys.push_back(it->first);
   }
@@ -93,9 +92,8 @@ std::vector<std::string> getClassAccessType(
   return flagsname;
 }
 
-std::vector<std::string> getFieldAccessType(
-    const Utils::Types::u2 &accessType) {
-  std::vector<Utils::Types::u2> keys;
+std::vector<std::string> getFieldAccessType(const Types::u2 &accessType) {
+  std::vector<Types::u2> keys;
   for (auto it = fieldAccessNames.begin(); it != fieldAccessNames.end(); ++it) {
     keys.push_back(it->first);
   }
@@ -111,9 +109,8 @@ std::vector<std::string> getFieldAccessType(
   return flagsname;
 }
 
-std::vector<std::string> getMethodAccessType(
-    const Utils::Types::u2 &accessType) {
-  std::vector<Utils::Types::u2> keys;
+std::vector<std::string> getMethodAccessType(const Types::u2 &accessType) {
+  std::vector<Types::u2> keys;
   for (auto it = methodAccessNames.begin(); it != methodAccessNames.end();
        ++it) {
     keys.push_back(it->first);
@@ -130,9 +127,8 @@ std::vector<std::string> getMethodAccessType(
   return flagsname;
 }
 
-std::vector<std::string> getNestedClassAccessType(
-    const Utils::Types::u2 &accessType) {
-  std::vector<Utils::Types::u2> keys;
+std::vector<std::string> getNestedClassAccessType(const Types::u2 &accessType) {
+  std::vector<Types::u2> keys;
   for (auto it = nestedAccessNames.begin(); it != nestedAccessNames.end();
        ++it) {
     keys.push_back(it->first);
@@ -150,8 +146,8 @@ std::vector<std::string> getNestedClassAccessType(
 }
 
 std::vector<std::string> getMethodParamsAccessType(
-    const Utils::Types::u2 &accessType) {
-  std::vector<Utils::Types::u2> keys;
+    const Types::u2 &accessType) {
+  std::vector<Types::u2> keys;
   for (auto it = methodparamsNames.begin(); it != methodparamsNames.end();
        ++it) {
     keys.push_back(it->first);

@@ -9,7 +9,6 @@
 #include "utils/memory.h"
 #include "utils/reference_kind.h"
 #include "utils/string.h"
-#include "utils/utf8.h"
 #include "utils/versions.h"
 
 static std::ios state(NULL);
@@ -98,82 +97,80 @@ bool Viewer::printConstantPoolInfo(const int index, const int delta_tab) {
     namespace cp = Utils::ConstantPool;
     case cp::kCONSTANT_CLASS: {
       auto kclass_info = cpi.getClass<cp::CONSTANT_Class_info>();
-      std::wcout << kclass_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
+      std::cout << kclass_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
       break;
     }
     case cp::kCONSTANT_FIELDREF: {
       auto kfieldref_info = cpi.getClass<cp::CONSTANT_FieldRef_info>();
-      std::wcout << kfieldref_info->getGeneralInfo(kpool, delta_tab + 1)
-                 << "\n";
+      std::cout << kfieldref_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
       break;
     }
     case cp::kCONSTANT_METHODREF: {
       auto kmethodref_info = cpi.getClass<cp::CONSTANT_Methodref_info>();
-      std::wcout << kmethodref_info->getGeneralInfo(kpool, delta_tab + 1)
-                 << "\n";
+      std::cout << kmethodref_info->getGeneralInfo(kpool, delta_tab + 1)
+                << "\n";
       break;
     }
     case cp::kCONSTANT_INTERFACEMETHODREF: {
       auto kImethodref_info =
           cpi.getClass<cp::CONSTANT_InterfaceMethodref_info>();
-      std::wcout << kImethodref_info->getGeneralInfo(kpool, delta_tab + 1)
-                 << "\n";
+      std::cout << kImethodref_info->getGeneralInfo(kpool, delta_tab + 1)
+                << "\n";
       break;
     }
     case cp::kCONSTANT_STRING: {
       auto kstring_info = cpi.getClass<cp::CONSTANT_String_info>();
-      std::wcout << kstring_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
+      std::cout << kstring_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
       break;
     }
     case cp::kCONSTANT_INTEGER: {
       auto kinteger_info = cpi.getClass<cp::CONSTANT_Integer_info>();
-      std::wcout << kinteger_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
+      std::cout << kinteger_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
       break;
     }
     case cp::kCONSTANT_FLOAT: {
       auto kfloat_info = cpi.getClass<cp::CONSTANT_Float_info>();
-      std::wcout << kfloat_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
+      std::cout << kfloat_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
       break;
     }
     case cp::kCONSTANT_LONG: {
       auto klong_info = cpi.getClass<cp::CONSTANT_Long_info>();
-      std::wcout << klong_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
+      std::cout << klong_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
       jmpNextIndex = true;
       break;
     }
     case cp::kCONSTANT_DOUBLE: {
       auto kdouble_info = cpi.getClass<cp::CONSTANT_Double_info>();
-      std::wcout << kdouble_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
+      std::cout << kdouble_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
       jmpNextIndex = true;
       break;
     }
     case cp::kCONSTANT_NAMEANDTYPE: {
       auto knametype_info = cpi.getClass<cp::CONSTANT_NameAndType_info>();
-      std::wcout << knametype_info->getGeneralInfo(kpool, delta_tab + 1)
-                 << "\n";
+      std::cout << knametype_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
       break;
     }
     case cp::kCONSTANT_UTF8: {
       auto kutf8_info = cpi.getClass<cp::CONSTANT_Utf8_info>();
-      std::wcout << kutf8_info->getGeneralInfo(delta_tab + 1) << "\n";
+      std::cout << kutf8_info->getGeneralInfo(delta_tab + 1) << "\n";
       break;
     }
     case cp::kCONSTANT_METHODHANDLE: {
       auto kmethodhandle_info = cpi.getClass<cp::CONSTANT_MethodHandle_info>();
-      std::wcout << kmethodhandle_info->getGeneralInfo(kpool, delta_tab + 1)
-                 << "\n";
+      std::cout << kmethodhandle_info->getGeneralInfo(kpool, delta_tab + 1)
+                << "\n";
       break;
     }
     case cp::kCONSTANT_METHODTYPE: {
       auto methodtype_info = cpi.getClass<cp::CONSTANT_MethodType_info>();
-      std::wcout << methodtype_info->getGeneralInfo(kpool, delta_tab + 1)
-                 << "\n";
+      std::cout << methodtype_info->getGeneralInfo(kpool, delta_tab + 1)
+                << "\n";
       break;
     }
     case cp::kCONSTANT_INVOKEDYNAMIC: {
       auto invokedynamic_info = cpi.getClass<cp::CONSTANT_InvokeDynamic_info>();
-      std::wcout << invokedynamic_info->getGeneralInfo(kpool, delta_tab + 1)
-                 << "\n";
+      std::cout << invokedynamic_info->getGeneralInfo(kpool, delta_tab + 1)
+                << "\n";
       break;
     }
   }
@@ -183,11 +180,11 @@ bool Viewer::printConstantPoolInfo(const int index, const int delta_tab) {
   return jmpNextIndex;
 }
 
-std::wstring Viewer::getConstantPoolInfo(const int &index, const bool &dot) {
-  std::wstringstream wss;
+std::string Viewer::getConstantPoolInfo(const int &index, const bool &dot) {
+  std::stringstream ss;
   if (!index) {
-    wss << "invalid constant pool reference";
-    return wss.str();
+    ss << "invalid constant pool reference";
+    return ss.str();
   }
   auto cpi = this->classfile->constant_pool[index - 1];
   auto kpool = this->classfile->constant_pool;
@@ -197,78 +194,78 @@ std::wstring Viewer::getConstantPoolInfo(const int &index, const bool &dot) {
     namespace info = Utils::Infos;
     case cp::kCONSTANT_CLASS: {
       auto kclass_info = cpi.getClass<cp::CONSTANT_Class_info>();
-      wss << kclass_info->getValue(kpool);
+      ss << kclass_info->getValue(kpool);
       break;
     }
     case cp::kCONSTANT_FIELDREF: {
       auto kfieldref_info = cpi.getClass<cp::CONSTANT_FieldRef_info>();
-      wss << kfieldref_info->getValue(kpool, dot);
+      ss << kfieldref_info->getValue(kpool, dot);
       break;
     }
     case cp::kCONSTANT_METHODREF: {
       auto kmethodref_info = cpi.getClass<cp::CONSTANT_Methodref_info>();
-      wss << kmethodref_info->getValue(kpool, dot);
+      ss << kmethodref_info->getValue(kpool, dot);
       break;
     }
     case cp::kCONSTANT_INTERFACEMETHODREF: {
       auto kImethodref_info =
           cpi.getClass<cp::CONSTANT_InterfaceMethodref_info>();
-      wss << kImethodref_info->getValue(kpool, dot);
+      ss << kImethodref_info->getValue(kpool, dot);
       break;
     }
     case cp::kCONSTANT_STRING: {
       auto kstring_info = cpi.getClass<cp::CONSTANT_String_info>();
-      wss << kstring_info->getValue(kpool);
+      ss << kstring_info->getValue(kpool);
       break;
     }
     case cp::kCONSTANT_INTEGER: {
       auto kinteger_info = cpi.getClass<cp::CONSTANT_Integer_info>();
-      wss << kinteger_info->getValue(kpool);
+      ss << kinteger_info->getValue(kpool);
       break;
     }
     case cp::kCONSTANT_FLOAT: {
       auto kfloat_info = cpi.getClass<cp::CONSTANT_Float_info>();
-      wss << kfloat_info->getValue(kpool);
+      ss << kfloat_info->getValue(kpool);
       break;
     }
     case cp::kCONSTANT_LONG: {
       auto klong_info = cpi.getClass<cp::CONSTANT_Long_info>();
-      wss << klong_info->getValue(kpool);
+      ss << klong_info->getValue(kpool);
       break;
     }
     case cp::kCONSTANT_DOUBLE: {
       auto kdouble_info = cpi.getClass<cp::CONSTANT_Double_info>();
-      wss << kdouble_info->getValue(kpool);
+      ss << kdouble_info->getValue(kpool);
       break;
     }
     case cp::kCONSTANT_NAMEANDTYPE: {
       auto knametype_info = cpi.getClass<cp::CONSTANT_NameAndType_info>();
-      wss << knametype_info->getValue(kpool);
+      ss << knametype_info->getValue(kpool);
       break;
     }
     case cp::kCONSTANT_UTF8: {
       auto kutf8_info = cpi.getClass<cp::CONSTANT_Utf8_info>();
-      wss << kutf8_info->getValue();
+      ss << kutf8_info->getValue();
       break;
     }
     case cp::kCONSTANT_METHODHANDLE: {
       auto kmethodhandle_info = cpi.getClass<cp::CONSTANT_MethodHandle_info>();
-      wss << kmethodhandle_info->getValue(kpool);
+      ss << kmethodhandle_info->getValue(kpool);
       break;
     }
     case cp::kCONSTANT_METHODTYPE: {
       auto kmethodtype_info = cpi.getClass<cp::CONSTANT_MethodType_info>();
-      wss << kmethodtype_info->getValue(kpool);
+      ss << kmethodtype_info->getValue(kpool);
       break;
     }
     case cp::kCONSTANT_INVOKEDYNAMIC: {
       auto kinvokedynamic_info =
           cpi.getClass<cp::CONSTANT_InvokeDynamic_info>();
-      wss << kinvokedynamic_info->getValue(kpool);
+      ss << kinvokedynamic_info->getValue(kpool);
       break;
     }
   }
-  return wss.str();
+  return ss.str();
 }
 
 void Viewer::printAccessFlags() {
@@ -286,19 +283,19 @@ void Viewer::printAccessFlags() {
 }
 
 void Viewer::printThisClass() {
-  std::cout << "This class: " << std::setw(11) << ' ' << "'cp_info #"
-            << this->classfile->this_class << "' ";
-  std::wcout << "<"
-             << this->getConstantPoolInfo(this->classfile->this_class, false)
-             << ">\n";
+  std::cout << "This class: " << std::setw(11) << ' ' << "#"
+            << this->classfile->this_class << " ";
+  std::cout << "<"
+            << this->getConstantPoolInfo(this->classfile->this_class, false)
+            << ">\n";
 }
 
 void Viewer::printSuperClass() {
-  std::cout << "Super class: " << std::setw(10) << ' ' << "'cp_info #"
-            << this->classfile->super_class << "' ";
-  std::wcout << "<"
-             << this->getConstantPoolInfo(this->classfile->super_class, false)
-             << ">\n";
+  std::cout << "Super class: " << std::setw(10) << ' ' << "#"
+            << this->classfile->super_class << " ";
+  std::cout << "<"
+            << this->getConstantPoolInfo(this->classfile->super_class, false)
+            << ">\n";
 }
 
 void Viewer::printInterfaces() {
@@ -318,9 +315,9 @@ void Viewer::printInterfacesCount() {
 void Viewer::printInterfaceInfo(const int &index, const int &tab_shift) {
   auto interfaceidx = this->classfile->interfaces[index];
   std::cout << std::string(tab_shift, '\t') << "Interface " << index << "\n";
-  std::cout << std::string(tab_shift + 1, '\t') << "Interface: 'cp_info #"
-            << interfaceidx << "' ";
-  std::wcout << "<" << this->getConstantPoolInfo(interfaceidx, false) << ">\n";
+  std::cout << std::string(tab_shift + 1, '\t') << "Interface: #"
+            << interfaceidx << " ";
+  std::cout << "<" << this->getConstantPoolInfo(interfaceidx, false) << ">\n";
 }
 
 void Viewer::printFields() {
@@ -340,20 +337,20 @@ void Viewer::printFieldsCount() {
 void Viewer::printFieldInfo(const int &index, const int &tab_shift) {
   auto field = this->classfile->fields[index];
   std::cout << std::string(tab_shift, '\t') << "[" << index << "] ";
-  std::wcout << this->getConstantPoolInfo(field.name_index, false) << "\n";
+  std::cout << this->getConstantPoolInfo(field.name_index, false) << "\n";
 
-  std::cout << std::string(tab_shift + 1, '\t') << "Name: 'cp_info #"
-            << field.name_index << "' ";
-  std::wcout << "<" << this->getConstantPoolInfo(field.name_index, false)
-             << ">\n";
+  std::cout << std::string(tab_shift + 1, '\t') << "Name: #" << field.name_index
+            << " ";
+  std::cout << "<" << this->getConstantPoolInfo(field.name_index, false)
+            << ">\n";
 
-  std::cout << std::string(tab_shift + 1, '\t') << "Descriptor: 'cp_info #"
-            << field.descriptor_index << "' ";
-  std::wcout << "<" << this->getConstantPoolInfo(field.descriptor_index, false)
-             << ">\n"
-             << std::wstring(tab_shift + 1, '\t')
-             << Utils::Access::getAccessFlags(
-                    field.access_flags, Utils::Access::getFieldAccessType);
+  std::cout << std::string(tab_shift + 1, '\t') << "Descriptor: #"
+            << field.descriptor_index << " ";
+  std::cout << "<" << this->getConstantPoolInfo(field.descriptor_index, false)
+            << ">\n"
+            << std::string(tab_shift + 1, '\t')
+            << Utils::Access::getAccessFlags(field.access_flags,
+                                             Utils::Access::getFieldAccessType);
 
   this->printAttributes(field.attributes, field.attributes_count, tab_shift + 1,
                         20, 30);
@@ -376,20 +373,20 @@ void Viewer::printMethodsCount() {
 void Viewer::printMethodInfo(const int &index, const int &tab_shift) {
   auto method = this->classfile->methods[index];
   std::cout << std::string(tab_shift, '\t') << "[" << index << "] ";
-  std::wcout << this->getConstantPoolInfo(method.name_index, false) << "\n";
+  std::cout << this->getConstantPoolInfo(method.name_index, false) << "\n";
 
-  std::cout << std::string(tab_shift + 1, '\t') << "Name: 'cp_info #"
-            << method.name_index << "' ";
-  std::wcout << "<" << this->getConstantPoolInfo(method.name_index, false)
-             << ">\n";
+  std::cout << std::string(tab_shift + 1, '\t') << "Name: #"
+            << method.name_index << " ";
+  std::cout << "<" << this->getConstantPoolInfo(method.name_index, false)
+            << ">\n";
 
-  std::cout << std::string(tab_shift + 1, '\t') << "Descriptor: 'cp_info #"
-            << method.descriptor_index << "' ";
-  std::wcout << "<" << this->getConstantPoolInfo(method.descriptor_index, false)
-             << ">\n"
-             << std::wstring(tab_shift + 1, '\t')
-             << Utils::Access::getAccessFlags(
-                    method.access_flags, Utils::Access::getMethodAccessType);
+  std::cout << std::string(tab_shift + 1, '\t') << "Descriptor: #"
+            << method.descriptor_index << " ";
+  std::cout << "<" << this->getConstantPoolInfo(method.descriptor_index, false)
+            << ">\n"
+            << std::string(tab_shift + 1, '\t')
+            << Utils::Access::getAccessFlags(
+                   method.access_flags, Utils::Access::getMethodAccessType);
 
   this->printAttributes(method.attributes, method.attributes_count,
                         tab_shift + 1, 20, 30);
@@ -416,21 +413,21 @@ void Viewer::printAttributesCount(const int &tab_shift, const int &attr_count) {
   std::cout.copyfmt(state);
 }
 
-std::wstring Viewer::getAttributeHeader(
+std::string Viewer::getAttributeHeader(
     const Utils::Attributes::attribute_info *attr, const int &tab_shift) {
-  std::wstringstream wss;
-  wss << std::wstring(tab_shift, '\t') << "Generic Info: \n";
-  wss << std::wstring(tab_shift + 1, '\t') << "Attribute name index: 'cp_info #"
-      << attr->base->attribute_name_index << "' ";
+  std::stringstream ss;
+  ss << std::string(tab_shift, '\t') << "Generic Info: \n";
+  ss << std::string(tab_shift + 1, '\t') << "Attribute name index: #"
+     << attr->base->attribute_name_index << " ";
   auto name =
       this->classfile->constant_pool[attr->base->attribute_name_index - 1]
           .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>();
-  wss << "<" << name->getValue() << ">\n";
+  ss << "<" << name->getValue() << ">\n";
 
-  wss << std::wstring(tab_shift + 1, '\t')
-      << "Attribute length: " << attr->base->attribute_length << "\n";
+  ss << std::string(tab_shift + 1, '\t')
+     << "Attribute length: " << attr->base->attribute_length << "\n";
 
-  return wss.str();
+  return ss.str();
 }
 
 void Viewer::printAttributeInfo(
@@ -439,83 +436,83 @@ void Viewer::printAttributeInfo(
   auto kpool = this->classfile->constant_pool;
   auto kutf8_info = kpool[attribute->base->attribute_name_index - 1]
                         .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>();
-  auto attr_name = Utf8(kutf8_info);
+  auto attr_name = Utils::String::getUtf8Modified(kutf8_info);
 
-  std::wcout << std::wstring(tab_shift, '\t') << "[" << index << "] "
-             << attr_name << "\n";
+  std::cout << std::string(tab_shift, '\t') << "[" << index << "] " << attr_name
+            << "\n";
 
-  std::wcout << this->getAttributeHeader(attribute, tab_shift + 1);
+  std::cout << this->getAttributeHeader(attribute, tab_shift + 1);
   std::cout << std::string(tab_shift + 1, '\t') << "Specific Info: \n";
 
-  auto attrtype = Utils::Attributes::getAttributeType(attr_name.str);
+  auto attrtype = Utils::Attributes::getAttributeType(attr_name);
   switch (attrtype) {
     namespace attrs = Utils::Attributes;
     case attrs::kCONSTANTVALUE: {
       auto kval_attr = attribute->getClass<attrs::ConstantValue_attribute>();
-      std::wcout << kval_attr->getSpecificInfo(kpool, tab_shift + 2);
+      std::cout << kval_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kCODE: {
       auto code_attr = attribute->getClass<attrs::Code_attribute>();
-      std::wcout << code_attr->getSpecificInfo(this, this->classfile,
-                                               tab_shift + 2);
+      std::cout << code_attr->getSpecificInfo(this, this->classfile,
+                                              tab_shift + 2);
       this->printAttributes(code_attr->attributes, code_attr->attributes_count,
                             tab_shift + 1, 20, 47);
       break;
     }
     case attrs::kEXCEPTIONS: {
       auto exception_attr = attribute->getClass<attrs::Exceptions_attribute>();
-      std::wcout << exception_attr->getSpecificInfo(kpool, tab_shift + 2);
+      std::cout << exception_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kINNERCLASS: {
       auto innerclass_attr =
           attribute->getClass<attrs::InnerClasses_attribute>();
-      std::wcout << innerclass_attr->getSpecificInfo(kpool, tab_shift + 2);
+      std::cout << innerclass_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kENCLOSINGMETHOD: {
       auto enclosing_attr =
           attribute->getClass<attrs::EnclosingMethod_attribute>();
-      std::wcout << enclosing_attr->getSpecificInfo(kpool, tab_shift + 2);
+      std::cout << enclosing_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kSIGNATURE: {
       auto signature_attr = attribute->getClass<attrs::Signature_attribute>();
-      std::wcout << signature_attr->getSpecificInfo(kpool, tab_shift + 2);
+      std::cout << signature_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kSOURCEFILE: {
       auto sourcefile_attr = attribute->getClass<attrs::SourceFile_attribute>();
-      std::wcout << sourcefile_attr->getSpecificInfo(kpool, tab_shift + 2);
+      std::cout << sourcefile_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kLINENUMBERTABLE: {
       auto lnt_attr = attribute->getClass<attrs::LineNumberTable_attribute>();
-      std::wcout << lnt_attr->getSpecificInfo(kpool, tab_shift + 2);
+      std::cout << lnt_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kLOCALVARIABLETABLE: {
       auto localvar_attr =
           attribute->getClass<attrs::LocalVariableTable_attribute>();
-      std::wcout << localvar_attr->getSpecificInfo(kpool, tab_shift + 2);
+      std::cout << localvar_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kBOOTSTRAPMETHODS: {
       auto bootstrap_attr =
           attribute->getClass<attrs::BootstrapMethods_attribute>();
-      std::wcout << bootstrap_attr->getSpecificInfo(kpool, tab_shift + 2);
+      std::cout << bootstrap_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kMETHODPARAMETERS: {
       auto methodparams_attr =
           attribute->getClass<attrs::MethodParameters_attribute>();
-      std::wcout << methodparams_attr->getSpecificInfo(kpool, tab_shift + 2);
+      std::cout << methodparams_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
     case attrs::kINVALID: {
       auto knotimplemented = attribute->getClass<attrs::NotImplemented>();
-      std::wcout << knotimplemented->getSpecificInfo(tab_shift + 2);
+      std::cout << knotimplemented->getSpecificInfo(tab_shift + 2);
       break;
     }
   }

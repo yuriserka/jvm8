@@ -22,7 +22,7 @@ static void create_json_str(json *j, const method_info &method) {
     },
     {"access flags", {
         {"bytes", ss.str()},
-        {"values", Utils::Access::getMethodAccessType(method.access_flags)}
+        {"values", Access::getMethodAccessType(method.access_flags)}
       }
     },
     {"attributes", json::array()}
@@ -31,12 +31,12 @@ static void create_json_str(json *j, const method_info &method) {
 }
 
 void MethodSerializer::to_json(json *j, const int &methodindex) {
-  auto is = Utils::ConstantPool::ConstantPoolSerializer(this->cf);
+  auto is = ConstantPool::ConstantPoolSerializer(this->cf);
   method_info method = this->cf->methods[methodindex];
   create_json_str(j, method);
   is.to_json(&(*j).at("/name"_json_pointer), method.name_index - 1);
   is.to_json(&(*j).at("/descriptor"_json_pointer), method.descriptor_index - 1);
-  auto as = Utils::Attributes::AttributeSerializer(this->cf, method.attributes);
+  auto as = Attributes::AttributeSerializer(this->cf, method.attributes);
   for (auto i = 0; i < method.attributes_count; ++i) {
     as.to_json(&(*j).at("/attributes"_json_pointer)[i], i);
   }

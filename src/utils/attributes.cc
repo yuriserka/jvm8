@@ -12,75 +12,73 @@
 
 namespace Utils {
 namespace Attributes {
-int getAttributeType(const std::wstring &attrname) {
-  std::map<std::wstring, int> attrTypes = {
-      {L"ConstantValue", kCONSTANTVALUE},
-      {L"Code", kCODE},
-      {L"Exceptions", kEXCEPTIONS},
-      {L"InnerClasses", kINNERCLASS},
-      {L"EnclosingMethod", kENCLOSINGMETHOD},
-      {L"Synthetic", kSYNTHETIC},
-      {L"Signature", kSIGNATURE},
-      {L"SourceFile", kSOURCEFILE},
-      {L"LineNumberTable", kLINENUMBERTABLE},
-      {L"LocalVariableTable", kLOCALVARIABLETABLE},
-      {L"Deprecated", kDEPRECATED},
-      {L"BootstrapMethods", kBOOTSTRAPMETHODS},
-      {L"MethodParameters", kMETHODPARAMETERS}};
+int getAttributeType(const std::string &attrname) {
+  std::map<std::string, int> attrTypes = {
+      {"ConstantValue", kCONSTANTVALUE},
+      {"Code", kCODE},
+      {"Exceptions", kEXCEPTIONS},
+      {"InnerClasses", kINNERCLASS},
+      {"EnclosingMethod", kENCLOSINGMETHOD},
+      {"Synthetic", kSYNTHETIC},
+      {"Signature", kSIGNATURE},
+      {"SourceFile", kSOURCEFILE},
+      {"LineNumberTable", kLINENUMBERTABLE},
+      {"LocalVariableTable", kLOCALVARIABLETABLE},
+      {"Deprecated", kDEPRECATED},
+      {"BootstrapMethods", kBOOTSTRAPMETHODS},
+      {"MethodParameters", kMETHODPARAMETERS}};
   try {
     auto type = attrTypes.at(attrname);
     return type;
   } catch (const std::out_of_range &oor) {
-    return Utils::Attributes::kINVALID;
+    return Attributes::kINVALID;
   }
 }
 // ----------------------------------------------------------------------------
-std::wstring NotImplemented::getSpecificInfo(const int &delta_tab) {
-  std::wstringstream wss;
-  wss << std::wstring(delta_tab, '\t') << "NOT IMPLEMENTED\n";
+std::string NotImplemented::getSpecificInfo(const int &delta_tab) {
+  std::stringstream ss;
+  ss << std::string(delta_tab, '\t') << "NOT IMPLEMENTED\n";
 
-  return wss.str();
+  return ss.str();
 }
 // ----------------------------------------------------------------------------
-std::wstring ConstantValue_attribute::getSpecificInfo(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
-    const int &delta_tab) {
-  std::wstringstream wss;
-  wss << std::wstring(delta_tab, '\t') << "Constant value index: 'cp_info #"
-      << this->constantvalue_index << "' ";
+std::string ConstantValue_attribute::getSpecificInfo(
+    const std::vector<ConstantPool::cp_info> &constpool, const int &delta_tab) {
+  std::stringstream ss;
+  ss << std::string(delta_tab, '\t') << "Constant value index: #"
+     << this->constantvalue_index << " ";
   auto constval = constpool[this->constantvalue_index - 1];
-  wss << "<";
+  ss << "<";
   switch (constval.base->tag) {
-    namespace cp = Utils::ConstantPool;
+    namespace cp = ConstantPool;
     case cp::kCONSTANT_LONG: {
-      wss << constval.getClass<cp::CONSTANT_Long_info>()->getValue(constpool);
+      ss << constval.getClass<cp::CONSTANT_Long_info>()->getValue(constpool);
       break;
     }
     case cp::kCONSTANT_FLOAT: {
-      wss << constval.getClass<cp::CONSTANT_Float_info>()->getValue(constpool);
+      ss << constval.getClass<cp::CONSTANT_Float_info>()->getValue(constpool);
       break;
     }
     case cp::kCONSTANT_DOUBLE: {
-      wss << constval.getClass<cp::CONSTANT_Double_info>()->getValue(constpool);
+      ss << constval.getClass<cp::CONSTANT_Double_info>()->getValue(constpool);
       break;
     }
     case cp::kCONSTANT_INTEGER: {
-      wss << constval.getClass<cp::CONSTANT_Integer_info>()->getValue(
-          constpool);
+      ss << constval.getClass<cp::CONSTANT_Integer_info>()->getValue(constpool);
       break;
     }
     case cp::kCONSTANT_STRING: {
-      wss << constval.getClass<cp::CONSTANT_String_info>()->getValue(constpool);
+      ss << constval.getClass<cp::CONSTANT_String_info>()->getValue(constpool);
       break;
     }
   }
-  wss << ">\n";
+  ss << ">\n";
 
-  return wss.str();
+  return ss.str();
 }
 // ----------------------------------------------------------------------------
-std::wstring Code_attribute::getTable(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
+std::string Code_attribute::getTable(
+    const std::vector<ConstantPool::cp_info> &constpool,
     const std::vector<std::string> &header_vars, const int &delta_tab) {
   namespace tf = tableformatter;
 
@@ -106,50 +104,50 @@ std::wstring Code_attribute::getTable(
 
   for (auto i = 0; i < this->exception_table_length; ++i) {
     auto except = this->exception_table[i];
-    std::wstringstream wss;
-    wss << "'cp_info #" << except.catch_type << "'\n";
+    std::stringstream ss;
+    ss << "#" << except.catch_type << "\n";
     if (except.catch_type) {
       auto classname = constpool[except.catch_type - 1]
                            .getClass<ConstantPool::CONSTANT_Class_info>();
-      wss << classname->getValue(constpool);
+      ss << classname->getValue(constpool);
     } else {
-      wss << "any";
+      ss << "any";
     }
     formatter << i << except.start_pc << except.end_pc << except.handler_pc
-              << Utils::String::to_string(wss.str());
+              << String::toString(ss.str());
     formatter.addHorizontalLine('_');
   }
 
-  return String::to_wide(formatter.toString(delta_tab)) + L'\n';
+  return formatter.toString(delta_tab) + '\n';
 }
 
-std::wstring Code_attribute::getSpecificInfo(Viewer *v, const ClassFile *cf,
-                                             const int &delta_tab) {
-  std::wstringstream wss;
-  wss << std::wstring(delta_tab, '\t') << "Bytecode: \n";
+std::string Code_attribute::getSpecificInfo(Viewer *v, const ClassFile *cf,
+                                            const int &delta_tab) {
+  std::stringstream ss;
+  ss << std::string(delta_tab, '\t') << "Bytecode: \n";
   int i = 0;
   auto codeArr = this->code;
   for (auto it = codeArr.begin(); it != codeArr.end(); ++it) {
-    wss << Instructions::getBytecode(&it, v, &i, delta_tab + 2);
+    ss << Instructions::getBytecode(&it, v, &i, delta_tab + 2);
   }
 
-  wss << std::wstring(delta_tab, '\t') << "Exception table: \n";
+  ss << std::string(delta_tab, '\t') << "Exception table: \n";
   std::vector<std::string> header_vars = {
       "Nr.", "Start PC", "End PC", "Handler PC", "Catch type",
   };
-  wss << this->getTable(cf->constant_pool, header_vars, delta_tab + 1);
+  ss << this->getTable(cf->constant_pool, header_vars, delta_tab + 1);
 
-  wss << std::wstring(delta_tab, '\t') << "Misc: \n";
-  wss << std::wstring(delta_tab + 1, '\t')
-      << "Maximum local variables: " << this->max_locals << "\n";
-  wss << std::wstring(delta_tab + 1, '\t')
-      << "Code length: " << this->code_length << "\n";
+  ss << std::string(delta_tab, '\t') << "Misc: \n";
+  ss << std::string(delta_tab + 1, '\t')
+     << "Maximum local variables: " << this->max_locals << "\n";
+  ss << std::string(delta_tab + 1, '\t') << "Code length: " << this->code_length
+     << "\n";
 
-  return wss.str();
+  return ss.str();
 }
 // ----------------------------------------------------------------------------
-std::wstring Exceptions_attribute::getTable(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
+std::string Exceptions_attribute::getTable(
+    const std::vector<ConstantPool::cp_info> &constpool,
     const std::vector<std::string> &header_vars, const int &delta_tab) {
   namespace tf = tableformatter;
 
@@ -169,35 +167,34 @@ std::wstring Exceptions_attribute::getTable(
   formatter.addHorizontalLine('*');
 
   for (auto i = 0; i < this->number_of_exceptions; ++i) {
-    std::wstringstream wss;
+    std::stringstream ss;
     auto except = this->exception_index_table[i];
-    wss << "'cp_info #" << except << "'\n";
-    formatter << i << Utils::String::to_string(wss.str());
-    wss.str(L"");
+    ss << "#" << except << "\n";
+    formatter << i << String::toString(ss.str());
+    ss.str();
 
     auto classname =
         constpool[except - 1].getClass<ConstantPool::CONSTANT_Class_info>();
-    wss << classname->getValue(constpool);
+    ss << classname->getValue(constpool);
 
-    formatter << Utils::String::to_string(wss.str());
+    formatter << String::toString(ss.str());
     formatter.addHorizontalLine('_');
   }
 
-  return String::to_wide(formatter.toString(delta_tab)) + L'\n';
+  return formatter.toString(delta_tab) + '\n';
 }
 
-std::wstring Exceptions_attribute::getSpecificInfo(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
-    const int &delta_tab) {
-  std::wstringstream wss;
+std::string Exceptions_attribute::getSpecificInfo(
+    const std::vector<ConstantPool::cp_info> &constpool, const int &delta_tab) {
+  std::stringstream ss;
   std::vector<std::string> header_vars = {"Nr.", "Exception", "Verbose"};
-  wss << this->getTable(constpool, header_vars, delta_tab);
+  ss << this->getTable(constpool, header_vars, delta_tab);
 
-  return wss.str();
+  return ss.str();
 }
 // ----------------------------------------------------------------------------
-std::wstring InnerClasses_attribute::getTable(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
+std::string InnerClasses_attribute::getTable(
+    const std::vector<ConstantPool::cp_info> &constpool,
     const std::vector<std::string> &header_vars, const int &delta_tab) {
   namespace tf = tableformatter;
 
@@ -224,110 +221,105 @@ std::wstring InnerClasses_attribute::getTable(
   for (auto i = 0; i < this->number_of_classes; ++i) {
     auto innerclass = this->classes[i];
     formatter << i;
-    std::wstringstream wss;
+    std::stringstream ss;
 
-    wss << "'cp_info #" << innerclass.inner_class_info_index << "'\n";
+    ss << "#" << innerclass.inner_class_info_index << "\n";
     auto inner_classname = constpool[innerclass.inner_class_info_index - 1]
                                .getClass<ConstantPool::CONSTANT_Class_info>();
-    wss << inner_classname->getValue(constpool);
-    formatter << String::to_string(wss.str());
-    wss.str(L"");
+    ss << inner_classname->getValue(constpool);
+    formatter << String::toString(ss.str());
+    ss.str();
 
-    wss << "'cp_info #" << innerclass.outer_class_info_index << "'\n";
+    ss << "#" << innerclass.outer_class_info_index << "\n";
     if (innerclass.outer_class_info_index) {
       auto outer_classname = constpool[innerclass.outer_class_info_index - 1]
                                  .getClass<ConstantPool::CONSTANT_Class_info>();
-      wss << outer_classname->getValue(constpool);
+      ss << outer_classname->getValue(constpool);
     } else {
-      wss << L"invalid constant pool reference";
+      ss << L"invalid constant pool reference";
     }
-    formatter << String::to_string(wss.str());
-    wss.str(L"");
+    formatter << String::toString(ss.str());
+    ss.str();
 
-    wss << "'cp_info #" << innerclass.inner_name_index << "'\n";
+    ss << "#" << innerclass.inner_name_index << "\n";
     if (innerclass.inner_name_index) {
       auto innername = constpool[innerclass.inner_name_index - 1]
                            .getClass<ConstantPool::CONSTANT_Utf8_info>();
-      wss << innername->getValue();
+      ss << innername->getValue();
     } else {
-      wss << L"invalid constant pool reference";
+      ss << L"invalid constant pool reference";
     }
-    formatter << String::to_string(wss.str());
-    wss.str(L"");
+    formatter << String::toString(ss.str());
+    ss.str();
 
-    wss << Utils::Access::getAccessFlags(
-        innerclass.inner_class_access_flags,
-        Utils::Access::getNestedClassAccessType);
-    formatter << Utils::String::to_string(wss.str());
+    ss << Access::getAccessFlags(innerclass.inner_class_access_flags,
+                                 Access::getNestedClassAccessType);
+    formatter << String::toString(ss.str());
     formatter.addHorizontalLine('_');
   }
 
-  return String::to_wide(formatter.toString(delta_tab)) + L'\n';
+  return formatter.toString(delta_tab) + '\n';
 }
 
-std::wstring InnerClasses_attribute::getSpecificInfo(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
-    const int &delta_tab) {
-  std::wstringstream wss;
+std::string InnerClasses_attribute::getSpecificInfo(
+    const std::vector<ConstantPool::cp_info> &constpool, const int &delta_tab) {
+  std::stringstream ss;
   std::vector<std::string> header_vars = {
       "Nr.", "Inner Class", "Outer Class", "Inner Name", "Access Flags",
   };
-  wss << this->getTable(constpool, header_vars, delta_tab);
+  ss << this->getTable(constpool, header_vars, delta_tab);
 
-  return wss.str();
+  return ss.str();
 }
 // ----------------------------------------------------------------------------
-std::wstring EnclosingMethod_attribute::getSpecificInfo(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
-    const int &delta_tab) {
-  std::wstringstream wss;
-  wss << std::wstring(delta_tab, '\t') << "Class index: 'cp_info #"
-      << this->class_index << "' ";
+std::string EnclosingMethod_attribute::getSpecificInfo(
+    const std::vector<ConstantPool::cp_info> &constpool, const int &delta_tab) {
+  std::stringstream ss;
+  ss << std::string(delta_tab, '\t') << "Class index: #" << this->class_index
+     << " ";
   auto classname = constpool[this->class_index - 1]
                        .getClass<ConstantPool::CONSTANT_Class_info>();
-  wss << "<" << classname->getValue(constpool) << ">\n";
+  ss << "<" << classname->getValue(constpool) << ">\n";
 
-  wss << std::wstring(delta_tab, '\t') << "Method index: 'cp_info #"
-      << this->method_index << "' ";
+  ss << std::string(delta_tab, '\t') << "Method index: #" << this->method_index
+     << " ";
   if (this->method_index) {
     auto method = constpool[this->method_index - 1]
                       .getClass<ConstantPool::CONSTANT_NameAndType_info>();
-    wss << "<" << method->getValue(constpool) << ">\n";
+    ss << "<" << method->getValue(constpool) << ">\n";
   } else {
-    wss << L"invalid constant pool reference\n";
+    ss << L"invalid constant pool reference\n";
   }
 
-  return wss.str();
+  return ss.str();
 }
 // ----------------------------------------------------------------------------
-std::wstring Signature_attribute::getSpecificInfo(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
-    const int &delta_tab) {
-  std::wstringstream wss;
-  wss << std::wstring(delta_tab, '\t') << "Signature index: 'cp_info #"
-      << this->signature_index << "' ";
+std::string Signature_attribute::getSpecificInfo(
+    const std::vector<ConstantPool::cp_info> &constpool, const int &delta_tab) {
+  std::stringstream ss;
+  ss << std::string(delta_tab, '\t') << "Signature index: #"
+     << this->signature_index << " ";
   auto signature = constpool[this->signature_index - 1]
                        .getClass<ConstantPool::CONSTANT_Utf8_info>();
-  wss << "<" << signature->getValue() << ">\n";
+  ss << "<" << signature->getValue() << ">\n";
 
-  return wss.str();
+  return ss.str();
 }
 // ----------------------------------------------------------------------------
-std::wstring SourceFile_attribute::getSpecificInfo(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
-    const int &delta_tab) {
-  std::wstringstream wss;
-  wss << std::wstring(delta_tab, '\t') << "Source file name index: 'cp_info #"
-      << this->sourcefile_index << "' ";
+std::string SourceFile_attribute::getSpecificInfo(
+    const std::vector<ConstantPool::cp_info> &constpool, const int &delta_tab) {
+  std::stringstream ss;
+  ss << std::string(delta_tab, '\t') << "Source file name index: #"
+     << this->sourcefile_index << " ";
   auto sourcefile = constpool[this->sourcefile_index - 1]
                         .getClass<ConstantPool::CONSTANT_Utf8_info>();
-  wss << "<" << sourcefile->getValue() << ">\n";
+  ss << "<" << sourcefile->getValue() << ">\n";
 
-  return wss.str();
+  return ss.str();
 }
 // ----------------------------------------------------------------------------
-std::wstring LineNumberTable_attribute::getTable(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
+std::string LineNumberTable_attribute::getTable(
+    const std::vector<ConstantPool::cp_info> &constpool,
     const std::vector<std::string> &header_vars, const int &delta_tab) {
   namespace tf = tableformatter;
 
@@ -352,21 +344,20 @@ std::wstring LineNumberTable_attribute::getTable(
     formatter.addHorizontalLine('_');
   }
 
-  return String::to_wide(formatter.toString(delta_tab)) + L'\n';
+  return formatter.toString(delta_tab) + '\n';
 }
 
-std::wstring LineNumberTable_attribute::getSpecificInfo(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
-    const int &delta_tab) {
-  std::wstringstream wss;
+std::string LineNumberTable_attribute::getSpecificInfo(
+    const std::vector<ConstantPool::cp_info> &constpool, const int &delta_tab) {
+  std::stringstream ss;
   std::vector<std::string> header_vars = {"Nr.", "Start PC", "Line number"};
-  wss << this->getTable(constpool, header_vars, delta_tab);
+  ss << this->getTable(constpool, header_vars, delta_tab);
 
-  return wss.str();
+  return ss.str();
 }
 // ----------------------------------------------------------------------------
-std::wstring LocalVariableTable_attribute::getTable(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
+std::string LocalVariableTable_attribute::getTable(
+    const std::vector<ConstantPool::cp_info> &constpool,
     const std::vector<std::string> &header_vars, const int &delta_tab) {
   namespace tf = tableformatter;
 
@@ -397,39 +388,38 @@ std::wstring LocalVariableTable_attribute::getTable(
     formatter << i << localvar_info.start_pc << localvar_info.length
               << localvar_info.index;
 
-    std::wstringstream wss;
-    wss << "'cp_info #" << localvar_info.name_index << "'\n";
+    std::stringstream ss;
+    ss << "#" << localvar_info.name_index << "\n";
     auto name = constpool[localvar_info.name_index - 1]
                     .getClass<ConstantPool::CONSTANT_Utf8_info>();
-    wss << name->getValue();
-    formatter << Utils::String::to_string(wss.str());
-    wss.str(L"");
+    ss << name->getValue();
+    formatter << String::toString(ss.str());
+    ss.str();
 
-    wss << "'cp_info #" << localvar_info.descriptor_index << "'\n";
+    ss << "#" << localvar_info.descriptor_index << "\n";
     auto descriptor = constpool[localvar_info.descriptor_index - 1]
                           .getClass<ConstantPool::CONSTANT_Utf8_info>();
-    wss << descriptor->getValue();
-    formatter << Utils::String::to_string(wss.str());
+    ss << descriptor->getValue();
+    formatter << String::toString(ss.str());
 
     formatter.addHorizontalLine('_');
   }
 
-  return String::to_wide(formatter.toString(delta_tab)) + L'\n';
+  return formatter.toString(delta_tab) + '\n';
 }
 
-std::wstring LocalVariableTable_attribute::getSpecificInfo(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
-    const int &delta_tab) {
-  std::wstringstream wss;
+std::string LocalVariableTable_attribute::getSpecificInfo(
+    const std::vector<ConstantPool::cp_info> &constpool, const int &delta_tab) {
+  std::stringstream ss;
   std::vector<std::string> header_vars = {"Nr.",   "Start PC", "Length",
                                           "Index", "Name",     "Descriptor"};
-  wss << this->getTable(constpool, header_vars, delta_tab);
+  ss << this->getTable(constpool, header_vars, delta_tab);
 
-  return wss.str();
+  return ss.str();
 }
 // ----------------------------------------------------------------------------
-std::wstring BootstrapMethods_attribute::getTable(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
+std::string BootstrapMethods_attribute::getTable(
+    const std::vector<ConstantPool::cp_info> &constpool,
     const std::vector<std::string> &header_vars, const int &delta_tab) {
   namespace tf = tableformatter;
 
@@ -452,82 +442,81 @@ std::wstring BootstrapMethods_attribute::getTable(
     auto bootstrap_info = this->bootstrap_methods[i];
     formatter << i;
 
-    std::wstringstream wss;
-    wss << "'cp_info #" << bootstrap_info.bootstrap_method_ref << "'\n";
+    std::stringstream ss;
+    ss << "#" << bootstrap_info.bootstrap_method_ref << "\n";
     auto methodhandle =
         constpool[bootstrap_info.bootstrap_method_ref - 1]
             .getClass<ConstantPool::CONSTANT_MethodHandle_info>();
-    wss << methodhandle->getValue(constpool);
-    formatter << Utils::String::to_string(wss.str());
-    wss.str(L"");
+    ss << methodhandle->getValue(constpool);
+    formatter << String::toString(ss.str());
+    ss.str();
 
     for (auto j = 0; j < bootstrap_info.num_bootstrap_arguments; ++j) {
-      wss << "'cp_info #" << bootstrap_info.bootstrap_arguments[j] << "' <";
+      ss << "#" << bootstrap_info.bootstrap_arguments[j] << " <";
       auto bootstrap_arg = constpool[bootstrap_info.bootstrap_arguments[j] - 1];
       switch (bootstrap_arg.base->tag) {
         namespace cp = ConstantPool;
         case cp::kCONSTANT_STRING: {
           auto i = bootstrap_arg.getClass<cp::CONSTANT_String_info>();
-          wss << i->getValue(constpool);
+          ss << i->getValue(constpool);
           break;
         }
         case cp::kCONSTANT_CLASS: {
           auto i = bootstrap_arg.getClass<cp::CONSTANT_Class_info>();
-          wss << i->getValue(constpool);
+          ss << i->getValue(constpool);
           break;
         }
         case cp::kCONSTANT_INTEGER: {
           auto i = bootstrap_arg.getClass<cp::CONSTANT_Integer_info>();
-          wss << i->getValue(constpool);
+          ss << i->getValue(constpool);
           break;
         }
         case cp::kCONSTANT_LONG: {
           auto i = bootstrap_arg.getClass<cp::CONSTANT_Long_info>();
-          wss << i->getValue(constpool);
+          ss << i->getValue(constpool);
           break;
         }
         case cp::kCONSTANT_FLOAT: {
           auto i = bootstrap_arg.getClass<cp::CONSTANT_Float_info>();
-          wss << i->getValue(constpool);
+          ss << i->getValue(constpool);
           break;
         }
         case cp::kCONSTANT_DOUBLE: {
           auto i = bootstrap_arg.getClass<cp::CONSTANT_Double_info>();
-          wss << i->getValue(constpool);
+          ss << i->getValue(constpool);
           break;
         }
         case cp::kCONSTANT_METHODHANDLE: {
           auto i = bootstrap_arg.getClass<cp::CONSTANT_MethodHandle_info>();
-          wss << i->getValue(constpool);
+          ss << i->getValue(constpool);
           break;
         }
         case cp::kCONSTANT_METHODTYPE: {
           auto i = bootstrap_arg.getClass<cp::CONSTANT_MethodType_info>();
-          wss << i->getValue(constpool);
+          ss << i->getValue(constpool);
           break;
         }
       }
-      wss << ">\n";
+      ss << ">\n";
     }
-    formatter << Utils::String::to_string(wss.str());
+    formatter << String::toString(ss.str());
     formatter.addHorizontalLine('_');
   }
 
-  return String::to_wide(formatter.toString(delta_tab)) + L'\n';
+  return formatter.toString(delta_tab) + '\n';
 }
 
-std::wstring BootstrapMethods_attribute::getSpecificInfo(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
-    const int &delta_tab) {
-  std::wstringstream wss;
+std::string BootstrapMethods_attribute::getSpecificInfo(
+    const std::vector<ConstantPool::cp_info> &constpool, const int &delta_tab) {
+  std::stringstream ss;
   std::vector<std::string> inner_vars = {"Nr.", "Bootstrap Method",
                                          "Arguments"};
-  wss << this->getTable(constpool, inner_vars, delta_tab);
-  return wss.str();
+  ss << this->getTable(constpool, inner_vars, delta_tab);
+  return ss.str();
 }
 // ----------------------------------------------------------------------------
-std::wstring MethodParameters_attribute::getTable(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
+std::string MethodParameters_attribute::getTable(
+    const std::vector<ConstantPool::cp_info> &constpool,
     const std::vector<std::string> &header_vars, const int &delta_tab) {
   namespace tf = tableformatter;
 
@@ -549,38 +538,37 @@ std::wstring MethodParameters_attribute::getTable(
   for (auto i = 0; i < this->parameters_count; ++i) {
     auto param_info = this->parameters[i];
     formatter << i;
-    std::wstringstream wss;
+    std::stringstream ss;
 
-    wss << "'cp_info #" << param_info.name_index << "'\n";
+    ss << "#" << param_info.name_index << "\n";
     if (param_info.name_index) {
       auto name = constpool[param_info.name_index - 1]
                       .getClass<ConstantPool::CONSTANT_Utf8_info>();
-      wss << name->getValue();
+      ss << name->getValue();
     } else if (!param_info.name_index) {
-      wss << "no formal parameter name";
+      ss << "no formal parameter name";
     } else {
-      wss << "invalid constant pool reference";
+      ss << "invalid constant pool reference";
     }
-    formatter << Utils::String::to_string(wss.str());
-    wss.str(L"");
+    formatter << String::toString(ss.str());
+    ss.str();
 
-    wss << Utils::Access::getAccessFlags(
-        param_info.access_flags, Utils::Access::getMethodParamsAccessType);
-    formatter << Utils::String::to_string(wss.str());
+    ss << Access::getAccessFlags(param_info.access_flags,
+                                 Access::getMethodParamsAccessType);
+    formatter << String::toString(ss.str());
     formatter.addHorizontalLine('_');
   }
 
-  return String::to_wide(formatter.toString(delta_tab)) + L'\n';
+  return formatter.toString(delta_tab) + '\n';
 }
 
-std::wstring MethodParameters_attribute::getSpecificInfo(
-    const std::vector<Utils::ConstantPool::cp_info> &constpool,
-    const int &delta_tab) {
-  std::wstringstream wss;
+std::string MethodParameters_attribute::getSpecificInfo(
+    const std::vector<ConstantPool::cp_info> &constpool, const int &delta_tab) {
+  std::stringstream ss;
   std::vector<std::string> inner_vars = {"Nr.", "Parameter Name",
                                          "Access Flags"};
-  wss << this->getTable(constpool, inner_vars, delta_tab);
-  return wss.str();
+  ss << this->getTable(constpool, inner_vars, delta_tab);
+  return ss.str();
 }
 }  // namespace Attributes
 }  // namespace Utils
