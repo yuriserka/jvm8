@@ -1,5 +1,5 @@
 # https://pt.wikibooks.org/wiki/Programar_em_C/Makefiles
-EXEC := jvm
+EXEC_NAME := jvm
 BUILD_DIR := build
 SRC_DIR := src
 DEP_DIR := $(BUILD_DIR)/.deps
@@ -18,10 +18,12 @@ ifeq ($(detected_OS), Windows)
 	SRCS := $(call rwildcard,src/,*.cc)
 	MAKE_DIR = @cmd /C create_dir.bat $(@D)
 	DEL_FILES = @del /s /q build $(EXEC).exe
+	EXEC := $(EXEC_NAME)
 else
 	SRCS := $(shell find src -name '*.cc')
 	MAKE_DIR = @mkdir -p $(@D)
 	DEL_FILES = $(RM) *~ $(OBJS) $(DEPS) $(EXEC)
+	EXEC := $(EXEC_NAME).out
 endif
 
 OBJS := $(SRCS:$(SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
