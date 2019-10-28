@@ -18,7 +18,6 @@
 #include "instructions/instruction_set/short.h"
 #include "instructions/opcodes.h"
 #include "utils/errors.h"
-
 #include "viewer.h"
 
 static std::ios state(NULL);

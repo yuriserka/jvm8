@@ -15,7 +15,10 @@ class Instruction {
 
   virtual ~Instruction() = default;
 
-  // virtual void execute() = 0;
+  //   virtual std::vector<int> execute(
+  //       std::vector<Utils::Types::u1>::iterator *code_iterator, int
+  //       *delta_code, const bool &wide, int *code_index = nullptr) = 0;
+
   virtual std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
       std::stringstream *ss, const bool &wide, int *code_index = nullptr,

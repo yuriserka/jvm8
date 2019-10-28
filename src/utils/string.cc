@@ -1,12 +1,12 @@
 #include "utils/string.h"
 
+#include <sstream>
 #include "utils/constantPool.h"
 #include "utils/errors.h"
 
 namespace Utils {
 namespace String {
-std::string getUtf8Modified(
-    const ConstantPool::CONSTANT_Utf8_info *kutf8Info) {
+std::string getUtf8Modified(const ConstantPool::CONSTANT_Utf8_info *kutf8Info) {
   int c, char2, char3;
   int count = 0;
   int chararr_count = 0;
@@ -33,13 +33,14 @@ std::string getUtf8Modified(
       case 4:
       case 5:
       case 6:
-      case 7:
+      case 7: {
         /* 0xxxxxxx*/
         count++;
         chararr[chararr_count++] = (char)c;
         break;
+      }
       case 12:
-      case 13:
+      case 13: {
         /* 110x xxxx   10xx xxxx*/
         count += 2;
         if (count > utflen) {
@@ -49,13 +50,15 @@ std::string getUtf8Modified(
         }
         char2 = (int)bytes[count - 1];
         if ((char2 & 0xC0) != 0x80) {
-          throw Utils::Errors::Exception(
-              Utils::Errors::kUTFDATAFORMATEXCEPTION,
-              "malformed input around byte " + count);
+          std::stringstream ss;
+          ss << "malformed input around byte " << count;
+          throw Utils::Errors::Exception(Utils::Errors::kUTFDATAFORMATEXCEPTION,
+                                         ss.str());
         }
         chararr[chararr_count++] = (char)(((c & 0x1F) << 6) | (char2 & 0x3F));
         break;
-      case 14:
+      }
+      case 14: {
         /* 1110 xxxx  10xx xxxx  10xx xxxx */
         count += 3;
         if (count > utflen) {
@@ -66,17 +69,22 @@ std::string getUtf8Modified(
         char2 = (int)bytes[count - 2];
         char3 = (int)bytes[count - 1];
         if (((char2 & 0xC0) != 0x80) || ((char3 & 0xC0) != 0x80)) {
-          throw Utils::Errors::Exception(
-              Utils::Errors::kUTFDATAFORMATEXCEPTION,
-              "malformed input around byte " + (count - 1));
+          std::stringstream ss;
+          ss << "malformed input around byte " << (count - 1);
+          throw Utils::Errors::Exception(Utils::Errors::kUTFDATAFORMATEXCEPTION,
+                                         ss.str());
         }
         chararr[chararr_count++] =
             (char)(((c & 0x0F) << 12) | ((char2 & 0x3F) << 6) | (char3 & 0x3F));
         break;
-      default:
+      }
+      default: {
         /* 10xx xxxx,  1111 xxxx */
+        std::stringstream ss;
+        ss << "malformed input around byte " << count;
         throw Utils::Errors::Exception(Utils::Errors::kUTFDATAFORMATEXCEPTION,
-                                       "malformed input around byte " + count);
+                                       ss.str());
+      }
     }
   }
 

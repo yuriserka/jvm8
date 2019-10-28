@@ -6,14 +6,36 @@
 #include "classfile.h"
 #include "utils/attributes.h"
 
+/**
+ * @brief Class responsable for .class file visualization
+ * 
+ */
 class Viewer {
  public:
+  /**
+   * @brief Construct a new Viewer object
+   * 
+   * @param cf the class file object which structure will be printed
+   * @param fname the file name
+   */
   explicit Viewer(const ClassFile *cf, const std::string &fname) {
     this->classfile = cf;
     this->classname = fname;
   }
 
+  /**
+   * @brief responsable for print each component of the ClassFile structure
+   */
   void printClassFile();
+
+  /**
+   * @brief Get the Constant Pool Info object and return its string representation
+   * 
+   * @param index the constant pool index to look at
+   * @param dot in most cases the print has the format: Class.method,
+   * but not always
+   * @return std::string the constructed string to be printed 
+   */
   std::string getConstantPoolInfo(const int &index, const bool &dot = true);
 
  private:

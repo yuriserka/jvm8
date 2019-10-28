@@ -19,7 +19,7 @@ Reader::Reader(ClassFile *cf, const std::string &fpath) {
 
   auto has_path = fpath.find(Utils::Flags::options.kPATH);
   if (has_path == std::string::npos) {
-    p = Utils::Flags::options.kPATH + [&p]() -> std::string {
+    p = Utils::Flags::options.kPATH + []() -> std::string {
       auto has_end_slash = Utils::Flags::options.kPATH.find_last_of("/\\");
       if (has_end_slash != Utils::Flags::options.kPATH.size() - 1) {
 #if defined(_WIN32) || defined(WIN32)
@@ -53,7 +53,7 @@ void Reader::readClassFile() {
   this->readMajorVersion();
   if (!Utils::Flags::options.kIGNORE) {
     auto minver = Utils::String::toString(this->classfile->minor_version);
-    auto maxver = Utils::String::toString(Utils::Versions::Java8) + minver;
+    auto maxver = Utils::String::toString(Utils::Versions::getJava8()) + minver;
 
     auto v =
         stod(Utils::String::toString(this->classfile->major_version) + minver);
@@ -61,7 +61,7 @@ void Reader::readClassFile() {
       std::stringstream ss;
       ss << "This JVM implementation support a class file of version v "
          << "if and only if v lies in range " << this->classfile->minor_version
-         << ".0 ≤ v ≤ " << Utils::Versions::Java8 << "."
+         << ".0 ≤ v ≤ " << Utils::Versions::getJava8() << "."
          << this->classfile->minor_version;
       throw Utils::Errors::Exception(Utils::Errors::kMAJOR, ss.str());
     }
@@ -100,10 +100,10 @@ void Reader::readMinorVersion() {
               << std::uppercase << this->classfile->minor_version << "'\n";
     std::cout.copyfmt(state);
   }
-  // if (this->classfile->minor_version > Utils::Versions::Java8) {
+  // if (this->classfile->minor_version > Utils::Versions::getJava8()) {
   //   std::stringstream err;
   //   err << "Minor version superior to 0x" << std::hex << std::uppercase
-  //       << Utils::Versions::Java8;
+  //       << Utils::Versions::getJava8();
   //   throw Utils::Errors::Exception(Utils::Errors::kMINOR, err.str());
   // }
 }
@@ -117,10 +117,10 @@ void Reader::readMajorVersion() {
               << this->classfile->major_version << "'\n";
     std::cout.copyfmt(state);
   }
-  // if (this->classfile->major_version < Utils::Versions::Java8) {
+  // if (this->classfile->major_version < Utils::Versions::getJava8()) {
   //   std::stringstream err;
   //   err << "Major version inferior to 0x" << std::hex << std::uppercase
-  //       << Utils::Versions::Java8;
+  //       << Utils::Versions::getJava8();
   //   throw Utils::Errors::Exception(Utils::Errors::kMAJOR, err.str());
   // }
 }

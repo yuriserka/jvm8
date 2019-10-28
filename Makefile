@@ -29,10 +29,10 @@ endif
 OBJS := $(SRCS:$(SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
 DEPS := $(SRCS:$(SRC_DIR)/%.cc=$(DEP_DIR)/%.d)
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEP_DIR)/$*.d
-CC := g++
+CXX := g++
 INCLUDES := -I"include/"
-CXXFLAGS := $(INCLUDES) -std=c++11
-CFLAGS := -g -Wall -pedantic -Wpedantic -Werror
+CXXFLAGS := -std=c++11
+CFLAGS := $(INCLUDES) -g -Wall -pedantic -Wpedantic -Werror
 
 # $@  Nome da regra. 
 # $<  Nome da primeira dependência 
@@ -46,7 +46,7 @@ all: $(EXEC)
 
 $(EXEC): $(OBJS)
 	@echo Generating executable $@
-	@$(CC) $^ $(CXXFLAGS) $(CFLAGS) -o $@
+	@$(CXX) $^ $(CXXFLAGS) $(CFLAGS) -o $@
 
 $(DEP_DIR)/%.d: $(SRC_DIR)/%.cc
 	@$(MAKE_DIR)
@@ -54,7 +54,7 @@ $(DEP_DIR)/%.d: $(SRC_DIR)/%.cc
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc $(DEP_DIR)/%.d
 	@$(MAKE_DIR)
 	@echo Compiling $<
-	@$(CC) -c $< $(DEPFLAGS) $(CXXFLAGS) $(CFLAGS) -o $@
+	@$(CXX) -c $< $(DEPFLAGS) $(CXXFLAGS) $(CFLAGS) -o $@
 
 $(DEPS):
 include $(wildcard $(DEPS))
