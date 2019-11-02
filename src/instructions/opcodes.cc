@@ -211,7 +211,11 @@ std::string getMnemonic(const Utils::Types::u1 &opcode) {
       {kSWAP, "SWAP"},
       {kTABLESWITCH, "TABLESWITCH"},
       {kWIDE, "WIDE"}};
-  return mnemonics.at(opcode);
+  try {
+    return mnemonics.at(opcode);
+  } catch (const std::out_of_range &oor) {
+    return mnemonics.at(kNOP);
+  }
 }
 }  // namespace Opcodes
 }  // namespace Instructions

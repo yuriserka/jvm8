@@ -8,9 +8,7 @@ namespace Utils {
 namespace Versions {
 std::string getVersion(const Types::u2 &major_version);
 
-inline const Types::u2 getJava8() {
- return 0x34;
-}
+inline const Types::u2 getJava8version() { return 0x34; }
 }  // namespace Versions
 }  // namespace Utils
 

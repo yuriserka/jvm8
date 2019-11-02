@@ -171,7 +171,7 @@ std::string Exceptions_attribute::getTable(
     auto except = this->exception_index_table[i];
     ss << "#" << except << "\n";
     formatter << i << String::toString(ss.str());
-    ss.str();
+    ss.str("");
 
     auto classname =
         constpool[except - 1].getClass<ConstantPool::CONSTANT_Class_info>();
@@ -228,7 +228,7 @@ std::string InnerClasses_attribute::getTable(
                                .getClass<ConstantPool::CONSTANT_Class_info>();
     ss << inner_classname->getValue(constpool);
     formatter << String::toString(ss.str());
-    ss.str();
+    ss.str("");
 
     ss << "#" << innerclass.outer_class_info_index << "\n";
     if (innerclass.outer_class_info_index) {
@@ -236,10 +236,10 @@ std::string InnerClasses_attribute::getTable(
                                  .getClass<ConstantPool::CONSTANT_Class_info>();
       ss << outer_classname->getValue(constpool);
     } else {
-      ss << L"invalid constant pool reference";
+      ss << "invalid constant pool reference";
     }
     formatter << String::toString(ss.str());
-    ss.str();
+    ss.str("");
 
     ss << "#" << innerclass.inner_name_index << "\n";
     if (innerclass.inner_name_index) {
@@ -247,10 +247,10 @@ std::string InnerClasses_attribute::getTable(
                            .getClass<ConstantPool::CONSTANT_Utf8_info>();
       ss << innername->getValue();
     } else {
-      ss << L"invalid constant pool reference";
+      ss << "invalid constant pool reference";
     }
     formatter << String::toString(ss.str());
-    ss.str();
+    ss.str("");
 
     ss << Access::getAccessFlags(innerclass.inner_class_access_flags,
                                  Access::getNestedClassAccessType);
@@ -288,7 +288,7 @@ std::string EnclosingMethod_attribute::getSpecificInfo(
                       .getClass<ConstantPool::CONSTANT_NameAndType_info>();
     ss << "<" << method->getValue(constpool) << ">\n";
   } else {
-    ss << L"invalid constant pool reference\n";
+    ss << "invalid constant pool reference\n";
   }
 
   return ss.str();
@@ -394,7 +394,7 @@ std::string LocalVariableTable_attribute::getTable(
                     .getClass<ConstantPool::CONSTANT_Utf8_info>();
     ss << name->getValue();
     formatter << String::toString(ss.str());
-    ss.str();
+    ss.str("");
 
     ss << "#" << localvar_info.descriptor_index << "\n";
     auto descriptor = constpool[localvar_info.descriptor_index - 1]
@@ -449,7 +449,7 @@ std::string BootstrapMethods_attribute::getTable(
             .getClass<ConstantPool::CONSTANT_MethodHandle_info>();
     ss << methodhandle->getValue(constpool);
     formatter << String::toString(ss.str());
-    ss.str();
+    ss.str("");
 
     for (auto j = 0; j < bootstrap_info.num_bootstrap_arguments; ++j) {
       ss << "#" << bootstrap_info.bootstrap_arguments[j] << " <";
@@ -512,6 +512,7 @@ std::string BootstrapMethods_attribute::getSpecificInfo(
   std::vector<std::string> inner_vars = {"Nr.", "Bootstrap Method",
                                          "Arguments"};
   ss << this->getTable(constpool, inner_vars, delta_tab);
+
   return ss.str();
 }
 // ----------------------------------------------------------------------------
@@ -551,7 +552,7 @@ std::string MethodParameters_attribute::getTable(
       ss << "invalid constant pool reference";
     }
     formatter << String::toString(ss.str());
-    ss.str();
+    ss.str("");
 
     ss << Access::getAccessFlags(param_info.access_flags,
                                  Access::getMethodParamsAccessType);
@@ -568,6 +569,7 @@ std::string MethodParameters_attribute::getSpecificInfo(
   std::vector<std::string> inner_vars = {"Nr.", "Parameter Name",
                                          "Access Flags"};
   ss << this->getTable(constpool, inner_vars, delta_tab);
+
   return ss.str();
 }
 }  // namespace Attributes

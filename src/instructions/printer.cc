@@ -20,17 +20,17 @@
 #include "utils/errors.h"
 #include "viewer.h"
 
-static std::ios state(NULL);
-
 namespace Instructions {
 std::string getBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
                         Viewer *v, int *code_index, const int &delta_tab,
                         const bool &wide) {
   std::stringstream ss;
   ss << std::string(delta_tab - 1, '\t') << *code_index << ": ";
+
   auto opcode = **code_it;
   auto delta_code = 0;
   Instruction *i = nullptr;
+
   switch (opcode) {
     case Opcodes::kAALOAD: {
       i = new Reference::LoadFromArray();

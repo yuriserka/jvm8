@@ -28,6 +28,7 @@ enum errorTypes {
   kBYTE,
   kUTF8,
   kSOURCE,
+  kMETHOD,
   kREFKIND,
   kFIELD,
   kATTRIBUTE,

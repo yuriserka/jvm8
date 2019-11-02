@@ -53,7 +53,8 @@ void Reader::readClassFile() {
   this->readMajorVersion();
   if (!Utils::Flags::options.kIGNORE) {
     auto minver = Utils::String::toString(this->classfile->minor_version);
-    auto maxver = Utils::String::toString(Utils::Versions::getJava8()) + minver;
+    auto maxver =
+        Utils::String::toString(Utils::Versions::getJava8version()) + minver;
 
     auto v =
         stod(Utils::String::toString(this->classfile->major_version) + minver);
@@ -61,7 +62,7 @@ void Reader::readClassFile() {
       std::stringstream ss;
       ss << "This JVM implementation support a class file of version v "
          << "if and only if v lies in range " << this->classfile->minor_version
-         << ".0 ≤ v ≤ " << Utils::Versions::getJava8() << "."
+         << ".0 ≤ v ≤ " << Utils::Versions::getJava8version() << "."
          << this->classfile->minor_version;
       throw Utils::Errors::Exception(Utils::Errors::kMAJOR, ss.str());
     }
@@ -100,10 +101,10 @@ void Reader::readMinorVersion() {
               << std::uppercase << this->classfile->minor_version << "'\n";
     std::cout.copyfmt(state);
   }
-  // if (this->classfile->minor_version > Utils::Versions::getJava8()) {
+  // if (this->classfile->minor_version > Utils::Versions::getJava8version()) {
   //   std::stringstream err;
   //   err << "Minor version superior to 0x" << std::hex << std::uppercase
-  //       << Utils::Versions::getJava8();
+  //       << Utils::Versions::getJava8version();
   //   throw Utils::Errors::Exception(Utils::Errors::kMINOR, err.str());
   // }
 }
@@ -117,10 +118,10 @@ void Reader::readMajorVersion() {
               << this->classfile->major_version << "'\n";
     std::cout.copyfmt(state);
   }
-  // if (this->classfile->major_version < Utils::Versions::getJava8()) {
+  // if (this->classfile->major_version < Utils::Versions::getJava8version()) {
   //   std::stringstream err;
   //   err << "Major version inferior to 0x" << std::hex << std::uppercase
-  //       << Utils::Versions::getJava8();
+  //       << Utils::Versions::getJava8version();
   //   throw Utils::Errors::Exception(Utils::Errors::kMAJOR, err.str());
   // }
 }
@@ -619,16 +620,15 @@ void Reader::readAttributesInfo(
             attr->setBase<attrs::SourceFile_attribute>(nameidx, attrlen);
         this->readBytes(&sourcefile_attr->sourcefile_index);
 
-        auto filename =
+        auto class_name =
             this->kpoolValidInfo<Utils::ConstantPool::CONSTANT_Utf8_info>(
-                sourcefile_attr->sourcefile_index, "sourcefile_index",
-                Utils::ConstantPool::kCONSTANT_UTF8);
+                    sourcefile_attr->sourcefile_index, "sourcefile_index",
+                    Utils::ConstantPool::kCONSTANT_UTF8)
+                ->getValue();
+        class_name = class_name.substr(0, class_name.find_last_of('.'));
 
         auto path_files =
             Utils::FileSystem::getFileNames(Utils::Flags::options.kPATH);
-
-        auto class_name = Utils::String::toString(filename->getValue());
-        class_name = class_name.substr(0, class_name.find_last_of('.'));
 
         auto it_class_file = std::find_if(
             path_files.begin(), path_files.end(),

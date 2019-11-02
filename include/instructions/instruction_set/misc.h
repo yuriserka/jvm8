@@ -286,6 +286,7 @@ class LookupSwitch : public Instruction {
     auto getU4 = [](std::vector<Utils::Types::u1>::iterator *code_it) -> int {
       auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
                     (*++*code_it << 8) | *++*code_it;
+
       return offset;
     };
 
@@ -326,6 +327,7 @@ class LookupSwitch : public Instruction {
     auto getU4 = [](std::vector<Utils::Types::u1>::iterator *code_it) -> int {
       auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
                     (*++*code_it << 8) | *++*code_it;
+
       return offset;
     };
 
@@ -342,6 +344,7 @@ class LookupSwitch : public Instruction {
       args.push_back(Utils::String::toString(offset));
     }
     *delta_code = getAlinhamento(alinhamento) + 4 + 4 + 8 * npairs;
+
     return args;
   }
 };
@@ -646,6 +649,7 @@ class TableSwitch : public Instruction {
     auto getU4 = [](std::vector<Utils::Types::u1>::iterator *code_it) -> int {
       auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
                     (*++*code_it << 8) | *++*code_it;
+
       return offset;
     };
 
@@ -684,6 +688,7 @@ class TableSwitch : public Instruction {
     auto getU4 = [](std::vector<Utils::Types::u1>::iterator *code_it) -> int {
       auto offset = (*++*code_it << 24) | (*++*code_it << 16) |
                     (*++*code_it << 8) | *++*code_it;
+
       return offset;
     };
 
@@ -700,6 +705,7 @@ class TableSwitch : public Instruction {
       args.push_back(Utils::String::toString(offset));
     }
     *delta_code = getAlinhamento(alinhamento) + 4 + 4 + 4 + 4 * qtd_entries;
+
     return args;
   }
 };

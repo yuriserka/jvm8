@@ -83,6 +83,7 @@ class Reader {
               Utils::ConstantPool::getConstantTypename(tag) +
               "_info structure");
     }
+
     return kinfo;
   }
 

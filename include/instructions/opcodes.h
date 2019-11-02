@@ -216,8 +216,6 @@ enum opcode_reference {
 };
 
 std::string getMnemonic(const Utils::Types::u1 &opcode);
-int getArguments(std::vector<Utils::Types::u1>::iterator *opcode,
-                 std::vector<std::string> *arguments);
 }  // namespace Opcodes
 }  // namespace Instructions
 

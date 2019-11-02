@@ -6,6 +6,7 @@
 #include "instructions/printer.h"
 #include "utils/accessFlags.h"
 #include "utils/constantPool.h"
+#include "utils/flags.h"
 #include "utils/memory.h"
 #include "utils/reference_kind.h"
 #include "utils/string.h"
@@ -27,8 +28,10 @@ static void makeTitle(const std::string &title, const int &size,
 }
 
 void Viewer::printClassFile() {
-  std::cout << "\n\tVisualizing ClassFile structure for " << this->classname
-            << "\n";
+  if (Utils::Flags::options.kVERBOSE) {
+    std::cout << "\n\tVisualizing ClassFile structure for " << this->classname
+              << "\n\n";
+  }
   makeTitle("General Information", 80, 50);
   // this->printMagic();
   this->printVersion();

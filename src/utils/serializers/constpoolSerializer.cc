@@ -191,6 +191,7 @@ bool ConstantPoolSerializer::to_json(json *j, const int &kpoolindex) {
   if (kpoolindex < 0) {
     *j = {{"cp_entry_index", kpoolindex + 1},
           {"value", "invalid constant pool reference"}};
+
     return jmpNextIndex;
   }
 
@@ -266,6 +267,7 @@ bool ConstantPoolSerializer::to_json(json *j, const int &kpoolindex) {
       break;
     }
   }
+
   return jmpNextIndex;
 }
 }  // namespace ConstantPool

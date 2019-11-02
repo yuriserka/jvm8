@@ -89,6 +89,7 @@ std::vector<std::string> getClassAccessType(const Types::u2 &accessType) {
       continue;
     }
   }
+
   return flagsname;
 }
 
@@ -106,6 +107,7 @@ std::vector<std::string> getFieldAccessType(const Types::u2 &accessType) {
       continue;
     }
   }
+
   return flagsname;
 }
 
@@ -124,6 +126,7 @@ std::vector<std::string> getMethodAccessType(const Types::u2 &accessType) {
       continue;
     }
   }
+
   return flagsname;
 }
 
@@ -142,6 +145,7 @@ std::vector<std::string> getNestedClassAccessType(const Types::u2 &accessType) {
       continue;
     }
   }
+
   return flagsname;
 }
 
@@ -161,6 +165,7 @@ std::vector<std::string> getMethodParamsAccessType(
       continue;
     }
   }
+
   return flagsname;
 }
 }  // namespace Access

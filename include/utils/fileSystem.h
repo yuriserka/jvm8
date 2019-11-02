@@ -33,8 +33,20 @@ inline std::vector<std::string> getFileNames(const std::string &path) {
   std::vector<std::string> files;
   while ((entry = readdir(dir)) != NULL) {
     auto f = std::string(entry->d_name);
-    if (!f.substr(f.find_last_of('.'), f.size()).compare(".java")) continue;
-    files.push_back(entry->d_name);
+
+    auto extension_delim = f.find_last_of('.') != std::string::npos;
+    if (!extension_delim) {
+      continue;
+    }
+
+    std::string extension_name = f.substr(f.find_last_of('.') + 1, f.length());
+    if (extension_name.empty()) {
+      continue;
+    }
+
+    if (!extension_name.compare("class")) {
+      files.push_back(entry->d_name);
+    }
   }
   closedir(dir);
 
