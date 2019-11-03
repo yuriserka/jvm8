@@ -15,6 +15,8 @@ static std::string getUsage() {
   ss << "usage: ./jvm {mode} <path_to_class_file> <class_file> [options]\n"
      << "\tmode: viewer, interpreter\n"
      << "\toptions: -v, -json";
+
+  return ss.str();
 }
 
 static void setMode(const char *mode) {
