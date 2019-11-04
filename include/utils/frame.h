@@ -1,25 +1,56 @@
 #ifndef INCLUDE_UTILS_FRAME_H_
 #define INCLUDE_UTILS_FRAME_H_
 
+#include <stack>
 #include <vector>
-#include "classfile.h"
+#include "utils/errors.h"
 #include "utils/external/any.h"
 #include "utils/types.h"
+#include "utils/constantPool.h"
 
 namespace Utils {
 class Frame {
  public:
   Frame(const Types::u2 &stack_size, const Types::u2 &localvar_size,
-        const ClassFile *cf)
-      : local_variables(localvar_size), operand_stack(stack_size) {
-    this->runtime_constant_pool = cf->constant_pool;
+        const std::vector<ConstantPool::cp_info> &kpool)
+      : local_variables(localvar_size) {
+    this->max_operand_stack_size = stack_size;
+    this->runtime_constant_pool = kpool;
+    this->pc = 0;
   }
 
-  void run();
+  template <typename T>
+  void pushLocalVar(const T &localvar) {
+    this->local_variables.emplace_back(localvar);
+  }
+
+  template <typename T>
+  T &getLocalVar(const int &index) {
+    return this->local_variables[index].as<T>();
+  }
+
+  template <typename T>
+  void pushOperand(const T &operand) {
+    if (this->operand_stack.size() > this->max_operand_stack_size) {
+      throw Utils::Errors::Exception(Utils::Errors::kSTACK, "");
+    }
+    this->operand_stack.push(operand);
+  }
+
+  template <typename T>
+  T &popOperand() {
+    auto any = this->operand_stack.top();
+    this->operand_stack.pop();
+
+    return any.as<T>();
+  }
+
+  int pc;
 
  private:
   std::vector<Any> local_variables;
-  std::vector<Any> operand_stack;
+  std::stack<Any> operand_stack;
+  int max_operand_stack_size;
   std::vector<ConstantPool::cp_info> runtime_constant_pool;
 };
 }  // namespace Utils

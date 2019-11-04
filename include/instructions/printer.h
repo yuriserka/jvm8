@@ -9,7 +9,7 @@ class Viewer;
 
 namespace Instructions {
 std::string getBytecode(std::vector<Utils::Types::u1>::iterator *opcode,
-                        Viewer *v, int *code_index, const int &delta_tab,
+                        Viewer *v, int *pc, const int &delta_tab,
                         const bool &wide = false);
 }
 

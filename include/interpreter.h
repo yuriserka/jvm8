@@ -2,6 +2,9 @@
 #define INCLUDE_INTERPRETER_H_
 
 #include "utils/frame.h"
+#include "utils/memory_areas/heap.h"
+#include "utils/memory_areas/java_stack.h"
+#include "utils/memory_areas/method_area.h"
 
 class Interpreter {
  public:
@@ -11,11 +14,19 @@ class Interpreter {
     this->init();
   }
 
+  ~Interpreter() {
+    delete this->method_area;
+    delete this->heap;
+  }
+
   void run();
 
  private:
+  void init();
+
+  MemoryAreas::MethodArea *method_area;
+  MemoryAreas::Heap *heap;
   std::string classname;
-  void init() { std::cout << "criando as coisas pra thread...\n"; }
   const ClassFile *entry_class;
 };
 

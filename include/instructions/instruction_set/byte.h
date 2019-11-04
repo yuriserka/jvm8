@@ -16,7 +16,7 @@ class LoadFromArray : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *pc,
       const int &delta_tab) override {
     (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
@@ -24,7 +24,7 @@ class LoadFromArray : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *code_index) override {
+      int *ret, const bool &wide, int *pc) override {
     return {};
   }
 };
@@ -35,7 +35,7 @@ class StoreIntoArray : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *pc,
       const int &delta_tab) override {
     (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
@@ -43,7 +43,7 @@ class StoreIntoArray : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *code_index) override {
+      int *ret, const bool &wide, int *pc) override {
     return {};
   }
 };
@@ -54,7 +54,7 @@ class Push : public Instruction {
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *code_index,
+      std::stringstream *ss, const bool &wide, int *pc,
       const int &delta_tab) override {
     signed char byte = *++*code_it;
     (*ss) << Opcodes::getMnemonic(this->opcode) << " " << int{byte} << "\n";
@@ -64,7 +64,7 @@ class Push : public Instruction {
 
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *code_index) override {
+      int *ret, const bool &wide, int *pc) override {
     signed char byte = *++*code_it;
     *delta_code = 1;
     return {Utils::String::toString(int{byte})};

@@ -21,7 +21,7 @@
 
 namespace Instructions {
 int InstructionSerializer::to_json(
-    json *j, std::vector<Utils::Types::u1>::iterator *code_it, int *code_index,
+    json *j, std::vector<Utils::Types::u1>::iterator *code_it, int *pc,
     bool *wide) {
   auto opcode = **code_it;
   auto delta_code = 0;
@@ -1260,8 +1260,8 @@ int InstructionSerializer::to_json(
     }
     case Opcodes::kLOOKUPSWITCH: {
       i = new Misc::LookupSwitch();
-      auto intern_args = i->toBytecode_json(code_it, &delta_code, &kpool_index,
-                                            wide, code_index);
+      auto intern_args =
+          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide, pc);
       *j = intern_args;
       break;
     }
@@ -1478,8 +1478,8 @@ int InstructionSerializer::to_json(
     }
     case Opcodes::kTABLESWITCH: {
       i = new Misc::TableSwitch();
-      auto intern_args = i->toBytecode_json(code_it, &delta_code, &kpool_index,
-                                            wide, code_index);
+      auto intern_args =
+          i->toBytecode_json(code_it, &delta_code, &kpool_index, wide, pc);
       *j = intern_args;
       break;
     }

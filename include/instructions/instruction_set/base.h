@@ -15,18 +15,18 @@ class Instruction {
 
   virtual ~Instruction() = default;
 
-  //   virtual std::vector<int> execute(
-  //       std::vector<Utils::Types::u1>::iterator *code_iterator, int
-  //       *delta_code, const bool &wide, int *code_index = nullptr) = 0;
+//   virtual std::vector<int> execute(
+//       std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+//       const bool &wide, int *pc = nullptr) = 0;
 
   virtual std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *code_index = nullptr,
+      std::stringstream *ss, const bool &wide, int *pc = nullptr,
       const int &delta_tab = 0) = 0;
 
   virtual std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      int *ret_val, const bool &wide, int *code_index = nullptr) = 0;
+      int *ret_val, const bool &wide, int *pc = nullptr) = 0;
 
   const Utils::Types::u1 opcode;
 };

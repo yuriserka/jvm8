@@ -1,22 +1,30 @@
 #ifndef INCLUDE_UTILS_MEMORY_AREAS_THREAD_H_
 #define INCLUDE_UTILS_MEMORY_AREAS_THREAD_H_
 
-#include <stack>
-#include "utils/frame.h"
-#include "utils/infos.h"
+#include "utils/memory_areas/heap.h"
+#include "utils/memory_areas/java_stack.h"
+#include "utils/memory_areas/method_area.h"
 
 namespace MemoryAreas {
 class Thread {
  public:
-  Thread(const ClassFile *cf) { this->current_class = cf; }
+  Thread(MethodArea *method_area, Heap *heap, const ClassFile *cf) {
+    this->method_area = method_area;
+    this->heap = heap;
+    this->current_class = cf;
+  }
 
-  ~Thread() { delete this->current_frame; }
+  // template <typename T>
   void executeMethod(const std::string &method_name);
 
  private:
-  Utils::Frame *current_frame;
+  MethodArea *method_area;
+  Heap *heap;
   const ClassFile *current_class;
-  std::stack<Utils::Frame *> jvm_stack;
+  JavaStack jvm_stack;
+
+  Utils::Frame *current_frame;
+  std::string current_method;
 };
 }  // namespace MemoryAreas
 
