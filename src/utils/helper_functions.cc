@@ -25,4 +25,17 @@ Attributes::attribute_info getAttribute(
 
   return *attr;
 }
+
+const std::string getClassName(const ClassFile *cf) {
+  auto const classinfo =
+      cf->constant_pool[cf->this_class - 1]
+          .getClass<Utils::ConstantPool::CONSTANT_Class_info>();
+
+  auto actual_classname =
+      cf->constant_pool[classinfo->name_index - 1]
+          .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
+          ->getValue();
+
+  return actual_classname;
+}
 }  // namespace Utils

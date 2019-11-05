@@ -1,10 +1,13 @@
 #ifndef INCLUDE_INTERPRETER_H_
 #define INCLUDE_INTERPRETER_H_
 
+#include <vector>
+#include <string>
 #include "utils/frame.h"
 #include "utils/memory_areas/heap.h"
 #include "utils/memory_areas/java_stack.h"
 #include "utils/memory_areas/method_area.h"
+#include "utils/memory_areas/thread.h"
 
 class Interpreter {
  public:
@@ -24,6 +27,7 @@ class Interpreter {
  private:
   void init();
 
+  std::vector<MemoryAreas::Thread> threads;
   MemoryAreas::MethodArea *method_area;
   MemoryAreas::Heap *heap;
   std::string classname;

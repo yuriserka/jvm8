@@ -7,7 +7,6 @@
 #include "utils/errors.h"
 #include "utils/flags.h"
 #include "utils/helper_functions.h"
-#include "utils/memory_areas/method_area.h"
 #include "utils/string.h"
 
 #define MAX_STACK 40
@@ -15,9 +14,6 @@
 namespace MemoryAreas {
 // template <typename T>
 void Thread::executeMethod(const std::string &method_name) {
-  if (Utils::Flags::options.kDEBUG) {
-    std::cout << "Executing method " << method_name << "\n";
-  }
   if (this->jvm_stack.size() > MAX_STACK) {
     std::stringstream ss;
     ss << "Stack Overflow. This jvm supports only " << MAX_STACK
@@ -34,6 +30,10 @@ void Thread::executeMethod(const std::string &method_name) {
           .getClass<Utils::Attributes::Code_attribute>();
   auto code_array = code_attr->code;
 
+  if (Utils::Flags::options.kDEBUG) {
+    std::cout << "Executing method " << method_name << "\n";
+  }
+
   this->current_frame =
       new Utils::Frame(code_attr->max_stack, code_attr->max_locals,
                        this->method_area->runtime_constant_pool);
@@ -46,64 +46,45 @@ void Thread::executeMethod(const std::string &method_name) {
       this->current_class->constant_pool[this->current_class->this_class - 1]
           .getClass<Utils::ConstantPool::CONSTANT_Class_info>());
 
-  for (auto it = code_array.begin(); it != code_array.end(); ++it) {
+  for (auto it = code_array.begin(); it != code_array.end();
+       ++it, ++this->current_frame->pc) {
     // Apenas para teste para ver se a troca de contexto em nível de função
     // funciona, ainda não passa argumentos e nem variaveis locais. invoke
-    // [virtual | especial]
-    if (*it == 0xb6 || *it == 0xb7) {
-      std::cout << this->current_method << ": "
-                << Instructions::Opcodes::getMnemonic(*it);
-      uint16_t cp_arg = (((*++it) << 8) | *++it) - 1;
-      std::cout << " -> args: cp[" << cp_arg << "]\n";
+    // todos os invokes
+    if (*it >= 0xb6 && *it <= 0xba) {
+      std::cout << Utils::getClassName(this->current_class) << "."
+                << this->current_method << "::" << this->current_frame->pc
+                << ": " << Instructions::Opcodes::getMnemonic(*it);
+      uint16_t cp_arg = (((*++it) << 8) | *++it);
+      std::cout << " -> args: #" << cp_arg << "\n";
 
-      // Generalizar para qualquer tipo de referencia...
-      // std::string ref_class_name, ref_method_name;
-      // switch (this->current_class->constant_pool[cp_arg].base->tag) {
-      //   namespace cp = Utils::ConstantPool;
-      //   case cp::kCONSTANT_FIELDREF: {
-      //     Utils::getReference<cp::CONSTANT_FieldRef_info>(
-      //         this->current_class, cp_arg, &ref_class_name,
-      //         &ref_method_name);
-      //     break;
-      //   }
-      //   case cp::kCONSTANT_METHODREF: {
-      //     Utils::getReference<cp::CONSTANT_Methodref_info>(
-      //         this->current_class, cp_arg, &ref_class_name,
-      //         &ref_method_name);
-      //     break;
-      //   }
-      //   case cp::kCONSTANT_INTERFACEMETHODREF: {
-      //     Utils::getReference<cp::CONSTANT_InterfaceMethodref_info>(
-      //         this->current_class, cp_arg, &ref_class_name,
-      //         &ref_method_name);
-      //     break;
-      //   }
-      // }
+      std::string ref_class_name, ref_method_name, ref_method_descriptor;
+      switch (this->current_class->constant_pool[cp_arg - 1].base->tag) {
+        namespace cp = Utils::ConstantPool;
+        case cp::kCONSTANT_FIELDREF: {
+          Utils::getReference<cp::CONSTANT_FieldRef_info>(
+              this->current_class, cp_arg, &ref_class_name, &ref_method_name,
+              &ref_method_descriptor);
+          break;
+        }
+        case cp::kCONSTANT_METHODREF: {
+          Utils::getReference<cp::CONSTANT_Methodref_info>(
+              this->current_class, cp_arg, &ref_class_name, &ref_method_name,
+              &ref_method_descriptor);
+          break;
+        }
+        case cp::kCONSTANT_INTERFACEMETHODREF: {
+          Utils::getReference<cp::CONSTANT_InterfaceMethodref_info>(
+              this->current_class, cp_arg, &ref_class_name, &ref_method_name,
+              &ref_method_descriptor);
+          break;
+        }
+      }
 
-      auto methodref =
-          this->method_area->runtime_constant_pool[cp_arg]
-              .getClass<Utils::ConstantPool::CONSTANT_Methodref_info>();
-
-      auto methodref_class_info =
-          this->method_area->runtime_constant_pool[methodref->class_index - 1]
-              .getClass<Utils::ConstantPool::CONSTANT_Class_info>();
-      auto ref_class_name =
-          this->method_area
-              ->runtime_constant_pool[methodref_class_info->name_index - 1]
-              .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
-              ->getValue();
-
-      auto methodref_nametype_info =
-          this->method_area
-              ->runtime_constant_pool[methodref->name_and_type_index - 1]
-              .getClass<Utils::ConstantPool::CONSTANT_NameAndType_info>();
-      auto ref_method_name =
-          this->method_area
-              ->runtime_constant_pool[methodref_nametype_info->name_index - 1]
-              .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
-              ->getValue();
       try {
-        this->changeContext(ref_class_name, ref_method_name);
+        this->changeContext(ref_class_name, ref_method_name,
+                            ref_method_descriptor);
+        this->current_frame->pc += 2;
       } catch (const Utils::Errors::Exception &e) {
         if (Utils::Flags::options.kDEBUG) {
           std::cout << e.what() << "\n";
@@ -117,46 +98,24 @@ void Thread::executeMethod(const std::string &method_name) {
 }
 
 void Thread::changeContext(const std::string &classname,
-                           const std::string &method_name) {
+                           const std::string &method_name,
+                           const std::string &arguments) {
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "\tchanging context to " << classname << "." << method_name
-              << "\n";
+              << arguments << "\n";
   }
-  auto const classinfo =
-      this->method_area
-          ->runtime_constant_pool[this->current_class->this_class - 1]
-          .getClass<Utils::ConstantPool::CONSTANT_Class_info>();
-
-  auto const actual_classname =
-      this->current_class->constant_pool[classinfo->name_index - 1]
-          .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
-          ->getValue();
+  auto const actual_classname = Utils::getClassName(this->current_class);
 
   auto old_class = this->current_class;
   if (classname.compare(actual_classname)) {
-    std::stringstream ss;
-    ClassFile *new_class = new ClassFile();
-    char delimiter = '/';
-#if defined(_WIN32) || defined(WIN32)
-    delimiter = '\\';
-#endif
-    auto splitted_path = Utils::String::split(classname, delimiter);
-    if (splitted_path.empty()) {
-      ss << Utils::Flags::options.kPATH << delimiter << classname << ".class";
-    } else {
-      ss << "." << delimiter << "classes" << delimiter << classname << ".class";
+    if (!this->method_area->isLoaded(classname)) {
+      if (Utils::Flags::options.kDEBUG) {
+        std::cout << "Loading class " << classname << "\n";
+      }
     }
-    try {
-      Reader(new_class, ss.str()).readClassFile();
-    } catch (const Utils::Errors::Exception &e) {
-      ss.str("");
-      ss << "Ignored <" << classname << "." << method_name << ">";
-      delete new_class;
-      throw Utils::Errors::Exception(Utils::Errors::kCLASSFILE, ss.str());
-    }
+    auto new_class = this->method_area->loadClass(classname);
     this->current_class = new_class;
   }
-
   auto old_method = this->current_method;
   auto old_frame = this->current_frame;
 
@@ -166,9 +125,9 @@ void Thread::changeContext(const std::string &classname,
 
   this->executeMethod(method_name);
 
-  if (this->current_class != old_class) {
-    delete this->current_class;
-  }
+  // if (this->current_class != old_class) {
+  //   delete this->current_class;
+  // }
 
   this->current_class = old_class;
   this->current_frame = old_frame;

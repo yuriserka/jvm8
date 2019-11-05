@@ -18,7 +18,8 @@ class Thread {
   void executeMethod(const std::string &method_name);
 
  private:
-  void changeContext(const std::string &classname, const std::string &method);
+  void changeContext(const std::string &classname, const std::string &method,
+                     const std::string &arguments);
 
   MethodArea *method_area;
   Heap *heap;

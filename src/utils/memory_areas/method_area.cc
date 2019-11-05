@@ -1,8 +1,11 @@
 #include "utils/memory_areas/method_area.h"
 
 #include <algorithm>
+#include "reader.h"
 #include "utils/constantPool.h"
 #include "utils/errors.h"
+#include "utils/flags.h"
+#include "utils/string.h"
 
 namespace MemoryAreas {
 Utils::Infos::method_info MethodArea::getMethod(
@@ -17,11 +20,7 @@ Utils::Infos::method_info MethodArea::getMethod(
         return !actual_method_name.compare(method_name);
       });
   if (method == this->methods.end()) {
-    auto classinfo = this->runtime_constant_pool[this->cf->this_class - 1]
-                         .getClass<Utils::ConstantPool::CONSTANT_Class_info>();
-    auto classname = this->runtime_constant_pool[classinfo->name_index - 1]
-                         .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
-                         ->getValue();
+    auto classname = Utils::getClassName(this->runtime_classfile);
     std::stringstream ss;
     ss << "could not find method '" << method_name << "' in class '"
        << classname << "'";
@@ -42,11 +41,8 @@ Utils::Infos::field_info MethodArea::getField(const std::string &field_name) {
         return !actual_field_name.compare(field_name);
       });
   if (field == this->fields.end()) {
-    auto classinfo = this->runtime_constant_pool[this->cf->this_class - 1]
-                         .getClass<Utils::ConstantPool::CONSTANT_Class_info>();
-    auto classname = this->runtime_constant_pool[classinfo->name_index - 1]
-                         .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
-                         ->getValue();
+    auto classname = Utils::getClassName(this->runtime_classfile);
+
     std::stringstream ss;
     ss << "could not find field '" << field_name << "' in class '" << classname
        << "'";
@@ -54,5 +50,48 @@ Utils::Infos::field_info MethodArea::getField(const std::string &field_name) {
   }
 
   return *field;
+}
+
+const ClassFile *MethodArea::getClass(const std::string &classname) {
+  if (!this->isLoaded(classname)) {
+    throw Utils::Errors::Exception(1, "nao ta carregada");
+  }
+
+  auto classfile = std::find_if(this->loaded.begin(), this->loaded.end(),
+                                [&classname](const ClassFile *classfile) {
+                                  auto actual_name =
+                                      Utils::getClassName(classfile);
+                                  return !classname.compare(actual_name);
+                                });
+
+  return *classfile;
+}
+
+const ClassFile *MethodArea::loadClass(const std::string &classname) {
+  if (this->isLoaded(classname)) {
+    return this->getClass(classname);
+  }
+  std::stringstream ss;
+  ClassFile *new_class = new ClassFile();
+  char delimiter = '/';
+#if defined(_WIN32) || defined(WIN32)
+  delimiter = '\\';
+#endif
+  auto splitted_path = Utils::String::split(classname, delimiter);
+  if (splitted_path.empty()) {
+    ss << Utils::Flags::options.kPATH << delimiter << classname << ".class";
+  } else {
+    ss << "." << delimiter << "classes" << delimiter << classname << ".class";
+  }
+  try {
+    Reader(new_class, ss.str()).readClassFile();
+  } catch (const Utils::Errors::Exception &e) {
+    // ss.str("");
+    // ss << "Ignored <" << classname << "." << method_name << ">";
+    delete new_class;
+    throw Utils::Errors::Exception(Utils::Errors::kCLASSFILE, e.what());
+  }
+
+  return new_class;
 }
 }  // namespace MemoryAreas
