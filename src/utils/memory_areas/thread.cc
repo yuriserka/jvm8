@@ -15,6 +15,9 @@
 namespace MemoryAreas {
 // template <typename T>
 void Thread::executeMethod(const std::string &method_name) {
+  if (Utils::Flags::options.kDEBUG) {
+    std::cout << "Executing method " << method_name << "\n";
+  }
   if (this->jvm_stack.size() > MAX_STACK) {
     std::stringstream ss;
     ss << "Stack Overflow. This jvm supports only " << MAX_STACK
@@ -99,8 +102,14 @@ void Thread::executeMethod(const std::string &method_name) {
               ->runtime_constant_pool[methodref_nametype_info->name_index - 1]
               .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
               ->getValue();
-
-      this->changeContext(ref_class_name, ref_method_name);
+      try {
+        this->changeContext(ref_class_name, ref_method_name);
+      } catch (const Utils::Errors::Exception &e) {
+        if (Utils::Flags::options.kDEBUG) {
+          std::cout << e.what() << "\n";
+        }
+        continue;
+      }
     }
   }
 
@@ -109,8 +118,10 @@ void Thread::executeMethod(const std::string &method_name) {
 
 void Thread::changeContext(const std::string &classname,
                            const std::string &method_name) {
-  std::cout << "\tchanging context to " << classname << "." << method_name
-            << "\n";
+  if (Utils::Flags::options.kDEBUG) {
+    std::cout << "\tchanging context to " << classname << "." << method_name
+              << "\n";
+  }
   auto const classinfo =
       this->method_area
           ->runtime_constant_pool[this->current_class->this_class - 1]
@@ -135,7 +146,14 @@ void Thread::changeContext(const std::string &classname,
     } else {
       ss << "." << delimiter << "classes" << delimiter << classname << ".class";
     }
-    Reader(new_class, ss.str()).readClassFile();
+    try {
+      Reader(new_class, ss.str()).readClassFile();
+    } catch (const Utils::Errors::Exception &e) {
+      ss.str("");
+      ss << "Ignored <" << classname << "." << method_name << ">";
+      delete new_class;
+      throw Utils::Errors::Exception(Utils::Errors::kCLASSFILE, ss.str());
+    }
     this->current_class = new_class;
   }
 

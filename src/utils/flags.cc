@@ -59,6 +59,7 @@ void toggle(const char *flag) {
   static std::map<std::string, bool *> optionsNames = {
       {"-v", &options.kVERBOSE},
       {"-i", &options.kIGNORE},
+      {"-d", &options.kDEBUG},
       {"-json", &options.kJSON}};
   bool *f = nullptr;
   try {

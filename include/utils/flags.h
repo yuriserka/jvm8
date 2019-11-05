@@ -5,6 +5,7 @@
 
 struct Options {
   bool kVERBOSE;
+  bool kDEBUG;
   bool kIGNORE;
   bool kJSON;
   struct {
