@@ -33,6 +33,7 @@ Reader::Reader(ClassFile *cf, const std::string &fpath) {
   } else {
     p = fpath;
   }
+  this->path = p.substr(0, p.find_last_of("/\\") + 1);
 
   this->file.open(p, std::ios::binary | std::ios::in);
   this->classfile = cf;
@@ -571,7 +572,7 @@ void Reader::readAttributesInfo(
         }
         break;
       }
-      case attrs::kINNERCLASS: {
+      case attrs::kINNERCLASSES: {
         auto innerclass_attr =
             attr->setBase<attrs::InnerClasses_attribute>(nameidx, attrlen);
         this->readBytes(&innerclass_attr->number_of_classes);
@@ -627,8 +628,7 @@ void Reader::readAttributesInfo(
                 ->getValue();
         class_name = class_name.substr(0, class_name.find_last_of('.'));
 
-        auto path_files =
-            Utils::FileSystem::getFileNames(Utils::Flags::options.kPATH);
+        auto path_files = Utils::FileSystem::getFileNames(this->path);
 
         auto it_class_file = std::find_if(
             path_files.begin(), path_files.end(),
@@ -636,10 +636,9 @@ void Reader::readAttributesInfo(
               return !class_name.compare(s.substr(0, s.find_last_of('.')));
             });
         if (it_class_file == path_files.end()) {
-          throw Utils::Errors::Exception(Utils::Errors::kSOURCE,
-                                         "Class file " + class_name +
-                                             " not found on path " +
-                                             Utils::Flags::options.kPATH);
+          throw Utils::Errors::Exception(
+              Utils::Errors::kSOURCE,
+              "Class file " + class_name + " not found on path " + this->path);
         }
         break;
       }

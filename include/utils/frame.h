@@ -3,24 +3,28 @@
 
 #include <stack>
 #include <vector>
+#include "utils/constantPool.h"
 #include "utils/errors.h"
 #include "utils/external/any.h"
 #include "utils/types.h"
-#include "utils/constantPool.h"
 
 namespace Utils {
 class Frame {
  public:
   Frame(const Types::u2 &stack_size, const Types::u2 &localvar_size,
-        const std::vector<ConstantPool::cp_info> &kpool)
-      : local_variables(localvar_size) {
+        const std::vector<ConstantPool::cp_info> &kpool) {
     this->max_operand_stack_size = stack_size;
+    this->max_localvar_size = localvar_size;
     this->runtime_constant_pool = kpool;
     this->pc = 0;
   }
 
   template <typename T>
   void pushLocalVar(const T &localvar) {
+    if (this->local_variables.size() > this->max_localvar_size) {
+      throw Utils::Errors::Exception(Utils::Errors::kSTACK,
+                                     "Loval Variable Overflow");
+    }
     this->local_variables.emplace_back(localvar);
   }
 
@@ -32,7 +36,8 @@ class Frame {
   template <typename T>
   void pushOperand(const T &operand) {
     if (this->operand_stack.size() > this->max_operand_stack_size) {
-      throw Utils::Errors::Exception(Utils::Errors::kSTACK, "");
+      throw Utils::Errors::Exception(Utils::Errors::kSTACK,
+                                     "Stack Frame Overflow");
     }
     this->operand_stack.push(operand);
   }
@@ -50,7 +55,8 @@ class Frame {
  private:
   std::vector<Any> local_variables;
   std::stack<Any> operand_stack;
-  int max_operand_stack_size;
+  uint16_t max_operand_stack_size;
+  uint16_t max_localvar_size;
   std::vector<ConstantPool::cp_info> runtime_constant_pool;
 };
 }  // namespace Utils

@@ -13,11 +13,11 @@
 namespace Utils {
 namespace Attributes {
 int getAttributeType(const std::string &attrname) {
-  std::map<std::string, int> attrTypes = {
+  static std::map<std::string, int> attrTypes = {
       {"ConstantValue", kCONSTANTVALUE},
       {"Code", kCODE},
       {"Exceptions", kEXCEPTIONS},
-      {"InnerClasses", kINNERCLASS},
+      {"InnerClasses", kINNERCLASSES},
       {"EnclosingMethod", kENCLOSINGMETHOD},
       {"Synthetic", kSYNTHETIC},
       {"Signature", kSIGNATURE},
@@ -138,6 +138,8 @@ std::string Code_attribute::getSpecificInfo(Viewer *v, const ClassFile *cf,
   ss << this->getTable(cf->constant_pool, header_vars, delta_tab + 1);
 
   ss << std::string(delta_tab, '\t') << "Misc: \n";
+  ss << std::string(delta_tab + 1, '\t')
+     << "Maximum operand stack size: " << this->max_stack << "\n";
   ss << std::string(delta_tab + 1, '\t')
      << "Maximum local variables: " << this->max_locals << "\n";
   ss << std::string(delta_tab + 1, '\t') << "Code length: " << this->code_length

@@ -5,6 +5,8 @@
 #include <locale>
 #include <sstream>
 #include <string>
+#include <vector>
+
 // #include "utils/constantPool.h"
 
 namespace Utils {
@@ -30,6 +32,8 @@ inline std::wstring toWString(const std::string &str) {
 }
 
 std::string getUtf8Modified(const ConstantPool::CONSTANT_Utf8_info *kutf8Info);
+
+std::vector<std::string> split(const std::string &s, char delimiter);
 }  // namespace String
 }  // namespace Utils
 

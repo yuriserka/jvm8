@@ -3,6 +3,7 @@ public class Instrucoes {
     private final double semestre = 6.5;
     private final String professor = "Ladeira";
     public static int nota = 10;
+    public static Emoji emoji;
 
     static void BYTE() {
         byte x = 22;
@@ -84,7 +85,7 @@ public class Instrucoes {
     public static void main(String[] args) {
         String especial = "tenho \ttabs\trs \\:";
         especial += "\\\"hahahahah\\\"";
-
+        emoji.m1();
         try {
             LONG();
         } catch (final ArithmeticException ae) {

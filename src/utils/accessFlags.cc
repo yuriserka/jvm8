@@ -7,7 +7,7 @@
 
 namespace Utils {
 namespace Access {
-std::map<Types::u2, std::string> classAccessNames = {
+static std::map<Types::u2, std::string> classAccessNames = {
     {ClassAccess::kACC_PUBLIC, "public"},
     {ClassAccess::kACC_FINAL, "final"},
     {ClassAccess::kACC_SUPER, "super"},
@@ -17,7 +17,7 @@ std::map<Types::u2, std::string> classAccessNames = {
     {ClassAccess::kACC_ANNOTATION, "annotation"},
     {ClassAccess::kACC_ENUM, "enum"}};
 
-std::map<Types::u2, std::string> fieldAccessNames = {
+static std::map<Types::u2, std::string> fieldAccessNames = {
     {FieldAccess::kACC_PUBLIC, "public"},
     {FieldAccess::kACC_PRIVATE, "private"},
     {FieldAccess::kACC_PROTECTED, "protected"},
@@ -28,7 +28,7 @@ std::map<Types::u2, std::string> fieldAccessNames = {
     {FieldAccess::kACC_SYNTHETIC, "synthetic"},
     {FieldAccess::kACC_ENUM, "enum"}};
 
-std::map<Types::u2, std::string> methodAccessNames = {
+static std::map<Types::u2, std::string> methodAccessNames = {
     {MethodAccess::kACC_PUBLIC, "public"},
     {MethodAccess::kACC_PRIVATE, "private"},
     {MethodAccess::kACC_PROTECTED, "protected"},
@@ -42,7 +42,7 @@ std::map<Types::u2, std::string> methodAccessNames = {
     {MethodAccess::kACC_STRICT, "strict"},
     {MethodAccess::kACC_SYNTHETIC, "synthetic"}};
 
-std::map<Types::u2, std::string> nestedAccessNames = {
+static std::map<Types::u2, std::string> nestedAccessNames = {
     {NestedClassAccess::kACC_PUBLIC, "public"},
     {NestedClassAccess::kACC_PRIVATE, "private"},
     {NestedClassAccess::kACC_PROTECTED, "protected"},
@@ -54,7 +54,7 @@ std::map<Types::u2, std::string> nestedAccessNames = {
     {NestedClassAccess::kACC_ANNOTATION, "annotation"},
     {NestedClassAccess::kACC_ENUM, "enum"}};
 
-std::map<Types::u2, std::string> methodparamsNames = {
+static std::map<Types::u2, std::string> methodparamsNames = {
     {MethodParamsAccess::kACC_FINAL, "final"},
     {MethodParamsAccess::kACC_SYNTHETIC, "synthetic"},
     {MethodParamsAccess::kACC_MANDATED, "mandated"}};

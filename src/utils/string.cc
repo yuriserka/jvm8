@@ -6,7 +6,7 @@
 
 namespace Utils {
 namespace String {
-std::string getUtf8Modified(const ConstantPool::CONSTANT_Utf8_info *kutf8Info) {
+std::string getUtf8Modified(const ConstantPool::CONSTANT_Utf8_info* kutf8Info) {
   int c, char2, char3;
   int count = 0;
   int chararr_count = 0;
@@ -92,6 +92,16 @@ std::string getUtf8Modified(const ConstantPool::CONSTANT_Utf8_info *kutf8Info) {
   delete[] chararr;
 
   return str;
+}
+
+std::vector<std::string> split(const std::string& s, char delimiter) {
+  std::vector<std::string> tokens;
+  std::string token;
+  std::istringstream tokenStream(s);
+  while (std::getline(tokenStream, token, delimiter)) {
+    tokens.push_back(token);
+  }
+  return tokens;
 }
 }  // namespace String
 }  // namespace Utils

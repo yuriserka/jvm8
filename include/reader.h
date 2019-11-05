@@ -89,6 +89,7 @@ class Reader {
 
   std::fstream file;
   ClassFile *classfile;
+  std::string path;
 };
 
 #endif  // INCLUDE_READER_H_

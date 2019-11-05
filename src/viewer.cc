@@ -468,7 +468,7 @@ void Viewer::printAttributeInfo(
       std::cout << exception_attr->getSpecificInfo(kpool, tab_shift + 2);
       break;
     }
-    case attrs::kINNERCLASS: {
+    case attrs::kINNERCLASSES: {
       auto innerclass_attr =
           attribute->getClass<attrs::InnerClasses_attribute>();
       std::cout << innerclass_attr->getSpecificInfo(kpool, tab_shift + 2);

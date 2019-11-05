@@ -96,7 +96,7 @@ void ClassFile::deleteAttributes(
       case attrs::kEXCEPTIONS:
         attr.deleteclass<attrs::Exceptions_attribute>();
         break;
-      case attrs::kINNERCLASS:
+      case attrs::kINNERCLASSES:
         attr.deleteclass<attrs::InnerClasses_attribute>();
         break;
       case attrs::kENCLOSINGMETHOD:

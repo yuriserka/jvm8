@@ -9,10 +9,11 @@ class JavaStack {
  public:
   void push(Utils::Frame *frame) { this->frames.push(frame); }
 
-  Utils::Frame *pop() {
+  void pop() {
     auto f = this->frames.top();
     this->frames.pop();
-    return f;
+
+    delete f;
   }
 
   Utils::Frame *top() { return this->frames.top(); }

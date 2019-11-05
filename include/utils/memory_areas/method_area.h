@@ -8,7 +8,9 @@
 namespace MemoryAreas {
 class MethodArea {
  public:
-  MethodArea(const ClassFile *cf) {
+  MethodArea(const ClassFile *cf) { this->update(cf); }
+
+  void update(const ClassFile *cf) {
     this->cf = cf;
     this->runtime_constant_pool = cf->constant_pool;
     this->methods = cf->methods;
@@ -19,7 +21,7 @@ class MethodArea {
   Utils::Infos::field_info getField(const std::string &field_name);
 
   std::vector<Utils::ConstantPool::cp_info> runtime_constant_pool;
-  
+
  private:
   const ClassFile *cf;
   std::vector<Utils::Infos::method_info> methods;

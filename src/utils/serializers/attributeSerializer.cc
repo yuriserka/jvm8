@@ -297,7 +297,7 @@ void AttributeSerializer::to_json(json *j, const int &attrindex) {
       }
       break;
     }
-    case kINNERCLASS: {
+    case kINNERCLASSES: {
       auto innerclasses_attr = attr.getClass<InnerClasses_attribute>();
       create_json_str(j, innerclasses_attr);
       kpool_serializer.to_json(&(*j).at("/generic info/name"_json_pointer),

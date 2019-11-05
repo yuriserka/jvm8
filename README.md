@@ -11,14 +11,14 @@ Documentação da Oracle disponível em: [Java SE 8](https://docs.oracle.com/jav
 #### Linux:
 `make clean && make`
 
-`./jvm.out viewer ./.javasrc/ Java12.class -v -json`
+`./jvm.out interpreter ./classes/ anon.class`
 
 #### Windows:
 `mingw32-make.exe clean`
 
 `mingw32-make.exe`
 
-`.\jvm.exe viewer .\.javasrc\ .\.javasrc\Anon.class -json`
+`.\jvm.exe viewer .\classes\ .\.classes\Anon.class -json`
 
 ## Debugging
 
@@ -26,7 +26,7 @@ Make sure you have GDB installed.
 
 Compile the program normally according to your operating system.
 
-`gdb --args ./jvm.out viewer ./.javasrc/ ./.javasrc/Caixa.class`
+`gdb --args ./jvm.out viewer ./classes/ ./classes/Caixa.class`
 
 #### Basic commands
 consult the commands: [GDB Command Line Arguments](http://www.yolinux.com/TUTORIALS/GDB-Commands.html)
@@ -38,7 +38,7 @@ Make sure you have valgrind installed.
 
 Compile the program normally according to your operating system.
 
-```valgrind -v --leak-check=full --track-origins=yes --show-leak-kinds=all ./jvm.out viewer ./.javasrc/ ./.javasrc/LookAtMe.class -v -json```
+```make && valgrind -v --leak-check=full --track-origins=yes --show-leak-kinds=all ./jvm.out interpreter ./classes/ anon.class```
 
 ## Code style reference
 [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)

@@ -20,7 +20,7 @@ static std::string getUsage() {
 }
 
 static void setMode(const char *mode) {
-  std::map<std::string, bool *> modes = {
+  static std::map<std::string, bool *> modes = {
       {"viewer", &options.KMODE.kVIEWER},
       {"interpreter", &options.KMODE.kINTERPRETER}};
   bool *f = nullptr;
@@ -56,9 +56,10 @@ void toggleAll(const char **flags) {
 }
 
 void toggle(const char *flag) {
-  std::map<std::string, bool *> optionsNames = {{"-v", &options.kVERBOSE},
-                                                {"-i", &options.kIGNORE},
-                                                {"-json", &options.kJSON}};
+  static std::map<std::string, bool *> optionsNames = {
+      {"-v", &options.kVERBOSE},
+      {"-i", &options.kIGNORE},
+      {"-json", &options.kJSON}};
   bool *f = nullptr;
   try {
     f = optionsNames.at(flag);

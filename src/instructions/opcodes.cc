@@ -5,7 +5,7 @@
 namespace Instructions {
 namespace Opcodes {
 std::string getMnemonic(const Utils::Types::u1 &opcode) {
-  std::map<Utils::Types::u1, std::string> mnemonics = {
+  static std::map<Utils::Types::u1, std::string> mnemonics = {
       {kAALOAD, "AALOAD"},
       {kAASTORE, "AASTORE"},
       {kACONST_NULL, "ACONST_NULL"},

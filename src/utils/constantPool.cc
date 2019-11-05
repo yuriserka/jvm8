@@ -12,7 +12,7 @@
 namespace Utils {
 namespace ConstantPool {
 std::string getConstantTypename(const Types::u1 &ct) {
-  std::map<Types::u1, std::string> names = {
+  static std::map<Types::u1, std::string> names = {
       {kCONSTANT_CLASS, "Class"},
       {kCONSTANT_FIELDREF, "Fieldref"},
       {kCONSTANT_METHODREF, "Methodref"},
