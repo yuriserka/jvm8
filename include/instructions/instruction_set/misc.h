@@ -32,6 +32,13 @@ class Checkcast : public Instruction {
     *delta_code = 2;
     return {};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class Dup : public Instruction {
@@ -49,6 +56,13 @@ class Dup : public Instruction {
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide, int *pc) override {
+    return {};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 };
@@ -70,6 +84,13 @@ class DupX1 : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     return {};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class DupX2 : public Instruction {
@@ -87,6 +108,13 @@ class DupX2 : public Instruction {
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide, int *pc) override {
+    return {};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 };
@@ -108,6 +136,13 @@ class Dup2 : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     return {};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class Dup2X1 : public Instruction {
@@ -127,6 +162,13 @@ class Dup2X1 : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     return {};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class Dup2X2 : public Instruction {
@@ -144,6 +186,13 @@ class Dup2X2 : public Instruction {
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide, int *pc) override {
+    return {};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 };
@@ -169,6 +218,13 @@ class GetField : public Instruction {
     *delta_code = 2;
     return {};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class GetStatic : public Instruction {
@@ -190,6 +246,13 @@ class GetStatic : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
+    return {};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 };
@@ -217,6 +280,13 @@ class Goto : public Instruction {
     *delta_code = 2;
     return {Utils::String::toString(offset)};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class GotoWide : public Instruction {
@@ -243,6 +313,13 @@ class GotoWide : public Instruction {
     *delta_code = 4;
     return {Utils::String::toString(offset)};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class InstanceOf : public Instruction {
@@ -265,6 +342,13 @@ class InstanceOf : public Instruction {
     return {};
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 };
 
@@ -347,6 +431,13 @@ class LookupSwitch : public Instruction {
 
     return args;
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class MultiDimArray : public Instruction {
@@ -371,6 +462,13 @@ class MultiDimArray : public Instruction {
     *delta_code = 3;
     return {Utils::String::toString(+(*++*code_it))};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class New : public Instruction {
@@ -392,6 +490,13 @@ class New : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
+    return {};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 };
@@ -417,6 +522,13 @@ class NewArray : public Instruction {
     unsigned char atype = *++*code_it;
     *delta_code = 1;
     return {Utils::String::toString(int{atype})};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 
  private:
@@ -471,6 +583,13 @@ class Nop : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     return {};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class Pop : public Instruction {
@@ -490,6 +609,13 @@ class Pop : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     return {};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class Pop2 : public Instruction {
@@ -507,6 +633,13 @@ class Pop2 : public Instruction {
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide, int *pc) override {
+    return {};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 };
@@ -532,6 +665,13 @@ class PutField : public Instruction {
     *delta_code = 2;
     return {};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class PutStatic : public Instruction {
@@ -553,6 +693,13 @@ class PutStatic : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
+    return {};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 };
@@ -591,6 +738,13 @@ class Ret : public Instruction {
     *delta_code = 1;
     return {Utils::String::toString(int{index})};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class Return : public Instruction {
@@ -610,6 +764,13 @@ class Return : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     return {};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class Swap : public Instruction {
@@ -627,6 +788,13 @@ class Swap : public Instruction {
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide, int *pc) override {
+    return {};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 };
@@ -708,6 +876,13 @@ class TableSwitch : public Instruction {
 
     return args;
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 /**
@@ -728,6 +903,13 @@ class Wide : public Instruction {
   inline std::vector<std::string> toBytecode_json(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide, int *pc) override {
+    return {};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 };

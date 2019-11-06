@@ -6,7 +6,10 @@
 #include <vector>
 #include "utils/types.h"
 
-class Viewer;
+// forward declaration
+namespace MemoryAreas {
+class Thread;
+}
 
 namespace Instructions {
 class Instruction {
@@ -15,9 +18,10 @@ class Instruction {
 
   virtual ~Instruction() = default;
 
-  //   virtual std::vector<int> execute(
-  //       std::vector<Utils::Types::u1>::iterator *code_iterator, int
-  //       *delta_code, const bool &wide, int *pc = nullptr) = 0;
+  virtual std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) = 0;
 
   virtual std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,

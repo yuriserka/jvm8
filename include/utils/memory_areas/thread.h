@@ -14,7 +14,6 @@ class Thread {
     this->current_class = cf;
   }
 
-  // template <typename T>
   void executeMethod(const std::string &method_name);
 
  private:

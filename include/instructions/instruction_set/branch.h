@@ -33,6 +33,13 @@ class RefCompareEqual : public Instruction {
     *delta_code = 2;
     return {Utils::String::toString(offset)};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class RefCompareNotEqual : public Instruction {
@@ -57,6 +64,13 @@ class RefCompareNotEqual : public Instruction {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {Utils::String::toString(offset)};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 };
 
@@ -83,6 +97,13 @@ class IntegerCompareEqual : public Instruction {
     *delta_code = 2;
     return {Utils::String::toString(offset)};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class IntegerCompareGreaterEqual : public Instruction {
@@ -107,6 +128,13 @@ class IntegerCompareGreaterEqual : public Instruction {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {Utils::String::toString(offset)};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 };
 
@@ -133,6 +161,13 @@ class IntegerCompareGreaterThan : public Instruction {
     *delta_code = 2;
     return {Utils::String::toString(offset)};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class IntegerCompareLessEqual : public Instruction {
@@ -157,6 +192,13 @@ class IntegerCompareLessEqual : public Instruction {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {Utils::String::toString(offset)};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 };
 
@@ -183,6 +225,13 @@ class IntegerCompareLessThan : public Instruction {
     *delta_code = 2;
     return {Utils::String::toString(offset)};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class IntegerCompareNotEqual : public Instruction {
@@ -207,6 +256,13 @@ class IntegerCompareNotEqual : public Instruction {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {Utils::String::toString(offset)};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 };
 
@@ -233,6 +289,13 @@ class EqualZero : public Instruction {
     *delta_code = 2;
     return {Utils::String::toString(offset)};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class GreaterEqualZero : public Instruction {
@@ -257,6 +320,13 @@ class GreaterEqualZero : public Instruction {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {Utils::String::toString(offset)};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 };
 
@@ -283,6 +353,13 @@ class GreaterThanZero : public Instruction {
     *delta_code = 2;
     return {Utils::String::toString(offset)};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class LessEqualZero : public Instruction {
@@ -307,6 +384,13 @@ class LessEqualZero : public Instruction {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {Utils::String::toString(offset)};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 };
 
@@ -333,6 +417,13 @@ class LessThanZero : public Instruction {
     *delta_code = 2;
     return {Utils::String::toString(offset)};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class NotEqualZero : public Instruction {
@@ -357,6 +448,13 @@ class NotEqualZero : public Instruction {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {Utils::String::toString(offset)};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 };
 
@@ -383,6 +481,13 @@ class NonNull : public Instruction {
     *delta_code = 2;
     return {Utils::String::toString(offset)};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class RefNull : public Instruction {
@@ -407,6 +512,13 @@ class RefNull : public Instruction {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {Utils::String::toString(offset)};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 };
 }  // namespace Branch

@@ -4,9 +4,14 @@
 #include <vector>
 #include "utils/types.h"
 
+// forward declaration
+namespace MemoryAreas {
+class Thread;
+}
+
 namespace Instructions {
-bool runBytecode(std::vector<Utils::Types::u1>::iterator *opcode, int *pc,
-                 const bool &wide = false);
+bool runBytecode(std::vector<Utils::Types::u1>::iterator *opcode,
+                 MemoryAreas::Thread *th, int *pc, const bool &wide = false);
 }
 
 #endif  // INCLUDE_INSTRUCTIONS_PRINTER_H_

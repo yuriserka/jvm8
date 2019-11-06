@@ -31,6 +31,13 @@ class JumpSubRoutine : public Instruction {
     *delta_code = 2;
     return {Utils::String::toString(offset)};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class JumpSubRoutineWide : public Instruction {
@@ -55,6 +62,13 @@ class JumpSubRoutineWide : public Instruction {
                   (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {Utils::String::toString(offset)};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
   }
 };
 }  // namespace Jump

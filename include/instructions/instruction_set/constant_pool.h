@@ -31,6 +31,13 @@ class LoadCat1 : public Instruction {
     *delta_code = 1;
     return {};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class LoadCat1Wide : public Instruction {
@@ -54,6 +61,13 @@ class LoadCat1Wide : public Instruction {
     *delta_code = 2;
     return {};
   }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+    return {};
+  }
 };
 
 class LoadCat2 : public Instruction {
@@ -75,6 +89,13 @@ class LoadCat2 : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
+    return {};
+  }
+
+  inline std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
+      const bool &wide, int *pc = nullptr) override {
+    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
     return {};
   }
 };

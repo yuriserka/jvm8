@@ -12,7 +12,6 @@
 #define MAX_STACK 40
 
 namespace MemoryAreas {
-// template <typename T>
 void Thread::executeMethod(const std::string &method_name) {
   if (this->jvm_stack.size() > MAX_STACK) {
     std::stringstream ss;
@@ -55,6 +54,7 @@ void Thread::executeMethod(const std::string &method_name) {
 
   for (auto it = code_array.begin(); it != code_array.end();
        ++it, ++this->current_frame->pc) {
+    Instructions::runBytecode(&it, this, &this->current_frame->pc);
     // Apenas para teste para ver se a troca de contexto em nível de função
     // funciona, ainda não passa argumentos e nem variaveis locais. invoke
     // todos os invokes
@@ -106,10 +106,10 @@ void Thread::executeMethod(const std::string &method_name) {
 
 void Thread::changeContext(const std::string &classname,
                            const std::string &method_name,
-                           const std::string &arguments) {
+                           const std::string &descriptor) {
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "\tchanging context to " << classname << "." << method_name
-              << arguments << "\n";
+              << descriptor << "\n";
   }
   auto const actual_classname = Utils::getClassName(this->current_class);
 
