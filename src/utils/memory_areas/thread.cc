@@ -25,9 +25,16 @@ void Thread::executeMethod(const std::string &method_name) {
   auto method = this->method_area->getMethod(method_name);
   this->current_method = method_name;
 
-  auto code_attr =
-      Utils::getAttribute(this->current_class, &method.attributes, "Code")
-          .getClass<Utils::Attributes::Code_attribute>();
+  Utils::Attributes::Code_attribute *code_attr;
+
+  try {
+    code_attr =
+        Utils::getAttribute(this->current_class, &method.attributes, "Code")
+            .getClass<Utils::Attributes::Code_attribute>();
+  } catch (const Utils::Errors::Exception &e) {
+    std::cout << e.what() << "\n";
+    return;
+  }
   auto code_array = code_attr->code;
 
   if (Utils::Flags::options.kDEBUG) {
@@ -108,26 +115,14 @@ void Thread::changeContext(const std::string &classname,
 
   auto old_class = this->current_class;
   if (classname.compare(actual_classname)) {
-    if (!this->method_area->isLoaded(classname)) {
-      if (Utils::Flags::options.kDEBUG) {
-        std::cout << "Loading class " << classname << "\n";
-      }
-    }
     auto new_class = this->method_area->loadClass(classname);
     this->current_class = new_class;
+    this->method_area->update(this->current_class);
   }
   auto old_method = this->current_method;
   auto old_frame = this->current_frame;
 
-  if (this->current_class != old_class) {
-    this->method_area->update(this->current_class);
-  }
-
   this->executeMethod(method_name);
-
-  // if (this->current_class != old_class) {
-  //   delete this->current_class;
-  // }
 
   this->current_class = old_class;
   this->current_frame = old_frame;

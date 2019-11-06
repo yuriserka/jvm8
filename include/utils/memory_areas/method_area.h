@@ -13,11 +13,14 @@ class MethodArea {
  public:
   MethodArea(const ClassFile *cf) { this->update(cf); }
 
+  ~MethodArea() {
+    this->loaded.remove_if([](const ClassFile *cf) {
+      delete cf;
+      return true;
+    });
+  }
+
   void update(const ClassFile *cf) {
-    auto classname = Utils::getClassName(cf);
-    if (!this->isLoaded(classname)) {
-      this->loaded.push_back(cf);
-    }
     this->runtime_classfile = cf;
     this->runtime_constant_pool = cf->constant_pool;
     this->methods = cf->methods;

@@ -54,7 +54,7 @@ Utils::Infos::field_info MethodArea::getField(const std::string &field_name) {
 
 const ClassFile *MethodArea::getClass(const std::string &classname) {
   if (!this->isLoaded(classname)) {
-    throw Utils::Errors::Exception(1, "nao ta carregada");
+    return this->loadClass(classname);
   }
 
   auto classfile = std::find_if(this->loaded.begin(), this->loaded.end(),
@@ -71,8 +71,11 @@ const ClassFile *MethodArea::loadClass(const std::string &classname) {
   if (this->isLoaded(classname)) {
     return this->getClass(classname);
   }
+  if (Utils::Flags::options.kDEBUG) {
+    std::cout << "Loading class " << classname << "\n";
+  }
   std::stringstream ss;
-  ClassFile *new_class = new ClassFile();
+  const ClassFile *new_class = new ClassFile();
   char delimiter = '/';
 #if defined(_WIN32) || defined(WIN32)
   delimiter = '\\';
@@ -84,13 +87,15 @@ const ClassFile *MethodArea::loadClass(const std::string &classname) {
     ss << "." << delimiter << "classes" << delimiter << classname << ".class";
   }
   try {
-    Reader(new_class, ss.str()).readClassFile();
+    Reader(const_cast<ClassFile *>(new_class), ss.str()).readClassFile();
   } catch (const Utils::Errors::Exception &e) {
     // ss.str("");
     // ss << "Ignored <" << classname << "." << method_name << ">";
     delete new_class;
     throw Utils::Errors::Exception(Utils::Errors::kCLASSFILE, e.what());
   }
+
+  this->loaded.push_back(new_class);
 
   return new_class;
 }
