@@ -10,9 +10,9 @@
 
 namespace Instructions {
 namespace Long {
-class ToDouble : public Instruction {
+class BaseLong : public Instruction {
  public:
-  ToDouble() : Instruction(Opcodes::kL2D) {}
+  explicit BaseLong(const Utils::Types::u1 &tag) : Instruction(tag) {}
 
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
@@ -26,274 +26,118 @@ class ToDouble : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide, int *pc) override {
     return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
+    ;
   }
 };
 
-class ToFloat : public Instruction {
+class ToDouble : public BaseLong {
  public:
-  ToFloat() : Instruction(Opcodes::kL2F) {}
+  ToDouble() : BaseLong(Opcodes::kL2D) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class ToInteger : public Instruction {
+class ToFloat : public BaseLong {
  public:
-  ToInteger() : Instruction(Opcodes::kL2I) {}
+  ToFloat() : BaseLong(Opcodes::kL2F) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Add : public Instruction {
+class ToInteger : public BaseLong {
  public:
-  Add() : Instruction(Opcodes::kLADD) {}
+  ToInteger() : BaseLong(Opcodes::kL2I) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class LoadFromArray : public Instruction {
+class Add : public BaseLong {
  public:
-  LoadFromArray() : Instruction(Opcodes::kLALOAD) {}
+  Add() : BaseLong(Opcodes::kLADD) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class And : public Instruction {
+class LoadFromArray : public BaseLong {
  public:
-  And() : Instruction(Opcodes::kLAND) {}
+  LoadFromArray() : BaseLong(Opcodes::kLALOAD) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class StoreIntoArray : public Instruction {
+class And : public BaseLong {
  public:
-  StoreIntoArray() : Instruction(Opcodes::kLASTORE) {}
+  And() : BaseLong(Opcodes::kLAND) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Compare : public Instruction {
+class StoreIntoArray : public BaseLong {
  public:
-  Compare() : Instruction(Opcodes::kLCMP) {}
+  StoreIntoArray() : BaseLong(Opcodes::kLASTORE) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Const_0 : public Instruction {
+class Compare : public BaseLong {
  public:
-  Const_0() : Instruction(Opcodes::kLCONST_0) {}
+  Compare() : BaseLong(Opcodes::kLCMP) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Const_1 : public Instruction {
+class Const_0 : public BaseLong {
  public:
-  Const_1() : Instruction(Opcodes::kLCONST_1) {}
+  Const_0() : BaseLong(Opcodes::kLCONST_0) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Div : public Instruction {
+class Const_1 : public BaseLong {
  public:
-  Div() : Instruction(Opcodes::kLDIV) {}
+  Const_1() : BaseLong(Opcodes::kLCONST_1) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
+};
 
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
+class Div : public BaseLong {
+ public:
+  Div() : BaseLong(Opcodes::kLDIV) {}
 
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
 class Load : public Instruction {
@@ -332,298 +176,120 @@ class Load : public Instruction {
     return {Utils::String::toString(int{index})};
   }
 
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Load_0 : public Instruction {
+class Load_0 : public BaseLong {
  public:
-  Load_0() : Instruction(Opcodes::kLLOAD_0) {}
+  Load_0() : BaseLong(Opcodes::kLLOAD_0) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Load_1 : public Instruction {
+class Load_1 : public BaseLong {
  public:
-  Load_1() : Instruction(Opcodes::kLLOAD_1) {}
+  Load_1() : BaseLong(Opcodes::kLLOAD_1) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Load_2 : public Instruction {
+class Load_2 : public BaseLong {
  public:
-  Load_2() : Instruction(Opcodes::kLLOAD_2) {}
+  Load_2() : BaseLong(Opcodes::kLLOAD_2) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Load_3 : public Instruction {
+class Load_3 : public BaseLong {
  public:
-  Load_3() : Instruction(Opcodes::kLLOAD_3) {}
+  Load_3() : BaseLong(Opcodes::kLLOAD_3) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Mul : public Instruction {
+class Mul : public BaseLong {
  public:
-  Mul() : Instruction(Opcodes::kLMUL) {}
+  Mul() : BaseLong(Opcodes::kLMUL) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Neg : public Instruction {
+class Neg : public BaseLong {
  public:
-  Neg() : Instruction(Opcodes::kLNEG) {}
+  Neg() : BaseLong(Opcodes::kLNEG) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Or : public Instruction {
+class Or : public BaseLong {
  public:
-  Or() : Instruction(Opcodes::kLOR) {}
+  Or() : BaseLong(Opcodes::kLOR) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Rem : public Instruction {
+class Rem : public BaseLong {
  public:
-  Rem() : Instruction(Opcodes::kLREM) {}
+  Rem() : BaseLong(Opcodes::kLREM) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Return : public Instruction {
+class Return : public BaseLong {
  public:
-  Return() : Instruction(Opcodes::kLRETURN) {}
+  Return() : BaseLong(Opcodes::kLRETURN) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class ShiftLeft : public Instruction {
+class ShiftLeft : public BaseLong {
  public:
-  ShiftLeft() : Instruction(Opcodes::kLSHL) {}
+  ShiftLeft() : BaseLong(Opcodes::kLSHL) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class ArithmeticShiftRight : public Instruction {
+class ArithmeticShiftRight : public BaseLong {
  public:
-  ArithmeticShiftRight() : Instruction(Opcodes::kLSHR) {}
+  ArithmeticShiftRight() : BaseLong(Opcodes::kLSHR) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
 class Store : public Instruction {
@@ -661,194 +327,80 @@ class Store : public Instruction {
     return {Utils::String::toString(int{index})};
   }
 
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Store_0 : public Instruction {
+class Store_0 : public BaseLong {
  public:
-  Store_0() : Instruction(Opcodes::kLSTORE_0) {}
+  Store_0() : BaseLong(Opcodes::kLSTORE_0) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Store_1 : public Instruction {
+class Store_1 : public BaseLong {
  public:
-  Store_1() : Instruction(Opcodes::kLSTORE_1) {}
+  Store_1() : BaseLong(Opcodes::kLSTORE_1) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Store_2 : public Instruction {
+class Store_2 : public BaseLong {
  public:
-  Store_2() : Instruction(Opcodes::kLSTORE_2) {}
+  Store_2() : BaseLong(Opcodes::kLSTORE_2) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Store_3 : public Instruction {
+class Store_3 : public BaseLong {
  public:
-  Store_3() : Instruction(Opcodes::kLSTORE_3) {}
+  Store_3() : BaseLong(Opcodes::kLSTORE_3) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Sub : public Instruction {
+class Sub : public BaseLong {
  public:
-  Sub() : Instruction(Opcodes::kLSUB) {}
+  Sub() : BaseLong(Opcodes::kLSUB) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class LogicalShiftRight : public Instruction {
+class LogicalShiftRight : public BaseLong {
  public:
-  LogicalShiftRight() : Instruction(Opcodes::kLUSHR) {}
+  LogicalShiftRight() : BaseLong(Opcodes::kLUSHR) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class Xor : public Instruction {
+class Xor : public BaseLong {
  public:
-  Xor() : Instruction(Opcodes::kLXOR) {}
+  Xor() : BaseLong(Opcodes::kLXOR) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    (*ss) << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    return {};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 }  // namespace Long
 }  // namespace Instructions

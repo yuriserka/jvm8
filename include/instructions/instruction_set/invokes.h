@@ -35,12 +35,10 @@ class Dynamic : public Instruction {
             Utils::String::toString(+(*++*code_it))};
   }
 
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
 class Interface : public Instruction {
@@ -68,12 +66,10 @@ class Interface : public Instruction {
             Utils::String::toString(+(*++*code_it))};
   }
 
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
 class Especial : public Instruction {
@@ -98,12 +94,10 @@ class Especial : public Instruction {
     return {};
   }
 
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
 class Static : public Instruction {
@@ -128,12 +122,10 @@ class Static : public Instruction {
     return {};
   }
 
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
 class Virtual : public Instruction {
@@ -158,12 +150,10 @@ class Virtual : public Instruction {
     return {};
   }
 
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 }  // namespace Invokes
 }  // namespace Instructions

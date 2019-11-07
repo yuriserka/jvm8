@@ -10,10 +10,9 @@
 
 namespace Instructions {
 namespace Branch {
-class RefCompareEqual : public Instruction {
+class BaseBranch : public Instruction {
  public:
-  RefCompareEqual() : Instruction(Opcodes::kIF_ACMPEQ) {}
-
+  explicit BaseBranch(const Utils::Types::u1 &tag) : Instruction(tag) {}
   inline std::vector<int> toBytecode(
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       std::stringstream *ss, const bool &wide, int *pc,
@@ -32,494 +31,167 @@ class RefCompareEqual : public Instruction {
     int16_t offset = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
     return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
   }
 };
 
-class RefCompareNotEqual : public Instruction {
+class RefCompareEqual : public BaseBranch {
  public:
-  RefCompareNotEqual() : Instruction(Opcodes::kIF_ACMPNE) {}
+  RefCompareEqual() : BaseBranch(Opcodes::kIF_ACMPEQ) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class IntegerCompareEqual : public Instruction {
+class RefCompareNotEqual : public BaseBranch {
  public:
-  IntegerCompareEqual() : Instruction(Opcodes::kIF_ICMPEQ) {}
+  RefCompareNotEqual() : BaseBranch(Opcodes::kIF_ACMPNE) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class IntegerCompareGreaterEqual : public Instruction {
+class IntegerCompareEqual : public BaseBranch {
  public:
-  IntegerCompareGreaterEqual() : Instruction(Opcodes::kIF_ICMPGE) {}
+  IntegerCompareEqual() : BaseBranch(Opcodes::kIF_ICMPEQ) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class IntegerCompareGreaterThan : public Instruction {
+class IntegerCompareGreaterEqual : public BaseBranch {
  public:
-  IntegerCompareGreaterThan() : Instruction(Opcodes::kIF_ICMPGT) {}
+  IntegerCompareGreaterEqual() : BaseBranch(Opcodes::kIF_ICMPGE) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class IntegerCompareLessEqual : public Instruction {
+class IntegerCompareGreaterThan : public BaseBranch {
  public:
-  IntegerCompareLessEqual() : Instruction(Opcodes::kIF_ICMPLE) {}
+  IntegerCompareGreaterThan() : BaseBranch(Opcodes::kIF_ICMPGT) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class IntegerCompareLessThan : public Instruction {
+class IntegerCompareLessEqual : public BaseBranch {
  public:
-  IntegerCompareLessThan() : Instruction(Opcodes::kIF_ICMPLT) {}
+  IntegerCompareLessEqual() : BaseBranch(Opcodes::kIF_ICMPLE) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class IntegerCompareNotEqual : public Instruction {
+class IntegerCompareLessThan : public BaseBranch {
  public:
-  IntegerCompareNotEqual() : Instruction(Opcodes::kIF_ICMPNE) {}
+  IntegerCompareLessThan() : BaseBranch(Opcodes::kIF_ICMPLT) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class EqualZero : public Instruction {
+class IntegerCompareNotEqual : public BaseBranch {
  public:
-  EqualZero() : Instruction(Opcodes::kIFEQ) {}
+  IntegerCompareNotEqual() : BaseBranch(Opcodes::kIF_ICMPNE) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class GreaterEqualZero : public Instruction {
+class EqualZero : public BaseBranch {
  public:
-  GreaterEqualZero() : Instruction(Opcodes::kIFGE) {}
+  EqualZero() : BaseBranch(Opcodes::kIFEQ) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class GreaterThanZero : public Instruction {
+class GreaterEqualZero : public BaseBranch {
  public:
-  GreaterThanZero() : Instruction(Opcodes::kIFGT) {}
+  GreaterEqualZero() : BaseBranch(Opcodes::kIFGE) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class LessEqualZero : public Instruction {
+class GreaterThanZero : public BaseBranch {
  public:
-  LessEqualZero() : Instruction(Opcodes::kIFLE) {}
+  GreaterThanZero() : BaseBranch(Opcodes::kIFGT) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class LessThanZero : public Instruction {
+class LessEqualZero : public BaseBranch {
  public:
-  LessThanZero() : Instruction(Opcodes::kIFLT) {}
+  LessEqualZero() : BaseBranch(Opcodes::kIFLE) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class NotEqualZero : public Instruction {
+class LessThanZero : public BaseBranch {
  public:
-  NotEqualZero() : Instruction(Opcodes::kIFNE) {}
+  LessThanZero() : BaseBranch(Opcodes::kIFLT) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class NonNull : public Instruction {
+class NotEqualZero : public BaseBranch {
  public:
-  NonNull() : Instruction(Opcodes::kIFNONNULL) {}
+  NotEqualZero() : BaseBranch(Opcodes::kIFNE) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
-
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
-
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 
-class RefNull : public Instruction {
+class NonNull : public BaseBranch {
  public:
-  RefNull() : Instruction(Opcodes::kIFNULL) {}
+  NonNull() : BaseBranch(Opcodes::kIFNONNULL) {}
 
-  inline std::vector<int> toBytecode(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      std::stringstream *ss, const bool &wide, int *pc,
-      const int &delta_tab) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " "
-          << (static_cast<int16_t>(*pc) + offset) << " (" << std::showpos
-          << offset << ")\n";
-    *delta_code = 2;
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
+};
 
-  inline std::vector<std::string> toBytecode_json(
-      std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
-      int *ret, const bool &wide, int *pc) override {
-    int16_t offset = (*++*code_it << 8) | *++*code_it;
-    *delta_code = 2;
-    return {Utils::String::toString(offset)};
-  }
+class RefNull : public BaseBranch {
+ public:
+  RefNull() : BaseBranch(Opcodes::kIFNULL) {}
 
-  inline std::vector<int> execute(
-      std::vector<Utils::Types::u1>::iterator *code_iterator, int *delta_code,
-      const bool &wide, int *pc = nullptr) override {
-    std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
-    return {};
-  }
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
 };
 }  // namespace Branch
 }  // namespace Instructions
