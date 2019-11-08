@@ -52,8 +52,8 @@ void Thread::executeMethod(const std::string &method_name) {
       this->current_class->constant_pool[this->current_class->this_class - 1]
           .getClass<Utils::ConstantPool::CONSTANT_Class_info>());
 
-  for (auto it = code_array.begin(); it != code_array.end();
-       ++it, ++this->current_frame->pc) {
+  for (auto it = code_array.begin(); it != code_array.end(); ++it) {
+    std::cout << this->current_frame->pc << ": ";
     Instructions::runBytecode(&it, this, &this->current_frame->pc);
     // Apenas para teste para ver se a troca de contexto em nível de função
     // funciona, ainda não passa argumentos e nem variaveis locais. invoke
@@ -128,6 +128,10 @@ void Thread::changeContext(const std::string &classname,
   this->current_frame = old_frame;
   this->current_method = old_method;
 
+  if (Utils::Flags::options.kDEBUG) {
+    std::cout << "\treturning context to " << actual_classname << "."
+              << this->current_method << "\n";
+  }
   this->method_area->update(this->current_class);
 }
 }  // namespace MemoryAreas

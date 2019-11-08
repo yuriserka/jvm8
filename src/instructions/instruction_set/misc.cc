@@ -5,208 +5,210 @@ namespace Instructions {
 namespace Misc {
 std::vector<int> Checkcast::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Dup::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> DupX1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> DupX2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Dup2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Dup2X1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Dup2X2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> GetField::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> GetStatic::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
+  auto index = (*++*code_iterator << 8) | *++*code_iterator;
+  auto refindex = th->method_area->runtime_constant_pool[index - 1]
+                      .getClass<Utils::ConstantPool::CONSTANT_FieldRef_info>();
+  auto classindex =
+      th->method_area->runtime_constant_pool[refindex->class_index - 1]
+          .getClass<Utils::ConstantPool::CONSTANT_Class_info>();
+  auto classname =
+      th->method_area->runtime_constant_pool[classindex->name_index - 1]
+          .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
+          ->getValue();
+
+  auto nametypeindex =
+      th->method_area->runtime_constant_pool[refindex->name_and_type_index - 1]
+          .getClass<Utils::ConstantPool::CONSTANT_NameAndType_info>();
+  auto methodname =
+      th->method_area->runtime_constant_pool[nametypeindex->name_index - 1]
+          .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
+          ->getValue();
+
+  *delta_code = 2;
+
+  if (!(classname + "." + methodname)
+           .compare(std::string("java/lang/System.out"))) {
+    std::cout << "Ignorando " << Opcodes::getMnemonic(this->opcode)
+              << " java/lang/System.out\n";
+    return {};
+  }
+
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Goto::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> GotoWide::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> InstanceOf::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> LookupSwitch::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> MultiDimArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> New::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> NewArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Nop::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Pop::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Pop2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> PutField::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> PutStatic::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Ret::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Return::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Swap::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> TableSwitch::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Wide::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
-    MemoryAreas::Thread *th, int *delta_code, const bool &wide,
-    int *pc) {
+    MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   return {};
 }

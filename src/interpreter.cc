@@ -17,9 +17,4 @@ void Interpreter::init() {
   this->method_area = new MemoryAreas::MethodArea(this->entry_class);
   this->heap = new MemoryAreas::Heap();
   this->threads.emplace_back(this->method_area, this->heap, this->entry_class);
-
-  //  every class has at least one <init> method responsible for initializing
-  //  the class variables explicitly declared in that class.
-  // mas como saber qual init se tiver mais de 1???
-  threads[0].executeMethod("<init>");
 }

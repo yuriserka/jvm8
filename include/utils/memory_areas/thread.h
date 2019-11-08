@@ -16,16 +16,17 @@ class Thread {
 
   void executeMethod(const std::string &method_name);
 
- private:
   void changeContext(const std::string &classname, const std::string &method,
                      const std::string &arguments);
 
   MethodArea *method_area;
+  Utils::Frame *current_frame;
+
+ private:
   Heap *heap;
   const ClassFile *current_class;
   JavaStack jvm_stack;
 
-  Utils::Frame *current_frame;
   std::string current_method;
 };
 }  // namespace MemoryAreas

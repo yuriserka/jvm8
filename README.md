@@ -65,6 +65,19 @@ Make sure that you have Doxygen installed.
 
 - running: `doxygen .\Doxyfile`
 
+## Generating test files
+Make sure you have Java 8u231 installed.
+
+Follow the steps to install [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+
+Follow the steps to install [JRE 8](https://www.oracle.com/technetwork/pt/java/javase/downloads/jre8-downloads-2133155.html)
+
+- generating:
+
+   `cd .\.javasrc\`
+
+   `javac -cp . -g -parameters -d ..\classes\ .\Printer.java`
+
 ## Authors
 
 ### Cláudio Roberto Barros - 19/0097591

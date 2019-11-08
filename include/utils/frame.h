@@ -29,7 +29,7 @@ class Frame {
   }
 
   template <typename T>
-  T &getLocalVar(const int &index) {
+  T getLocalVar(const int &index) {
     return this->local_variables[index].as<T>();
   }
 
@@ -43,7 +43,7 @@ class Frame {
   }
 
   template <typename T>
-  T &popOperand() {
+  T popOperand() {
     auto any = this->operand_stack.top();
     this->operand_stack.pop();
 
