@@ -43,9 +43,9 @@ class MethodArea {
   Utils::Infos::field_info getField(const std::string &field_name);
 
   std::vector<Utils::ConstantPool::cp_info> runtime_constant_pool;
+  const ClassFile *runtime_classfile;
 
  private:
-  const ClassFile *runtime_classfile;
   std::list<const ClassFile *> loaded;
   std::vector<Utils::Infos::method_info> methods;
   std::vector<Utils::Infos::field_info> fields;

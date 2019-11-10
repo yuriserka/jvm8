@@ -1,11 +1,13 @@
 #ifndef INCLUDE_UTILS_MEMORY_AREAS_THREAD_H_
 #define INCLUDE_UTILS_MEMORY_AREAS_THREAD_H_
 
-#include "utils/memory_areas/heap.h"
 #include "utils/memory_areas/java_stack.h"
-#include "utils/memory_areas/method_area.h"
 
 namespace MemoryAreas {
+
+class Heap;
+class MethodArea;
+
 class Thread {
  public:
   Thread(MethodArea *method_area, Heap *heap, const ClassFile *cf) {

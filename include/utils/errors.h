@@ -23,6 +23,7 @@ enum errorTypes {
   kMODE,
   KMAGIC,
   kMINOR,
+  kNEGATIVEARRAYSIZE,
   kMAJOR,
   kCONSTANTPOOL,
   kBYTE,

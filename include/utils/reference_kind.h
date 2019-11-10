@@ -19,6 +19,17 @@ enum reftypes {
   kREF_newInvokeSpecial,
   kREF_invokeInterface
 };
+
+enum array_types {
+  kT_BOOLEAN = 4,
+  kT_CHAR = 5,
+  kT_FLOAT = 6,
+  kT_DOUBLE = 7,
+  kT_BYTE = 8,
+  kT_SHORT = 9,
+  kT_INT = 10,
+  kT_LONG = 11
+};
 }  // namespace Reference
 }  // namespace Utils
 

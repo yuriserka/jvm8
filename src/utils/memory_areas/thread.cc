@@ -7,6 +7,8 @@
 #include "utils/errors.h"
 #include "utils/flags.h"
 #include "utils/helper_functions.h"
+#include "utils/memory_areas/heap.h"
+#include "utils/memory_areas/method_area.h"
 #include "utils/string.h"
 
 #define MAX_STACK 40
@@ -53,52 +55,40 @@ void Thread::executeMethod(const std::string &method_name) {
           .getClass<Utils::ConstantPool::CONSTANT_Class_info>());
 
   for (auto it = code_array.begin(); it != code_array.end(); ++it) {
-    std::cout << this->current_frame->pc << ": ";
-    Instructions::runBytecode(&it, this, &this->current_frame->pc);
+    if (Utils::Flags::options.kDEBUG) {
+      std::cout << this->current_frame->pc << ": ";
+    }
+    try {
+      Instructions::runBytecode(&it, this, &this->current_frame->pc);
+    } catch (const Utils::Errors::Exception &e) {
+      if (Utils::Flags::options.kDEBUG) {
+        std::cout << e.what() << "\n";
+      }
+      continue;
+    }
     // Apenas para teste para ver se a troca de contexto em nível de função
     // funciona, ainda não passa argumentos e nem variaveis locais. invoke
     // todos os invokes
-    if (*it >= 0xb6 && *it <= 0xba) {
-      std::cout << Utils::getClassName(this->current_class) << "."
-                << this->current_method << "::" << this->current_frame->pc
-                << ": " << Instructions::Opcodes::getMnemonic(*it);
-      uint16_t cp_arg = (((*++it) << 8) | *++it);
-      std::cout << " -> args: #" << cp_arg << "\n";
+    // if (*it >= 0xb6 && *it <= 0xba) {
+    //   std::cout << Utils::getClassName(this->current_class) << "."
+    //             << this->current_method << "::" << this->current_frame->pc
+    //             << ": " << Instructions::Opcodes::getMnemonic(*it);
+    //   uint16_t cp_arg = (((*++it) << 8) | *++it);
+    //   std::cout << " -> args: #" << cp_arg << "\n";
 
-      std::string ref_class_name, ref_method_name, ref_method_descriptor;
-      switch (this->current_class->constant_pool[cp_arg - 1].base->tag) {
-        namespace cp = Utils::ConstantPool;
-        case cp::kCONSTANT_FIELDREF: {
-          Utils::getReference<cp::CONSTANT_FieldRef_info>(
-              this->current_class, cp_arg, &ref_class_name, &ref_method_name,
-              &ref_method_descriptor);
-          break;
-        }
-        case cp::kCONSTANT_METHODREF: {
-          Utils::getReference<cp::CONSTANT_Methodref_info>(
-              this->current_class, cp_arg, &ref_class_name, &ref_method_name,
-              &ref_method_descriptor);
-          break;
-        }
-        case cp::kCONSTANT_INTERFACEMETHODREF: {
-          Utils::getReference<cp::CONSTANT_InterfaceMethodref_info>(
-              this->current_class, cp_arg, &ref_class_name, &ref_method_name,
-              &ref_method_descriptor);
-          break;
-        }
-      }
-
-      try {
-        this->changeContext(ref_class_name, ref_method_name,
-                            ref_method_descriptor);
-        this->current_frame->pc += 2;
-      } catch (const Utils::Errors::Exception &e) {
-        if (Utils::Flags::options.kDEBUG) {
-          std::cout << e.what() << "\n";
-        }
-        continue;
-      }
-    }
+    //   std::string ref_class_name, ref_name, ref_descriptor;
+    //   Utils::getReference(this->current_class, cp_arg, &ref_class_name,
+    //                       &ref_name, &ref_descriptor);
+    //   try {
+    //     this->changeContext(ref_class_name, ref_name, ref_descriptor);
+    //     this->current_frame->pc += 2;
+    //   } catch (const Utils::Errors::Exception &e) {
+    //     if (Utils::Flags::options.kDEBUG) {
+    //       std::cout << e.what() << "\n";
+    //     }
+    //     continue;
+    //   }
+    // }
   }
 
   this->jvm_stack.pop();
