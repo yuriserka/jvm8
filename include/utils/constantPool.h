@@ -30,6 +30,7 @@ std::string getConstantTypename(const Types::u1 &ct);
 // forward declaration
 class cp_info;
 class CONSTANT_Class_info;
+class BaseReference;
 class CONSTANT_FieldRef_info;
 class CONSTANT_Methodref_info;
 class CONSTANT_InterfaceMethodref_info;
@@ -96,52 +97,54 @@ class CONSTANT_Class_info : public BaseConstantInfo {
   Types::u2 name_index;
 };
 
-class CONSTANT_FieldRef_info : public BaseConstantInfo {
+class BaseReference : public BaseConstantInfo {
  public:
-  explicit CONSTANT_FieldRef_info(const Types::u1 &tag)
-      : BaseConstantInfo(tag) {}
+  explicit BaseReference(const Types::u1 &tag) : BaseConstantInfo(tag) {}
+
+  virtual std::string getValue(const std::vector<cp_info> &constpool,
+                               const bool &dot) const = 0;
+  virtual std::string getGeneralInfo(const std::vector<cp_info> &constpool,
+                                     const int &delta_tab) = 0;
+
+  Types::u2 class_index;
+  Types::u2 name_and_type_index;
+};
+
+class CONSTANT_FieldRef_info : public BaseReference {
+ public:
+  explicit CONSTANT_FieldRef_info(const Types::u1 &tag) : BaseReference(tag) {}
 
   ~CONSTANT_FieldRef_info() = default;
 
   std::string getValue(const std::vector<cp_info> &constpool,
-                       const bool &dot) const;
+                       const bool &dot) const override;
   std::string getGeneralInfo(const std::vector<cp_info> &constpool,
-                             const int &delta_tab);
-
-  Types::u2 class_index;
-  Types::u2 name_and_type_index;
+                             const int &delta_tab) override;
 };
 
-class CONSTANT_Methodref_info : public BaseConstantInfo {
+class CONSTANT_Methodref_info : public BaseReference {
  public:
-  explicit CONSTANT_Methodref_info(const Types::u1 &tag)
-      : BaseConstantInfo(tag) {}
+  explicit CONSTANT_Methodref_info(const Types::u1 &tag) : BaseReference(tag) {}
 
   ~CONSTANT_Methodref_info() = default;
 
   std::string getValue(const std::vector<cp_info> &constpool,
-                       const bool &dot) const;
+                       const bool &dot) const override;
   std::string getGeneralInfo(const std::vector<cp_info> &constpool,
-                             const int &delta_tab);
-
-  Types::u2 class_index;
-  Types::u2 name_and_type_index;
+                             const int &delta_tab) override;
 };
 
-class CONSTANT_InterfaceMethodref_info : public BaseConstantInfo {
+class CONSTANT_InterfaceMethodref_info : public BaseReference {
  public:
   explicit CONSTANT_InterfaceMethodref_info(const Types::u1 &tag)
-      : BaseConstantInfo(tag) {}
+      : BaseReference(tag) {}
 
   ~CONSTANT_InterfaceMethodref_info() = default;
 
   std::string getValue(const std::vector<cp_info> &constpool,
-                       const bool &dot) const;
+                       const bool &dot) const override;
   std::string getGeneralInfo(const std::vector<cp_info> &constpool,
-                             const int &delta_tab);
-
-  Types::u2 class_index;
-  Types::u2 name_and_type_index;
+                             const int &delta_tab) override;
 };
 
 class CONSTANT_String_info : public BaseConstantInfo {

@@ -15,13 +15,28 @@ Attributes::attribute_info getAttribute(
 
 const std::string getClassName(const ClassFile *cf);
 
-template <class T>
 inline void getReference(const ClassFile *cf, const Types::u2 &ref_index,
                          std::string *ref_class_name,
                          std::string *ref_method_name,
                          std::string *ref_method_return = nullptr) {
   namespace cp = ConstantPool;
-  T *ref = cf->constant_pool[ref_index - 1].getClass<T>();
+
+  cp::BaseReference *ref = nullptr;
+
+  switch (cf->constant_pool[ref_index - 1].base->tag) {
+    case ConstantPool::kCONSTANT_FIELDREF:
+      ref = cf->constant_pool[ref_index - 1]
+                .getClass<cp::CONSTANT_FieldRef_info>();
+      break;
+    case ConstantPool::kCONSTANT_INTERFACEMETHODREF:
+      ref = cf->constant_pool[ref_index - 1]
+                .getClass<cp::CONSTANT_InterfaceMethodref_info>();
+      break;
+    case ConstantPool::kCONSTANT_METHODREF:
+      ref = cf->constant_pool[ref_index - 1]
+                .getClass<cp::CONSTANT_Methodref_info>();
+      break;
+  }
 
   cp::cp_info class_info_entry = cf->constant_pool[ref->class_index - 1];
   cp::cp_info nametype_info_entry =
