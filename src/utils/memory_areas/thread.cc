@@ -50,9 +50,7 @@ void Thread::executeMethod(const std::string &method_name) {
   // On instance method invocation, local variable 0 is always used to
   // pass a reference to the object on which the instance method is being
   // invoked
-  this->current_frame->pushLocalVar(
-      this->current_class->constant_pool[this->current_class->this_class - 1]
-          .getClass<Utils::ConstantPool::CONSTANT_Class_info>());
+  this->current_frame->pushLocalVar(this->current_class->this_class);
 
   for (auto it = code_array.begin(); it != code_array.end(); ++it) {
     if (Utils::Flags::options.kDEBUG) {
