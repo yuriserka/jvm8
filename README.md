@@ -76,7 +76,13 @@ Follow the steps to install [JRE 8](https://www.oracle.com/technetwork/pt/java/j
 
    `cd .\.javasrc\`
 
-   `javac -cp . -g -parameters -d ..\classes\ .\Printer.java`
+   `javac -cp . -d ..\classes\ -g -parameters *.java`
+
+- running:
+
+   `cd .\classes\`
+
+   `java <nome da classe>`
 
 ## Authors
 

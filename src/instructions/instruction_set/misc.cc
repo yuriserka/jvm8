@@ -2,8 +2,10 @@
 
 #include "utils/array_t.h"
 #include "utils/flags.h"
+#include "utils/memory_areas/heap.h"
 #include "utils/memory_areas/method_area.h"
 #include "utils/memory_areas/thread.h"
+#include "utils/object.h"
 
 namespace Instructions {
 namespace Misc {
@@ -22,6 +24,9 @@ std::vector<int> Dup::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto top = th->current_frame->popOperand<Utils::Object>();
+  th->current_frame->pushOperand(top);
+  th->current_frame->pushOperand(top);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -84,22 +89,22 @@ std::vector<int> GetStatic::execute(
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   auto index = (*++*code_iterator << 8) | *++*code_iterator;
 
-  std::string classname, refname, reftype;
+  std::string classname, methodname, reftype;
   Utils::getReference(th->method_area->runtime_classfile, index, &classname,
-                      &refname, &reftype);
+                      &methodname, &reftype);
   *delta_code = 2;
 
-  // se classname.refname != java/lang/System.out ai carrega a classe, tem que
-  // inicializar e os krl ainda
-  if ((classname + "." + refname)
+  // se classname.methodname != java/lang/System.out ai carrega a classe, tem
+  // que inicializar e os krl ainda
+  if ((classname + "." + methodname)
           .compare(std::string("java/lang/System.out"))) {
     if (Utils::Flags::options.kDEBUG) {
       std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
     }
     th->method_area->loadClass(classname);
   } else if (Utils::Flags::options.kDEBUG) {
-    std::cout << "Ignorando " << Opcodes::getMnemonic(this->opcode)
-              << " " << (classname + "." + refname) << "\n";
+    std::cout << "Ignorando " << Opcodes::getMnemonic(this->opcode) << " "
+              << (classname + "." + methodname) << "\n";
   }
   return {};
 }
@@ -155,6 +160,26 @@ std::vector<int> New::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto kpool_index = (*++*code_iterator << 8) | *++*code_iterator;
+  auto kpool_info = th->method_area->runtime_constant_pool[kpool_index - 1];
+
+  auto classname =
+      kpool_info.getClass<Utils::ConstantPool::CONSTANT_Class_info>()->getValue(
+          th->method_area->runtime_constant_pool);
+
+  Utils::Object objectref;
+  // classname != java/lang/StringBuilder
+  if (classname.compare("java/lang/StringBuilder")) {
+    th->method_area->loadClass(classname);
+  } else {
+    // inicializa o objectref
+    objectref = Utils::Object(std::string(""), Utils::Reference::kSTR_STRINGBUILDER);
+  }
+  // se for usar a heap, tem que retornar um ponteiro e esse ponteiro que vai pra operand...
+  // mas isso fode com tudo kkkk
+  // auto objpointer = th->heap->pushReference(objectref);
+  th->current_frame->pushOperand(objectref);
+  *delta_code = 2;
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -240,6 +265,7 @@ std::vector<int> Return::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  th->current_frame->cleanOperands();
   return {};
 }
 // ----------------------------------------------------------------------------
