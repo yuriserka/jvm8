@@ -3,8 +3,8 @@
 
 #include <algorithm>
 #include <vector>
-#include "utils/external/any.h"
 #include "utils/memory_areas/thread.h"
+#include "utils/object.h"
 
 namespace MemoryAreas {
 class Heap {
@@ -22,8 +22,15 @@ class Heap {
                      name) != this->initialized_classes.end();
   }
 
+  Utils::Object *pushReference(const Utils::Object &obj) {
+    this->object_refs.emplace_back(obj);
+
+    return &this->object_refs[this->last_obj_index++];
+  }
+
  private:
-  std::vector<Any> object_refs;
+  int last_obj_index = 0;
+  std::vector<Utils::Object> object_refs;
   std::vector<std::string> initialized_classes;
 };
 }  // namespace MemoryAreas

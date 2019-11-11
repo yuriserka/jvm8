@@ -26,7 +26,6 @@ class BaseReference : public Instruction {
       std::vector<Utils::Types::u1>::iterator *code_it, int *delta_code,
       int *ret, const bool &wide, int *pc) override {
     return {};
-    ;
   }
 };
 

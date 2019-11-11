@@ -2,23 +2,25 @@
 #define INCLUDE_UTILS_OBJECT_H_
 
 #include <ostream>
+#include "utils/external/any.h"
+#include "utils/reference_kind.h"
 
 namespace Utils {
 class Object {
  public:
-  template <typename T>
   Object() {
-    this->v = T();
+    this->type = Reference::objectref_types::kREF_NULL;
+    this->data = Any();
   }
-  template <typename T>
-  Object(T v) {
-    this->v = v;
-  }
-  void *v;
 
-  friend std::ostream &operator<<(std::ostream &out, const Object &a) {
-    return out << a.v;
+  template <typename T>
+  Object(T v, int ref_type) {
+    this->data = Any(v);
+    this->type = ref_type;
   }
+
+  int type;
+  Any data;
 };
 }  // namespace Utils
 

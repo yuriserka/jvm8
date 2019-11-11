@@ -22,10 +22,10 @@ class Thread {
                      const std::string &arguments);
 
   MethodArea *method_area;
+  Heap *heap;
   Utils::Frame *current_frame;
 
  private:
-  Heap *heap;
   const ClassFile *current_class;
   JavaStack jvm_stack;
 

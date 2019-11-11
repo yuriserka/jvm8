@@ -28,6 +28,29 @@ class Frame {
     this->local_variables.emplace_back(localvar);
   }
 
+  void cleanOperands() {
+    while (!this->operand_stack.empty()) {
+      this->operand_stack.pop();
+    }
+  }
+
+  template <typename T>
+  void pushLocalVar(const T &localvar, const int &index) {
+    if (this->local_variables.size() > this->max_localvar_size) {
+      throw Utils::Errors::Exception(Utils::Errors::kSTACK,
+                                     "Loval Variable Overflow");
+    }
+    this->local_variables.emplace(this->local_variables.begin() + index,
+                                  localvar);
+    // double e long ocupam 2 slots do vetor de variaveis locais, uma
+    // implementação possivel seria colocar o high e o low em uma, mas eu do
+    // push no valor cheio logo em apenas uma posição
+    if (std::is_same<T, double>::value || std::is_same<T, long>::value) {
+      this->local_variables.emplace(this->local_variables.begin() + index + 1,
+                                    nullptr);
+    }
+  }
+
   template <typename T>
   T getLocalVar(const int &index) {
     return this->local_variables[index].as<T>();
