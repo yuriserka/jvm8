@@ -110,6 +110,17 @@ std::vector<int> Load::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  int localvar_index;
+  if (wide) {
+    localvar_index =
+        static_cast<int16_t>((*++*code_iterator << 8) | *++*code_iterator);
+    *delta_code = 2;
+  } else {
+    localvar_index = int{*++*code_iterator};
+    *delta_code = 1;
+  }
+  th->current_frame->pushOperand(
+      th->current_frame->getLocalVar<double>(localvar_index));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -119,6 +130,7 @@ std::vector<int> Load_0::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  th->current_frame->pushOperand(th->current_frame->getLocalVar<double>(0));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -128,6 +140,7 @@ std::vector<int> Load_1::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  th->current_frame->pushOperand(th->current_frame->getLocalVar<double>(1));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -137,6 +150,7 @@ std::vector<int> Load_2::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  th->current_frame->pushOperand(th->current_frame->getLocalVar<double>(2));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -146,6 +160,7 @@ std::vector<int> Load_3::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  th->current_frame->pushOperand(th->current_frame->getLocalVar<double>(3));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -191,6 +206,17 @@ std::vector<int> Store::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  int localvar_index;
+  if (wide) {
+    localvar_index =
+        static_cast<int16_t>((*++*code_iterator << 8) | *++*code_iterator);
+    *delta_code = 2;
+  } else {
+    localvar_index = int{*++*code_iterator};
+    *delta_code = 1;
+  }
+  auto objectref = th->current_frame->popOperand<double>();
+  th->current_frame->pushLocalVar(objectref, localvar_index);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -200,6 +226,8 @@ std::vector<int> Store_0::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto objectref = th->current_frame->popOperand<double>();
+  th->current_frame->pushLocalVar(objectref, 0);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -209,6 +237,8 @@ std::vector<int> Store_1::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto objectref = th->current_frame->popOperand<double>();
+  th->current_frame->pushLocalVar(objectref, 1);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -218,6 +248,8 @@ std::vector<int> Store_2::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto objectref = th->current_frame->popOperand<double>();
+  th->current_frame->pushLocalVar(objectref, 2);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -227,6 +259,8 @@ std::vector<int> Store_3::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto objectref = th->current_frame->popOperand<double>();
+  th->current_frame->pushLocalVar(objectref, 3);
   return {};
 }
 // ----------------------------------------------------------------------------
