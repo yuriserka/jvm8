@@ -29,6 +29,9 @@ std::vector<int> Push::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  int16_t s = (*++*code_iterator << 8) | *++*code_iterator;
+  th->current_frame->pushOperand<int>(s);
+  *delta_code = 2;
   return {};
 }
 // ----------------------------------------------------------------------------

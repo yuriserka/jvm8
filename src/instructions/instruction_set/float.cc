@@ -1,5 +1,6 @@
 #include "instructions/instruction_set/float.h"
 
+#include <cmath>
 #include "utils/flags.h"
 #include "utils/memory_areas/thread.h"
 
@@ -11,6 +12,8 @@ std::vector<int> ToDouble::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto value = th->current_frame->popOperand<float>();
+  th->current_frame->pushOperand(static_cast<double>(value));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -20,6 +23,8 @@ std::vector<int> ToInteger::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto value = th->current_frame->popOperand<float>();
+  th->current_frame->pushOperand(static_cast<int>(value));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -29,6 +34,8 @@ std::vector<int> ToLong::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto value = th->current_frame->popOperand<float>();
+  th->current_frame->pushOperand(static_cast<long>(value));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -38,6 +45,9 @@ std::vector<int> Add::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto soma = th->current_frame->popOperand<float>() +
+              th->current_frame->popOperand<float>();
+  th->current_frame->pushOperand(soma);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -65,6 +75,17 @@ std::vector<int> CompareGreater::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto val2 = th->current_frame->popOperand<float>();
+  auto val1 = th->current_frame->popOperand<float>();
+  if (val1 > val2) {
+    th->current_frame->pushOperand<int>(1);
+  } else if (val1 == val2) {
+    th->current_frame->pushOperand<int>(0);
+  } else if (val1 < val2) {
+    th->current_frame->pushOperand<int>(-1);
+  } else {
+    th->current_frame->pushOperand<int>(1);
+  }
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -73,6 +94,17 @@ std::vector<int> CompareLess::execute(
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+  }
+  auto val2 = th->current_frame->popOperand<float>();
+  auto val1 = th->current_frame->popOperand<float>();
+  if (val1 > val2) {
+    th->current_frame->pushOperand<int>(1);
+  } else if (val1 == val2) {
+    th->current_frame->pushOperand<int>(0);
+  } else if (val1 < val2) {
+    th->current_frame->pushOperand<int>(-1);
+  } else {
+    th->current_frame->pushOperand<int>(-1);
   }
   return {};
 }
@@ -83,6 +115,7 @@ std::vector<int> Const_0::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  th->current_frame->pushOperand<float>(0.0f);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -92,6 +125,7 @@ std::vector<int> Const_1::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  th->current_frame->pushOperand<float>(1.0f);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -101,6 +135,7 @@ std::vector<int> Const_2::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  th->current_frame->pushOperand<float>(2.0f);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -110,6 +145,9 @@ std::vector<int> Div::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto val2 = th->current_frame->popOperand<float>();
+  auto val1 = th->current_frame->popOperand<float>();
+  th->current_frame->pushOperand(val1 / val2);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -129,7 +167,7 @@ std::vector<int> Load::execute(
     *delta_code = 1;
   }
   th->current_frame->pushOperand(
-      th->current_frame->getLocalVar<float>(localvar_index));
+      th->current_frame->getLocalVarValue<float>(localvar_index));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -139,7 +177,7 @@ std::vector<int> Load_0::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  th->current_frame->pushOperand(th->current_frame->getLocalVar<float>(0));
+  th->current_frame->pushOperand(th->current_frame->getLocalVarValue<float>(0));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -149,7 +187,7 @@ std::vector<int> Load_1::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  th->current_frame->pushOperand(th->current_frame->getLocalVar<float>(1));
+  th->current_frame->pushOperand(th->current_frame->getLocalVarValue<float>(1));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -159,7 +197,7 @@ std::vector<int> Load_2::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  th->current_frame->pushOperand(th->current_frame->getLocalVar<float>(2));
+  th->current_frame->pushOperand(th->current_frame->getLocalVarValue<float>(2));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -169,7 +207,7 @@ std::vector<int> Load_3::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  th->current_frame->pushOperand(th->current_frame->getLocalVar<float>(3));
+  th->current_frame->pushOperand(th->current_frame->getLocalVarValue<float>(3));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -179,6 +217,9 @@ std::vector<int> Mul::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto val2 = th->current_frame->popOperand<float>();
+  auto val1 = th->current_frame->popOperand<float>();
+  th->current_frame->pushOperand<float>(val1 * val2);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -188,6 +229,8 @@ std::vector<int> Neg::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto val = th->current_frame->popOperand<float>();
+  th->current_frame->pushOperand<float>(-val);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -197,6 +240,9 @@ std::vector<int> Rem::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto val2 = th->current_frame->popOperand<float>();
+  auto val1 = th->current_frame->popOperand<float>();
+  th->current_frame->pushOperand<float>(std::fmod(val1, val2));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -224,8 +270,8 @@ std::vector<int> Store::execute(
     localvar_index = int{*++*code_iterator};
     *delta_code = 1;
   }
-  auto objectref = th->current_frame->popOperand<float>();
-  th->current_frame->pushLocalVar(objectref, localvar_index);
+  auto floatref = th->current_frame->popOperand<float>();
+  th->current_frame->pushLocalVar(floatref, localvar_index);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -235,8 +281,8 @@ std::vector<int> Store_0::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto objectref = th->current_frame->popOperand<float>();
-  th->current_frame->pushLocalVar(objectref, 0);
+  auto floatref = th->current_frame->popOperand<float>();
+  th->current_frame->pushLocalVar(floatref, 0);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -246,8 +292,8 @@ std::vector<int> Store_1::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto objectref = th->current_frame->popOperand<float>();
-  th->current_frame->pushLocalVar(objectref, 1);
+  auto floatref = th->current_frame->popOperand<float>();
+  th->current_frame->pushLocalVar(floatref, 1);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -257,8 +303,8 @@ std::vector<int> Store_2::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto objectref = th->current_frame->popOperand<float>();
-  th->current_frame->pushLocalVar(objectref, 2);
+  auto floatref = th->current_frame->popOperand<float>();
+  th->current_frame->pushLocalVar(floatref, 2);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -268,8 +314,8 @@ std::vector<int> Store_3::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto objectref = th->current_frame->popOperand<float>();
-  th->current_frame->pushLocalVar(objectref, 3);
+  auto floatref = th->current_frame->popOperand<float>();
+  th->current_frame->pushLocalVar(floatref, 3);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -279,6 +325,9 @@ std::vector<int> Sub::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto val2 = th->current_frame->popOperand<float>();
+  auto val1 = th->current_frame->popOperand<float>();
+  th->current_frame->pushOperand<float>(val1 - val2);
   return {};
 }
 // ----------------------------------------------------------------------------

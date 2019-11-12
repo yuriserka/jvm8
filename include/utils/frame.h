@@ -15,6 +15,7 @@ class Frame {
         const std::vector<ConstantPool::cp_info> &kpool) {
     this->max_operand_stack_size = stack_size;
     this->max_localvar_size = localvar_size;
+    this->local_variables.resize(localvar_size);
     this->runtime_constant_pool = kpool;
     this->pc = 0;
   }
@@ -25,7 +26,7 @@ class Frame {
       throw Utils::Errors::Exception(Utils::Errors::kSTACK,
                                      "Loval Variable Overflow");
     }
-    this->local_variables.emplace_back(localvar);
+    this->local_variables[this->getLastIndex()];
   }
 
   void cleanOperands() {
@@ -40,20 +41,23 @@ class Frame {
       throw Utils::Errors::Exception(Utils::Errors::kSTACK,
                                      "Loval Variable Overflow");
     }
-    this->local_variables.emplace(this->local_variables.begin() + index,
-                                  localvar);
-    // double e long ocupam 2 slots do vetor de variaveis locais, uma
-    // implementação possivel seria colocar o high e o low em uma, mas eu do
-    // push no valor cheio logo em apenas uma posição
+    this->local_variables[index] = Any(localvar);
+    // // double e long ocupam 2 slots do vetor de variaveis locais, uma
+    // // implementação possivel seria colocar o high e o low em uma, mas eu do
+    // // push no valor cheio logo em apenas uma posição
     if (std::is_same<T, double>::value || std::is_same<T, long>::value) {
-      this->local_variables.emplace(this->local_variables.begin() + index + 1,
-                                    nullptr);
+      this->local_variables[index + 1] = nullptr;
     }
   }
 
   template <typename T>
-  T getLocalVar(const int &index) {
+  T getLocalVarValue(const int &index) {
     return this->local_variables[index].as<T>();
+  }
+
+  template <typename T>
+  T *getLocalVarReference(const int &index) {
+    return &this->local_variables[index].as<T>();
   }
 
   template <typename T>
@@ -76,6 +80,10 @@ class Frame {
   int pc;
 
  private:
+  int getLastIndex() {
+    static int last_index = 0;
+    return last_index++;
+  }
   std::vector<Any> local_variables;
   std::stack<Any> operand_stack;
   uint16_t max_operand_stack_size;

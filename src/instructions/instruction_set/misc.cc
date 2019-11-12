@@ -173,11 +173,12 @@ std::vector<int> New::execute(
     th->method_area->loadClass(classname);
   } else {
     // inicializa o objectref
-    objectref = Utils::Object(std::string(""), Utils::Reference::kSTR_STRINGBUILDER);
+    objectref =
+        Utils::Object(std::string(""), Utils::Reference::kSTR_STRINGBUILDER);
   }
-  // se for usar a heap, tem que retornar um ponteiro e esse ponteiro que vai pra operand...
-  // mas isso fode com tudo kkkk
-  // auto objpointer = th->heap->pushReference(objectref);
+  // se for usar a heap, tem que retornar um ponteiro e esse ponteiro que vai
+  // pra operand... mas isso fode com tudo kkkk auto objpointer =
+  // th->heap->pushReference(objectref);
   th->current_frame->pushOperand(objectref);
   *delta_code = 2;
   return {};

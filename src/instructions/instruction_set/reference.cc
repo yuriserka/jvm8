@@ -52,7 +52,7 @@ std::vector<int> Load::execute(
     *delta_code = 1;
   }
   th->current_frame->pushOperand(
-      th->current_frame->getLocalVar<Utils::Object>(localvar_index));
+      th->current_frame->getLocalVarValue<Utils::Object>(localvar_index));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -63,7 +63,7 @@ std::vector<int> Load_0::execute(
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
   th->current_frame->pushOperand(
-      th->current_frame->getLocalVar<Utils::Object>(0));
+      th->current_frame->getLocalVarValue<Utils::Object>(0));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -74,7 +74,7 @@ std::vector<int> Load_1::execute(
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
   th->current_frame->pushOperand(
-      th->current_frame->getLocalVar<Utils::Object>(1));
+      th->current_frame->getLocalVarValue<Utils::Object>(1));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -85,7 +85,7 @@ std::vector<int> Load_2::execute(
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
   th->current_frame->pushOperand(
-      th->current_frame->getLocalVar<Utils::Object>(2));
+      th->current_frame->getLocalVarValue<Utils::Object>(2));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -96,7 +96,7 @@ std::vector<int> Load_3::execute(
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
   th->current_frame->pushOperand(
-      th->current_frame->getLocalVar<Utils::Object>(3));
+      th->current_frame->getLocalVarValue<Utils::Object>(3));
   return {};
 }
 // ----------------------------------------------------------------------------

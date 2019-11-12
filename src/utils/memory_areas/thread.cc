@@ -112,6 +112,53 @@ void Thread::changeContext(const std::string &classname,
 
   this->executeMethod(method_name);
 
+  // usado pra popar o retorno da função pro frame do chamador
+  auto retval_type = descriptor.substr(descriptor.find_last_of(')') + 1);
+  // switch (retval_type) {
+  //   case 'B': {
+  //     ss << curr_frame->popOperand<int8_t>();
+  //     break;
+  //   }
+  //   case 'C': {
+  //     ss << static_cast<char>(curr_frame->popOperand<int>());
+  //     break;
+  //   }
+  //   case 'D': {
+  //     ss << curr_frame->popOperand<double>();
+  //     break;
+  //   }
+  //   case 'F': {
+  //     ss << curr_frame->popOperand<float>();
+  //     break;
+  //   }
+  //   case 'I': {
+  //     ss << curr_frame->popOperand<int>();
+  //     break;
+  //   }
+  //   case 'J': {
+  //     ss << curr_frame->popOperand<long>();
+  //     break;
+  //   }
+  //   case 'S': {
+  //     ss << curr_frame->popOperand<short>();
+  //     break;
+  //   }
+  //   case 'Z': {
+  //     if (!curr_frame->popOperand<int>()) {
+  //       ss << "false";
+  //     } else {
+  //       ss << "true";
+  //     }
+  //     break;
+  //   }
+  //   // sem parametros
+  //   case 'V': {
+  //     break;
+  //   }
+  //   // LOBJREF;
+  //   default: {}
+  // }
+
   this->current_class = old_class;
   this->current_frame = old_frame;
   this->current_method = old_method;

@@ -199,6 +199,66 @@ class Const_5 : public BaseInteger {
       int *pc = nullptr) override;
 };
 
+class CompareEqual : public BaseInteger {
+ public:
+  CompareEqual() : BaseInteger(Opcodes::kIF_ICMPEQ) {}
+
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
+};
+
+class CompareGreaterEqual : public BaseInteger {
+ public:
+  CompareGreaterEqual() : BaseInteger(Opcodes::kIF_ICMPGE) {}
+
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
+};
+
+class CompareGreaterThan : public BaseInteger {
+ public:
+  CompareGreaterThan() : BaseInteger(Opcodes::kIF_ICMPGT) {}
+
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
+};
+
+class CompareLessEqual : public BaseInteger {
+ public:
+  CompareLessEqual() : BaseInteger(Opcodes::kIF_ICMPLE) {}
+
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
+};
+
+class CompareLessThan : public BaseInteger {
+ public:
+  CompareLessThan() : BaseInteger(Opcodes::kIF_ICMPLT) {}
+
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
+};
+
+class CompareNotEqual : public BaseInteger {
+ public:
+  CompareNotEqual() : BaseInteger(Opcodes::kIF_ICMPNE) {}
+
+  std::vector<int> execute(
+      std::vector<Utils::Types::u1>::iterator *code_iterator,
+      MemoryAreas::Thread *th, int *delta_code, const bool &wide,
+      int *pc = nullptr) override;
+};
+
 class Div : public BaseInteger {
  public:
   Div() : BaseInteger(Opcodes::kIDIV) {}

@@ -1,5 +1,7 @@
 #include "instructions/instruction_set/invokes.h"
 
+#include <cmath>
+#include <iomanip>
 #include "utils/accessFlags.h"
 #include "utils/flags.h"
 #include "utils/memory_areas/method_area.h"
@@ -90,11 +92,23 @@ static std::string print_handler(Utils::Frame *curr_frame,
       break;
     }
     case 'D': {
-      ss << curr_frame->popOperand<double>();
+      double d;
+      double val = curr_frame->popOperand<double>();
+      if (!std::modf(val, &d)) {
+        ss << std::fixed << std::setprecision(1) << d;
+      } else {
+        ss << std::fixed << std::setprecision(15) << val;
+      }
       break;
     }
     case 'F': {
-      ss << curr_frame->popOperand<float>();
+      float f;
+      float val = curr_frame->popOperand<float>();
+      if (!std::modf(val, &f)) {
+        ss << std::fixed << std::setprecision(1) << f;
+      } else {
+        ss << std::fixed << std::setprecision(15) << val;
+      }
       break;
     }
     case 'I': {
@@ -131,7 +145,8 @@ static std::string print_handler(Utils::Frame *curr_frame,
       } else {
         auto top = curr_frame->popOperand<Utils::Object>();
         const void *address = static_cast<const void *>(&top);
-        ss << refname.substr(1, refname.find_first_of(';') - 1) << "@" << address;
+        ss << refname.substr(1, refname.find_first_of(';') - 1) << "@"
+           << address;
       }
       break;
     }
@@ -154,11 +169,23 @@ static void append_handler(Utils::Frame *curr_frame, std::string descriptor) {
       break;
     }
     case 'D': {
-      ss << curr_frame->popOperand<double>();
+      double d;
+      double val = curr_frame->popOperand<double>();
+      if (!std::modf(val, &d)) {
+        ss << std::fixed << std::setprecision(1) << d;
+      } else {
+        ss << std::fixed << std::setprecision(15) << val;
+      }
       break;
     }
     case 'F': {
-      ss << curr_frame->popOperand<float>();
+      float f;
+      float val = curr_frame->popOperand<float>();
+      if (!std::modf(val, &f)) {
+        ss << std::fixed << std::setprecision(1) << f;
+      } else {
+        ss << std::fixed << std::setprecision(15) << val;
+      }
       break;
     }
     case 'I': {
@@ -196,7 +223,8 @@ static void append_handler(Utils::Frame *curr_frame, std::string descriptor) {
       } else {
         auto top = curr_frame->popOperand<Utils::Object>();
         const void *address = static_cast<const void *>(&top);
-        ss << refname.substr(1, refname.find_first_of(';') - 1) << "@" << address;
+        ss << refname.substr(1, refname.find_first_of(';') - 1) << "@"
+           << address;
       }
       break;
     }
