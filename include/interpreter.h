@@ -10,28 +10,28 @@
 #include "utils/memory_areas/thread.h"
 
 class Interpreter {
- public:
-  Interpreter(const ClassFile *cf, const std::string &fname) {
-    this->classname = fname;
-    this->entry_class = cf;
-    this->init();
-  }
-
-  ~Interpreter() {
-    delete this->method_area;
-    delete this->heap;
-  }
-
-  void run();
-
- private:
-  void init();
-
-  std::vector<MemoryAreas::Thread> threads;
-  MemoryAreas::MethodArea *method_area;
-  MemoryAreas::Heap *heap;
-  std::string classname;
-  const ClassFile *entry_class;
+    public:
+    Interpreter(const ClassFile *cf, const std::string &fname) {
+        this->classname = fname;
+        this->entry_class = cf;
+        this->init();
+    }
+    
+    ~Interpreter() {
+        delete this->method_area;
+        delete this->heap;
+    }
+    
+    void run();
+    
+    private:
+    void init();
+    
+    std::vector<MemoryAreas::Thread> threads;
+    MemoryAreas::MethodArea *method_area;
+    MemoryAreas::Heap *heap;
+    std::string classname;
+    const ClassFile *entry_class;
 };
 
 #endif  // INCLUDE_INTERPRETER_H_
