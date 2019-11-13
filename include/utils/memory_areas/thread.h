@@ -14,12 +14,25 @@ class Thread {
     this->method_area = method_area;
     this->heap = heap;
     this->current_class = cf;
+    this->current_frame = nullptr;
   }
 
-  void executeMethod(const std::string &method_name);
+  void executeMethod(const std::string &method_name,
+                     const std::string &descriptor = "");
 
   void changeContext(const std::string &classname, const std::string &method,
                      const std::string &arguments);
+
+  void storeArguments(const std::string &args, Utils::Frame *new_frame);
+
+  template <typename T>
+  void pushReturnValue(const T &val) {
+    auto curr_frame = this->jvm_stack.top();
+    this->jvm_stack.pop();
+    auto caller_frame = this->jvm_stack.top();
+    caller_frame->pushOperand<T>(val);
+    this->jvm_stack.push(curr_frame);
+  }
 
   MethodArea *method_area;
   Heap *heap;

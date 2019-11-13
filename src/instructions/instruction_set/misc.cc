@@ -24,7 +24,7 @@ std::vector<int> Dup::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto top = th->current_frame->popOperand<Utils::Object>();
+  auto top = th->current_frame->popOperand<Any>();
   th->current_frame->pushOperand(top);
   th->current_frame->pushOperand(top);
   return {};

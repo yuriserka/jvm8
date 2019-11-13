@@ -26,7 +26,7 @@ class Frame {
       throw Utils::Errors::Exception(Utils::Errors::kSTACK,
                                      "Loval Variable Overflow");
     }
-    this->local_variables[this->getLastIndex()];
+    this->local_variables[this->last_index++] = localvar;
   }
 
   void cleanOperands() {
@@ -74,16 +74,17 @@ class Frame {
     auto any = this->operand_stack.top();
     this->operand_stack.pop();
 
+    if (std::is_same<T, Any>::value) {
+      return any;
+    }
+
     return any.as<T>();
   }
 
   int pc;
 
  private:
-  int getLastIndex() {
-    static int last_index = 0;
-    return last_index++;
-  }
+  int last_index = 0;
   std::vector<Any> local_variables;
   std::stack<Any> operand_stack;
   uint16_t max_operand_stack_size;

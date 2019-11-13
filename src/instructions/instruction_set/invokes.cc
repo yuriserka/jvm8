@@ -74,26 +74,36 @@ std::vector<int> Static::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto kpool_index = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+
+  auto ref = th->method_area->runtime_constant_pool[kpool_index - 1];
+
+  std::string classname, methodname, descriptor;
+  Utils::getReference(th->method_area->runtime_classfile, kpool_index,
+                      &classname, &methodname, &descriptor);
+
+  th->changeContext(classname, methodname, descriptor);
   return {};
 }
 // ----------------------------------------------------------------------------
-static std::string print_handler(Utils::Frame *curr_frame,
-                                 std::string descriptor) {
+static std::string getStringForType(Utils::Frame *frame,
+                                    const std::string &descriptor) {
   std::stringstream ss;
-  // descriptor = (Tipo_argumento)Tipo_Retorno
+  // descriptor = (Tipo_argumentos)Tipo_Retorno
   char method_descriptor = descriptor[1];
   switch (method_descriptor) {
     case 'B': {
-      ss << curr_frame->popOperand<int8_t>();
+      ss << frame->popOperand<int8_t>();
       break;
     }
     case 'C': {
-      ss << static_cast<char>(curr_frame->popOperand<int>());
+      ss << static_cast<char>(frame->popOperand<int>());
       break;
     }
     case 'D': {
       double d;
-      double val = curr_frame->popOperand<double>();
+      double val = frame->popOperand<double>();
       if (!std::modf(val, &d)) {
         ss << std::fixed << std::setprecision(1) << d;
       } else {
@@ -103,7 +113,7 @@ static std::string print_handler(Utils::Frame *curr_frame,
     }
     case 'F': {
       float f;
-      float val = curr_frame->popOperand<float>();
+      float val = frame->popOperand<float>();
       if (!std::modf(val, &f)) {
         ss << std::fixed << std::setprecision(1) << f;
       } else {
@@ -112,96 +122,19 @@ static std::string print_handler(Utils::Frame *curr_frame,
       break;
     }
     case 'I': {
-      ss << curr_frame->popOperand<int>();
+      ss << frame->popOperand<int>();
       break;
     }
     case 'J': {
-      ss << curr_frame->popOperand<long>();
+      ss << frame->popOperand<long>();
       break;
     }
     case 'S': {
-      ss << curr_frame->popOperand<short>();
+      ss << frame->popOperand<int>();
       break;
     }
     case 'Z': {
-      if (!curr_frame->popOperand<int>()) {
-        ss << "false";
-      } else {
-        ss << "true";
-      }
-      break;
-    }
-    // sem parametros
-    case ')': {
-      break;
-    }
-    // LOBJREF;
-    default: {
-      auto refname = descriptor.substr(descriptor.find_first_of('(') + 1,
-                                       descriptor.find_last_of(';'));
-      if (!refname.compare("Ljava/lang/String;")) {
-        auto stringref = curr_frame->popOperand<Utils::Object>();
-        ss << stringref.data.as<std::string>();
-      } else {
-        auto top = curr_frame->popOperand<Utils::Object>();
-        const void *address = static_cast<const void *>(&top);
-        ss << refname.substr(1, refname.find_first_of(';') - 1) << "@"
-           << address;
-      }
-      break;
-    }
-  }
-  return ss.str();
-}
-
-static void append_handler(Utils::Frame *curr_frame, std::string descriptor) {
-  std::stringstream ss;
-  // descriptor = (Tipo_argumento)Tipo_Retorno
-  char method_descriptor = descriptor[1];
-  Utils::Object objref;
-  switch (method_descriptor) {
-    case 'B': {
-      ss << curr_frame->popOperand<int8_t>();
-      break;
-    }
-    case 'C': {
-      ss << static_cast<char>(curr_frame->popOperand<int>());
-      break;
-    }
-    case 'D': {
-      double d;
-      double val = curr_frame->popOperand<double>();
-      if (!std::modf(val, &d)) {
-        ss << std::fixed << std::setprecision(1) << d;
-      } else {
-        ss << std::fixed << std::setprecision(15) << val;
-      }
-      break;
-    }
-    case 'F': {
-      float f;
-      float val = curr_frame->popOperand<float>();
-      if (!std::modf(val, &f)) {
-        ss << std::fixed << std::setprecision(1) << f;
-      } else {
-        ss << std::fixed << std::setprecision(15) << val;
-      }
-      break;
-    }
-    case 'I': {
-      ss << curr_frame->popOperand<int>();
-      break;
-    }
-    case 'J': {
-      ss << curr_frame->popOperand<long>();
-      break;
-    }
-    case 'S': {
-      ss << curr_frame->popOperand<short>();
-      break;
-    }
-    case 'Z': {
-      if (!curr_frame->popOperand<int>()) {
+      if (!frame->popOperand<int>()) {
         ss << "false";
       } else {
         ss << "true";
@@ -217,11 +150,9 @@ static void append_handler(Utils::Frame *curr_frame, std::string descriptor) {
       auto refname = descriptor.substr(descriptor.find_first_of('(') + 1,
                                        descriptor.find_first_of(';'));
       if (!refname.compare("Ljava/lang/String;")) {
-        auto sstr =
-            curr_frame->popOperand<Utils::Object>().data.as<std::string>();
-        ss << sstr;
+        ss << frame->popOperand<Utils::Object>().data.as<std::string>();
       } else {
-        auto top = curr_frame->popOperand<Utils::Object>();
+        auto top = frame->popOperand<Utils::Object>();
         const void *address = static_cast<const void *>(&top);
         ss << refname.substr(1, refname.find_first_of(';') - 1) << "@"
            << address;
@@ -229,11 +160,24 @@ static void append_handler(Utils::Frame *curr_frame, std::string descriptor) {
       break;
     }
   }
-  // isso tem que ser um Object{type: kSTR_StringBuilder}
+  return ss.str();
+}
+
+static std::string print_handler(Utils::Frame *curr_frame,
+                                 const std::string &descriptor) {
+  std::stringstream ss;
+  ss << getStringForType(curr_frame, descriptor);
+  return ss.str();
+}
+
+static void append_handler(Utils::Frame *curr_frame,
+                           const std::string &descriptor) {
+  std::stringstream ss;
+  ss << getStringForType(curr_frame, descriptor);
   auto fstr = curr_frame->popOperand<Utils::Object>().data.as<std::string>();
   std::string str = fstr + ss.str();
-  objref.data = str;
-  objref.type = Utils::Reference::kSTR_STRINGBUILDER;
+
+  auto objref = Utils::Object(str, Utils::Reference::kSTR_STRINGBUILDER);
   curr_frame->pushOperand(objref);
 }
 
@@ -269,10 +213,8 @@ std::vector<int> Virtual::execute(
     if (Utils::Flags::options.kDEBUG) {
       std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
     }
-    if (!methodname.compare("toString")) {
-      th->current_frame->pushOperand(
-          th->current_frame->popOperand<Utils::Object>());
-    } else {
+    // method != toString
+    if (methodname.compare("toString")) {
       th->changeContext(classname, methodname, descriptor);
     }
   }

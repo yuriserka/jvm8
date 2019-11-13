@@ -244,6 +244,9 @@ std::vector<int> Return::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto retval = th->current_frame->popOperand<long>();
+  th->pushReturnValue(retval);
+  th->current_frame->cleanOperands();
   return {};
 }
 // ----------------------------------------------------------------------------

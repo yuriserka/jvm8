@@ -14,7 +14,8 @@
 #define MAX_STACK 40
 
 namespace MemoryAreas {
-void Thread::executeMethod(const std::string &method_name) {
+void Thread::executeMethod(const std::string &method_name,
+                           const std::string &descriptor) {
   if (this->jvm_stack.size() > MAX_STACK) {
     std::stringstream ss;
     ss << "Stack Overflow. This jvm supports only " << MAX_STACK
@@ -42,15 +43,21 @@ void Thread::executeMethod(const std::string &method_name) {
     std::cout << "Executing method " << method_name << "\n";
   }
 
-  this->current_frame =
-      new Utils::Frame(code_attr->max_stack, code_attr->max_locals,
-                       this->method_area->runtime_constant_pool);
+  auto newf = new Utils::Frame(code_attr->max_stack, code_attr->max_locals,
+                               this->method_area->runtime_constant_pool);
+  // se ja tem um current frame, significa que teve troca de contexto
+  if (this->current_frame) {
+    this->storeArguments(descriptor.substr(descriptor.find_first_of('(') + 1,
+                                           descriptor.find_last_of(')') - 1),
+                         newf);
+  } else {
+    // On instance method invocation, local variable 0 is always used to
+    // pass a reference to the object on which the instance method is being
+    // invoked
+    newf->pushLocalVar(this->current_class->this_class);
+  }
+  this->current_frame = newf;
   this->jvm_stack.push(this->current_frame);
-
-  // On instance method invocation, local variable 0 is always used to
-  // pass a reference to the object on which the instance method is being
-  // invoked
-  this->current_frame->pushLocalVar(this->current_class->this_class);
 
   for (auto it = code_array.begin(); it != code_array.end(); ++it) {
     if (Utils::Flags::options.kDEBUG) {
@@ -64,32 +71,10 @@ void Thread::executeMethod(const std::string &method_name) {
       }
       continue;
     }
-    // Apenas para teste para ver se a troca de contexto em nível de função
-    // funciona, ainda não passa argumentos e nem variaveis locais. invoke
-    // todos os invokes
-    // if (*it >= 0xb6 && *it <= 0xba) {
-    //   std::cout << Utils::getClassName(this->current_class) << "."
-    //             << this->current_method << "::" << this->current_frame->pc
-    //             << ": " << Instructions::Opcodes::getMnemonic(*it);
-    //   uint16_t cp_arg = (((*++it) << 8) | *++it);
-    //   std::cout << " -> args: #" << cp_arg << "\n";
-
-    //   std::string ref_class_name, ref_name, ref_descriptor;
-    //   Utils::getReference(this->current_class, cp_arg, &ref_class_name,
-    //                       &ref_name, &ref_descriptor);
-    //   try {
-    //     this->changeContext(ref_class_name, ref_name, ref_descriptor);
-    //     this->current_frame->pc += 2;
-    //   } catch (const Utils::Errors::Exception &e) {
-    //     if (Utils::Flags::options.kDEBUG) {
-    //       std::cout << e.what() << "\n";
-    //     }
-    //     continue;
-    //   }
-    // }
   }
 
   this->jvm_stack.pop();
+  delete newf;
 }
 
 void Thread::changeContext(const std::string &classname,
@@ -110,54 +95,7 @@ void Thread::changeContext(const std::string &classname,
   auto old_method = this->current_method;
   auto old_frame = this->current_frame;
 
-  this->executeMethod(method_name);
-
-  // usado pra popar o retorno da função pro frame do chamador
-  auto retval_type = descriptor.substr(descriptor.find_last_of(')') + 1);
-  // switch (retval_type) {
-  //   case 'B': {
-  //     ss << curr_frame->popOperand<int8_t>();
-  //     break;
-  //   }
-  //   case 'C': {
-  //     ss << static_cast<char>(curr_frame->popOperand<int>());
-  //     break;
-  //   }
-  //   case 'D': {
-  //     ss << curr_frame->popOperand<double>();
-  //     break;
-  //   }
-  //   case 'F': {
-  //     ss << curr_frame->popOperand<float>();
-  //     break;
-  //   }
-  //   case 'I': {
-  //     ss << curr_frame->popOperand<int>();
-  //     break;
-  //   }
-  //   case 'J': {
-  //     ss << curr_frame->popOperand<long>();
-  //     break;
-  //   }
-  //   case 'S': {
-  //     ss << curr_frame->popOperand<short>();
-  //     break;
-  //   }
-  //   case 'Z': {
-  //     if (!curr_frame->popOperand<int>()) {
-  //       ss << "false";
-  //     } else {
-  //       ss << "true";
-  //     }
-  //     break;
-  //   }
-  //   // sem parametros
-  //   case 'V': {
-  //     break;
-  //   }
-  //   // LOBJREF;
-  //   default: {}
-  // }
+  this->executeMethod(method_name, descriptor);
 
   this->current_class = old_class;
   this->current_frame = old_frame;
@@ -168,5 +106,34 @@ void Thread::changeContext(const std::string &classname,
               << this->current_method << "\n";
   }
   this->method_area->update(this->current_class);
+}
+
+void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame) {
+  for (const auto arg_type : args) {
+    switch (arg_type) {
+      case 'B': {
+        new_frame->pushLocalVar(this->current_frame->popOperand<int8_t>());
+        break;
+      }
+      case 'D': {
+        new_frame->pushLocalVar(this->current_frame->popOperand<double>());
+        break;
+      }
+      case 'F': {
+        new_frame->pushLocalVar(this->current_frame->popOperand<float>());
+        break;
+      }
+      case 'J': {
+        new_frame->pushLocalVar(this->current_frame->popOperand<long>());
+        break;
+      }
+      case 'C':
+      case 'I':
+      case 'S':
+      case 'Z':
+        new_frame->pushLocalVar(this->current_frame->popOperand<int>());
+        break;
+    }
+  };
 }
 }  // namespace MemoryAreas

@@ -7,14 +7,15 @@
 namespace MemoryAreas {
 class JavaStack {
  public:
+  ~JavaStack() {
+    while (!this->frames.empty()) {
+      this->frames.pop();
+    }
+  }
+
   void push(Utils::Frame *frame) { this->frames.push(frame); }
 
-  void pop() {
-    auto f = this->frames.top();
-    this->frames.pop();
-
-    delete f;
-  }
+  void pop() { this->frames.pop(); }
 
   Utils::Frame *top() { return this->frames.top(); }
 
