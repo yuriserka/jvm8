@@ -33,17 +33,16 @@ std::vector<int> LoadCat1::execute(
     }
     case cp::kCONSTANT_STRING: {
       auto kstring_info = kpool_info.getClass<cp::CONSTANT_String_info>();
-      Any objectref = Utils::Object(
+      th->current_frame->pushOperand(Utils::Object(
           kstring_info->getValue(th->method_area->runtime_constant_pool),
-          Utils::Reference::objectref_types::kREF_STRING);
-      th->current_frame->pushOperand(objectref);
+          Utils::Reference::objectref_types::kREF_STRING));
       break;
     }
     case cp::kCONSTANT_CLASS: {
       auto kclass_info = kpool_info.getClass<cp::CONSTANT_Class_info>();
       // referencia pro nome da classe, ou seja, apenas um "ponteiro" pra
       // constant pool
-      Any objectref = Utils::Object(
+      auto objectref = Utils::Object(
           kclass_info->getValue(th->method_area->runtime_constant_pool),
           Utils::Reference::objectref_types::kREF_CLASS);
       th->current_frame->pushOperand(objectref);
@@ -78,7 +77,7 @@ std::vector<int> LoadCat1Wide::execute(
     }
     case cp::kCONSTANT_STRING: {
       auto kstring_info = kpool_info.getClass<cp::CONSTANT_String_info>();
-      Any objectref = Utils::Object(
+      auto objectref = Utils::Object(
           kstring_info->getValue(th->method_area->runtime_constant_pool),
           Utils::Reference::objectref_types::kREF_STRING);
       th->current_frame->pushOperand(objectref);
@@ -88,7 +87,7 @@ std::vector<int> LoadCat1Wide::execute(
       auto kclass_info = kpool_info.getClass<cp::CONSTANT_Class_info>();
       // referencia pro nome da classe, ou seja, apenas um "ponteiro" pra
       // constant pool
-      Any objectref = Utils::Object(
+      auto objectref = Utils::Object(
           kclass_info->getValue(th->method_area->runtime_constant_pool),
           Utils::Reference::objectref_types::kREF_CLASS);
       th->current_frame->pushOperand(objectref);

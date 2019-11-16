@@ -109,12 +109,9 @@ void Thread::changeContext(const std::string &classname,
 }
 
 void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame) {
-  for (const auto arg_type : args) {
+  for (size_t i = 0; i < args.size(); ++i) {
+    auto arg_type = args[i];
     switch (arg_type) {
-      case 'B': {
-        new_frame->pushLocalVar(this->current_frame->popOperand<int8_t>());
-        break;
-      }
       case 'D': {
         new_frame->pushLocalVar(this->current_frame->popOperand<double>());
         break;
@@ -127,12 +124,19 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame) {
         new_frame->pushLocalVar(this->current_frame->popOperand<long>());
         break;
       }
+      case 'B':
       case 'C':
       case 'I':
       case 'S':
       case 'Z':
         new_frame->pushLocalVar(this->current_frame->popOperand<int>());
         break;
+      default: {
+        new_frame->pushLocalVar(
+            this->current_frame->popOperand<Utils::Object>());
+        while(args[++i] != ';');
+        break;
+      }
     }
   };
 }

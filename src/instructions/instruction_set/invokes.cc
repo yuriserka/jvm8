@@ -94,7 +94,7 @@ static std::string getStringForType(Utils::Frame *frame,
   char method_descriptor = descriptor[1];
   switch (method_descriptor) {
     case 'B': {
-      ss << frame->popOperand<int8_t>();
+      ss << static_cast<int8_t>(frame->popOperand<int>());
       break;
     }
     case 'C': {
@@ -107,7 +107,7 @@ static std::string getStringForType(Utils::Frame *frame,
       if (!std::modf(val, &d)) {
         ss << std::fixed << std::setprecision(1) << d;
       } else {
-        ss << std::fixed << std::setprecision(15) << val;
+        ss << val;
       }
       break;
     }
@@ -117,7 +117,7 @@ static std::string getStringForType(Utils::Frame *frame,
       if (!std::modf(val, &f)) {
         ss << std::fixed << std::setprecision(1) << f;
       } else {
-        ss << std::fixed << std::setprecision(15) << val;
+        ss << val;
       }
       break;
     }
@@ -130,7 +130,7 @@ static std::string getStringForType(Utils::Frame *frame,
       break;
     }
     case 'S': {
-      ss << frame->popOperand<int>();
+      ss << static_cast<short>(frame->popOperand<int>());
       break;
     }
     case 'Z': {
@@ -154,8 +154,13 @@ static std::string getStringForType(Utils::Frame *frame,
       } else {
         auto top = frame->popOperand<Utils::Object>();
         const void *address = static_cast<const void *>(&top);
-        ss << refname.substr(1, refname.find_first_of(';') - 1) << "@"
-           << address;
+        auto classname = refname.substr(1, refname.find_first_of(';') - 1);
+        char delimiter = '/';
+#if defined(_WIN32) || defined(WIN32)
+        delimiter = '\\';
+#endif
+        std::replace(classname.begin(), classname.end(), delimiter, '.');
+        ss << classname << "@" << address;
       }
       break;
     }
