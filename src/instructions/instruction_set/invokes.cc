@@ -154,7 +154,7 @@ static std::string getStringForType(Utils::Frame *frame,
         ss << frame->popOperand<Utils::Object *>()->data.as<std::string>();
       } else {
         auto top = frame->popOperand<Utils::Object *>();
-        const void *address = static_cast<const void *>(&top);
+        const void *address = static_cast<const void *>(top);
         auto classname = refname.substr(1, refname.find_first_of(';') - 1);
         char delimiter = '/';
 #if defined(_WIN32) || defined(WIN32)

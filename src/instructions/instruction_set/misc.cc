@@ -365,13 +365,11 @@ std::vector<int> New::execute(
   // classname != java/lang/StringBuilder
   if (classname.compare("java/lang/StringBuilder")) {
     th->method_area->loadClass(classname);
+    objectref = new Utils::Object();
   } else {
-    // inicializa o objectref
     objectref = new Utils::Object(std::string(""),
                                   Utils::Reference::kREF_STRINGBUILDER);
   }
-  // se for usar a heap, tem que retornar um ponteiro e esse ponteiro que vai
-  // pra operand... mas isso fode com tudo kkkk
   auto reference = th->heap->pushReference(objectref);
   th->current_frame->pushOperand(reference);
   *delta_code = 2;
