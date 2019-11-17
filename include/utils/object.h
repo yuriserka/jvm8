@@ -2,6 +2,7 @@
 #define INCLUDE_UTILS_OBJECT_H_
 
 #include <ostream>
+#include "utils/array_t.h"
 #include "utils/external/any.h"
 #include "utils/reference_kind.h"
 
@@ -10,7 +11,13 @@ class Object {
  public:
   Object() {
     this->type = Reference::objectref_types::kREF_NULL;
-    this->data = Any();
+    this->data = nullptr;
+  }
+
+  ~Object() {
+    if (this->data.is<Array_t *>()) {
+      delete this->data.as<Array_t *>();
+    }
   }
 
   template <typename T>
@@ -23,9 +30,5 @@ class Object {
   Any data;
 };
 }  // namespace Utils
-
-// Any a = Object<double>(54.55521);
-//   std::cout << a.is<Object<double>>() << "  " << a.as<Object<double>>() <<
-//   "\n";
 
 #endif  // INCLUDE_UTILS_OBJECT_H_

@@ -15,7 +15,7 @@ class Array_t {
   }
 
   template <typename T>
-  void insert(const T &value, int index) {
+  void insert(T value, int index) {
     this->items[index] = value;
     ++this->len;
   }
@@ -23,9 +23,11 @@ class Array_t {
   int length() { return this->len; }
 
   template <typename T>
-  T at(const int &index) {
+  T get(const int &index) {
     return this->items[index];
   }
+
+  std::vector<Any> getCollection() { return this->items; }
 
  private:
   int len = 0;

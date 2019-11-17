@@ -64,6 +64,15 @@ class Frame {
   }
 
   template <typename T>
+  void pushOperand(T *operand) {
+    if (this->operand_stack.size() > this->max_operand_stack_size) {
+      throw Utils::Errors::Exception(Utils::Errors::kSTACK,
+                                     "Stack Frame Overflow");
+    }
+    this->operand_stack.push(operand);
+  }
+
+  template <typename T>
   T popOperand() {
     auto any = this->operand_stack.top();
     this->operand_stack.pop();

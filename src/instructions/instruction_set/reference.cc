@@ -2,6 +2,8 @@
 
 #include "utils/array_t.h"
 #include "utils/flags.h"
+#include "utils/memory_areas/heap.h"
+#include "utils/memory_areas/method_area.h"
 #include "utils/memory_areas/thread.h"
 #include "utils/object.h"
 
@@ -13,8 +15,10 @@ std::vector<int> LoadFromArray::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  // auto arrayref = th->current_frame->popOperand<Utils::Array_t>();
-  // int index = th->current_frame->popOperand<int>();
+  int index = th->current_frame->popOperand<int>();
+  auto arrayref = th->current_frame->popOperand<Utils::Object *>()
+                      ->data.as<Utils::Array_t *>();
+  th->current_frame->pushOperand(arrayref->get<Utils::Object *>(index));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -24,6 +28,11 @@ std::vector<int> StoreIntoArray::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto value = th->current_frame->popOperand<Utils::Object *>();
+  auto index = th->current_frame->popOperand<int>();
+  auto arrayref = th->current_frame->popOperand<Utils::Object *>()
+                      ->data.as<Utils::Array_t *>();
+  arrayref->insert(value, index);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -52,7 +61,7 @@ std::vector<int> Load::execute(
     *delta_code = 1;
   }
   th->current_frame->pushOperand(
-      th->current_frame->getLocalVarValue<Utils::Object>(localvar_index));
+      th->current_frame->getLocalVarValue<Utils::Object *>(localvar_index));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -63,7 +72,7 @@ std::vector<int> Load_0::execute(
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
   th->current_frame->pushOperand(
-      th->current_frame->getLocalVarValue<Utils::Object>(0));
+      th->current_frame->getLocalVarValue<Utils::Object *>(0));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -74,7 +83,7 @@ std::vector<int> Load_1::execute(
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
   th->current_frame->pushOperand(
-      th->current_frame->getLocalVarValue<Utils::Object>(1));
+      th->current_frame->getLocalVarValue<Utils::Object *>(1));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -85,7 +94,7 @@ std::vector<int> Load_2::execute(
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
   th->current_frame->pushOperand(
-      th->current_frame->getLocalVarValue<Utils::Object>(2));
+      th->current_frame->getLocalVarValue<Utils::Object *>(2));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -96,7 +105,7 @@ std::vector<int> Load_3::execute(
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
   th->current_frame->pushOperand(
-      th->current_frame->getLocalVarValue<Utils::Object>(3));
+      th->current_frame->getLocalVarValue<Utils::Object *>(3));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -106,6 +115,28 @@ std::vector<int> NewArray::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto kpool_index = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+
+  // classname != String
+  if (th->method_area->runtime_constant_pool[kpool_index - 1]
+          .getClass<Utils::ConstantPool::CONSTANT_Class_info>()
+          ->getValue(th->method_area->runtime_constant_pool)
+          .compare("java/lang/String")) {
+    th->executeMethod("<init>");
+  }
+
+  auto count = th->current_frame->popOperand<int>();
+
+  if (!count) {
+    throw Utils::Errors::JvmException(Utils::Errors::kNEGATIVEARRAYSIZE,
+                                      "NegativeArraySizeException");
+  }
+
+  auto arr = new Utils::Array_t(count, Utils::Reference::kREF_CLASS);
+  auto objectref = new Utils::Object(arr, Utils::Reference::kREF_ARRAY);
+
+  th->current_frame->pushOperand(th->heap->pushReference(objectref));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -115,7 +146,7 @@ std::vector<int> Return::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto retval = th->current_frame->popOperand<Utils::Object>();
+  auto retval = th->current_frame->popOperand<Utils::Object *>();
   th->pushReturnValue(retval);
   th->current_frame->cleanOperands();
   return {};
@@ -127,13 +158,13 @@ std::vector<int> ArrayLength::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto arrayref =
-      th->current_frame->popOperand<Utils::Object>().data.as<Utils::Array_t>();
+  auto arrayref = th->current_frame->popOperand<Utils::Object *>()
+                      ->data.as<Utils::Array_t *>();
   // if () {
   //   throw Utils::Errors::Exception(Utils::Errors::kNULLPOINTEREXCEPTION,
   //   "NullPointerException");
   // }
-  th->current_frame->pushOperand(arrayref.length());
+  th->current_frame->pushOperand(arrayref->length());
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -152,7 +183,7 @@ std::vector<int> Store::execute(
     localvar_index = int{*++*code_iterator};
     *delta_code = 1;
   }
-  auto objectref = th->current_frame->popOperand<Utils::Object>();
+  auto objectref = th->current_frame->popOperand<Utils::Object *>();
   th->current_frame->pushLocalVar(objectref, localvar_index);
 
   return {};
@@ -164,7 +195,7 @@ std::vector<int> Store_0::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto objectref = th->current_frame->popOperand<Utils::Object>();
+  auto objectref = th->current_frame->popOperand<Utils::Object *>();
   th->current_frame->pushLocalVar(objectref, 0);
   return {};
 }
@@ -175,7 +206,7 @@ std::vector<int> Store_1::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto objectref = th->current_frame->popOperand<Utils::Object>();
+  auto objectref = th->current_frame->popOperand<Utils::Object *>();
   th->current_frame->pushLocalVar(objectref, 1);
   return {};
 }
@@ -186,7 +217,7 @@ std::vector<int> Store_2::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto objectref = th->current_frame->popOperand<Utils::Object>();
+  auto objectref = th->current_frame->popOperand<Utils::Object *>();
   th->current_frame->pushLocalVar(objectref, 2);
   return {};
 }
@@ -197,7 +228,7 @@ std::vector<int> Store_3::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto objectref = th->current_frame->popOperand<Utils::Object>();
+  auto objectref = th->current_frame->popOperand<Utils::Object *>();
   th->current_frame->pushLocalVar(objectref, 3);
   return {};
 }

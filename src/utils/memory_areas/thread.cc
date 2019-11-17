@@ -69,6 +69,7 @@ void Thread::executeMethod(const std::string &method_name,
       if (Utils::Flags::options.kDEBUG) {
         std::cout << e.what() << "\n";
       }
+      // acho que aqui seria onde teria o tratamento das excecoes da jvm????
       continue;
     }
   }
@@ -133,7 +134,7 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame) {
         break;
       default: {
         new_frame->pushLocalVar(
-            this->current_frame->popOperand<Utils::Object>());
+            this->current_frame->popOperand<Utils::Object *>());
         while (args[++i] != ';') {
         }
         break;

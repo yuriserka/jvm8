@@ -4,6 +4,7 @@
 #include <iomanip>
 #include "utils/accessFlags.h"
 #include "utils/flags.h"
+#include "utils/memory_areas/heap.h"
 #include "utils/memory_areas/method_area.h"
 #include "utils/memory_areas/thread.h"
 #include "utils/object.h"
@@ -57,7 +58,7 @@ std::vector<int> Especial::execute(
     // idealmente era pra popar uma referencia duplicada e rodar o método init,
     // ent sla ne?//
     // https://stackoverflow.com/questions/12438567/java-bytecode-dup
-    th->current_frame->popOperand<Utils::Object>();
+    th->current_frame->popOperand<Utils::Object *>();
     if (Utils::Flags::options.kDEBUG) {
       std::cout << "Ignorando " << Opcodes::getMnemonic(this->opcode) << " "
                 << (classname + "." + methodname) << "\n";
@@ -150,9 +151,9 @@ static std::string getStringForType(Utils::Frame *frame,
       auto refname = descriptor.substr(descriptor.find_first_of('(') + 1,
                                        descriptor.find_first_of(';'));
       if (!refname.compare("Ljava/lang/String;")) {
-        ss << frame->popOperand<Utils::Object>().data.as<std::string>();
+        ss << frame->popOperand<Utils::Object *>()->data.as<std::string>();
       } else {
-        auto top = frame->popOperand<Utils::Object>();
+        auto top = frame->popOperand<Utils::Object *>();
         const void *address = static_cast<const void *>(&top);
         auto classname = refname.substr(1, refname.find_first_of(';') - 1);
         char delimiter = '/';
@@ -175,15 +176,15 @@ static std::string print_handler(Utils::Frame *curr_frame,
   return ss.str();
 }
 
-static void append_handler(Utils::Frame *curr_frame,
+static void append_handler(MemoryAreas::Thread *th,
                            const std::string &descriptor) {
   std::stringstream ss;
-  ss << getStringForType(curr_frame, descriptor);
-  auto fstr = curr_frame->popOperand<Utils::Object>().data.as<std::string>();
-  std::string str = fstr + ss.str();
+  ss << getStringForType(th->current_frame, descriptor);
+  auto objectref = th->current_frame->popOperand<Utils::Object *>();
+  auto fstr = objectref->data.as<std::string>();
 
-  auto objectref = Utils::Object(str, Utils::Reference::kSTR_STRINGBUILDER);
-  curr_frame->pushOperand(objectref);
+  objectref->data = fstr + ss.str();
+  th->current_frame->pushOperand(objectref);
 }
 
 std::vector<int> Virtual::execute(
@@ -209,7 +210,7 @@ std::vector<int> Virtual::execute(
     if (methodname.compare("append")) {
       std::cout << print_handler(th->current_frame, descriptor);
     } else {
-      append_handler(th->current_frame, descriptor);
+      append_handler(th, descriptor);
     }
     if (!methodname.compare("println")) {
       std::cout << "\n";

@@ -2,6 +2,7 @@
 
 #include "utils/flags.h"
 #include "utils/memory.h"
+#include "utils/memory_areas/heap.h"
 #include "utils/memory_areas/method_area.h"
 #include "utils/memory_areas/thread.h"
 #include "utils/object.h"
@@ -33,18 +34,20 @@ std::vector<int> LoadCat1::execute(
     }
     case cp::kCONSTANT_STRING: {
       auto kstring_info = kpool_info.getClass<cp::CONSTANT_String_info>();
-      auto objectref = Utils::Object(
+      auto objectref = new Utils::Object(
           kstring_info->getValue(th->method_area->runtime_constant_pool),
           Utils::Reference::objectref_types::kREF_STRING);
-      th->current_frame->pushOperand(objectref);
+      auto stringref = th->heap->pushReference(objectref);
+      th->current_frame->pushOperand(stringref);
       break;
     }
     case cp::kCONSTANT_CLASS: {
       auto kclass_info = kpool_info.getClass<cp::CONSTANT_Class_info>();
-      auto objectref = Utils::Object(
+      auto objectref = new Utils::Object(
           kclass_info->getValue(th->method_area->runtime_constant_pool),
           Utils::Reference::objectref_types::kREF_CLASS);
-      th->current_frame->pushOperand(objectref);
+      auto classref = th->heap->pushReference(objectref);
+      th->current_frame->pushOperand(classref);
       break;
     }
   }
@@ -76,18 +79,20 @@ std::vector<int> LoadCat1Wide::execute(
     }
     case cp::kCONSTANT_STRING: {
       auto kstring_info = kpool_info.getClass<cp::CONSTANT_String_info>();
-      auto objectref = Utils::Object(
+      auto objectref = new Utils::Object(
           kstring_info->getValue(th->method_area->runtime_constant_pool),
           Utils::Reference::objectref_types::kREF_STRING);
-      th->current_frame->pushOperand(objectref);
+      auto stringref = th->heap->pushReference(objectref);
+      th->current_frame->pushOperand(stringref);
       break;
     }
     case cp::kCONSTANT_CLASS: {
       auto kclass_info = kpool_info.getClass<cp::CONSTANT_Class_info>();
-      auto objectref = Utils::Object(
+      auto objectref = new Utils::Object(
           kclass_info->getValue(th->method_area->runtime_constant_pool),
           Utils::Reference::objectref_types::kREF_CLASS);
-      th->current_frame->pushOperand(objectref);
+      auto classref = th->heap->pushReference(objectref);
+      th->current_frame->pushOperand(classref);
       break;
     }
   }

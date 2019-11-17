@@ -1,5 +1,6 @@
 #include "instructions/instruction_set/misc.h"
 
+#include <memory>
 #include "utils/array_t.h"
 #include "utils/flags.h"
 #include "utils/memory_areas/heap.h"
@@ -360,19 +361,19 @@ std::vector<int> New::execute(
       kpool_info.getClass<Utils::ConstantPool::CONSTANT_Class_info>()->getValue(
           th->method_area->runtime_constant_pool);
 
-  Utils::Object objectref;
+  Utils::Object *objectref = nullptr;
   // classname != java/lang/StringBuilder
   if (classname.compare("java/lang/StringBuilder")) {
     th->method_area->loadClass(classname);
   } else {
     // inicializa o objectref
-    objectref =
-        Utils::Object(std::string(""), Utils::Reference::kREF_STRINGBUILDER);
+    objectref = new Utils::Object(std::string(""),
+                                  Utils::Reference::kREF_STRINGBUILDER);
   }
   // se for usar a heap, tem que retornar um ponteiro e esse ponteiro que vai
   // pra operand... mas isso fode com tudo kkkk
-  // auto reference = th->heap->pushReference(objectref);
-  th->current_frame->pushOperand(objectref);
+  auto reference = th->heap->pushReference(objectref);
+  th->current_frame->pushOperand(reference);
   *delta_code = 2;
   return {};
 }
@@ -388,14 +389,13 @@ std::vector<int> NewArray::execute(
   auto count = th->current_frame->popOperand<int>();
 
   if (!count) {
-    throw Utils::Errors::Exception(Utils::Errors::kNEGATIVEARRAYSIZE,
-                                   "NegativeArraySizeException");
+    throw Utils::Errors::JvmException(Utils::Errors::kNEGATIVEARRAYSIZE,
+                                      "NegativeArraySizeException");
   }
 
-  Any arr = Utils::Array_t(count, atype);
-  auto objectref = Utils::Object(arr, Utils::Reference::kREF_ARRAY);
-  // auto arrayref = th->heap->pushReference(objectref);
-  th->current_frame->pushOperand(objectref);
+  auto arr = new Utils::Array_t(count, atype);
+  auto objectref = new Utils::Object(arr, Utils::Reference::kREF_ARRAY);
+  th->current_frame->pushOperand(th->heap->pushReference(objectref));
 
   *delta_code = 1;
   return {};

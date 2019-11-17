@@ -92,9 +92,9 @@ std::vector<int> LoadFromArray::execute(
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
   int index = th->current_frame->popOperand<int>();
-  auto arrayref =
-      th->current_frame->popOperand<Utils::Object>().data.as<Utils::Array_t>();
-  th->current_frame->pushOperand(arrayref.at<int>(index));
+  auto arrayref = th->current_frame->popOperand<Utils::Object *>()
+                      ->data.as<Utils::Array_t *>();
+  th->current_frame->pushOperand(arrayref->get<int>(index));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -118,9 +118,9 @@ std::vector<int> StoreIntoArray::execute(
   }
   auto value = th->current_frame->popOperand<int>();
   auto index = th->current_frame->popOperand<int>();
-  auto arrayref =
-      th->current_frame->popOperand<Utils::Object>().data.as<Utils::Array_t>();
-  arrayref.insert(value, index);
+  auto arrayref = th->current_frame->popOperand<Utils::Object *>()
+                      ->data.as<Utils::Array_t *>();
+  arrayref->insert(value, index);
   return {};
 }
 // ----------------------------------------------------------------------------
