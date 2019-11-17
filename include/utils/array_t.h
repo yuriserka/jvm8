@@ -14,8 +14,21 @@ class Array_t {
     this->type = atype;
   }
 
+  template <typename T>
+  void insert(const T &value, int index) {
+    this->items[index] = value;
+    ++this->len;
+  }
+
+  int length() { return this->len; }
+
+  template <typename T>
+  T at(const int &index) {
+    return this->items[index];
+  }
+
  private:
-  int length;
+  int len = 0;
   int max_length;
   int type;
   std::vector<Any> items;

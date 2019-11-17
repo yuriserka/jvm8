@@ -29,12 +29,6 @@ class Frame {
     this->local_variables[this->last_index++] = localvar;
   }
 
-  void cleanOperands() {
-    while (!this->operand_stack.empty()) {
-      this->operand_stack.pop();
-    }
-  }
-
   template <typename T>
   void pushLocalVar(const T &localvar, const int &index) {
     if (this->local_variables.size() > this->max_localvar_size) {
@@ -79,6 +73,24 @@ class Frame {
     }
 
     return any.as<T>();
+  }
+
+  template <typename T>
+  T *popOperandReference() {
+    auto any = this->operand_stack.top();
+    this->operand_stack.pop();
+
+    if (std::is_same<T, Any>::value) {
+      return any;
+    }
+
+    return &any.as<T>();
+  }
+
+  void cleanOperands() {
+    while (!this->operand_stack.empty()) {
+      this->operand_stack.pop();
+    }
   }
 
   int pc;

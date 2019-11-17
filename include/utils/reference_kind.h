@@ -20,7 +20,13 @@ enum reftypes {
   kREF_invokeInterface
 };
 
-enum objectref_types { kREF_NULL, kREF_STRING, kREF_CLASS, kREF_STRINGBUILDER };
+enum objectref_types {
+  kREF_NULL,
+  kREF_STRING,
+  kREF_CLASS,
+  kREF_STRINGBUILDER,
+  kREF_ARRAY
+};
 
 enum string_types { kSTR_STR, kSTR_STRINGBUILDER, kSTR_INT };
 

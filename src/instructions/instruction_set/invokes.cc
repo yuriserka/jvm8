@@ -182,8 +182,8 @@ static void append_handler(Utils::Frame *curr_frame,
   auto fstr = curr_frame->popOperand<Utils::Object>().data.as<std::string>();
   std::string str = fstr + ss.str();
 
-  auto objref = Utils::Object(str, Utils::Reference::kSTR_STRINGBUILDER);
-  curr_frame->pushOperand(objref);
+  auto objectref = Utils::Object(str, Utils::Reference::kSTR_STRINGBUILDER);
+  curr_frame->pushOperand(objectref);
 }
 
 std::vector<int> Virtual::execute(

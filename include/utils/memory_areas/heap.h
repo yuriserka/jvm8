@@ -23,7 +23,7 @@ class Heap {
   }
 
   Utils::Object *pushReference(const Utils::Object &obj) {
-    this->object_refs.emplace_back(obj);
+    this->object_refs.push_back(obj);
 
     return &this->object_refs[this->last_obj_index++];
   }

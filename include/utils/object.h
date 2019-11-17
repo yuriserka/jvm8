@@ -15,7 +15,7 @@ class Object {
 
   template <typename T>
   Object(T v, int ref_type) {
-    this->data = Any(v);
+    this->data = v;
     this->type = ref_type;
   }
 

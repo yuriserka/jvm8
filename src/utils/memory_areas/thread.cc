@@ -134,7 +134,8 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame) {
       default: {
         new_frame->pushLocalVar(
             this->current_frame->popOperand<Utils::Object>());
-        while(args[++i] != ';');
+        while (args[++i] != ';') {
+        }
         break;
       }
     }

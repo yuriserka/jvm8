@@ -1,7 +1,5 @@
 public class ReturnTest {
 
-    private static int last_index;
-        
     public static void main(String[] args) {
         System.out.println("retorno int = " + returnInt());
         System.out.println("retorno byte = " + returnByte());
@@ -12,9 +10,6 @@ public class ReturnTest {
         System.out.println("retorno float = " + returnFloat());
         System.out.println("retorno long = " + returnLong());
         System.out.println("retorno str = " + returnString()); 
-        
-        // ainda não funciona por causa do getStatic
-        // System.out.println(getLastIndex());
     }
 
     private static int returnInt() {
@@ -62,7 +57,4 @@ public class ReturnTest {
         return x;
     }
 
-    private static int getLastIndex() {
-        return last_index++;
-    }
 }

@@ -127,6 +127,13 @@ std::vector<int> ArrayLength::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto arrayref =
+      th->current_frame->popOperand<Utils::Object>().data.as<Utils::Array_t>();
+  // if () {
+  //   throw Utils::Errors::Exception(Utils::Errors::kNULLPOINTEREXCEPTION,
+  //   "NullPointerException");
+  // }
+  th->current_frame->pushOperand(arrayref.length());
   return {};
 }
 // ----------------------------------------------------------------------------
