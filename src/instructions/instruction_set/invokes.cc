@@ -45,7 +45,8 @@ std::vector<int> Especial::execute(
                       &methodname, &descriptor);
 
   // classname != java/lang/StringBuilder
-  if (classname.compare("java/lang/StringBuilder")) {
+  if (classname.compare("java/lang/StringBuilder") &&
+      classname.compare("java/lang/String")) {
     th->changeContext(classname, methodname, descriptor);
     // auto m = Utils::getMethod(th->method_area->runtime_classfile,
     // methodname); auto accessflags =
@@ -55,10 +56,17 @@ std::vector<int> Especial::execute(
 
     // }
   } else {
-    // idealmente era pra popar uma referencia duplicada e rodar o método init,
-    // ent sla ne?//
+    // idealmente era pra popar uma referencia duplicada e rodar o método init.
+    // o StringBuilder n precisa de argumentos, mas String sim
     // https://stackoverflow.com/questions/12438567/java-bytecode-dup
-    th->current_frame->popOperand<Utils::Object *>();
+    std::string string_init_arg = "";
+    if (!classname.compare("java/lang/String")) {
+      // vem do LDC
+      string_init_arg = th->current_frame->popOperand<Utils::Object *>()
+                            ->data.as<std::string>();
+    }
+    auto ref = th->current_frame->popOperand<Utils::Object *>();
+    ref->data = string_init_arg;
     if (Utils::Flags::options.kDEBUG) {
       std::cout << "Ignorando " << Opcodes::getMnemonic(this->opcode) << " "
                 << (classname + "." + methodname) << "\n";

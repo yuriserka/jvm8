@@ -42,6 +42,7 @@ std::vector<int> ConstNull::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  th->current_frame->pushOperand<Utils::Object>(nullptr);
   return {};
 }
 // ----------------------------------------------------------------------------

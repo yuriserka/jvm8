@@ -309,6 +309,10 @@ std::vector<int> Goto::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  th->current_frame->pc += (offset - *delta_code - 1);
+  *code_iterator += (offset - *delta_code - 1);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -318,6 +322,11 @@ std::vector<int> GotoWide::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto offset = (*++*code_iterator << 24) | (*++*code_iterator << 16) |
+                (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 4;
+  th->current_frame->pc += (offset - *delta_code - 1);
+  *code_iterator += (offset - *delta_code - 1);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -362,13 +371,16 @@ std::vector<int> New::execute(
           th->method_area->runtime_constant_pool);
 
   Utils::Object *objectref = nullptr;
-  // classname != java/lang/StringBuilder
-  if (classname.compare("java/lang/StringBuilder")) {
-    th->method_area->loadClass(classname);
-    objectref = new Utils::Object();
-  } else {
+  // classname != StringBuilder ou != String ai carrega
+  if (!classname.compare("java/lang/StringBuilder")) {
     objectref = new Utils::Object(std::string(""),
                                   Utils::Reference::kREF_STRINGBUILDER);
+  } else if (!classname.compare("java/lang/String")) {
+    objectref =
+        new Utils::Object(nullptr, Utils::Reference::kREF_STRING);
+  } else {
+    th->method_area->loadClass(classname);
+    objectref = new Utils::Object();
   }
   auto reference = th->heap->pushReference(objectref);
   th->current_frame->pushOperand(reference);

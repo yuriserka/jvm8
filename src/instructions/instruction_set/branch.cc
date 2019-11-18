@@ -2,6 +2,7 @@
 
 #include "utils/flags.h"
 #include "utils/memory_areas/thread.h"
+#include "utils/object.h"
 
 namespace Instructions {
 namespace Branch {
@@ -10,6 +11,14 @@ std::vector<int> RefCompareEqual::execute(
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+  }
+  auto val2 = th->current_frame->popOperand<Utils::Object *>();
+  auto val1 = th->current_frame->popOperand<Utils::Object *>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (val1 == val2) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -20,6 +29,14 @@ std::vector<int> RefCompareNotEqual::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto val2 = th->current_frame->popOperand<Utils::Object *>();
+  auto val1 = th->current_frame->popOperand<Utils::Object *>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (val1 != val2) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
+  }
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -28,6 +45,14 @@ std::vector<int> IntegerCompareEqual::execute(
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+  }
+  auto val2 = th->current_frame->popOperand<int>();
+  auto val1 = th->current_frame->popOperand<int>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (val1 == val2) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -38,6 +63,14 @@ std::vector<int> IntegerCompareGreaterEqual::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto val2 = th->current_frame->popOperand<int>();
+  auto val1 = th->current_frame->popOperand<int>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (val1 >= val2) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
+  }
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -46,6 +79,14 @@ std::vector<int> IntegerCompareGreaterThan::execute(
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+  }
+  auto val2 = th->current_frame->popOperand<int>();
+  auto val1 = th->current_frame->popOperand<int>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (val1 > val2) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -56,6 +97,14 @@ std::vector<int> IntegerCompareLessEqual::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto val2 = th->current_frame->popOperand<int>();
+  auto val1 = th->current_frame->popOperand<int>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (val1 <= val2) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
+  }
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -64,6 +113,14 @@ std::vector<int> IntegerCompareLessThan::execute(
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+  }
+  auto val2 = th->current_frame->popOperand<int>();
+  auto val1 = th->current_frame->popOperand<int>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (val1 < val2) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -74,6 +131,14 @@ std::vector<int> IntegerCompareNotEqual::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto val2 = th->current_frame->popOperand<int>();
+  auto val1 = th->current_frame->popOperand<int>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (val1 != val2) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
+  }
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -82,6 +147,13 @@ std::vector<int> EqualZero::execute(
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+  }
+  auto value = th->current_frame->popOperand<int>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (!value) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -92,6 +164,13 @@ std::vector<int> GreaterEqualZero::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto value = th->current_frame->popOperand<int>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (value >= 0) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
+  }
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -100,6 +179,13 @@ std::vector<int> GreaterThanZero::execute(
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+  }
+  auto value = th->current_frame->popOperand<int>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (value > 0) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -110,6 +196,13 @@ std::vector<int> LessEqualZero::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto value = th->current_frame->popOperand<int>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (value <= 0) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
+  }
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -118,6 +211,13 @@ std::vector<int> LessThanZero::execute(
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+  }
+  auto value = th->current_frame->popOperand<int>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (value < 0) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -128,6 +228,13 @@ std::vector<int> NotEqualZero::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto value = th->current_frame->popOperand<int>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (value) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
+  }
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -137,6 +244,13 @@ std::vector<int> NonNull::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto value = th->current_frame->popOperand<Utils::Object *>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (value) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
+  }
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -145,6 +259,13 @@ std::vector<int> RefNull::execute(
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
+  }
+  auto value = th->current_frame->popOperand<Utils::Object *>();
+  int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
+  if (!value) {
+    *code_iterator += (offset - *delta_code - 1);
+    th->current_frame->pc += (offset - *delta_code - 1);
   }
   return {};
 }

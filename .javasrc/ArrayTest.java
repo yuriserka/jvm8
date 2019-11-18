@@ -11,5 +11,9 @@ class ArrayTest {
         System.out.println(quantis[3]);
         System.out.println(enormes[1]);
         System.out.println(autores[3]);
+
+        for (String a : autores) {
+            System.out.println(a);
+        }
     }
 }
