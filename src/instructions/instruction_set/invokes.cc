@@ -44,10 +44,10 @@ std::vector<int> Especial::execute(
   Utils::getReference(th->method_area->runtime_classfile, index, &classname,
                       &methodname, &descriptor);
 
-  // classname != java/lang/StringBuilder
+  // classname != java/lang/StringBuilder e != java/lang/String
   if (classname.compare("java/lang/StringBuilder") &&
       classname.compare("java/lang/String")) {
-    th->changeContext(classname, methodname, descriptor);
+    th->changeContext(classname, methodname, descriptor, true);
     // auto m = Utils::getMethod(th->method_area->runtime_classfile,
     // methodname); auto accessflags =
     // Utils::Access::getMethodAccessType(m.access_flags); if
@@ -57,7 +57,7 @@ std::vector<int> Especial::execute(
     // }
   } else {
     // idealmente era pra popar uma referencia duplicada e rodar o método init.
-    // o StringBuilder n precisa de argumentos, mas String sim
+    // o init do StringBuilder n precisa de argumentos, mas o do String sim
     // https://stackoverflow.com/questions/12438567/java-bytecode-dup
     std::string string_init_arg = "";
     if (!classname.compare("java/lang/String")) {
@@ -92,7 +92,7 @@ std::vector<int> Static::execute(
   Utils::getReference(th->method_area->runtime_classfile, kpool_index,
                       &classname, &methodname, &descriptor);
 
-  th->changeContext(classname, methodname, descriptor);
+  th->changeContext(classname, methodname, descriptor, false);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -158,11 +158,15 @@ static std::string getStringForType(Utils::Frame *frame,
     default: {
       auto refname = descriptor.substr(descriptor.find_first_of('(') + 1,
                                        descriptor.find_first_of(';'));
+      auto objectref = frame->popOperand<Utils::Object *>();
+      if (!objectref) {
+        ss << "null";
+        break;
+      }
       if (!refname.compare("Ljava/lang/String;")) {
-        ss << frame->popOperand<Utils::Object *>()->data.as<std::string>();
+        ss << objectref->data.as<std::string>();
       } else {
-        auto top = frame->popOperand<Utils::Object *>();
-        const void *address = static_cast<const void *>(top);
+        const void *address = static_cast<const void *>(objectref);
         auto classname = refname.substr(1, refname.find_first_of(';') - 1);
         char delimiter = '/';
 #if defined(_WIN32) || defined(WIN32)
@@ -211,14 +215,14 @@ std::vector<int> Virtual::execute(
   if (!methodname.compare("print") || !methodname.compare("println") ||
       !methodname.compare("append")) {
     if (Utils::Flags::options.kDEBUG) {
-      auto ref_val = classname + "." + methodname;
+      auto ref_val = classname + "." + methodname + ":" + descriptor;
       std::cout << "Interceptando " << Opcodes::getMnemonic(this->opcode) << " "
                 << ref_val << "\n";
     }
-    if (methodname.compare("append")) {
-      std::cout << print_handler(th->current_frame, descriptor);
-    } else {
+    if (!methodname.compare("append")) {
       append_handler(th, descriptor);
+    } else {
+      std::cout << print_handler(th->current_frame, descriptor);
     }
     if (!methodname.compare("println")) {
       std::cout << "\n";
@@ -229,7 +233,7 @@ std::vector<int> Virtual::execute(
     }
     // method != toString
     if (methodname.compare("toString")) {
-      th->changeContext(classname, methodname, descriptor);
+      th->changeContext(classname, methodname, descriptor, true);
     }
   }
   return {};

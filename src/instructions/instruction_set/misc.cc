@@ -336,6 +336,14 @@ std::vector<int> InstanceOf::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  // auto kpool_index = (*++*code_iterator << 8) | *++*code_iterator;
+  // *delta_code = 2;
+
+  auto objectref = th->current_frame->popOperand<Utils::Object *>();
+  if (objectref->data.is_null()) {
+    th->current_frame->pushOperand(1);
+  }
+
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -370,20 +378,14 @@ std::vector<int> New::execute(
       kpool_info.getClass<Utils::ConstantPool::CONSTANT_Class_info>()->getValue(
           th->method_area->runtime_constant_pool);
 
-  Utils::Object *objectref = nullptr;
-  // classname != StringBuilder ou != String ai carrega
-  if (!classname.compare("java/lang/StringBuilder")) {
-    objectref = new Utils::Object(std::string(""),
-                                  Utils::Reference::kREF_STRINGBUILDER);
-  } else if (!classname.compare("java/lang/String")) {
-    objectref =
-        new Utils::Object(nullptr, Utils::Reference::kREF_STRING);
-  } else {
+  // classname != java/lang/StringBuilder e != java/lang/String
+  if (classname.compare("java/lang/StringBuilder") &&
+      classname.compare("java/lang/String")) {
     th->method_area->loadClass(classname);
-    objectref = new Utils::Object();
   }
-  auto reference = th->heap->pushReference(objectref);
-  th->current_frame->pushOperand(reference);
+
+  auto objectref = new Utils::Object();
+  th->current_frame->pushOperand(th->heap->pushReference(objectref));
   *delta_code = 2;
   return {};
 }

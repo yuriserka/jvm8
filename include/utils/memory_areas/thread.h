@@ -18,12 +18,14 @@ class Thread {
   }
 
   void executeMethod(const std::string &method_name,
+                     const bool &popObjectRef = false,
                      const std::string &descriptor = "");
 
   void changeContext(const std::string &classname, const std::string &method,
-                     const std::string &arguments);
+                     const std::string &arguments, const bool &popObjectRef);
 
-  void storeArguments(const std::string &args, Utils::Frame *new_frame);
+  void storeArguments(const std::string &args, Utils::Frame *new_frame,
+                      const bool &popObjectRef);
 
   template <typename T>
   void pushReturnValue(const T &val) {

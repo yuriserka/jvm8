@@ -15,6 +15,7 @@
 
 namespace MemoryAreas {
 void Thread::executeMethod(const std::string &method_name,
+                           const bool &popObjectRef,
                            const std::string &descriptor) {
   if (this->jvm_stack.size() > MAX_STACK) {
     std::stringstream ss;
@@ -40,7 +41,7 @@ void Thread::executeMethod(const std::string &method_name,
   auto code_array = code_attr->code;
 
   if (Utils::Flags::options.kDEBUG) {
-    std::cout << "Executing method " << method_name << "\n";
+    std::cout << "\tExecuting method " << method_name << "\n";
   }
 
   auto newf = new Utils::Frame(code_attr->max_stack, code_attr->max_locals,
@@ -49,7 +50,7 @@ void Thread::executeMethod(const std::string &method_name,
   if (this->current_frame) {
     this->storeArguments(descriptor.substr(descriptor.find_first_of('(') + 1,
                                            descriptor.find_last_of(')') - 1),
-                         newf);
+                         newf, popObjectRef);
   } else {
     // On instance method invocation, local variable 0 is always used to
     // pass a reference to the object on which the instance method is being
@@ -80,10 +81,11 @@ void Thread::executeMethod(const std::string &method_name,
 
 void Thread::changeContext(const std::string &classname,
                            const std::string &method_name,
-                           const std::string &descriptor) {
+                           const std::string &descriptor,
+                           const bool &popObjectRef) {
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "\tchanging context to " << classname << "." << method_name
-              << descriptor << "\n";
+              << ":" << descriptor << "\n";
   }
   auto const actual_classname = Utils::getClassName(this->current_class);
 
@@ -96,7 +98,7 @@ void Thread::changeContext(const std::string &classname,
   auto old_method = this->current_method;
   auto old_frame = this->current_frame;
 
-  this->executeMethod(method_name, descriptor);
+  this->executeMethod(method_name, popObjectRef, descriptor);
 
   this->current_class = old_class;
   this->current_frame = old_frame;
@@ -109,7 +111,8 @@ void Thread::changeContext(const std::string &classname,
   this->method_area->update(this->current_class);
 }
 
-void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame) {
+void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
+                            const bool &popObjectRef) {
   for (size_t i = 0; i < args.size(); ++i) {
     auto arg_type = args[i];
     switch (arg_type) {
@@ -141,5 +144,8 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame) {
       }
     }
   };
+  if (popObjectRef) {
+    new_frame->pushLocalVar(this->current_frame->popOperand<Utils::Object *>());
+  }
 }
 }  // namespace MemoryAreas
