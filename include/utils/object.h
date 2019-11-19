@@ -9,10 +9,7 @@
 namespace Utils {
 class Object {
  public:
-  Object() {
-    this->type = Reference::objectref_types::kREF_NULL;
-    this->data = nullptr;
-  }
+  Object() = default;
 
   ~Object() {
     if (this->data.is<Array_t *>()) {

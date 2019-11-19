@@ -27,6 +27,12 @@ class Frame {
                                      "Loval Variable Overflow");
     }
     this->local_variables[this->last_index++] = localvar;
+    // double e long ocupam 2 slots do vetor de variaveis locais, uma
+    // implementação possivel seria colocar o high e o low em uma, mas eu do
+    // push no valor cheio logo em apenas uma posição
+    if (std::is_same<T, double>::value || std::is_same<T, long>::value) {
+      this->local_variables[this->last_index++] = nullptr;
+    }
   }
 
   template <typename T>
@@ -35,10 +41,10 @@ class Frame {
       throw Utils::Errors::Exception(Utils::Errors::kSTACK,
                                      "Loval Variable Overflow");
     }
-    this->local_variables[index] = Any(localvar);
-    // // double e long ocupam 2 slots do vetor de variaveis locais, uma
-    // // implementação possivel seria colocar o high e o low em uma, mas eu do
-    // // push no valor cheio logo em apenas uma posição
+    this->local_variables[index] = localvar;
+    // double e long ocupam 2 slots do vetor de variaveis locais, uma
+    // implementação possivel seria colocar o high e o low em uma, mas eu do
+    // push no valor cheio logo em apenas uma posição
     if (std::is_same<T, double>::value || std::is_same<T, long>::value) {
       this->local_variables[index + 1] = nullptr;
     }
@@ -75,12 +81,14 @@ class Frame {
   template <typename T>
   T popOperand() {
     auto any = this->operand_stack.top();
-    this->operand_stack.pop();
-
     if (std::is_same<T, Any>::value) {
+      this->operand_stack.pop();
       return any;
+    } else if (!any.is<T>()) {
+      throw Utils::Errors::Exception(Utils::Errors::kBADCAST,
+                                     "invalid cast in pop operand");
     }
-
+    this->operand_stack.pop();
     return any.as<T>();
   }
 

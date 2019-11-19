@@ -27,14 +27,17 @@ class BranchTest {
             System.out.println("agora são iguais mesmo");
         }
         String str = null;
-        if (str == null) {
+        if (str != null) {
             str = "notNull????";
         }
         System.out.println("str antes = " + str);
         str = new String("KKAKAAKKA");
         o1 = str; 
+        // if (o1 instanceof String) {
+        //     System.out.println("o1 agora é uma instancia de String");
+        // }
         if (o1 == str) {
-            System.out.println("object pode receber um objeto do tipo String");
+            System.out.println("o1 e str possuem o mesmo endereço");
         }
         System.out.println("o1 = " + o1);
         System.out.println("str = " + str);

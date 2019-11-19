@@ -45,6 +45,7 @@ enum errors {
   kCONSTANTPOOL,
   kBYTE,
   kUTF8,
+  kBADCAST,
   kSOURCE,
   kMETHOD,
   kREFKIND,
