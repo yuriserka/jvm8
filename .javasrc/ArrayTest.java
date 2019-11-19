@@ -7,6 +7,7 @@ class ArrayTest {
         String[] autores = {"Gabriel Castro", "Cláudio Barros", "Matheus Breder", "Yuri Serka"};
         char[] alfabeto = {'a', 'b', 'c', 'd'};
         byte[] code = {0xA, 0x6, 0x03, 0x04, 0x6C};
+        short[] bermudas = {1000, 2000, 3000, 4000, 5112, 8961};
 
         System.out.println(inteiros[2]);
         System.out.println(reais[4]);
@@ -14,6 +15,7 @@ class ArrayTest {
         System.out.println(enormes[1]);
         System.out.println(autores[3]);
         System.out.println(alfabeto[1]);
+        System.out.println(bermudas[5]);
 
         System.out.println("Bytecode:\n0: bipush " + code[1] + "\n2: iconst_0\n3: iconst_1\n4: idiv");
 

@@ -1,6 +1,7 @@
 #include "instructions/instruction_set/monitor.h"
 
 #include "utils/flags.h"
+#include "utils/object.h"
 #include "utils/memory_areas/thread.h"
 
 namespace Instructions {
@@ -11,6 +12,7 @@ std::vector<int> Enter::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  th->current_frame->popOperand<Utils::Object *>();
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -20,6 +22,7 @@ std::vector<int> Exit::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  th->current_frame->popOperand<Utils::Object *>();
   return {};
 }
 // ----------------------------------------------------------------------------

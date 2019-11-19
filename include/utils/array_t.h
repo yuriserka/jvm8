@@ -17,10 +17,9 @@ class Array_t {
   template <typename T>
   void insert(T value, int index) {
     this->items[index] = value;
-    ++this->len;
   }
 
-  int length() { return this->len; }
+  int length() { return this->items.size(); }
 
   template <typename T>
   T get(const int &index) {
@@ -30,7 +29,6 @@ class Array_t {
   std::vector<Any> getCollection() { return this->items; }
 
  private:
-  int len = 0;
   int max_length;
   int type;
   std::vector<Any> items;

@@ -240,6 +240,9 @@ std::vector<int> Throw::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto objectref = th->current_frame->popOperand<Utils::Object *>();
+  // ??
+  throw objectref;
   return {};
 }
 // ----------------------------------------------------------------------------
