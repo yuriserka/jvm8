@@ -1,0 +1,6 @@
+<map id="nlohmann::basic_json::array" name="nlohmann::basic_json::array">
+<area shape="rect" id="node1" title="explicitly create an array from an initializer list" alt="" coords="397,27,545,69"/>
+<area shape="rect" id="node2" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a86f339e8449cce96b89e86635a7d389e" title="deserialize from an array" alt="" coords="201,27,349,69"/>
+<area shape="rect" id="node3" href="$d3/dd1/nlohmann__json_8hpp.xhtml#ae90d59ab420a183cd5fb8588bdc95e06" title="user&#45;defined string literal for JSON values" alt="" coords="24,5,135,32"/>
+<area shape="rect" id="node4" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#ab275a3e00a40189e96d244de6c8f311a" title="deserialize from string literal" alt="" coords="5,57,153,98"/>
+</map>

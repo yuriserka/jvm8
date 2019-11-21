@@ -22,5 +22,13 @@ class ArrayTest {
         for (String a : autores) {
             System.out.println(a);
         }
+
+        modificar(autores);
+
+        System.out.println("Qual o autor no index 0?? " + autores[0]);
+    }
+
+    static void modificar(String[] arr) {
+        arr[0] = "Albert Einstein";
     }
 }

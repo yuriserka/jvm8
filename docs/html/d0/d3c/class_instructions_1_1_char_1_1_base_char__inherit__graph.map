@@ -1,0 +1,6 @@
+<map id="Instructions::Char::BaseChar" name="Instructions::Char::BaseChar">
+<area shape="rect" id="node1" title=" " alt="" coords="77,189,216,311"/>
+<area shape="rect" id="node3" href="$de/dbd/class_instructions_1_1_char_1_1_load_from_array.xhtml" title=" " alt="" coords="5,359,136,465"/>
+<area shape="rect" id="node4" href="$de/d04/class_instructions_1_1_char_1_1_store_into_array.xhtml" title=" " alt="" coords="160,359,285,465"/>
+<area shape="rect" id="node2" href="$d4/da8/class_instructions_1_1_instruction.xhtml" title=" " alt="" coords="68,5,225,141"/>
+</map>

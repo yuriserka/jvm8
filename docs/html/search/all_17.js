@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_7ebasic_5fjson',['~basic_json',['../d9/dcc/classnlohmann_1_1basic__json.html#a42347bbce75ba5571e292a3540af30e0',1,'nlohmann::basic_json']]]
+  ['xor_960',['Xor',['../d4/d3e/class_instructions_1_1_long_1_1_xor.xhtml',1,'Instructions::Long::Xor'],['../da/db5/class_instructions_1_1_integer_1_1_xor.xhtml',1,'Instructions::Integer::Xor'],['../da/db5/class_instructions_1_1_integer_1_1_xor.xhtml#a73baffb81b7abf01924260235cc8005d',1,'Instructions::Integer::Xor::Xor()'],['../d4/d3e/class_instructions_1_1_long_1_1_xor.xhtml#a1c564a05e7f9470f17b9387717891e90',1,'Instructions::Long::Xor::Xor()']]]
 ];

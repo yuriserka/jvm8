@@ -1,0 +1,7 @@
+<map id="nlohmann::basic_json::emplace" name="nlohmann::basic_json::emplace">
+<area shape="rect" id="node1" title="add an object to an object if key does not exist" alt="" coords="5,104,153,145"/>
+<area shape="rect" id="node2" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a0ff28dac23f2bdecee9564d07f51dcdc" title="returns an iterator to the first element" alt="" coords="201,5,349,47"/>
+<area shape="rect" id="node3" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a8faa039ca82427ed29c486ffd00600c3" title="return whether value is null" alt="" coords="201,71,349,112"/>
+<area shape="rect" id="node4" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#af8f511af124e82e4579f444b4175787c" title="return whether value is an object" alt="" coords="201,136,349,177"/>
+<area shape="rect" id="node5" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a6b75862bdb4d26650616cf9821430755" title="return the type as string" alt="" coords="201,201,349,243"/>
+</map>

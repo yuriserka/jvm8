@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['key',['key',['../d9/dcc/classnlohmann_1_1basic__json.html#aea1c863b719b4ca5b77188c171bbfafea3c6e0b8a9c15224a8228b9a98ca1531d',1,'nlohmann::basic_json']]]
+  ['discarded_1877',['discarded',['../dc/df0/namespacenlohmann_1_1detail.xhtml#a90aa5ef615aa8305e9ea20d8a947980fa94708897ec9db8647dfe695714c98e46',1,'nlohmann::detail']]]
 ];

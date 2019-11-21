@@ -1,0 +1,7 @@
+<map id="nlohmann::basic_json::erase" name="nlohmann::basic_json::erase">
+<area shape="rect" id="node1" title="remove element from a JSON array given an index" alt="" coords="5,104,153,145"/>
+<area shape="rect" id="node2" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#aef9ce5dd2381caee1f8ddcdb5bdd9c65" title="return whether value is an array" alt="" coords="205,5,353,47"/>
+<area shape="rect" id="node3" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a25e27ad0c6d53c01871c5485e1f75b96" title="returns the number of elements" alt="" coords="205,71,353,112"/>
+<area shape="rect" id="node4" href="$d7/d9f/namespacenlohmann_1_1std__support.xhtml#a4e2d47525849f8d33f495cb20a4064ae" title=" " alt="" coords="201,136,356,177"/>
+<area shape="rect" id="node5" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a6b75862bdb4d26650616cf9821430755" title="return the type as string" alt="" coords="205,201,353,243"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="nlohmann::basic_json::insert" name="nlohmann::basic_json::insert">
+<area shape="rect" id="node1" title="inserts element" alt="" coords="5,39,153,80"/>
+<area shape="rect" id="node2" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#aef9ce5dd2381caee1f8ddcdb5bdd9c65" title="return whether value is an array" alt="" coords="201,5,349,47"/>
+<area shape="rect" id="node3" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a6b75862bdb4d26650616cf9821430755" title="return the type as string" alt="" coords="201,71,349,112"/>
+</map>

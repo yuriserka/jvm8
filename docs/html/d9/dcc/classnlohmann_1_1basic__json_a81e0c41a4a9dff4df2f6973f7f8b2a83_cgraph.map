@@ -1,0 +1,18 @@
+<map id="nlohmann::basic_json::patch" name="nlohmann::basic_json::patch">
+<area shape="rect" id="node1" title="applies a JSON patch" alt="" coords="5,305,153,347"/>
+<area shape="rect" id="node2" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a73ae333487310e3302135189ce8ff5d8" title="access specified array element with bounds checking" alt="" coords="201,90,368,117"/>
+<area shape="rect" id="node3" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#aef9ce5dd2381caee1f8ddcdb5bdd9c65" title="return whether value is an array" alt="" coords="431,117,579,159"/>
+<area shape="rect" id="node4" href="$d7/d9f/namespacenlohmann_1_1std__support.xhtml#a4e2d47525849f8d33f495cb20a4064ae" title=" " alt="" coords="427,5,582,47"/>
+<area shape="rect" id="node6" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a0ff28dac23f2bdecee9564d07f51dcdc" title="returns an iterator to the first element" alt="" coords="211,141,359,183"/>
+<area shape="rect" id="node7" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a13e032a02a7fd8a93fdddc2fcbc4763c" title="returns an iterator to one past the last element" alt="" coords="416,403,593,430"/>
+<area shape="rect" id="node8" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a068a16e76be178e83da6a192916923ed" title="remove element given an iterator" alt="" coords="211,337,359,379"/>
+<area shape="rect" id="node10" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#aeed33787bd362c7ead59a4ba945392db" title="find an element in a JSON object" alt="" coords="211,455,359,496"/>
+<area shape="rect" id="node11" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#af8f511af124e82e4579f444b4175787c" title="return whether value is an object" alt="" coords="431,484,579,525"/>
+<area shape="rect" id="node12" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a0136728f5db69d4051c77b94307abd6c" title="inserts element" alt="" coords="211,207,359,248"/>
+<area shape="rect" id="node13" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#ac8e523ddc8c2dd7e5d2daf0d49a9c0d7" title="add an object to an array" alt="" coords="211,272,359,313"/>
+<area shape="rect" id="node15" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a25e27ad0c6d53c01871c5485e1f75b96" title="returns the number of elements" alt="" coords="211,572,359,613"/>
+<area shape="rect" id="node16" href="$d7/d9f/namespacenlohmann_1_1std__support.xhtml#ac7419e8f359884603794c4cda1475a6a" title=" " alt="" coords="207,637,362,679"/>
+<area shape="rect" id="node5" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a6b75862bdb4d26650616cf9821430755" title="return the type as string" alt="" coords="431,207,579,248"/>
+<area shape="rect" id="node9" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a69b596a4a6683b362095c9a139637396" title="return whether value is a string" alt="" coords="431,337,579,379"/>
+<area shape="rect" id="node14" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a8faa039ca82427ed29c486ffd00600c3" title="return whether value is null" alt="" coords="431,272,579,313"/>
+</map>

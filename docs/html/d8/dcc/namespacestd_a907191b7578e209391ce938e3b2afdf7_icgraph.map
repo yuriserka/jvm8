@@ -1,0 +1,7 @@
+<map id="std::swap" name="std::swap">
+<area shape="rect" id="node1" title="exchanges the values of two JSON objects" alt="" coords="397,85,476,112"/>
+<area shape="rect" id="node2" href="$db/da7/struct_any.xhtml#af7f4cdc90d94c0814c80bd163c81a337" title=" " alt="" coords="221,5,329,32"/>
+<area shape="rect" id="node3" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#aab256df8c5594ec693035822fa1e2904" title="copy assignment" alt="" coords="5,111,153,153"/>
+<area shape="rect" id="node4" href="$de/d32/classnlohmann_1_1basic__json_1_1iter__impl.xhtml#a083d9d5465de7ddfb6108f404ce54be3" title="copy assignment" alt="" coords="201,107,349,149"/>
+<area shape="rect" id="node5" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a8c9d932353e1ab98a7dc2fc27e002031" title="exchanges the values" alt="" coords="201,173,349,214"/>
+</map>

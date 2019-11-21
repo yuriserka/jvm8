@@ -1,0 +1,8 @@
+<map id="nlohmann::std_support::to_string" name="nlohmann::std_support::to_string">
+<area shape="rect" id="node1" title=" " alt="" coords="416,107,571,149"/>
+<area shape="rect" id="node2" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a73ae333487310e3302135189ce8ff5d8" title="access specified array element with bounds checking" alt="" coords="201,5,368,32"/>
+<area shape="rect" id="node3" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a81e0c41a4a9dff4df2f6973f7f8b2a83" title="applies a JSON patch" alt="" coords="5,23,153,65"/>
+<area shape="rect" id="node4" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a543bd5f7490de54c875b2c0912dc9a49" title="creates a diff as a JSON patch" alt="" coords="211,107,359,149"/>
+<area shape="rect" id="node5" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a88cbcefe9a3f4d294bed0653550a5cb9" title="remove element from a JSON array given an index" alt="" coords="211,173,359,214"/>
+<area shape="rect" id="node6" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#aef6d0eeccee7c5c7e1317c2ea1607fab" title="returns version information on the library" alt="" coords="211,238,359,279"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="nlohmann::basic_json::is_primitive" name="nlohmann::basic_json::is_primitive">
+<area shape="rect" id="node1" title="return whether type is primitive" alt="" coords="5,104,153,145"/>
+<area shape="rect" id="node2" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a943e8cb182d0f2365c76d64b42eaa6fd" title="return whether value is a boolean" alt="" coords="201,5,349,47"/>
+<area shape="rect" id="node3" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a8faa039ca82427ed29c486ffd00600c3" title="return whether value is null" alt="" coords="201,71,349,112"/>
+<area shape="rect" id="node4" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a2b9852390abb4b1ef5fac6984e2fc0f3" title="return whether value is a number" alt="" coords="201,136,349,177"/>
+<area shape="rect" id="node7" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a69b596a4a6683b362095c9a139637396" title="return whether value is a string" alt="" coords="201,201,349,243"/>
+<area shape="rect" id="node5" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a33b4bf898b857c962e798fc7f6e86e70" title="return whether value is a floating&#45;point number" alt="" coords="397,104,545,145"/>
+<area shape="rect" id="node6" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#abac8af76067f1e8fdca9052882c74428" title="return whether value is an integer number" alt="" coords="397,169,545,211"/>
+</map>

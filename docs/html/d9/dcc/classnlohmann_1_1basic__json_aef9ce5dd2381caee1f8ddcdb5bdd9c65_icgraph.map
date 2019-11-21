@@ -1,0 +1,17 @@
+<map id="nlohmann::basic_json::is_array" name="nlohmann::basic_json::is_array">
+<area shape="rect" id="node1" title="return whether value is an array" alt="" coords="416,238,564,279"/>
+<area shape="rect" id="node2" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a73ae333487310e3302135189ce8ff5d8" title="access specified array element with bounds checking" alt="" coords="201,5,368,32"/>
+<area shape="rect" id="node3" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a81e0c41a4a9dff4df2f6973f7f8b2a83" title="applies a JSON patch" alt="" coords="5,42,153,83"/>
+<area shape="rect" id="node4" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#aacf5eed15a8b66fb1e88910707a5e229" title="add an object to an array" alt="" coords="211,238,359,279"/>
+<area shape="rect" id="node5" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a88cbcefe9a3f4d294bed0653550a5cb9" title="remove element from a JSON array given an index" alt="" coords="211,303,359,345"/>
+<area shape="rect" id="node6" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a0136728f5db69d4051c77b94307abd6c" title="inserts element" alt="" coords="211,107,359,149"/>
+<area shape="rect" id="node9" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a9f68a0af820c3ced7f9d17851ce4c22d" title="return whether type is structured" alt="" coords="211,369,359,410"/>
+<area shape="rect" id="node10" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#ac871e3b03fb2eeca9a8de4db2bea760f" title="access specified array element" alt="" coords="211,434,359,475"/>
+<area shape="rect" id="node12" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#ac8e523ddc8c2dd7e5d2daf0d49a9c0d7" title="add an object to an array" alt="" coords="211,173,359,214"/>
+<area shape="rect" id="node15" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a65b0a24e1361a030ad0a661de22f6c8e" title="exchanges the values" alt="" coords="211,499,359,541"/>
+<area shape="rect" id="node7" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a543bd5f7490de54c875b2c0912dc9a49" title="creates a diff as a JSON patch" alt="" coords="5,173,153,214"/>
+<area shape="rect" id="node8" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a1ecce113ff11dd294689ee4d45cbb855" title="inserts element" alt="" coords="5,107,153,149"/>
+<area shape="rect" id="node11" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a1416bbec9d9a8eeca21c213cf5290868" title="access specified object element" alt="" coords="5,434,153,475"/>
+<area shape="rect" id="node13" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#aea1085f2d35cc0e1ce119cf0110119e6" title="add an object to an array" alt="" coords="5,238,153,279"/>
+<area shape="rect" id="node14" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#ab2716cbe2e997ab8309926b87f044434" title="add an object to an object" alt="" coords="5,303,153,345"/>
+</map>

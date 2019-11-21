@@ -1,0 +1,11 @@
+<map id="nlohmann::basic_json::end" name="nlohmann::basic_json::end">
+<area shape="rect" id="node1" title="returns an iterator to one past the last element" alt="" coords="593,195,771,222"/>
+<area shape="rect" id="node2" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a011397134847f36db0ed7d7a93753677" title="access the last element" alt="" coords="397,5,545,47"/>
+<area shape="rect" id="node3" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a543bd5f7490de54c875b2c0912dc9a49" title="creates a diff as a JSON patch" alt="" coords="201,93,349,135"/>
+<area shape="rect" id="node4" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a068a16e76be178e83da6a192916923ed" title="remove element given an iterator" alt="" coords="397,188,545,229"/>
+<area shape="rect" id="node5" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a81e0c41a4a9dff4df2f6973f7f8b2a83" title="applies a JSON patch" alt="" coords="201,188,349,229"/>
+<area shape="rect" id="node6" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#aeed33787bd362c7ead59a4ba945392db" title="find an element in a JSON object" alt="" coords="397,123,545,164"/>
+<area shape="rect" id="node7" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#af9c51328fbe1da75eca750be3009917a" title="access specified object element with default value" alt="" coords="201,275,349,316"/>
+<area shape="rect" id="node9" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a1ef93e2006dbe52667294f5ef38b0b10" title="returns an iterator to the reverse&#45;beginning" alt="" coords="397,356,545,397"/>
+<area shape="rect" id="node8" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#ad6a18403e7fbac9c4efd06facc71fc88" title="overload for a default value of type const char*" alt="" coords="5,275,153,316"/>
+</map>

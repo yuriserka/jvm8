@@ -1,0 +1,13 @@
+<map id="nlohmann::basic_json::is_null" name="nlohmann::basic_json::is_null">
+<area shape="rect" id="node1" title="return whether value is null" alt="" coords="397,136,545,177"/>
+<area shape="rect" id="node2" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a5338e282d1d02bed389d852dd670d98d" title="add an object to an object if key does not exist" alt="" coords="201,5,349,47"/>
+<area shape="rect" id="node3" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#aacf5eed15a8b66fb1e88910707a5e229" title="add an object to an array" alt="" coords="201,71,349,112"/>
+<area shape="rect" id="node4" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a6362b88718eb5c6d4fed6a61eed44b95" title="return whether type is primitive" alt="" coords="201,136,349,177"/>
+<area shape="rect" id="node5" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#ac871e3b03fb2eeca9a8de4db2bea760f" title="access specified array element" alt="" coords="201,201,349,243"/>
+<area shape="rect" id="node7" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#ac8e523ddc8c2dd7e5d2daf0d49a9c0d7" title="add an object to an array" alt="" coords="201,299,349,340"/>
+<area shape="rect" id="node6" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a1416bbec9d9a8eeca21c213cf5290868" title="access specified object element" alt="" coords="5,168,153,209"/>
+<area shape="rect" id="node8" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a543bd5f7490de54c875b2c0912dc9a49" title="creates a diff as a JSON patch" alt="" coords="5,233,153,275"/>
+<area shape="rect" id="node9" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#aea1085f2d35cc0e1ce119cf0110119e6" title="add an object to an array" alt="" coords="5,299,153,340"/>
+<area shape="rect" id="node10" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a81e0c41a4a9dff4df2f6973f7f8b2a83" title="applies a JSON patch" alt="" coords="5,364,153,405"/>
+<area shape="rect" id="node11" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#ab2716cbe2e997ab8309926b87f044434" title="add an object to an object" alt="" coords="5,429,153,471"/>
+</map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['discarded',['discarded',['../dc/df0/namespacenlohmann_1_1detail.html#a90aa5ef615aa8305e9ea20d8a947980fa94708897ec9db8647dfe695714c98e46',1,'nlohmann::detail']]]
+  ['center_1876',['CENTER',['../d4/daa/namespacetableformatter.xhtml#a68215e282c345ca1fc719f76255671b7ac397289ee45877be0cd49811fe245b4e',1,'tableformatter']]]
 ];

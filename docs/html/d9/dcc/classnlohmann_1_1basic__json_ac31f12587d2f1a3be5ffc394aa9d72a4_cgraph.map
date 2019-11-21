@@ -1,0 +1,6 @@
+<map id="nlohmann::basic_json::swap" name="nlohmann::basic_json::swap">
+<area shape="rect" id="node1" title="exchanges the values" alt="" coords="5,64,153,105"/>
+<area shape="rect" id="node2" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#af8f511af124e82e4579f444b4175787c" title="return whether value is an object" alt="" coords="201,5,349,47"/>
+<area shape="rect" id="node3" href="$d8/dcc/namespacestd.xhtml#a907191b7578e209391ce938e3b2afdf7" title="exchanges the values of two JSON objects" alt="" coords="236,71,315,98"/>
+<area shape="rect" id="node4" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a6b75862bdb4d26650616cf9821430755" title="return the type as string" alt="" coords="201,123,349,164"/>
+</map>

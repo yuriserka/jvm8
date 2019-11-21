@@ -1,0 +1,6 @@
+<map id="nlohmann::basic_json::erase" name="nlohmann::basic_json::erase">
+<area shape="rect" id="node1" title="remove element given an iterator" alt="" coords="5,57,153,98"/>
+<area shape="rect" id="node2" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a13e032a02a7fd8a93fdddc2fcbc4763c" title="returns an iterator to one past the last element" alt="" coords="201,5,379,32"/>
+<area shape="rect" id="node3" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a69b596a4a6683b362095c9a139637396" title="return whether value is a string" alt="" coords="216,57,364,98"/>
+<area shape="rect" id="node4" href="$d9/dcc/classnlohmann_1_1basic__json.xhtml#a6b75862bdb4d26650616cf9821430755" title="return the type as string" alt="" coords="216,122,364,163"/>
+</map>
