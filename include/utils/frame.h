@@ -104,6 +104,10 @@ class Frame {
     return &any.as<T>();
   }
 
+  Any topOperand() {
+    return this->operand_stack.top();
+  }
+
   void cleanOperands() {
     while (!this->operand_stack.empty()) {
       this->operand_stack.pop();

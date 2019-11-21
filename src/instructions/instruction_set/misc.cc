@@ -25,9 +25,10 @@ std::vector<int> Dup::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto top = th->current_frame->popOperand<Any>();
-  th->current_frame->pushOperand(top);
-  th->current_frame->pushOperand(top);
+  auto val = th->current_frame->popOperand<Any>();
+
+  th->current_frame->pushOperand(val);
+  th->current_frame->pushOperand(val);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -37,18 +38,12 @@ std::vector<int> DupX1::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto val1 = th->current_frame->popOperand<Any>();
+  auto val2 = th->current_frame->popOperand<Any>();
 
-  // remove first two top operands
-  auto top_first = th->current_frame->popOperand<Any>();
-  auto top_second = th->current_frame->popOperand<Any>();
-
-  // push duplicate object two positions down
-  th->current_frame->pushOperand(top_first);
-
-  // push former top operands back in order
-  th->current_frame->pushOperand(top_second);
-  th->current_frame->pushOperand(top_first);
-
+  th->current_frame->pushOperand(val1);
+  th->current_frame->pushOperand(val2);
+  th->current_frame->pushOperand(val1);
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -58,44 +53,24 @@ std::vector<int> DupX2::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  // NOTE(Claudio): Essa instrucao duplica o top e o insere dois OU tres
-  // valores abaixo no operand stack. Como determinar qual das duas opcoes
-  // usar?
+  auto val1 = th->current_frame->popOperand<Any>();  // cat1
+  // cat2
+  if (th->current_frame->topOperand().is<long>() ||
+      th->current_frame->topOperand().is<double>()) {
+    auto val2 = th->current_frame->popOperand<Any>();
 
-  // Form 1:
-  {
-    // NOTE(Claudio): todos os tres valores sao cat1
+    th->current_frame->pushOperand(val1);
+    th->current_frame->pushOperand(val2);
+    th->current_frame->pushOperand(val1);
+  } else {
+    auto val2 = th->current_frame->popOperand<Any>();
+    auto val3 = th->current_frame->popOperand<Any>();
 
-    // remove first three top operands
-    auto top_first = th->current_frame->popOperand<Any>();
-    auto top_second = th->current_frame->popOperand<Any>();
-    auto top_third = th->current_frame->popOperand<Any>();
-
-    // push duplicate object three positions down
-    th->current_frame->pushOperand(top_first);
-
-    // push former top operands back in order
-    th->current_frame->pushOperand(top_third);
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
+    th->current_frame->pushOperand(val1);
+    th->current_frame->pushOperand(val3);
+    th->current_frame->pushOperand(val2);
+    th->current_frame->pushOperand(val1);
   }
-
-  // Form 2:
-  {
-    // NOTE(Claudio): top_first é cat1, top_second cat2
-
-    // remove first two top operands
-    auto top_first = th->current_frame->popOperand<Any>();
-    auto top_second = th->current_frame->popOperand<Any>();
-
-    // push duplicate object two positions down
-    th->current_frame->pushOperand(top_first);
-
-    // push former top operands back in order
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
-  }
-
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -106,26 +81,21 @@ std::vector<int> Dup2::execute(
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
 
-  // NOTE(Claudio): Essa instrucao duplica o primeiro top ou o primeiro e
-  // segundo top. Como determinar qual das duas opcoes usar?
+  // se é cat2
+  if (th->current_frame->topOperand().is<long>() ||
+      th->current_frame->topOperand().is<double>()) {
+    auto val = th->current_frame->popOperand<Any>();
 
-  // Form 1:
-  {
-    auto top_first = th->current_frame->popOperand<Any>();
+    th->current_frame->pushOperand(val);
+    th->current_frame->pushOperand(val);
+  } else {
+    auto val1 = th->current_frame->popOperand<Any>();
+    auto val2 = th->current_frame->popOperand<Any>();
 
-    th->current_frame->pushOperand(top_first);
-    th->current_frame->pushOperand(top_first);
-  }
-
-  // Form 2:
-  {
-    auto top_first = th->current_frame->popOperand<Any>();
-    auto top_second = th->current_frame->popOperand<Any>();
-
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
+    th->current_frame->pushOperand(val2);
+    th->current_frame->pushOperand(val1);
+    th->current_frame->pushOperand(val2);
+    th->current_frame->pushOperand(val1);
   }
 
   return {};
@@ -138,45 +108,26 @@ std::vector<int> Dup2X1::execute(
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
 
-  // NOTE(Claudio): Essa instrucao duplica o top ou os dois primeiros tops
-  // e o(s) insere(m) dois OU tres valores abaixo no operand stack.
-  // Como determinar qual das duas opcoes usar?
+  // cat2
+  if (th->current_frame->topOperand().is<long>() ||
+      th->current_frame->topOperand().is<double>()) {
+    auto val1 = th->current_frame->popOperand<Any>();
+    auto val2 = th->current_frame->popOperand<Any>();
 
-  // Form 1:
-  {
-    // NOTE(Claudio): nesse caso os tres valores sao de categoria 1
+    th->current_frame->pushOperand(val1);
+    th->current_frame->pushOperand(val2);
+    th->current_frame->pushOperand(val1);
+  } else {
+    auto val1 = th->current_frame->popOperand<Any>();
+    auto val2 = th->current_frame->popOperand<Any>();
+    auto val3 = th->current_frame->popOperand<Any>();
 
-    // remove first three top operands
-    auto top_first = th->current_frame->popOperand<Any>();
-    auto top_second = th->current_frame->popOperand<Any>();
-    auto top_third = th->current_frame->popOperand<Any>();
-
-    // push duplicate object three positions down
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
-
-    // push former top operands back in order
-    th->current_frame->pushOperand(top_third);
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
+    th->current_frame->pushOperand(val2);
+    th->current_frame->pushOperand(val1);
+    th->current_frame->pushOperand(val3);
+    th->current_frame->pushOperand(val2);
+    th->current_frame->pushOperand(val1);
   }
-
-  // Form 2:
-  {
-    // NOTE(Claudio): nesse caso top_first é cat2, e top_second é cat1
-
-    // remove first two top operands
-    auto top_first = th->current_frame->popOperand<Any>();
-    auto top_second = th->current_frame->popOperand<Any>();
-
-    // push duplicate object two positions down
-    th->current_frame->pushOperand(top_first);
-
-    // push former top operands back in order
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
-  }
-
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -186,85 +137,53 @@ std::vector<int> Dup2X2::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  // cat2
+  if (th->current_frame->topOperand().is<long>() ||
+      th->current_frame->topOperand().is<double>()) {
+    auto val1 = th->current_frame->popOperand<Any>();
+    // se o proximo tbm for cat2
+    if (th->current_frame->topOperand().is<long>() ||
+        th->current_frame->topOperand().is<double>()) {
+      auto val2 = th->current_frame->popOperand<Any>();
 
-  // NOTE(Claudio): Essa instrucao duplica o top ou os dois primeiros tops
-  // e o(s) insere(m) dois, tres ou quatro valores abaixo no operand stack.
-  // Como determinar qual das tres opcoes usar?
+      th->current_frame->pushOperand(val1);
+      th->current_frame->pushOperand(val2);
+      th->current_frame->pushOperand(val1);
+    } else {
+      // val2 e 3 sao cat1
+      auto val2 = th->current_frame->popOperand<Any>();
+      auto val3 = th->current_frame->popOperand<Any>();
 
-  // Form 1:
-  {
-    // NOTE(Claudio): nesse caso os quatro valores sao de categoria 1
+      th->current_frame->pushOperand(val1);
+      th->current_frame->pushOperand(val3);
+      th->current_frame->pushOperand(val2);
+      th->current_frame->pushOperand(val1);
+    }
+  } else {
+    // val1 é cat1
+    auto val1 = th->current_frame->popOperand<Any>();
+    auto val2 = th->current_frame->popOperand<Any>();
+    // se val3 é cat2
+    if (th->current_frame->topOperand().is<long>() ||
+        th->current_frame->topOperand().is<double>()) {
+      auto val3 = th->current_frame->popOperand<Any>();
+      
+      th->current_frame->pushOperand(val2);
+      th->current_frame->pushOperand(val1);
+      th->current_frame->pushOperand(val3);
+      th->current_frame->pushOperand(val2);
+      th->current_frame->pushOperand(val1);
+    } else {
+      auto val3 = th->current_frame->popOperand<Any>();
+      auto val4 = th->current_frame->popOperand<Any>();
 
-    // remove first four top operands
-    auto top_first = th->current_frame->popOperand<Any>();
-    auto top_second = th->current_frame->popOperand<Any>();
-    auto top_third = th->current_frame->popOperand<Any>();
-    auto top_fourth = th->current_frame->popOperand<Any>();
-
-    // push duplicate object three positions down
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
-
-    // push former top operands back in order
-    th->current_frame->pushOperand(top_fourth);
-    th->current_frame->pushOperand(top_third);
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
-  }
-
-  // Form 2:
-  {
-    // NOTE(Claudio): nesse caso top_first é cat2, e top_second e top_third
-    // sao cat1
-
-    // remove first three top operands
-    auto top_first = th->current_frame->popOperand<Any>();
-    auto top_second = th->current_frame->popOperand<Any>();
-    auto top_third = th->current_frame->popOperand<Any>();
-
-    // push duplicate object two positions down
-    th->current_frame->pushOperand(top_first);
-
-    // push former top operands back in order
-    th->current_frame->pushOperand(top_third);
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
-  }
-
-  // Form 3:
-  {
-    // NOTE(Claudio): nesse caso top_first e top_second sao cat1, e top_third
-    // é cat2
-
-    // remove first three top operands
-    auto top_first = th->current_frame->popOperand<Any>();
-    auto top_second = th->current_frame->popOperand<Any>();
-    auto top_third = th->current_frame->popOperand<Any>();
-
-    // push duplicate object two positions down
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
-
-    // push former top operands back in order
-    th->current_frame->pushOperand(top_third);
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
-  }
-
-  // Form 4:
-  {
-    // NOTE(Claudio): nesse caso top_first e top_second sao cat2
-
-    // remove first two top operands
-    auto top_first = th->current_frame->popOperand<Any>();
-    auto top_second = th->current_frame->popOperand<Any>();
-
-    // push duplicate object two positions down
-    th->current_frame->pushOperand(top_first);
-
-    // push former top operands back in order
-    th->current_frame->pushOperand(top_second);
-    th->current_frame->pushOperand(top_first);
+      th->current_frame->pushOperand(val2);
+      th->current_frame->pushOperand(val1);
+      th->current_frame->pushOperand(val4);
+      th->current_frame->pushOperand(val3);
+      th->current_frame->pushOperand(val2);
+      th->current_frame->pushOperand(val1);
+    }
   }
   return {};
 }
