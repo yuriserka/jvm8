@@ -74,9 +74,8 @@ Follow the steps to install [JRE 8](https://www.oracle.com/technetwork/pt/java/j
 
 - generating:
 
-   `cd .\.javasrc\`
-
-   `javac -cp . -d ..\classes\ -g -parameters *.java`
+   Linux: `make tests`<br/>
+   Windows: `mingw32-make tests`
 
 - running:
 

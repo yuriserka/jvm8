@@ -15,8 +15,8 @@
 
 namespace MemoryAreas {
 void Thread::executeMethod(const std::string &method_name,
-                           const bool &popObjectRef,
-                           const std::string &descriptor) {
+                           const std::string &descriptor,
+                           const bool &popObjectRef) {
   if (this->jvm_stack.size() > MAX_STACK) {
     std::stringstream ss;
     ss << "Stack Overflow. This jvm supports only " << MAX_STACK
@@ -25,7 +25,7 @@ void Thread::executeMethod(const std::string &method_name,
     throw Utils::Errors::Exception(Utils::Errors::kSTACK, ss.str());
   }
 
-  auto method = this->method_area->getMethod(method_name);
+  auto method = this->method_area->getMethod(method_name, descriptor);
   this->current_method = method_name;
 
   Utils::Attributes::Code_attribute *code_attr;
@@ -51,11 +51,6 @@ void Thread::executeMethod(const std::string &method_name,
     this->storeArguments(descriptor.substr(descriptor.find_first_of('(') + 1,
                                            descriptor.find_last_of(')') - 1),
                          newf, popObjectRef);
-  } else {
-    // On instance method invocation, local variable 0 is always used to
-    // pass a reference to the object on which the instance method is being
-    // invoked
-    newf->pushLocalVar(this->current_class->this_class);
   }
   this->current_frame = newf;
   this->jvm_stack.push(this->current_frame);
@@ -98,7 +93,7 @@ void Thread::changeContext(const std::string &classname,
   auto old_method = this->current_method;
   auto old_frame = this->current_frame;
 
-  this->executeMethod(method_name, popObjectRef, descriptor);
+  this->executeMethod(method_name, descriptor, popObjectRef);
 
   this->current_class = old_class;
   this->current_frame = old_frame;
@@ -113,19 +108,27 @@ void Thread::changeContext(const std::string &classname,
 
 void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
                             const bool &popObjectRef) {
+  // On instance method invocation, local variable 0 is always used to
+  // pass a reference to the object on which the instance method is being
+  // invoked
+  // ainda nao sei se isso ta certo, mas deu certo nos meus pequenos testes
+  int startIndex = popObjectRef ? 1 : 0;
   for (size_t i = 0; i < args.size(); ++i) {
     auto arg_type = args[i];
     switch (arg_type) {
       case 'D': {
-        new_frame->pushLocalVar(this->current_frame->popOperand<double>());
+        new_frame->pushLocalVar(this->current_frame->popOperand<double>(),
+                                startIndex++);
         break;
       }
       case 'F': {
-        new_frame->pushLocalVar(this->current_frame->popOperand<float>());
+        new_frame->pushLocalVar(this->current_frame->popOperand<float>(),
+                                startIndex++);
         break;
       }
       case 'J': {
-        new_frame->pushLocalVar(this->current_frame->popOperand<long>());
+        new_frame->pushLocalVar(this->current_frame->popOperand<long>(),
+                                startIndex++);
         break;
       }
       case 'B':
@@ -133,11 +136,12 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
       case 'I':
       case 'S':
       case 'Z':
-        new_frame->pushLocalVar(this->current_frame->popOperand<int>());
+        new_frame->pushLocalVar(this->current_frame->popOperand<int>(),
+                                startIndex++);
         break;
       default: {
         new_frame->pushLocalVar(
-            this->current_frame->popOperand<Utils::Object *>());
+            this->current_frame->popOperand<Utils::Object *>(), startIndex++);
         while (args[++i] != ';') {
         }
         break;
@@ -145,7 +149,8 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
     }
   };
   if (popObjectRef) {
-    new_frame->pushLocalVar(this->current_frame->popOperand<Utils::Object *>());
+    new_frame->pushLocalVar(this->current_frame->popOperand<Utils::Object *>(),
+                            0);
   }
 }
 }  // namespace MemoryAreas

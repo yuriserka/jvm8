@@ -21,7 +21,7 @@ class Heap {
 
   void initialize(Thread *th, const std::string &name) {
     this->initialized_classes.push_back(name);
-    th->executeMethod("<clinit>");
+    // th->executeMethod("<clinit>", );
   }
 
   bool isInitialized(const std::string &name) {

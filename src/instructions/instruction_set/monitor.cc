@@ -1,8 +1,8 @@
 #include "instructions/instruction_set/monitor.h"
 
 #include "utils/flags.h"
-#include "utils/object.h"
 #include "utils/memory_areas/thread.h"
+#include "utils/object.h"
 
 namespace Instructions {
 namespace Monitor {

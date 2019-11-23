@@ -116,16 +116,15 @@ std::vector<int> NewArray::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  auto kpool_index = (*++*code_iterator << 8) | *++*code_iterator;
+  *code_iterator += 2;
   *delta_code = 2;
-
-  // classname != String
-  if (th->method_area->runtime_constant_pool[kpool_index - 1]
-          .getClass<Utils::ConstantPool::CONSTANT_Class_info>()
-          ->getValue(th->method_area->runtime_constant_pool)
-          .compare("java/lang/String")) {
-    th->executeMethod("<init>");
-  }
+  // auto classname = th->method_area->runtime_constant_pool[kpool_index - 1]
+  //                      .getClass<Utils::ConstantPool::CONSTANT_Class_info>()
+  //                      ->getValue(th->method_area->runtime_constant_pool);
+  // // classname != String
+  // if (classname.compare("java/lang/String")) {
+  //   th->changeContext(classname, "<init>", "()V");
+  // }
 
   auto count = th->current_frame->popOperand<int>();
 

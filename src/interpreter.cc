@@ -7,7 +7,7 @@ void Interpreter::run() {
   if (Utils::Flags::options.kVERBOSE) {
     std::cout << "\n\tInterpreting ClassFile " << this->classname << "\n\n";
   }
-  threads[0].executeMethod("main");
+  threads[0].executeMethod("main", "([Ljava/lang/String;)V");
 }
 
 void Interpreter::init() {

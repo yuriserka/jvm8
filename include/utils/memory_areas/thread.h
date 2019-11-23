@@ -18,8 +18,8 @@ class Thread {
   }
 
   void executeMethod(const std::string &method_name,
-                     const bool &popObjectRef = false,
-                     const std::string &descriptor = "");
+                     const std::string &descriptor,
+                     const bool &popObjectRef = false);
 
   void changeContext(const std::string &classname, const std::string &method,
                      const std::string &arguments, const bool &popObjectRef);

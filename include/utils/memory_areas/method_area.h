@@ -41,7 +41,8 @@ class MethodArea {
 
   const ClassFile *loadClass(const std::string &classname);
 
-  Utils::Infos::method_info getMethod(const std::string &method_name);
+  Utils::Infos::method_info getMethod(const std::string &method_name,
+                                      const std::string &descriptor);
 
   Utils::Infos::field_info getField(const std::string &field_name);
 

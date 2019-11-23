@@ -38,8 +38,6 @@ std::vector<int> Especial::execute(
   auto index = (*++*code_iterator << 8) | *++*code_iterator;
   std::stringstream ss;
 
-  auto ref = th->method_area->runtime_constant_pool[index - 1];
-
   std::string classname, methodname, descriptor;
   Utils::getReference(th->method_area->runtime_classfile, index, &classname,
                       &methodname, &descriptor);
@@ -85,8 +83,6 @@ std::vector<int> Static::execute(
   }
   auto kpool_index = (*++*code_iterator << 8) | *++*code_iterator;
   *delta_code = 2;
-
-  auto ref = th->method_area->runtime_constant_pool[kpool_index - 1];
 
   std::string classname, methodname, descriptor;
   Utils::getReference(th->method_area->runtime_classfile, kpool_index,
@@ -205,8 +201,6 @@ std::vector<int> Virtual::execute(
   auto index = (*++*code_iterator << 8) | *++*code_iterator;
   *delta_code = 2;
   std::stringstream ss;
-
-  auto ref = th->method_area->runtime_constant_pool[index - 1];
 
   std::string classname, methodname, descriptor;
   Utils::getReference(th->method_area->runtime_classfile, index, &classname,

@@ -167,7 +167,7 @@ std::vector<int> Dup2X2::execute(
     if (th->current_frame->topOperand().is<long>() ||
         th->current_frame->topOperand().is<double>()) {
       auto val3 = th->current_frame->popOperand<Any>();
-      
+
       th->current_frame->pushOperand(val2);
       th->current_frame->pushOperand(val1);
       th->current_frame->pushOperand(val3);

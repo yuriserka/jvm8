@@ -17,50 +17,50 @@ public class Printer {
         System.out.println("esse short foi R$" + s + ".00 testando o byte " + b);
         System.out.println("endereco do obj = " + obj);
 
-        printInt(16320);
-        printByte((byte)0x1F);
-        printChar('x');
-        printShort((short)10);
-        printBool(true);
-        printDouble(3.1516532);
-        printFloat(1.1618f);
-        printLong(161532165312L);
-        printString("str sem dar o new String kkk");
+        imprimir(16320);
+        imprimir((byte)0x1F);
+        imprimir('x');
+        imprimir((short)10);
+        imprimir(true);
+        imprimir(3.1516532);
+        imprimir(1.1618f);
+        imprimir(161532165312L);
+        imprimir("str sem dar o new String kkk");
     }
 
-    private static void printByte(byte a) {
+    private static void imprimir(byte a) {
         System.out.println("byte = " + a);
     }
 
-    private static void printInt(int a) {
+    private static void imprimir(int a) {
         System.out.println("int = " + a);
     }
 
-    private static void printChar(char a) {
+    private static void imprimir(char a) {
         System.out.println("char = " + a);
     }
 
-    private static void printShort(short a) {
+    private static void imprimir(short a) {
         System.out.println("short = " + a);
     }
 
-    private static void printBool(boolean a) {
+    private static void imprimir(boolean a) {
         System.out.println("bool = " + a);
     }
 
-    private static void printDouble(double a) {
+    private static void imprimir(double a) {
         System.out.println("double = " + a);
     }
 
-    private static void printFloat(float a) {
+    private static void imprimir(float a) {
         System.out.println("float = " + a);
     }
 
-    private static void printLong(long a) {
+    private static void imprimir(long a) {
         System.out.println("long = " + a);
     }
 
-    private static void printString(String a) {
+    private static void imprimir(String a) {
         System.out.println("str = " + a);
     }
 }

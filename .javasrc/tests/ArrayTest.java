@@ -8,6 +8,9 @@ class ArrayTest {
         char[] alfabeto = {'a', 'b', 'c', 'd'};
         byte[] code = {0xA, 0x6, 0x03, 0x04, 0x6C};
         short[] bermudas = {1000, 2000, 3000, 4000, 5112, 8961};
+        Emoji[] emojis = {new Emoji(10), new Emoji("será q da?")};
+
+        System.out.println(emojis[0].m1());
 
         System.out.println(inteiros[2]);
         System.out.println(reais[4]);

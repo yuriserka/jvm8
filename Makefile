@@ -16,17 +16,20 @@ endif
 
 ifeq ($(detected_OS), Windows)
 	SRCS := $(call rwildcard,src/,*.cc)
+	JAVA_SRC := $(call rwildcard,.javasrc/,*.java)
 	MAKE_DIR = @cmd /C create_dir.bat $(@D)
 	DEL_FILES = @del /s /q build $(EXEC).exe
 	EXEC := $(EXEC_NAME)
 else
 	SRCS := $(shell find src -name '*.cc')
+	JAVA_SRC := $(shell find .javasrc -name '*.java')
 	MAKE_DIR = @mkdir -p $(@D)
 	DEL_FILES = $(RM) *~ $(OBJS) $(DEPS) $(EXEC)
 	EXEC := $(EXEC_NAME).out
 endif
 
 OBJS := $(SRCS:$(SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
+JAVA_OBJS := $(JAVA_SRC:.javasrc/%.java=classes/%.class)
 DEPS := $(SRCS:$(SRC_DIR)/%.cc=$(DEP_DIR)/%.d)
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEP_DIR)/$*.d
 CXX := g++
@@ -40,9 +43,16 @@ CFLAGS := $(INCLUDES) -g -Wall -pedantic -Wpedantic -Werror -lm
 # $? Lista de dependências mais recentes que a regra.
 # $* Nome do arquivo sem sufixo
 
-.PHONY: all clean
+.PHONY: all clean tests
 
 all: $(EXEC)
+
+tests: $(JAVA_OBJS)
+
+classes/%.class: .javasrc/%.java
+	@$(MAKE_DIR)
+	@echo Compiling $<
+	@javac -cp .javasrc $< -d classes -g -parameters
 
 $(EXEC): $(OBJS)
 	@echo Generating executable $@

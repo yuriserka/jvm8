@@ -1,9 +1,9 @@
 #include "instructions/instruction_set/short.h"
 
-#include "utils/flags.h"
 #include "utils/array_t.h"
-#include "utils/object.h"
+#include "utils/flags.h"
 #include "utils/memory_areas/thread.h"
+#include "utils/object.h"
 
 namespace Instructions {
 namespace Short {

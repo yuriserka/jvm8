@@ -8,22 +8,28 @@
 #include "utils/string.h"
 
 namespace MemoryAreas {
-Utils::Infos::method_info MethodArea::getMethod(
-    const std::string &method_name) {
+Utils::Infos::method_info MethodArea::getMethod(const std::string &method_name,
+                                                const std::string &descriptor) {
   auto method = std::find_if(
       this->methods.begin(), this->methods.end(),
-      [&method_name, this](const Utils::Infos::method_info &method) {
+      [&method_name, &descriptor,
+       this](const Utils::Infos::method_info &method) {
         auto actual_method_name =
             this->runtime_constant_pool[method.name_index - 1]
                 .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
                 ->getValue();
-        return !actual_method_name.compare(method_name);
+        auto actual_method_ret =
+            this->runtime_constant_pool[method.descriptor_index - 1]
+                .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
+                ->getValue();
+        return !actual_method_name.compare(method_name) &&
+               !actual_method_ret.compare(descriptor);
       });
   if (method == this->methods.end()) {
     auto classname = Utils::getClassName(this->runtime_classfile);
     std::stringstream ss;
-    ss << "could not find method '" << method_name << "' in class '"
-       << classname << "'";
+    ss << "could not find method '" << method_name << ":" << descriptor
+       << "' in class '" << classname << "'";
     throw Utils::Errors::Exception(Utils::Errors::kMETHOD, ss.str());
   }
 
