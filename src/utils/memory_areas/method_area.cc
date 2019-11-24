@@ -83,11 +83,8 @@ const ClassFile *MethodArea::loadClass(const std::string &classname) {
   std::stringstream ss;
   const ClassFile *new_class = new ClassFile();
   char delimiter = '/';
-#if defined(_WIN32) || defined(WIN32)
-  delimiter = '\\';
-#endif
   auto splitted_path = Utils::String::split(classname, delimiter);
-  if (splitted_path.empty()) {
+  if (splitted_path.size() == 1) {
     ss << Utils::Flags::options.kPATH << delimiter << classname << ".class";
   } else {
     ss << "." << delimiter << "classes" << delimiter << classname << ".class";

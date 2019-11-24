@@ -22,11 +22,7 @@ Reader::Reader(ClassFile *cf, const std::string &fpath) {
     p = Utils::Flags::options.kPATH + []() -> std::string {
       auto has_end_slash = Utils::Flags::options.kPATH.find_last_of("/\\");
       if (has_end_slash != Utils::Flags::options.kPATH.size() - 1) {
-#if defined(_WIN32) || defined(WIN32)
-        return "\\";
-#else
         return "/";
-#endif
       }
       return "";
     }() + fpath;

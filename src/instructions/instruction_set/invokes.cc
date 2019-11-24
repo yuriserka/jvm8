@@ -164,11 +164,7 @@ static std::string getStringForType(Utils::Frame *frame,
       } else {
         const void *address = static_cast<const void *>(objectref);
         auto classname = refname.substr(1, refname.find_first_of(';') - 1);
-        char delimiter = '/';
-#if defined(_WIN32) || defined(WIN32)
-        delimiter = '\\';
-#endif
-        std::replace(classname.begin(), classname.end(), delimiter, '.');
+        std::replace(classname.begin(), classname.end(), '/', '.');
         ss << classname << "@" << address;
       }
       break;
