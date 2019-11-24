@@ -1,5 +1,6 @@
 #include "utils/memory_areas/thread.h"
 
+#include <algorithm>
 #include "instructions/execution_engine.h"
 #include "instructions/opcodes.h"
 #include "reader.h"
@@ -59,15 +60,16 @@ void Thread::executeMethod(const std::string &method_name,
     if (Utils::Flags::options.kDEBUG) {
       std::cout << this->current_frame->pc << ": ";
     }
-    try {
-      Instructions::runBytecode(&it, this, &this->current_frame->pc);
-    } catch (const Utils::Errors::Exception &e) {
-      if (Utils::Flags::options.kDEBUG) {
-        std::cout << e.what() << "\n";
-      }
-      // acho que aqui seria onde teria o tratamento das excecoes da jvm????
-      continue;
-    }
+    //tirei o try pra ficar mais fácil de debugar... mas ainda acho que vai precisar dps
+    // try {
+    Instructions::runBytecode(&it, this, &this->current_frame->pc);
+    // } catch (const Utils::Errors::Exception &e) {
+    //   if (Utils::Flags::options.kDEBUG) {
+    //     std::cout << e.what() << "\n";
+    //   }
+    //   // acho que aqui seria onde teria o tratamento das excecoes da jvm????
+    //   continue;
+    // }
   }
 
   this->jvm_stack.pop();
@@ -108,27 +110,77 @@ void Thread::changeContext(const std::string &classname,
 
 void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
                             const bool &popObjectRef) {
-  // On instance method invocation, local variable 0 is always used to
-  // pass a reference to the object on which the instance method is being
-  // invoked
-  // ainda nao sei se isso ta certo, mas deu certo nos meus pequenos testes
-  int startIndex = popObjectRef ? 1 : 0;
-  for (size_t i = 0; i < args.size(); ++i) {
-    auto arg_type = args[i];
-    switch (arg_type) {
+  auto qtd_arguments_passados =
+      [&popObjectRef](const std::string &args) -> int {
+    std::string args_copy = args;
+    int qtd_args = 0;
+    for (auto it = args_copy.begin(); it != args_copy.end(); it++, ++qtd_args) {
+      switch (*it) {
+        case 'D':
+        case 'J':
+          ++qtd_args;
+          break;
+        case 'L':
+          while (*it != ';') {
+            ++it;
+          }
+          break;
+        case '[':
+          ++it;
+          if (*it == 'L') {
+            while (*it != ';') {
+              ++it;
+            }
+          }
+          break;
+      }
+    }
+    return qtd_args;
+  }(args);
+
+  // isso faz com que qnd eu precisar popar o objectref a posição 0 fique vazia
+  auto start_index =
+      popObjectRef ? qtd_arguments_passados : qtd_arguments_passados - 1;
+
+  // o ultimo argumento da nova função ta no topo da pilha, entao a gente
+  // precisa inverter pra pegar os valores corretos
+  for (auto it = args.rbegin(); it != args.rend(); ++it, --start_index) {
+    // On instance method invocation, local variable 0 is always used to
+    // pass a reference to the object on which the instance method is being
+    // invoked
+    // ainda nao sei se isso ta 100% certo, mas deu certo nos meus pequenos testes
+    switch (*it) {
       case 'D': {
-        new_frame->pushLocalVar(this->current_frame->popOperand<double>(),
-                                startIndex++);
+        if ((it + 1) != args.rend() && *(it + 1) == '[') {
+          ++it;
+          new_frame->pushLocalVar(
+              this->current_frame->popOperand<Utils::Object *>(), start_index);
+        } else {
+          new_frame->pushLocalVar(this->current_frame->popOperand<double>(),
+                                  start_index-- - 1);
+        }
         break;
       }
       case 'F': {
-        new_frame->pushLocalVar(this->current_frame->popOperand<float>(),
-                                startIndex++);
+        if ((it + 1) != args.rend() && *(it + 1) == '[') {
+          ++it;
+          new_frame->pushLocalVar(
+              this->current_frame->popOperand<Utils::Object *>(), start_index);
+        } else {
+          new_frame->pushLocalVar(this->current_frame->popOperand<float>(),
+                                  start_index);
+        }
         break;
       }
       case 'J': {
-        new_frame->pushLocalVar(this->current_frame->popOperand<long>(),
-                                startIndex++);
+        if ((it + 1) != args.rend() && *(it + 1) == '[') {
+          ++it;
+          new_frame->pushLocalVar(
+              this->current_frame->popOperand<Utils::Object *>(), start_index);
+        } else {
+          new_frame->pushLocalVar(this->current_frame->popOperand<long>(),
+                                  start_index-- - 1);
+        }
         break;
       }
       case 'B':
@@ -136,13 +188,23 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
       case 'I':
       case 'S':
       case 'Z':
-        new_frame->pushLocalVar(this->current_frame->popOperand<int>(),
-                                startIndex++);
+        if ((it + 1) != args.rend() && *(it + 1) == '[') {
+          ++it;
+          new_frame->pushLocalVar(
+              this->current_frame->popOperand<Utils::Object *>(), start_index);
+        } else {
+          new_frame->pushLocalVar(this->current_frame->popOperand<int>(),
+                                  start_index);
+        }
         break;
-      default: {
+      case ';': {
         new_frame->pushLocalVar(
-            this->current_frame->popOperand<Utils::Object *>(), startIndex++);
-        while (args[++i] != ';') {
+            this->current_frame->popOperand<Utils::Object *>(), start_index);
+        while (*it != 'L') {
+          ++it;
+        }
+        if ((it + 1) != args.rend() && *(it + 1) == '[') {
+          ++it;
         }
         break;
       }
@@ -150,7 +212,7 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
   };
   if (popObjectRef) {
     new_frame->pushLocalVar(this->current_frame->popOperand<Utils::Object *>(),
-                            0);
+                            start_index);
   }
 }
 }  // namespace MemoryAreas
