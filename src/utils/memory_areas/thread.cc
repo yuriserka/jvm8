@@ -60,9 +60,14 @@ void Thread::executeMethod(const std::string &method_name,
     if (Utils::Flags::options.kDEBUG) {
       std::cout << this->current_frame->pc << ": ";
     }
-    //tirei o try pra ficar mais fácil de debugar... mas ainda acho que vai precisar dps
+    // tirei o try pra ficar mais fácil de debugar... mas ainda acho que vai
+    // precisar dps
     // try {
-    Instructions::runBytecode(&it, this, &this->current_frame->pc);
+    auto finish_method =
+        Instructions::runBytecode(&it, this, &this->current_frame->pc);
+    if (finish_method) {
+      break;
+    }
     // } catch (const Utils::Errors::Exception &e) {
     //   if (Utils::Flags::options.kDEBUG) {
     //     std::cout << e.what() << "\n";
@@ -148,7 +153,8 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
     // On instance method invocation, local variable 0 is always used to
     // pass a reference to the object on which the instance method is being
     // invoked
-    // ainda nao sei se isso ta 100% certo, mas deu certo nos meus pequenos testes
+    // ainda nao sei se isso ta 100% certo, mas deu certo nos meus pequenos
+    // testes
     switch (*it) {
       case 'D': {
         if ((it + 1) != args.rend() && *(it + 1) == '[') {

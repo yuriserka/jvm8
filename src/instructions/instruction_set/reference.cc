@@ -118,13 +118,6 @@ std::vector<int> NewArray::execute(
   }
   *code_iterator += 2;
   *delta_code = 2;
-  // auto classname = th->method_area->runtime_constant_pool[kpool_index - 1]
-  //                      .getClass<Utils::ConstantPool::CONSTANT_Class_info>()
-  //                      ->getValue(th->method_area->runtime_constant_pool);
-  // // classname != String
-  // if (classname.compare("java/lang/String")) {
-  //   th->changeContext(classname, "<init>", "()V");
-  // }
 
   auto count = th->current_frame->popOperand<int>();
 
@@ -149,7 +142,7 @@ std::vector<int> Return::execute(
   auto retval = th->current_frame->popOperand<Utils::Object *>();
   th->pushReturnValue(retval);
   th->current_frame->cleanOperands();
-  return {};
+  return {1};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> ArrayLength::execute(
@@ -160,10 +153,7 @@ std::vector<int> ArrayLength::execute(
   }
   auto arrayref = th->current_frame->popOperand<Utils::Object *>()
                       ->data.as<Utils::Array_t *>();
-  // if () {
-  //   throw Utils::Errors::Exception(Utils::Errors::kNULLPOINTEREXCEPTION,
-  //   "NullPointerException");
-  // }
+
   th->current_frame->pushOperand(arrayref->length());
   return {};
 }

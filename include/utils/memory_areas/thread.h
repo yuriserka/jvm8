@@ -39,9 +39,9 @@ class Thread {
   MethodArea *method_area;
   Heap *heap;
   Utils::Frame *current_frame;
+  const ClassFile *current_class;
 
  private:
-  const ClassFile *current_class;
   JavaStack jvm_stack;
 
   std::string current_method;

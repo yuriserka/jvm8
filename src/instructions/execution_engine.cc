@@ -26,6 +26,7 @@ bool runBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
   auto opcode = **code_it;
   auto pc_increment = 0;
   Instruction *i = nullptr;
+  bool finished = false;
 
   switch (opcode) {
     case Opcodes::kAALOAD: {
@@ -76,7 +77,7 @@ bool runBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
     }
     case Opcodes::kARETURN: {
       i = new Reference::Return();
-      i->execute(code_it, th, &pc_increment, wide);
+      finished = i->execute(code_it, th, &pc_increment, wide)[0];
       break;
     }
     case Opcodes::kARRAYLENGTH: {
@@ -249,7 +250,7 @@ bool runBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
     }
     case Opcodes::kDRETURN: {
       i = new Double::Return();
-      i->execute(code_it, th, &pc_increment, wide);
+      finished = i->execute(code_it, th, &pc_increment, wide)[0];
       break;
     }
     case Opcodes::kDSTORE: {
@@ -414,7 +415,7 @@ bool runBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
     }
     case Opcodes::kFRETURN: {
       i = new Float::Return();
-      i->execute(code_it, th, &pc_increment, wide);
+      finished = i->execute(code_it, th, &pc_increment, wide)[0];
       break;
     }
     case Opcodes::kFSTORE: {
@@ -735,7 +736,7 @@ bool runBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
     }
     case Opcodes::kIRETURN: {
       i = new Integer::Return();
-      i->execute(code_it, th, &pc_increment, wide);
+      finished = i->execute(code_it, th, &pc_increment, wide)[0];
       break;
     }
     case Opcodes::kISHL: {
@@ -923,7 +924,7 @@ bool runBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
     }
     case Opcodes::kLRETURN: {
       i = new Long::Return();
-      i->execute(code_it, th, &pc_increment, wide);
+      finished = i->execute(code_it, th, &pc_increment, wide)[0];
       break;
     }
     case Opcodes::kLSHL: {
@@ -1037,7 +1038,7 @@ bool runBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
     }
     case Opcodes::kRETURN: {
       i = new Misc::Return();
-      i->execute(code_it, th, &pc_increment, wide);
+      finished = i->execute(code_it, th, &pc_increment, wide)[0];
       break;
     }
     case Opcodes::kSALOAD: {
@@ -1075,6 +1076,6 @@ bool runBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
   if (i) delete i;
   *pc += (wide ? 0 : 1) + pc_increment;
 
-  return false;
+  return finished;
 }
 }  // namespace Instructions

@@ -3,6 +3,7 @@
 #include <string.h>
 #include <iostream>
 #include <map>
+#include <regex>
 #include <sstream>
 #include "utils/errors.h"
 
@@ -14,7 +15,7 @@ static std::string getUsage() {
   std::stringstream ss;
   ss << "usage: ./jvm {mode} <path_to_class_file> <class_file> [options]\n"
      << "\tmode: viewer, interpreter\n"
-     << "\toptions: -v, -json";
+     << "\toptions: -v, -json, -d";
 
   return ss.str();
 }
@@ -50,6 +51,11 @@ void toggleAll(const char **flags) {
     throw Errors::Exception(Errors::kMODE, ss.str());
   }
 
+#if defined(_WIN32) || defined(WIN32)
+  options.kPATH = std::regex_replace(options.kPATH, std::regex("\\\\"), "/");
+  options.kFILE = std::regex_replace(options.kFILE, std::regex("\\\\"), "/");
+#endif
+
   for (; *flags;) {
     toggle(*flags++);
   }
@@ -57,9 +63,9 @@ void toggleAll(const char **flags) {
 
 void toggle(const char *flag) {
   static std::map<std::string, bool *> optionsNames = {
-      {"-v", &options.kVERBOSE},
-      {"-i", &options.kIGNORE},
-      {"-d", &options.kDEBUG},
+      {"-v", &options.kVERBOSE}, {"-verbose", &options.kVERBOSE},
+      {"-i", &options.kIGNORE},  {"-ignore", &options.kIGNORE},
+      {"-d", &options.kDEBUG},   {"-debug", &options.kDEBUG},
       {"-json", &options.kJSON}};
   bool *f = nullptr;
   try {

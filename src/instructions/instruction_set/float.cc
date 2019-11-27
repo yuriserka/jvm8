@@ -266,7 +266,7 @@ std::vector<int> Return::execute(
   auto retval = th->current_frame->popOperand<float>();
   th->pushReturnValue(retval);
   th->current_frame->cleanOperands();
-  return {};
+  return {1};
 }
 // ----------------------------------------------------------------------------
 std::vector<int> Store::execute(

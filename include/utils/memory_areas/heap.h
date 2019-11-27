@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <list>
 #include <vector>
+#include "utils/class_t.h"
+#include "utils/helper_functions.h"
 #include "utils/memory_areas/thread.h"
 #include "utils/object.h"
 
@@ -19,15 +21,22 @@ class Heap {
     });
   }
 
-  void initialize(Thread *th, const std::string &name) {
-    this->initialized_classes.push_back(name);
-    // th->executeMethod("<clinit>", );
+  void addClass(Thread *th, const std::string &name);
+
+  Utils::Class_t &getClass(std::string &name) {
+    return *std::find_if(this->initialized_classes.begin(),
+                         this->initialized_classes.end(),
+                         [&name](const Utils::Class_t &c) {
+                           return !c.class_name.compare(name);
+                         });
   }
 
   bool isInitialized(const std::string &name) {
-    return std::find(this->initialized_classes.begin(),
-                     this->initialized_classes.end(),
-                     name) != this->initialized_classes.end();
+    return std::find_if(this->initialized_classes.begin(),
+                        this->initialized_classes.end(),
+                        [&name](const Utils::Class_t &c) {
+                          return !c.class_name.compare(name);
+                        }) != this->initialized_classes.end();
   }
 
   Utils::Object *pushReference(Utils::Object *obj) {
@@ -40,7 +49,7 @@ class Heap {
  private:
   int last_obj_index = 0;
   std::list<Utils::Object *> object_refs;
-  std::vector<std::string> initialized_classes;
+  std::vector<Utils::Class_t> initialized_classes;
 };
 }  // namespace MemoryAreas
 

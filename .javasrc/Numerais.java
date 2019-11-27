@@ -1,5 +1,19 @@
 public class Numerais {
-    public final int um = 1;
+    public Numerais() {}
+
+    public Numerais(int x) {
+        this.um = x;
+    }
+
+    void setInteger(int x) {
+        this.um = x;
+    }
+
+    int getUm() {
+        return this.um;
+    }
+
+    private int um = 1;
     public double d = 10.2;
     private long pula = 2200;
     protected static final float sss = 25.4f;
