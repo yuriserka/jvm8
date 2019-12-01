@@ -14,12 +14,6 @@ namespace Utils {
 struct Object {
   Object() = default;
 
-  ~Object() {
-    if (this->data.is<Array_t *>()) {
-      delete this->data.as<Array_t *>();
-    }
-  }
-
   template <typename T>
   Object(T v) {
     this->data = v;
@@ -31,13 +25,24 @@ struct Object {
     this->type = ref_type;
   }
 
-  void addField(const std::string &field_name, const Field_t &f) {
+  ~Object() {
+    if (this->data.is<Array_t *>()) {
+      delete this->data.as<Array_t *>();
+    } else if (this->data.is<MultiArray_t *>()) {
+      delete this->data.as<MultiArray_t *>();
+    }
+    for (auto it = this->fields.begin(); it != this->fields.end(); ++it) {
+      delete it->second;
+    }
+  }
+
+  void addField(const std::string &field_name, Field_t *f) {
     this->fields[field_name] = f;
   }
 
   int type;
   Any data;
-  std::map<std::string, Field_t> fields;
+  std::map<std::string, Field_t *> fields;
 };
 }  // namespace Utils
 

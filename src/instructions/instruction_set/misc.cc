@@ -212,9 +212,7 @@ std::vector<int> GetField::execute(
   auto old_class = th->current_class;
   // muda o contexto para onde o field vai estar
   th->method_area->update(th->method_area->getClass(classname));
-
   auto field = th->method_area->getField(field_name);
-
   auto field_access = Utils::Access::getFieldAccessType(field.access_flags);
 
   if (std::find_if(field_access.begin(), field_access.end(),
@@ -231,7 +229,7 @@ std::vector<int> GetField::execute(
         "NullPointerException");
   }
 
-  auto field_val = objectref->fields[field_name].data;
+  auto field_val = objectref->fields[field_name]->data;
   th->current_frame->pushOperand(field_val);
 
   // retorna o contexto para a classe antiga
@@ -262,7 +260,7 @@ std::vector<int> GetStatic::execute(
       th->method_area->update(th->method_area->getClass(classname));
     }
 
-    auto field_val = th->heap->getClass(classname).getField(field_name).data;
+    auto field_val = th->heap->getClass(classname)->getField(field_name)->data;
     th->current_frame->pushOperand(field_val);
 
     th->method_area->update(old_class);
@@ -332,6 +330,27 @@ std::vector<int> MultiDimArray::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  // auto kpool_index = (*++*code_iterator << 8) | *++*code_iterator;
+  *code_iterator += 2;
+  int dims = *++*code_iterator;
+  *delta_code = 3;
+
+  auto inner_to_outer_dimensions = new int[dims];
+  for (int i = dims - 1; i >= 0; --i) {
+    inner_to_outer_dimensions[i] = th->current_frame->popOperand<int>();
+    if (!inner_to_outer_dimensions[i]) {
+      break;
+    }
+  }
+
+  auto multiarray = new Utils::MultiArray_t(dims, inner_to_outer_dimensions);
+  auto objectref =
+      new Utils::Object(multiarray->arrays, Utils::Reference::kREF_ARRAY);
+
+  th->current_frame->pushOperand(th->heap->pushReference(objectref));
+
+  delete[] inner_to_outer_dimensions;
+
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -462,7 +481,7 @@ std::vector<int> PutField::execute(
         "NullPointerException");
   }
 
-  objectref->addField(field_name, Utils::Field_t(val));
+  objectref->addField(field_name, new Utils::Field_t(val));
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -500,10 +519,7 @@ std::vector<int> PutStatic::execute(
   th->method_area->update(th->method_area->getClass(classname));
 
   auto field = th->method_area->getField(field_name);
-
   auto val = th->current_frame->popOperand<Any>();
-  // auto objectref = th->current_frame->popOperand<Utils::Object *>();
-
   auto field_access = Utils::Access::getFieldAccessType(field.access_flags);
 
   if (std::find_if(field_access.begin(), field_access.end(),
@@ -514,7 +530,7 @@ std::vector<int> PutStatic::execute(
         "IncompatibleClassChangeError");
   }
 
-  th->heap->getClass(classname).addField(val, field_name, descriptor);
+  th->heap->getClass(classname)->addField(val, field_name, descriptor);
   th->method_area->update(old_class);
   return {};
 }
@@ -544,6 +560,11 @@ std::vector<int> Swap::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  auto val1 = th->current_frame->popOperand<Any>();
+  auto val2 = th->current_frame->popOperand<Any>();
+
+  th->current_frame->pushOperand(val2);
+  th->current_frame->pushOperand(val1);
   return {};
 }
 // ----------------------------------------------------------------------------

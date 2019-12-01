@@ -12,22 +12,28 @@ struct Class_t {
 
   Class_t(const std::string &class_name) { this->class_name = class_name; }
 
+  ~Class_t() {
+    for (auto it = this->fields.begin(); it != this->fields.end(); ++it) {
+      delete it->second;
+    }
+  }
+
   void addField(const Any &val, const std::string &field_name,
                 const std::string &descriptor) {
-    auto f = Field_t(val);
+    auto f = new Field_t(val);
     if (!descriptor.compare("java/lang/String") ||
         !descriptor.compare("java/lang/Object")) {
-      f.data = new Object(val);
+      f->data = new Object(val, Utils::Reference::kREF_CLASS);
     }
     this->fields[field_name] = f;
   }
 
-  Field_t &getField(const std::string &field_name) {
+  Field_t *getField(const std::string &field_name) {
     return this->fields[field_name];
   }
 
   std::string class_name;
-  std::map<std::string, Field_t> fields;
+  std::map<std::string, Field_t *> fields;
 };
 }  // namespace Utils
 

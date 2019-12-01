@@ -1,8 +1,8 @@
 #ifndef INCLUDE_UTILS_ARRAY_T_H_
 #define INCLUDE_UTILS_ARRAY_T_H_
 
+#include <list>
 #include <stack>
-#include <vector>
 #include "utils/external/any.h"
 #include "utils/reference_kind.h"
 
@@ -14,24 +14,39 @@ class Array_t {
     this->type = atype;
   }
 
+  Array_t(const int &max_len) : items(max_len) { this->max_length = max_len; }
+
+  ~Array_t() = default;
+
   template <typename T>
   void insert(T value, int index) {
-    this->items[index] = value;
+    auto element = std::next(this->items.begin(), index);
+    *element = value;
   }
 
   int length() { return this->items.size(); }
 
   template <typename T>
   T get(const int &index) {
-    return this->items[index];
+    auto element = std::next(this->items.begin(), index);
+    return element->as<T>();
   }
 
-  std::vector<Any> getCollection() { return this->items; }
+  std::list<Any> getCollection() { return this->items; }
 
  private:
   int max_length;
   int type;
-  std::vector<Any> items;
+  std::list<Any> items;
+};
+
+class MultiArray_t {
+ public:
+  MultiArray_t(const int &dims, int *dims_sizes);
+
+  ~MultiArray_t();
+
+  Array_t *arrays;
 };
 }  // namespace Utils
 

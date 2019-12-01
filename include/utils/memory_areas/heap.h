@@ -19,23 +19,27 @@ class Heap {
       delete obj;
       return true;
     });
+    this->initialized_classes.remove_if([](Utils::Class_t *classref) {
+      delete classref;
+      return true;
+    });
   }
 
   void addClass(Thread *th, const std::string &name);
 
-  Utils::Class_t &getClass(std::string &name) {
+  Utils::Class_t *getClass(std::string &name) {
     return *std::find_if(this->initialized_classes.begin(),
                          this->initialized_classes.end(),
-                         [&name](const Utils::Class_t &c) {
-                           return !c.class_name.compare(name);
+                         [&name](const Utils::Class_t *c) {
+                           return !c->class_name.compare(name);
                          });
   }
 
   bool isInitialized(const std::string &name) {
     return std::find_if(this->initialized_classes.begin(),
                         this->initialized_classes.end(),
-                        [&name](const Utils::Class_t &c) {
-                          return !c.class_name.compare(name);
+                        [&name](const Utils::Class_t *c) {
+                          return !c->class_name.compare(name);
                         }) != this->initialized_classes.end();
   }
 
@@ -49,7 +53,7 @@ class Heap {
  private:
   int last_obj_index = 0;
   std::list<Utils::Object *> object_refs;
-  std::vector<Utils::Class_t> initialized_classes;
+  std::list<Utils::Class_t *> initialized_classes;
 };
 }  // namespace MemoryAreas
 

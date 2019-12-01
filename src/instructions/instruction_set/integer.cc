@@ -461,7 +461,7 @@ std::vector<int> LogicalShiftRight::execute(
   } else {
     result = (val1 >> s) + (2 << ~s);
   }
-  th->current_frame->pushOperand<long>(result);
+  th->current_frame->pushOperand<int>(result);
   return {};
 }
 // ----------------------------------------------------------------------------

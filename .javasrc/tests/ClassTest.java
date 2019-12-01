@@ -19,9 +19,10 @@ public class ClassTest {
         p.setNome("joão Kleber");
         System.out.println("pessoa linda de nome = " + p.getNome());
         
-        System.out.println("nacionalidade da pessoa linda = " + p.nacionalidade);
-        p.nacionalidade = "Canadense";
-        System.out.println("nacionalidade da pessoa linda depois de fazer o passaporte = " + p.nacionalidade);
+        System.out.println("nacionalidade da pessoa linda = " + p.getNacionalidade());
+
+        p.mudarNacionalidade("Canadense");
+        System.out.println("nacionalidade da pessoa linda depois de fazer o passaporte = " + p.getNacionalidade());
 
         System.out.println("indo pro xops comprar pastel KKK");
         p.realizarCompra(5.50);

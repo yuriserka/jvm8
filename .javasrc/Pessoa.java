@@ -2,8 +2,8 @@ class Pessoa {
 
     private String nome;
     private int idade;
+    private static String nacionalidade = "valor padrao";
     public double[] moedas = new double[]{0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0};
-    public static String nacionalidade = "valor padrao";
 
     public Pessoa() {
         this.nome = "anonimo";
@@ -24,6 +24,14 @@ class Pessoa {
             return;
         }
         System.out.println("Transação aprovada");
+    }
+
+    static void mudarNacionalidade(String n) {
+        nacionalidade = n;
+    }
+
+    static String getNacionalidade() {
+        return nacionalidade;
     }
 
     void setNome(String nome) {

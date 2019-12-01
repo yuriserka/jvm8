@@ -29,6 +29,27 @@ class ArrayTest {
         modificar(autores);
 
         System.out.println("Qual o autor no index 0?? " + autores[0]);
+
+        System.out.println("Testando array 3D");
+        int[][][] test = {
+            {
+                {1, -2, 3},
+                {2, 3, 4}
+            },
+            {
+                {-4, -5, 6, 9},
+                {1},
+                {2, 3}
+            }
+        };
+
+        for (int[][] array2D : test) {
+            for (int[] array1D : array2D) {
+                for(int item : array1D) {
+                    System.out.println(item);
+                }
+            }
+        }
     }
 
     static void modificar(String[] arr) {

@@ -994,7 +994,8 @@ std::string getBytecode(std::vector<Utils::Types::u1>::iterator *code_it,
     case Opcodes::kMULTIANEWARRAY: {
       i = new Misc::MultiDimArray();
       auto args = i->toBytecode(code_it, &delta_code, &ss, wide);
-      ss << "<" << v->getConstantPoolInfo(args[0]) << ">\n";
+      ss << "<" << v->getConstantPoolInfo(args[0]) << "> dim " << args[1]
+         << "\n";
       break;
     }
     case Opcodes::kNEW: {
