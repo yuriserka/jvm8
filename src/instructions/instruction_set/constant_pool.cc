@@ -36,7 +36,8 @@ std::vector<int> LoadCat1::execute(
       auto kstring_info = kpool_info.getClass<cp::CONSTANT_String_info>();
       auto objectref = new Utils::Object(
           kstring_info->getValue(th->method_area->runtime_constant_pool),
-          Utils::Reference::objectref_types::kREF_STRING);
+          Utils::Reference::objectref_types::kREF_STRING,
+          Utils::getClassName(th->current_class));
       auto stringref = th->heap->pushReference(objectref);
       th->current_frame->pushOperand(stringref);
       break;
@@ -45,7 +46,8 @@ std::vector<int> LoadCat1::execute(
       auto kclass_info = kpool_info.getClass<cp::CONSTANT_Class_info>();
       auto objectref = new Utils::Object(
           kclass_info->getValue(th->method_area->runtime_constant_pool),
-          Utils::Reference::objectref_types::kREF_CLASS);
+          Utils::Reference::objectref_types::kREF_CLASS,
+          Utils::getClassName(th->current_class));
       auto classref = th->heap->pushReference(objectref);
       th->current_frame->pushOperand(classref);
       break;
@@ -81,7 +83,8 @@ std::vector<int> LoadCat1Wide::execute(
       auto kstring_info = kpool_info.getClass<cp::CONSTANT_String_info>();
       auto objectref = new Utils::Object(
           kstring_info->getValue(th->method_area->runtime_constant_pool),
-          Utils::Reference::objectref_types::kREF_STRING);
+          Utils::Reference::objectref_types::kREF_STRING,
+          Utils::getClassName(th->current_class));
       auto stringref = th->heap->pushReference(objectref);
       th->current_frame->pushOperand(stringref);
       break;
@@ -90,7 +93,8 @@ std::vector<int> LoadCat1Wide::execute(
       auto kclass_info = kpool_info.getClass<cp::CONSTANT_Class_info>();
       auto objectref = new Utils::Object(
           kclass_info->getValue(th->method_area->runtime_constant_pool),
-          Utils::Reference::objectref_types::kREF_CLASS);
+          Utils::Reference::objectref_types::kREF_CLASS,
+          Utils::getClassName(th->current_class));
       auto classref = th->heap->pushReference(objectref);
       th->current_frame->pushOperand(classref);
       break;

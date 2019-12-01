@@ -19,7 +19,8 @@ MultiArray_t::MultiArray_t(const int &dims, int *dims_sizes) {
     auto count = dims_sizes[i];
     for (int d = 0; d < count; ++d) {
       auto arrayobj = new Object(
-          new Array_t(dims_sizes[i + 1], Utils::Reference::kREF_ARRAY));
+          new Array_t(dims_sizes[i + 1], Utils::Reference::kREF_ARRAY),
+          "internal_array");
       this->arrays->insert(arrayobj, d);
     }
   }

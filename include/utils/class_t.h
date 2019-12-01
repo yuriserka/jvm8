@@ -23,12 +23,17 @@ struct Class_t {
     auto f = new Field_t(val);
     if (!descriptor.compare("java/lang/String") ||
         !descriptor.compare("java/lang/Object")) {
-      f->data = new Object(val, Utils::Reference::kREF_CLASS);
+      f->data = new Object(val, Utils::Reference::kREF_CLASS, this->class_name);
     }
     this->fields[field_name] = f;
   }
 
   Field_t *getField(const std::string &field_name) {
+    try {
+      this->fields.at(field_name);
+    } catch (...) {
+      this->fields[field_name] = new Field_t();
+    }
     return this->fields[field_name];
   }
 

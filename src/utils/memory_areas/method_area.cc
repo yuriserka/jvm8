@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include "reader.h"
+#include "utils/accessFlags.h"
 #include "utils/constantPool.h"
 #include "utils/errors.h"
 #include "utils/flags.h"
@@ -72,6 +73,40 @@ const ClassFile *MethodArea::getClass(const std::string &classname) {
 
   return *classfile;
 }
+
+// std::string MethodArea::getClassThatImplementsMethod(
+//     const std::string &classname, const std::string &method_name,
+//     const std::string &descriptor) {
+//   auto classfile = std::find_if(this->loaded.begin(), this->loaded.end(),
+//                                 [&classname](const ClassFile *classfile) {
+//                                   auto actual_name =
+//                                       Utils::getClassName(classfile);
+//                                   return !classname.compare(actual_name);
+//                                 });
+//   for (auto &method : (*classfile)->methods) {
+//     auto fdescriptor = (*classfile)
+//                            ->constant_pool[method.descriptor_index - 1]
+//                            .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
+//                            ->getValue();
+//     auto mname = (*classfile)
+//                      ->constant_pool[method.name_index - 1]
+//                      .getClass<Utils::ConstantPool::CONSTANT_Utf8_info>()
+//                      ->getValue();
+
+//     if (!mname.compare(method_name) && !fdescriptor.compare(descriptor)) {
+//       auto flags = Utils::Access::getMethodAccessType(method.access_flags);
+//       auto is_abstract =
+//           std::find_if(flags.begin(), flags.end(), [](const std::string &f) {
+//             return !f.compare("abstract");
+//           }) != flags.end();
+//       if (is_abstract) {
+//         return "";
+//       }
+//       return Utils::getClassName(*classfile);
+//     }
+//   }
+//   return "";
+// }
 
 const ClassFile *MethodArea::loadClass(const std::string &classname) {
   if (this->isLoaded(classname)) {

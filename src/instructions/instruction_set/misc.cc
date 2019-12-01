@@ -259,7 +259,7 @@ std::vector<int> GetStatic::execute(
     if (!th->method_area->isLoaded(classname)) {
       th->method_area->update(th->method_area->getClass(classname));
     }
-
+    th->heap->addClass(th, classname);
     auto field_val = th->heap->getClass(classname)->getField(field_name)->data;
     th->current_frame->pushOperand(field_val);
 
@@ -364,8 +364,10 @@ std::vector<int> MultiDimArray::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  // auto kpool_index = (*++*code_iterator << 8) | *++*code_iterator;
-  *code_iterator += 2;
+  auto kpool_index = (*++*code_iterator << 8) | *++*code_iterator;
+  auto classname = th->method_area->runtime_constant_pool[kpool_index - 1]
+                       .getClass<Utils::ConstantPool::CONSTANT_Class_info>()
+                       ->getValue(th->method_area->runtime_constant_pool);
   int dims = *++*code_iterator;
   *delta_code = 3;
 
@@ -378,8 +380,8 @@ std::vector<int> MultiDimArray::execute(
   }
 
   auto multiarray = new Utils::MultiArray_t(dims, inner_to_outer_dimensions);
-  auto objectref =
-      new Utils::Object(multiarray->arrays, Utils::Reference::kREF_ARRAY);
+  auto objectref = new Utils::Object(multiarray->arrays,
+                                     Utils::Reference::kREF_ARRAY, classname);
 
   th->current_frame->pushOperand(th->heap->pushReference(objectref));
 
@@ -409,7 +411,7 @@ std::vector<int> New::execute(
     th->method_area->update(th->method_area->getClass(classname));
   }
 
-  auto objectref = new Utils::Object();
+  auto objectref = new Utils::Object(classname);
   th->current_frame->pushOperand(th->heap->pushReference(objectref));
   th->heap->addClass(th, classname);
 
@@ -433,7 +435,8 @@ std::vector<int> NewArray::execute(
   }
 
   auto arr = new Utils::Array_t(count, atype);
-  auto objectref = new Utils::Object(arr, Utils::Reference::kREF_ARRAY);
+  auto objectref = new Utils::Object(arr, Utils::Reference::kREF_ARRAY,
+                                     Utils::getClassName(th->current_class));
   th->current_frame->pushOperand(th->heap->pushReference(objectref));
 
   *delta_code = 1;
@@ -551,6 +554,7 @@ std::vector<int> PutStatic::execute(
   auto old_class = th->current_class;
   // muda o contexto para onde o field vai estar
   th->method_area->update(th->method_area->getClass(classname));
+  th->heap->addClass(th, classname);
 
   auto field = th->method_area->getField(field_name);
   auto val = th->current_frame->popOperand<Any>();

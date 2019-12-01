@@ -27,7 +27,7 @@ class Heap {
 
   void addClass(Thread *th, const std::string &name);
 
-  Utils::Class_t *getClass(std::string &name) {
+  Utils::Class_t *getClass(const std::string &name) {
     return *std::find_if(this->initialized_classes.begin(),
                          this->initialized_classes.end(),
                          [&name](const Utils::Class_t *c) {
@@ -49,11 +49,11 @@ class Heap {
     auto it = std::next(this->object_refs.begin(), this->last_obj_index++);
     return *it;
   }
+  std::list<Utils::Class_t *> initialized_classes;
 
  private:
   int last_obj_index = 0;
   std::list<Utils::Object *> object_refs;
-  std::list<Utils::Class_t *> initialized_classes;
 };
 }  // namespace MemoryAreas
 

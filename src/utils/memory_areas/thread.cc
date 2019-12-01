@@ -85,14 +85,13 @@ void Thread::changeContext(const std::string &classname,
                            const std::string &method_name,
                            const std::string &descriptor,
                            const bool &popObjectRef) {
-  if (Utils::Flags::options.kDEBUG) {
-    std::cout << "\tchanging context to " << classname << "." << method_name
-              << ":" << descriptor << "\n";
-  }
   auto const actual_classname = Utils::getClassName(this->current_class);
-
   auto old_class = this->current_class;
   if (classname.compare(actual_classname)) {
+    if (Utils::Flags::options.kDEBUG) {
+      std::cout << "\tchanging context to " << classname << "." << method_name
+                << ":" << descriptor << "\n";
+    }
     auto new_class = this->method_area->loadClass(classname);
     this->current_class = new_class;
     this->method_area->update(this->current_class);
@@ -217,8 +216,14 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
     }
   };
   if (popObjectRef) {
-    new_frame->pushLocalVar(this->current_frame->popOperand<Utils::Object *>(),
-                            start_index);
+    auto objectref = this->current_frame->popOperand<Utils::Object *>();
+    // if (!objectref->class_name.empty() && objectref->class_name.compare(
+    //         Utils::getClassName(this->current_class))) {
+    //   throw std::invalid_argument(
+    //       "nao é aqui q tem que executar esse metodo, tem outra classe que "
+    //       "implementa");
+    // }
+    new_frame->pushLocalVar(objectref, start_index);
   }
 }
 }  // namespace MemoryAreas

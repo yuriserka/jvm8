@@ -116,7 +116,10 @@ std::vector<int> NewArray::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
-  *code_iterator += 2;
+  auto kpool_index = (*++*code_iterator << 8) | *++*code_iterator;
+  auto classname = th->method_area->runtime_constant_pool[kpool_index - 1]
+                       .getClass<Utils::ConstantPool::CONSTANT_Class_info>()
+                       ->getValue(th->method_area->runtime_constant_pool);
   *delta_code = 2;
 
   auto count = th->current_frame->popOperand<int>();
@@ -127,7 +130,8 @@ std::vector<int> NewArray::execute(
   }
 
   auto arr = new Utils::Array_t(count, Utils::Reference::kREF_CLASS);
-  auto objectref = new Utils::Object(arr, Utils::Reference::kREF_ARRAY);
+  auto objectref =
+      new Utils::Object(arr, Utils::Reference::kREF_ARRAY, classname);
 
   th->current_frame->pushOperand(th->heap->pushReference(objectref));
   return {};

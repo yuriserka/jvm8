@@ -39,6 +39,10 @@ class MethodArea {
 
   const ClassFile *getClass(const std::string &classname);
 
+  // std::string getClassThatImplementsMethod(const std::string &classname,
+  //                                          const std::string &method_name,
+  //                                          const std::string &descriptor);
+
   const ClassFile *loadClass(const std::string &classname);
 
   Utils::Infos::method_info getMethod(const std::string &method_name,
@@ -48,11 +52,11 @@ class MethodArea {
 
   std::vector<Utils::ConstantPool::cp_info> runtime_constant_pool;
   const ClassFile *runtime_classfile;
+  std::vector<Utils::Infos::field_info> fields;
 
  private:
   std::list<const ClassFile *> loaded;
   std::vector<Utils::Infos::method_info> methods;
-  std::vector<Utils::Infos::field_info> fields;
 };
 }  // namespace MemoryAreas
 

@@ -87,7 +87,7 @@ std::vector<int> Static::execute(
   std::string classname, methodname, descriptor;
   Utils::getReference(th->method_area->runtime_classfile, kpool_index,
                       &classname, &methodname, &descriptor);
-
+  th->heap->addClass(th, classname);
   th->changeContext(classname, methodname, descriptor, false);
   return {};
 }
@@ -223,7 +223,20 @@ std::vector<int> Virtual::execute(
     }
     // method != toString
     if (methodname.compare("toString")) {
+      // for (auto it = th->heap->initialized_classes.begin();
+      //      it != th->heap->initialized_classes.end(); ++it) {
+      //   auto classref = *it;
+      //   classname = th->method_area->getClassThatImplementsMethod(
+      //       classref->class_name, methodname, descriptor);
+      //   if (!classname.empty() && !classref->class_name.compare(classname)) {
+      //     break;
+      //   }
+      // try {
       th->changeContext(classname, methodname, descriptor, true);
+      //   break;
+      // } catch (...) {
+      // }
+      // }
     }
   }
   return {};

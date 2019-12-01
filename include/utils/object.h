@@ -12,15 +12,19 @@
 // [...
 namespace Utils {
 struct Object {
-  Object() = default;
+  // Object() = default;
+
+  Object(const std::string &classname) { this->class_name = classname; }
 
   template <typename T>
-  Object(T v) {
+  Object(T v, const std::string &classname) {
+    this->class_name = classname;
     this->data = v;
   }
 
   template <typename T>
-  Object(T v, int ref_type) {
+  Object(T v, int ref_type, const std::string &classname) {
+    this->class_name = classname;
     this->data = v;
     this->type = ref_type;
   }
@@ -40,6 +44,7 @@ struct Object {
     this->fields[field_name] = f;
   }
 
+  std::string class_name;
   int type;
   Any data;
   std::map<std::string, Field_t *> fields;
