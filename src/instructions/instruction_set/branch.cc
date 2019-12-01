@@ -18,7 +18,7 @@ std::vector<int> RefCompareEqual::execute(
   *delta_code = 2;
   if (val1 == val2) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -35,7 +35,7 @@ std::vector<int> RefCompareNotEqual::execute(
   *delta_code = 2;
   if (val1 != val2) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -52,7 +52,7 @@ std::vector<int> IntegerCompareEqual::execute(
   *delta_code = 2;
   if (val1 == val2) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -69,7 +69,7 @@ std::vector<int> IntegerCompareGreaterEqual::execute(
   *delta_code = 2;
   if (val1 >= val2) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -86,7 +86,7 @@ std::vector<int> IntegerCompareGreaterThan::execute(
   *delta_code = 2;
   if (val1 > val2) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -103,7 +103,7 @@ std::vector<int> IntegerCompareLessEqual::execute(
   *delta_code = 2;
   if (val1 <= val2) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -120,7 +120,7 @@ std::vector<int> IntegerCompareLessThan::execute(
   *delta_code = 2;
   if (val1 < val2) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -137,7 +137,7 @@ std::vector<int> IntegerCompareNotEqual::execute(
   *delta_code = 2;
   if (val1 != val2) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -153,7 +153,7 @@ std::vector<int> EqualZero::execute(
   *delta_code = 2;
   if (!value) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -169,7 +169,7 @@ std::vector<int> GreaterEqualZero::execute(
   *delta_code = 2;
   if (value >= 0) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -185,7 +185,7 @@ std::vector<int> GreaterThanZero::execute(
   *delta_code = 2;
   if (value > 0) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -201,7 +201,7 @@ std::vector<int> LessEqualZero::execute(
   *delta_code = 2;
   if (value <= 0) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -217,7 +217,7 @@ std::vector<int> LessThanZero::execute(
   *delta_code = 2;
   if (value < 0) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -233,7 +233,7 @@ std::vector<int> NotEqualZero::execute(
   *delta_code = 2;
   if (value) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -249,7 +249,7 @@ std::vector<int> NonNull::execute(
   *delta_code = 2;
   if (value) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }
@@ -265,7 +265,7 @@ std::vector<int> RefNull::execute(
   *delta_code = 2;
   if (!value) {
     *code_iterator += (offset - *delta_code - 1);
-    th->current_frame->pc += (offset - *delta_code - 1);
+    *pc += (offset - *delta_code - 1);
   }
   return {};
 }

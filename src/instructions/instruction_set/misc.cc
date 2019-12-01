@@ -279,7 +279,7 @@ std::vector<int> Goto::execute(
   }
   int16_t offset = (*++*code_iterator << 8) | *++*code_iterator;
   *delta_code = 2;
-  th->current_frame->pc += (offset - *delta_code - 1);
+  *pc += (offset - *delta_code - 1);
   *code_iterator += (offset - *delta_code - 1);
   return {};
 }
@@ -293,7 +293,7 @@ std::vector<int> GotoWide::execute(
   auto offset = (*++*code_iterator << 24) | (*++*code_iterator << 16) |
                 (*++*code_iterator << 8) | *++*code_iterator;
   *delta_code = 4;
-  th->current_frame->pc += (offset - *delta_code - 1);
+  *pc += (offset - *delta_code - 1);
   *code_iterator += (offset - *delta_code - 1);
   return {};
 }
@@ -321,6 +321,40 @@ std::vector<int> LookupSwitch::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  ++*code_iterator;
+  auto getAlinhamento = [](int a) -> int { return a ? (4 - a) : a; };
+
+  auto alinhamento = (*pc + 1) % 4;
+  *code_iterator += getAlinhamento(alinhamento) - 1;
+
+  auto getU4 =
+      [](std::vector<Utils::Types::u1>::iterator *code_iterator) -> int {
+    auto offset = (*++*code_iterator << 24) | (*++*code_iterator << 16) |
+                  (*++*code_iterator << 8) | *++*code_iterator;
+
+    return offset;
+  };
+
+  auto default_bytes = getU4(code_iterator);
+  auto npairs = getU4(code_iterator);
+  auto key = th->current_frame->popOperand<int>();
+
+  auto base_delta_code = getAlinhamento(alinhamento) + 4 + 4;
+  for (int i = 0; i < npairs; ++i) {
+    auto match = static_cast<int>(getU4(code_iterator));
+    auto offset = static_cast<int>(getU4(code_iterator));
+    *delta_code = base_delta_code + (8 * (i + 1));
+
+    if (match == key) {
+      *code_iterator += (offset - *delta_code - 1);
+      *pc += (offset - *delta_code - 1);
+      goto end;
+    }
+  }
+  *delta_code = base_delta_code + (8 * npairs);
+  *code_iterator += (default_bytes - *delta_code - 1);
+  *pc += (default_bytes - *delta_code - 1);
+end:
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -541,6 +575,22 @@ std::vector<int> Ret::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  int index;
+  if (wide) {
+    index = (*++*code_iterator << 8) | *++*code_iterator;
+    *delta_code = 2;
+  } else {
+    index = *++*code_iterator;
+    *delta_code = 1;
+  }
+
+  auto delta_pc = *pc;
+  *pc = th->current_frame->getLocalVarValue<Any>(index).as<int>();
+  delta_pc = *pc - delta_pc;
+
+  *code_iterator += (delta_pc - *delta_code - 1);
+  *pc += (delta_pc - *delta_code - 1);
+
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -574,6 +624,41 @@ std::vector<int> TableSwitch::execute(
   if (Utils::Flags::options.kDEBUG) {
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
+  ++*code_iterator;
+  auto getAlinhamento = [](int a) -> int { return a ? (4 - a) : 0; };
+
+  auto alinhamento = (*pc + 1) % 4;
+  *code_iterator += getAlinhamento(alinhamento) - 1;
+
+  auto getU4 =
+      [](std::vector<Utils::Types::u1>::iterator *code_iterator) -> int {
+    auto offset = (*++*code_iterator << 24) | (*++*code_iterator << 16) |
+                  (*++*code_iterator << 8) | *++*code_iterator;
+
+    return offset;
+  };
+
+  auto default_bytes = getU4(code_iterator);
+  auto low = getU4(code_iterator);
+  auto high = getU4(code_iterator);
+  auto qtd_entries = high - low + 1;
+  auto index = th->current_frame->popOperand<int>();
+  auto base_delta_code = getAlinhamento(alinhamento) + 4 + 4 + 4;
+
+  for (int i = low; i < high + 1; ++i) {
+    auto offset = static_cast<int>(getU4(code_iterator));
+    *delta_code = base_delta_code + (4 * (i + 1));
+
+    if (index == i) {
+      *code_iterator += (offset - *delta_code - 1);
+      *pc += (offset - *delta_code - 1);
+      goto end;
+    }
+  }
+  *delta_code = base_delta_code + (4 * qtd_entries);
+  *pc += (default_bytes - *delta_code - 1);
+  *code_iterator += (default_bytes - *delta_code - 1);
+end:
   return {};
 }
 // ----------------------------------------------------------------------------
