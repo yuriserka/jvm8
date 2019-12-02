@@ -12,6 +12,16 @@
 
 namespace Instructions {
 namespace Misc {
+/**
+ * @brief Check whether object is of given type
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Checkcast::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -21,6 +31,16 @@ std::vector<int> Checkcast::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Duplicate the top operand stack value
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Dup::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -34,6 +54,16 @@ std::vector<int> Dup::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Duplicate the top operand stack value and insert two values down
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> DupX1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -49,6 +79,16 @@ std::vector<int> DupX1::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Duplicate the top operand stack value and insert two or three values down
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> DupX2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -76,6 +116,16 @@ std::vector<int> DupX2::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Duplicate the top one or two operand stack values
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Dup2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -103,6 +153,16 @@ std::vector<int> Dup2::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Duplicate the top one or two operand stack values and insert two or three values down
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Dup2X1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -133,6 +193,16 @@ std::vector<int> Dup2X1::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Duplicate the top one or two operand stack values and insert two, three, or four values down
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Dup2X2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -190,6 +260,16 @@ std::vector<int> Dup2X2::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Fetch field from object
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> GetField::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -237,6 +317,16 @@ std::vector<int> GetField::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Get static field from class
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> GetStatic::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -271,6 +361,16 @@ std::vector<int> GetStatic::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch always
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Goto::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -284,6 +384,16 @@ std::vector<int> Goto::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch always(wide index)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> GotoWide::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -298,6 +408,16 @@ std::vector<int> GotoWide::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Determine if object is of given type
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> InstanceOf::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -315,6 +435,16 @@ std::vector<int> InstanceOf::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Access jump table by key match and jump
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> LookupSwitch::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -358,6 +488,16 @@ end:
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Create new multidimensional array
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> MultiDimArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -390,6 +530,16 @@ std::vector<int> MultiDimArray::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Create new object
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> New::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -419,6 +569,16 @@ std::vector<int> New::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Create new array
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> NewArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -443,6 +603,16 @@ std::vector<int> NewArray::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Do nothing
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Nop::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -452,6 +622,16 @@ std::vector<int> Nop::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Pop the top operand stack value
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Pop::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -462,6 +642,16 @@ std::vector<int> Pop::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Pop the top one or two operand stack values
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Pop2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -481,6 +671,16 @@ std::vector<int> Pop2::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Set field in object
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> PutField::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -522,6 +722,16 @@ std::vector<int> PutField::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Set static field in class
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> PutStatic::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -573,6 +783,16 @@ std::vector<int> PutStatic::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Return from subroutine
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Ret::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -598,6 +818,16 @@ std::vector<int> Ret::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Return void from method
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Return::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -608,6 +838,16 @@ std::vector<int> Return::execute(
   return {1};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Swap the top two operand stack values
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Swap::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -622,6 +862,16 @@ std::vector<int> Swap::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Access jump table by index and jump
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> TableSwitch::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -666,6 +916,16 @@ end:
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Extend local variable index by additional bytes
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Wide::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
