@@ -176,37 +176,35 @@ $(function() {
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">return</span> &amp;any.as&lt;T&gt;();</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  }</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="../../d8/d62/class_utils_1_1_frame.xhtml#a2d0d2b05ad58494c470f8472ea79f95d">  107</a></span>&#160;  <a class="code" href="../../db/da7/struct_any.xhtml">Any</a> <a class="code" href="../../d8/d62/class_utils_1_1_frame.xhtml#a2d0d2b05ad58494c470f8472ea79f95d">topOperand</a>() {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">return</span> this-&gt;operand_stack.top();</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="../../d8/d62/class_utils_1_1_frame.xhtml#a4a3353f984974f14086f597e32d59244">  111</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="../../d8/d62/class_utils_1_1_frame.xhtml#a4a3353f984974f14086f597e32d59244">cleanOperands</a>() {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">while</span> (!this-&gt;operand_stack.empty()) {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      this-&gt;operand_stack.pop();</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    }</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  }</div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="../../d8/d62/class_utils_1_1_frame.xhtml#a2d0d2b05ad58494c470f8472ea79f95d">  107</a></span>&#160;  <a class="code" href="../../db/da7/struct_any.xhtml">Any</a> <a class="code" href="../../d8/d62/class_utils_1_1_frame.xhtml#a2d0d2b05ad58494c470f8472ea79f95d">topOperand</a>() { <span class="keywordflow">return</span> this-&gt;operand_stack.top(); }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="../../d8/d62/class_utils_1_1_frame.xhtml#a4a3353f984974f14086f597e32d59244">  109</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="../../d8/d62/class_utils_1_1_frame.xhtml#a4a3353f984974f14086f597e32d59244">cleanOperands</a>() {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">while</span> (!this-&gt;operand_stack.empty()) {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      this-&gt;operand_stack.pop();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="../../d8/d62/class_utils_1_1_frame.xhtml#af2a23de5a4d89d79d7987b43ffb7612f">  115</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="../../d8/d62/class_utils_1_1_frame.xhtml#af2a23de5a4d89d79d7987b43ffb7612f">pc</a>;</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="../../d8/d62/class_utils_1_1_frame.xhtml#af2a23de5a4d89d79d7987b43ffb7612f">  117</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="../../d8/d62/class_utils_1_1_frame.xhtml#af2a23de5a4d89d79d7987b43ffb7612f">pc</a>;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="keywordtype">int</span> last_index = 0;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  std::vector&lt;Any&gt; local_variables;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  std::stack&lt;Any&gt; operand_stack;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  uint16_t max_operand_stack_size;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  uint16_t max_localvar_size;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  std::vector&lt;ConstantPool::cp_info&gt; runtime_constant_pool;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;};</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}  <span class="comment">// namespace Utils</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">// std::vector&lt;Any&gt; local_variables = {Any(115), Any(&quot;Hello mundo cruel&quot;),</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">//                                     Any(651151613.144456), Any(3.14159f)};</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">// std::cout &lt;&lt; local_variables[0].as&lt;int&gt;() &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">// std::cout &lt;&lt; local_variables[1].as&lt;const char *&gt;() &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">// std::cout &lt;&lt; local_variables[2].as&lt;double&gt;() &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">// std::cout &lt;&lt; local_variables[3].as&lt;float&gt;() &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="preprocessor">#endif  // INCLUDE_UTILS_FRAME_H_</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keywordtype">int</span> last_index = 0;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  std::vector&lt;Any&gt; local_variables;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  std::stack&lt;Any&gt; operand_stack;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  uint16_t max_operand_stack_size;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  uint16_t max_localvar_size;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  std::vector&lt;ConstantPool::cp_info&gt; runtime_constant_pool;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;};</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}  <span class="comment">// namespace Utils</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">// std::vector&lt;Any&gt; local_variables = {Any(115), Any(&quot;Hello mundo cruel&quot;),</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">//                                     Any(651151613.144456), Any(3.14159f)};</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">// std::cout &lt;&lt; local_variables[0].as&lt;int&gt;() &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">// std::cout &lt;&lt; local_variables[1].as&lt;const char *&gt;() &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">// std::cout &lt;&lt; local_variables[2].as&lt;double&gt;() &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">// std::cout &lt;&lt; local_variables[3].as&lt;float&gt;() &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">#endif  // INCLUDE_UTILS_FRAME_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclass_utils_1_1_frame_xhtml_aa85abf88a1a35d7cd574cd1ae17315ca"><div class="ttname"><a href="../../d8/d62/class_utils_1_1_frame.xhtml#aa85abf88a1a35d7cd574cd1ae17315ca">Utils::Frame::Frame</a></div><div class="ttdeci">Frame(const Types::u2 &amp;stack_size, const Types::u2 &amp;localvar_size, const std::vector&lt; ConstantPool::cp_info &gt; &amp;kpool)</div><div class="ttdef"><b>Definition:</b> frame.h:14</div></div>
 <div class="ttc" id="aclass_utils_1_1_frame_xhtml_a756e8b4eab7d53e0982668f53ec6ec05"><div class="ttname"><a href="../../d8/d62/class_utils_1_1_frame.xhtml#a756e8b4eab7d53e0982668f53ec6ec05">Utils::Frame::getLocalVarValue</a></div><div class="ttdeci">T getLocalVarValue(const int &amp;index)</div><div class="ttdef"><b>Definition:</b> frame.h:54</div></div>
@@ -216,11 +214,11 @@ $(function() {
 <div class="ttc" id="aclass_utils_1_1_frame_xhtml_acb68a5bf4b14811e669ab9d31cb263f3"><div class="ttname"><a href="../../d8/d62/class_utils_1_1_frame.xhtml#acb68a5bf4b14811e669ab9d31cb263f3">Utils::Frame::popOperand</a></div><div class="ttdeci">T popOperand()</div><div class="ttdef"><b>Definition:</b> frame.h:82</div></div>
 <div class="ttc" id="aclass_utils_1_1_frame_xhtml"><div class="ttname"><a href="../../d8/d62/class_utils_1_1_frame.xhtml">Utils::Frame</a></div><div class="ttdef"><b>Definition:</b> frame.h:12</div></div>
 <div class="ttc" id="aany_8h_xhtml"><div class="ttname"><a href="../../df/d8d/any_8h.xhtml">any.h</a></div></div>
-<div class="ttc" id="aclass_utils_1_1_frame_xhtml_a4a3353f984974f14086f597e32d59244"><div class="ttname"><a href="../../d8/d62/class_utils_1_1_frame.xhtml#a4a3353f984974f14086f597e32d59244">Utils::Frame::cleanOperands</a></div><div class="ttdeci">void cleanOperands()</div><div class="ttdef"><b>Definition:</b> frame.h:111</div></div>
+<div class="ttc" id="aclass_utils_1_1_frame_xhtml_a4a3353f984974f14086f597e32d59244"><div class="ttname"><a href="../../d8/d62/class_utils_1_1_frame.xhtml#a4a3353f984974f14086f597e32d59244">Utils::Frame::cleanOperands</a></div><div class="ttdeci">void cleanOperands()</div><div class="ttdef"><b>Definition:</b> frame.h:109</div></div>
 <div class="ttc" id="anamespace_utils_1_1_types_xhtml_aba1cd9c4d65348f39647c945c32a9954"><div class="ttname"><a href="../../d0/d94/namespace_utils_1_1_types.xhtml#aba1cd9c4d65348f39647c945c32a9954">Utils::Types::u2</a></div><div class="ttdeci">std::uint16_t u2</div><div class="ttdef"><b>Definition:</b> types.h:9</div></div>
 <div class="ttc" id="anamespace_utils_xhtml"><div class="ttname"><a href="../../d1/d7c/namespace_utils.xhtml">Utils</a></div><div class="ttdef"><b>Definition:</b> accessFlags.h:8</div></div>
 <div class="ttc" id="aerrors_8h_xhtml"><div class="ttname"><a href="../../de/d45/errors_8h.xhtml">errors.h</a></div></div>
-<div class="ttc" id="aclass_utils_1_1_frame_xhtml_af2a23de5a4d89d79d7987b43ffb7612f"><div class="ttname"><a href="../../d8/d62/class_utils_1_1_frame.xhtml#af2a23de5a4d89d79d7987b43ffb7612f">Utils::Frame::pc</a></div><div class="ttdeci">int pc</div><div class="ttdef"><b>Definition:</b> frame.h:117</div></div>
+<div class="ttc" id="aclass_utils_1_1_frame_xhtml_af2a23de5a4d89d79d7987b43ffb7612f"><div class="ttname"><a href="../../d8/d62/class_utils_1_1_frame.xhtml#af2a23de5a4d89d79d7987b43ffb7612f">Utils::Frame::pc</a></div><div class="ttdeci">int pc</div><div class="ttdef"><b>Definition:</b> frame.h:115</div></div>
 <div class="ttc" id="aclass_utils_1_1_frame_xhtml_a237175c998e76ecba63539775183b200"><div class="ttname"><a href="../../d8/d62/class_utils_1_1_frame.xhtml#a237175c998e76ecba63539775183b200">Utils::Frame::pushOperand</a></div><div class="ttdeci">void pushOperand(const T &amp;operand)</div><div class="ttdef"><b>Definition:</b> frame.h:64</div></div>
 <div class="ttc" id="aclass_utils_1_1_frame_xhtml_a2d0d2b05ad58494c470f8472ea79f95d"><div class="ttname"><a href="../../d8/d62/class_utils_1_1_frame.xhtml#a2d0d2b05ad58494c470f8472ea79f95d">Utils::Frame::topOperand</a></div><div class="ttdeci">Any topOperand()</div><div class="ttdef"><b>Definition:</b> frame.h:107</div></div>
 <div class="ttc" id="anamespace_utils_1_1_errors_xhtml_a0b174cdbfa547389df18071526c63e7fa939e54c77b5278427b350e618b3e3476"><div class="ttname"><a href="../../d4/d01/namespace_utils_1_1_errors.xhtml#a0b174cdbfa547389df18071526c63e7fa939e54c77b5278427b350e618b3e3476">Utils::Errors::kSTACK</a></div><div class="ttdef"><b>Definition:</b> errors.h:57</div></div>
@@ -233,7 +231,7 @@ $(function() {
 <div class="ttc" id="aclass_utils_1_1_frame_xhtml_a450c8adfdb95d0d19813fbd88ba4d01f"><div class="ttname"><a href="../../d8/d62/class_utils_1_1_frame.xhtml#a450c8adfdb95d0d19813fbd88ba4d01f">Utils::Frame::pushOperand</a></div><div class="ttdeci">void pushOperand(T *operand)</div><div class="ttdef"><b>Definition:</b> frame.h:73</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 21 2019 16:45:46 for JVM 8 SB 2019/2 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 2 2019 03:56:33 for JVM 8 SB 2019/2 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.16
 </small></address>

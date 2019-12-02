@@ -73,8 +73,8 @@ $(function() {
 <a href="../../d4/df7/array__t_8h.xhtml">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef INCLUDE_UTILS_ARRAY_T_H_</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define INCLUDE_UTILS_ARRAY_T_H_</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;stack&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;stack&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/d8d/any_8h.xhtml">utils/external/any.h</a>&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d3/d47/reference__kind_8h.xhtml">utils/reference_kind.h</a>&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
@@ -86,42 +86,63 @@ $(function() {
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    this-&gt;<a class="code" href="../../db/d0a/classstd_1_1conditional_1_1type.xhtml">type</a> = atype;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  }</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a2035b9e2a777e75cd906d15bcb8ade37">   18</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a2035b9e2a777e75cd906d15bcb8ade37">insert</a>(T value, <span class="keywordtype">int</span> index) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    this-&gt;items[index] = value;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a4ecfe40fd1b53d50bf26b8db411a9f74">   22</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a4ecfe40fd1b53d50bf26b8db411a9f74">length</a>() { <span class="keywordflow">return</span> this-&gt;items.size(); }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a59a8c7c33e32eaa58ec23969de9ace49">   25</a></span>&#160;  T <a class="code" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a59a8c7c33e32eaa58ec23969de9ace49">get</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;index) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> this-&gt;items[index];</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  }</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#ae5746809dd978bba75fe1fdfaf061a15">   17</a></span>&#160;  <a class="code" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#ae5746809dd978bba75fe1fdfaf061a15">Array_t</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;max_len) : items(max_len) { this-&gt;max_length = max_len; }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <a class="code" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a31701af3338a63376303c31180a1160a">~Array_t</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a2035b9e2a777e75cd906d15bcb8ade37">   22</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a2035b9e2a777e75cd906d15bcb8ade37">insert</a>(T value, <span class="keywordtype">int</span> index) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">auto</span> element = std::next(this-&gt;items.begin(), index);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    *element = value;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a4ecfe40fd1b53d50bf26b8db411a9f74">   27</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a4ecfe40fd1b53d50bf26b8db411a9f74">length</a>() { <span class="keywordflow">return</span> this-&gt;items.size(); }</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a538a2ac8311d1a6749be88c752a76d85">   29</a></span>&#160;  std::vector&lt;Any&gt; <a class="code" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a538a2ac8311d1a6749be88c752a76d85">getCollection</a>() { <span class="keywordflow">return</span> this-&gt;items; }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordtype">int</span> max_length;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordtype">int</span> <a class="code" href="../../db/d0a/classstd_1_1conditional_1_1type.xhtml">type</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  std::vector&lt;Any&gt; items;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}  <span class="comment">// namespace Utils</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif  // INCLUDE_UTILS_ARRAY_T_H_</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a59a8c7c33e32eaa58ec23969de9ace49">   30</a></span>&#160;  T <a class="code" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a59a8c7c33e32eaa58ec23969de9ace49">get</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;index) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">auto</span> element = std::next(this-&gt;items.begin(), index);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">return</span> element-&gt;as&lt;T&gt;();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a94b27ecd3a89d63d51f65c88274a9d99">   35</a></span>&#160;  std::list&lt;Any&gt; <a class="code" href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a94b27ecd3a89d63d51f65c88274a9d99">getCollection</a>() { <span class="keywordflow">return</span> this-&gt;items; }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">int</span> max_length;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">int</span> <a class="code" href="../../db/d0a/classstd_1_1conditional_1_1type.xhtml">type</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  std::list&lt;Any&gt; items;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="../../dc/d0d/class_utils_1_1_multi_array__t.xhtml">   43</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../dc/d0d/class_utils_1_1_multi_array__t.xhtml">MultiArray_t</a> {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <a class="code" href="../../dc/d0d/class_utils_1_1_multi_array__t.xhtml#a6d96ed34dd09be52466a44c04e4439b1">MultiArray_t</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;dims, <span class="keywordtype">int</span> *dims_sizes);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="../../dc/d0d/class_utils_1_1_multi_array__t.xhtml#a7d1a57f03ab9293d6471eb12955e5f6c">~MultiArray_t</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="../../dc/d0d/class_utils_1_1_multi_array__t.xhtml#a96a64b990007b29583e1fee515b89720">   49</a></span>&#160;  <a class="code" href="../../d5/d7c/class_utils_1_1_array__t.xhtml">Array_t</a> *<a class="code" href="../../dc/d0d/class_utils_1_1_multi_array__t.xhtml#a96a64b990007b29583e1fee515b89720">arrays</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}  <span class="comment">// namespace Utils</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#endif  // INCLUDE_UTILS_ARRAY_T_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_utils_1_1_multi_array__t_xhtml_a6d96ed34dd09be52466a44c04e4439b1"><div class="ttname"><a href="../../dc/d0d/class_utils_1_1_multi_array__t.xhtml#a6d96ed34dd09be52466a44c04e4439b1">Utils::MultiArray_t::MultiArray_t</a></div><div class="ttdeci">MultiArray_t(const int &amp;dims, int *dims_sizes)</div></div>
 <div class="ttc" id="aclassstd_1_1conditional_1_1type_xhtml"><div class="ttname"><a href="../../db/d0a/classstd_1_1conditional_1_1type.xhtml">type</a></div></div>
+<div class="ttc" id="aclass_utils_1_1_multi_array__t_xhtml"><div class="ttname"><a href="../../dc/d0d/class_utils_1_1_multi_array__t.xhtml">Utils::MultiArray_t</a></div><div class="ttdef"><b>Definition:</b> array_t.h:43</div></div>
 <div class="ttc" id="aany_8h_xhtml"><div class="ttname"><a href="../../df/d8d/any_8h.xhtml">any.h</a></div></div>
-<div class="ttc" id="aclass_utils_1_1_array__t_xhtml_a538a2ac8311d1a6749be88c752a76d85"><div class="ttname"><a href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a538a2ac8311d1a6749be88c752a76d85">Utils::Array_t::getCollection</a></div><div class="ttdeci">std::vector&lt; Any &gt; getCollection()</div><div class="ttdef"><b>Definition:</b> array_t.h:29</div></div>
+<div class="ttc" id="aclass_utils_1_1_array__t_xhtml_a31701af3338a63376303c31180a1160a"><div class="ttname"><a href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a31701af3338a63376303c31180a1160a">Utils::Array_t::~Array_t</a></div><div class="ttdeci">~Array_t()=default</div></div>
+<div class="ttc" id="aclass_utils_1_1_multi_array__t_xhtml_a96a64b990007b29583e1fee515b89720"><div class="ttname"><a href="../../dc/d0d/class_utils_1_1_multi_array__t.xhtml#a96a64b990007b29583e1fee515b89720">Utils::MultiArray_t::arrays</a></div><div class="ttdeci">Array_t * arrays</div><div class="ttdef"><b>Definition:</b> array_t.h:49</div></div>
 <div class="ttc" id="anamespace_utils_xhtml"><div class="ttname"><a href="../../d1/d7c/namespace_utils.xhtml">Utils</a></div><div class="ttdef"><b>Definition:</b> accessFlags.h:8</div></div>
+<div class="ttc" id="aclass_utils_1_1_array__t_xhtml_a94b27ecd3a89d63d51f65c88274a9d99"><div class="ttname"><a href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a94b27ecd3a89d63d51f65c88274a9d99">Utils::Array_t::getCollection</a></div><div class="ttdeci">std::list&lt; Any &gt; getCollection()</div><div class="ttdef"><b>Definition:</b> array_t.h:35</div></div>
+<div class="ttc" id="aclass_utils_1_1_array__t_xhtml_ae5746809dd978bba75fe1fdfaf061a15"><div class="ttname"><a href="../../d5/d7c/class_utils_1_1_array__t.xhtml#ae5746809dd978bba75fe1fdfaf061a15">Utils::Array_t::Array_t</a></div><div class="ttdeci">Array_t(const int &amp;max_len)</div><div class="ttdef"><b>Definition:</b> array_t.h:17</div></div>
 <div class="ttc" id="aclass_utils_1_1_array__t_xhtml_ae66fb33baf4f9c16dbfb125f069e5263"><div class="ttname"><a href="../../d5/d7c/class_utils_1_1_array__t.xhtml#ae66fb33baf4f9c16dbfb125f069e5263">Utils::Array_t::Array_t</a></div><div class="ttdeci">Array_t(const int &amp;max_len, const int &amp;atype)</div><div class="ttdef"><b>Definition:</b> array_t.h:12</div></div>
-<div class="ttc" id="aclass_utils_1_1_array__t_xhtml_a2035b9e2a777e75cd906d15bcb8ade37"><div class="ttname"><a href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a2035b9e2a777e75cd906d15bcb8ade37">Utils::Array_t::insert</a></div><div class="ttdeci">void insert(T value, int index)</div><div class="ttdef"><b>Definition:</b> array_t.h:18</div></div>
-<div class="ttc" id="aclass_utils_1_1_array__t_xhtml_a4ecfe40fd1b53d50bf26b8db411a9f74"><div class="ttname"><a href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a4ecfe40fd1b53d50bf26b8db411a9f74">Utils::Array_t::length</a></div><div class="ttdeci">int length()</div><div class="ttdef"><b>Definition:</b> array_t.h:22</div></div>
-<div class="ttc" id="aclass_utils_1_1_array__t_xhtml_a59a8c7c33e32eaa58ec23969de9ace49"><div class="ttname"><a href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a59a8c7c33e32eaa58ec23969de9ace49">Utils::Array_t::get</a></div><div class="ttdeci">T get(const int &amp;index)</div><div class="ttdef"><b>Definition:</b> array_t.h:25</div></div>
+<div class="ttc" id="aclass_utils_1_1_array__t_xhtml_a2035b9e2a777e75cd906d15bcb8ade37"><div class="ttname"><a href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a2035b9e2a777e75cd906d15bcb8ade37">Utils::Array_t::insert</a></div><div class="ttdeci">void insert(T value, int index)</div><div class="ttdef"><b>Definition:</b> array_t.h:22</div></div>
+<div class="ttc" id="aclass_utils_1_1_array__t_xhtml_a4ecfe40fd1b53d50bf26b8db411a9f74"><div class="ttname"><a href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a4ecfe40fd1b53d50bf26b8db411a9f74">Utils::Array_t::length</a></div><div class="ttdeci">int length()</div><div class="ttdef"><b>Definition:</b> array_t.h:27</div></div>
+<div class="ttc" id="aclass_utils_1_1_array__t_xhtml_a59a8c7c33e32eaa58ec23969de9ace49"><div class="ttname"><a href="../../d5/d7c/class_utils_1_1_array__t.xhtml#a59a8c7c33e32eaa58ec23969de9ace49">Utils::Array_t::get</a></div><div class="ttdeci">T get(const int &amp;index)</div><div class="ttdef"><b>Definition:</b> array_t.h:30</div></div>
+<div class="ttc" id="aclass_utils_1_1_multi_array__t_xhtml_a7d1a57f03ab9293d6471eb12955e5f6c"><div class="ttname"><a href="../../dc/d0d/class_utils_1_1_multi_array__t.xhtml#a7d1a57f03ab9293d6471eb12955e5f6c">Utils::MultiArray_t::~MultiArray_t</a></div><div class="ttdeci">~MultiArray_t()</div></div>
 <div class="ttc" id="areference__kind_8h_xhtml"><div class="ttname"><a href="../../d3/d47/reference__kind_8h.xhtml">reference_kind.h</a></div></div>
 <div class="ttc" id="aclass_utils_1_1_array__t_xhtml"><div class="ttname"><a href="../../d5/d7c/class_utils_1_1_array__t.xhtml">Utils::Array_t</a></div><div class="ttdef"><b>Definition:</b> array_t.h:10</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 21 2019 16:45:45 for JVM 8 SB 2019/2 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 2 2019 03:56:32 for JVM 8 SB 2019/2 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.16
 </small></address>

@@ -1,7 +1,9 @@
 <map id="include/utils/reference_kind.h" name="include/utils/reference_kind.h">
-<area shape="rect" id="node1" title=" " alt="" coords="59,5,207,47"/>
-<area shape="rect" id="node2" href="$d4/df7/array__t_8h.xhtml" title=" " alt="" coords="5,95,152,121"/>
-<area shape="rect" id="node3" href="$de/d10/object_8h.xhtml" title=" " alt="" coords="63,169,204,196"/>
-<area shape="rect" id="node4" href="$da/ddb/heap_8h.xhtml" title=" " alt="" coords="62,244,205,285"/>
-<area shape="rect" id="node5" href="$d3/d97/interpreter_8h.xhtml" title=" " alt="" coords="65,333,201,360"/>
+<area shape="rect" id="node1" title=" " alt="" coords="108,5,256,47"/>
+<area shape="rect" id="node2" href="$d4/df7/array__t_8h.xhtml" title=" " alt="" coords="54,95,201,121"/>
+<area shape="rect" id="node7" href="$de/d10/object_8h.xhtml" title=" " alt="" coords="117,244,258,271"/>
+<area shape="rect" id="node3" href="$d1/d4d/field__t_8h.xhtml" title=" " alt="" coords="9,169,149,196"/>
+<area shape="rect" id="node4" href="$d8/dd9/class__t_8h.xhtml" title=" " alt="" coords="5,319,153,345"/>
+<area shape="rect" id="node5" href="$da/ddb/heap_8h.xhtml" title=" " alt="" coords="64,393,207,435"/>
+<area shape="rect" id="node6" href="$d3/d97/interpreter_8h.xhtml" title=" " alt="" coords="67,483,203,509"/>
 </map>

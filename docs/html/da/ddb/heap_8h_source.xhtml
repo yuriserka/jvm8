@@ -76,63 +76,80 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../db/dd5/thread_8h.xhtml">utils/memory_areas/thread.h</a>&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../de/d10/object_8h.xhtml">utils/object.h</a>&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../de/ddc/namespace_memory_areas.xhtml">MemoryAreas</a> {</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml">Heap</a> {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#ab3ea1d6a448f2e8a4abf71740922d24a">Heap</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a0753885abaa6c40bdfbadfe8df233e7f">   15</a></span>&#160;  <a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a0753885abaa6c40bdfbadfe8df233e7f">~Heap</a>() {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    this-&gt;object_refs.remove_if([](<a class="code" href="../../de/d25/class_utils_1_1_object.xhtml">Utils::Object</a> *obj) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;      <span class="keyword">delete</span> obj;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    });</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a0d482eefe1a3f2a187784f6e62ec0a91">   22</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a0d482eefe1a3f2a187784f6e62ec0a91">initialize</a>(<a class="code" href="../../d5/da2/class_memory_areas_1_1_thread.xhtml">Thread</a> *th, <span class="keyword">const</span> std::string &amp;name) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    this-&gt;initialized_classes.push_back(name);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    th-&gt;<a class="code" href="../../d5/da2/class_memory_areas_1_1_thread.xhtml#a567ab372e0f46e9e104dcff111e574f5">executeMethod</a>(<span class="stringliteral">&quot;&lt;clinit&gt;&quot;</span>);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#af84f02ec510614694e98bc860d6675c0">   27</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#af84f02ec510614694e98bc860d6675c0">isInitialized</a>(<span class="keyword">const</span> std::string &amp;name) {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span> std::find(this-&gt;initialized_classes.begin(),</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                     this-&gt;initialized_classes.end(),</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                     name) != this-&gt;initialized_classes.end();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a255cf181532da16804bf263a4758da9c">   33</a></span>&#160;  <a class="code" href="../../de/d25/class_utils_1_1_object.xhtml">Utils::Object</a> *<a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a255cf181532da16804bf263a4758da9c">pushReference</a>(<a class="code" href="../../de/d25/class_utils_1_1_object.xhtml">Utils::Object</a> *obj) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    this-&gt;object_refs.push_back(obj);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">auto</span> it = std::next(this-&gt;object_refs.begin(), this-&gt;last_obj_index++);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">return</span> *it;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keywordtype">int</span> last_obj_index = 0;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  std::list&lt;Utils::Object *&gt; object_refs;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  std::vector&lt;std::string&gt; initialized_classes;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}  <span class="comment">// namespace MemoryAreas</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif  // INCLUDE_UTILS_MEMORY_AREAS_HEAP_H_</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d8/dd9/class__t_8h.xhtml">utils/class_t.h</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d8/df4/helper__functions_8h.xhtml">utils/helper_functions.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../db/dd5/thread_8h.xhtml">utils/memory_areas/thread.h</a>&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../de/d10/object_8h.xhtml">utils/object.h</a>&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../de/ddc/namespace_memory_areas.xhtml">MemoryAreas</a> {</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml">Heap</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#ab3ea1d6a448f2e8a4abf71740922d24a">Heap</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a0753885abaa6c40bdfbadfe8df233e7f">   17</a></span>&#160;  <a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a0753885abaa6c40bdfbadfe8df233e7f">~Heap</a>() {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    this-&gt;object_refs.remove_if([](<a class="code" href="../../d4/dfd/struct_utils_1_1_object.xhtml">Utils::Object</a> *obj) {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;      <span class="keyword">delete</span> obj;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    });</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    this-&gt;<a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#aa4c15bf12155aec3481b2ae7034e5063">initialized_classes</a>.remove_if([](<a class="code" href="../../dc/dc5/struct_utils_1_1_class__t.xhtml">Utils::Class_t</a> *classref) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;      <span class="keyword">delete</span> classref;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    });</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a13b35503a405ccccbb0672af2f11f4ec">addClass</a>(<a class="code" href="../../d5/da2/class_memory_areas_1_1_thread.xhtml">Thread</a> *th, <span class="keyword">const</span> std::string &amp;name);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a556efef9fd2e6a0c97e0ef2b7258252e">   30</a></span>&#160;  <a class="code" href="../../dc/dc5/struct_utils_1_1_class__t.xhtml">Utils::Class_t</a> *<a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a556efef9fd2e6a0c97e0ef2b7258252e">getClass</a>(<span class="keyword">const</span> std::string &amp;name) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> *std::find_if(this-&gt;<a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#aa4c15bf12155aec3481b2ae7034e5063">initialized_classes</a>.begin(),</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                         this-&gt;<a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#aa4c15bf12155aec3481b2ae7034e5063">initialized_classes</a>.end(),</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                         [&amp;name](<span class="keyword">const</span> <a class="code" href="../../dc/dc5/struct_utils_1_1_class__t.xhtml">Utils::Class_t</a> *c) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                           <span class="keywordflow">return</span> !c-&gt;class_name.compare(name);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                         });</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#af84f02ec510614694e98bc860d6675c0">   38</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#af84f02ec510614694e98bc860d6675c0">isInitialized</a>(<span class="keyword">const</span> std::string &amp;name) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> std::find_if(this-&gt;<a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#aa4c15bf12155aec3481b2ae7034e5063">initialized_classes</a>.begin(),</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                        this-&gt;<a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#aa4c15bf12155aec3481b2ae7034e5063">initialized_classes</a>.end(),</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                        [&amp;name](<span class="keyword">const</span> <a class="code" href="../../dc/dc5/struct_utils_1_1_class__t.xhtml">Utils::Class_t</a> *c) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                          <span class="keywordflow">return</span> !c-&gt;class_name.compare(name);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                        }) != this-&gt;<a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#aa4c15bf12155aec3481b2ae7034e5063">initialized_classes</a>.end();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a255cf181532da16804bf263a4758da9c">   46</a></span>&#160;  <a class="code" href="../../d4/dfd/struct_utils_1_1_object.xhtml">Utils::Object</a> *<a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a255cf181532da16804bf263a4758da9c">pushReference</a>(<a class="code" href="../../d4/dfd/struct_utils_1_1_object.xhtml">Utils::Object</a> *obj) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    this-&gt;object_refs.push_back(obj);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">auto</span> it = std::next(this-&gt;object_refs.begin(), this-&gt;last_obj_index++);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> *it;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  }</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#aa4c15bf12155aec3481b2ae7034e5063">   52</a></span>&#160;  std::list&lt;Utils::Class_t *&gt; <a class="code" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#aa4c15bf12155aec3481b2ae7034e5063">initialized_classes</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">int</span> last_obj_index = 0;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  std::list&lt;Utils::Object *&gt; object_refs;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}  <span class="comment">// namespace MemoryAreas</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif  // INCLUDE_UTILS_MEMORY_AREAS_HEAP_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml_a0753885abaa6c40bdfbadfe8df233e7f"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a0753885abaa6c40bdfbadfe8df233e7f">MemoryAreas::Heap::~Heap</a></div><div class="ttdeci">~Heap()</div><div class="ttdef"><b>Definition:</b> heap.h:15</div></div>
+<div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml_a0753885abaa6c40bdfbadfe8df233e7f"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a0753885abaa6c40bdfbadfe8df233e7f">MemoryAreas::Heap::~Heap</a></div><div class="ttdeci">~Heap()</div><div class="ttdef"><b>Definition:</b> heap.h:17</div></div>
+<div class="ttc" id="ahelper__functions_8h_xhtml"><div class="ttname"><a href="../../d8/df4/helper__functions_8h.xhtml">helper_functions.h</a></div></div>
 <div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml_ab3ea1d6a448f2e8a4abf71740922d24a"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#ab3ea1d6a448f2e8a4abf71740922d24a">MemoryAreas::Heap::Heap</a></div><div class="ttdeci">Heap()=default</div></div>
 <div class="ttc" id="athread_8h_xhtml"><div class="ttname"><a href="../../db/dd5/thread_8h.xhtml">thread.h</a></div></div>
-<div class="ttc" id="aclass_memory_areas_1_1_thread_xhtml_a567ab372e0f46e9e104dcff111e574f5"><div class="ttname"><a href="../../d5/da2/class_memory_areas_1_1_thread.xhtml#a567ab372e0f46e9e104dcff111e574f5">MemoryAreas::Thread::executeMethod</a></div><div class="ttdeci">void executeMethod(const std::string &amp;method_name, const bool &amp;popObjectRef=false, const std::string &amp;descriptor=&quot;&quot;)</div></div>
-<div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml_a255cf181532da16804bf263a4758da9c"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a255cf181532da16804bf263a4758da9c">MemoryAreas::Heap::pushReference</a></div><div class="ttdeci">Utils::Object * pushReference(Utils::Object *obj)</div><div class="ttdef"><b>Definition:</b> heap.h:33</div></div>
-<div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml_af84f02ec510614694e98bc860d6675c0"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#af84f02ec510614694e98bc860d6675c0">MemoryAreas::Heap::isInitialized</a></div><div class="ttdeci">bool isInitialized(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> heap.h:27</div></div>
-<div class="ttc" id="aclass_utils_1_1_object_xhtml"><div class="ttname"><a href="../../de/d25/class_utils_1_1_object.xhtml">Utils::Object</a></div><div class="ttdef"><b>Definition:</b> object.h:10</div></div>
-<div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml_a0d482eefe1a3f2a187784f6e62ec0a91"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a0d482eefe1a3f2a187784f6e62ec0a91">MemoryAreas::Heap::initialize</a></div><div class="ttdeci">void initialize(Thread *th, const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> heap.h:22</div></div>
+<div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml_a255cf181532da16804bf263a4758da9c"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a255cf181532da16804bf263a4758da9c">MemoryAreas::Heap::pushReference</a></div><div class="ttdeci">Utils::Object * pushReference(Utils::Object *obj)</div><div class="ttdef"><b>Definition:</b> heap.h:46</div></div>
+<div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml_a556efef9fd2e6a0c97e0ef2b7258252e"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a556efef9fd2e6a0c97e0ef2b7258252e">MemoryAreas::Heap::getClass</a></div><div class="ttdeci">Utils::Class_t * getClass(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> heap.h:30</div></div>
+<div class="ttc" id="astruct_utils_1_1_object_xhtml"><div class="ttname"><a href="../../d4/dfd/struct_utils_1_1_object.xhtml">Utils::Object</a></div><div class="ttdef"><b>Definition:</b> object.h:14</div></div>
+<div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml_af84f02ec510614694e98bc860d6675c0"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#af84f02ec510614694e98bc860d6675c0">MemoryAreas::Heap::isInitialized</a></div><div class="ttdeci">bool isInitialized(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> heap.h:38</div></div>
+<div class="ttc" id="astruct_utils_1_1_class__t_xhtml"><div class="ttname"><a href="../../dc/dc5/struct_utils_1_1_class__t.xhtml">Utils::Class_t</a></div><div class="ttdef"><b>Definition:</b> class_t.h:10</div></div>
+<div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml_a13b35503a405ccccbb0672af2f11f4ec"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#a13b35503a405ccccbb0672af2f11f4ec">MemoryAreas::Heap::addClass</a></div><div class="ttdeci">void addClass(Thread *th, const std::string &amp;name)</div></div>
+<div class="ttc" id="aclass__t_8h_xhtml"><div class="ttname"><a href="../../d8/dd9/class__t_8h.xhtml">class_t.h</a></div></div>
 <div class="ttc" id="aobject_8h_xhtml"><div class="ttname"><a href="../../de/d10/object_8h.xhtml">object.h</a></div></div>
 <div class="ttc" id="anamespace_memory_areas_xhtml"><div class="ttname"><a href="../../de/ddc/namespace_memory_areas.xhtml">MemoryAreas</a></div><div class="ttdef"><b>Definition:</b> execution_engine.h:8</div></div>
-<div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml">MemoryAreas::Heap</a></div><div class="ttdef"><b>Definition:</b> heap.h:11</div></div>
+<div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml_aa4c15bf12155aec3481b2ae7034e5063"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml#aa4c15bf12155aec3481b2ae7034e5063">MemoryAreas::Heap::initialized_classes</a></div><div class="ttdeci">std::list&lt; Utils::Class_t * &gt; initialized_classes</div><div class="ttdef"><b>Definition:</b> heap.h:52</div></div>
+<div class="ttc" id="aclass_memory_areas_1_1_heap_xhtml"><div class="ttname"><a href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml">MemoryAreas::Heap</a></div><div class="ttdef"><b>Definition:</b> heap.h:13</div></div>
 <div class="ttc" id="aclass_memory_areas_1_1_thread_xhtml"><div class="ttname"><a href="../../d5/da2/class_memory_areas_1_1_thread.xhtml">MemoryAreas::Thread</a></div><div class="ttdef"><b>Definition:</b> thread.h:11</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 21 2019 16:45:46 for JVM 8 SB 2019/2 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 2 2019 03:56:33 for JVM 8 SB 2019/2 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.16
 </small></address>

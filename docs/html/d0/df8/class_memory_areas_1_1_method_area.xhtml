@@ -81,7 +81,8 @@ $(function() {
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d3/deb/class_memory_areas_1_1_method_area__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d3/deb/class_memory_areas_1_1_method_area__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -98,8 +99,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a81c09f39ab2ff10c6189acab62f5befb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd99d372ab0aa6ac69f9092e458e54a9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../da/d41/class_class_file.xhtml">ClassFile</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/df8/class_memory_areas_1_1_method_area.xhtml#abd99d372ab0aa6ac69f9092e458e54a9">loadClass</a> (const std::string &amp;classname)</td></tr>
 <tr class="separator:abd99d372ab0aa6ac69f9092e458e54a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d1e55b2426509580f1ef1b409a78e97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d21/struct_utils_1_1_infos_1_1method__info.xhtml">Utils::Infos::method_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/df8/class_memory_areas_1_1_method_area.xhtml#a1d1e55b2426509580f1ef1b409a78e97">getMethod</a> (const std::string &amp;method_name)</td></tr>
-<tr class="separator:a1d1e55b2426509580f1ef1b409a78e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba1cc79bc05a2ad44a34920ba3fd58da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d21/struct_utils_1_1_infos_1_1method__info.xhtml">Utils::Infos::method_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/df8/class_memory_areas_1_1_method_area.xhtml#aba1cc79bc05a2ad44a34920ba3fd58da">getMethod</a> (const std::string &amp;method_name, const std::string &amp;descriptor)</td></tr>
+<tr class="separator:aba1cc79bc05a2ad44a34920ba3fd58da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab62e9aae299b8c0a9f0756ca381b9a58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d32/struct_utils_1_1_infos_1_1field__info.xhtml">Utils::Infos::field_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/df8/class_memory_areas_1_1_method_area.xhtml#ab62e9aae299b8c0a9f0756ca381b9a58">getField</a> (const std::string &amp;field_name)</td></tr>
 <tr class="separator:ab62e9aae299b8c0a9f0756ca381b9a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -109,6 +110,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a235ce7a6355700d382105ccf22f73b7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70e9f3cf1af8a4e21f7fcab64f5f85ef"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../da/d41/class_class_file.xhtml">ClassFile</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/df8/class_memory_areas_1_1_method_area.xhtml#a70e9f3cf1af8a4e21f7fcab64f5f85ef">runtime_classfile</a></td></tr>
 <tr class="separator:a70e9f3cf1af8a4e21f7fcab64f5f85ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ba3bd14487412600f3dcd9b631c8157"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../dd/d32/struct_utils_1_1_infos_1_1field__info.xhtml">Utils::Infos::field_info</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/df8/class_memory_areas_1_1_method_area.xhtml#a3ba3bd14487412600f3dcd9b631c8157">fields</a></td></tr>
+<tr class="separator:a3ba3bd14487412600f3dcd9b631c8157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a79b1d918ed7bc7a905e014bfd9be3363"></a>
@@ -206,8 +209,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a1d1e55b2426509580f1ef1b409a78e97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d1e55b2426509580f1ef1b409a78e97">&#9670;&nbsp;</a></span>getMethod()</h2>
+<a id="aba1cc79bc05a2ad44a34920ba3fd58da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba1cc79bc05a2ad44a34920ba3fd58da">&#9670;&nbsp;</a></span>getMethod()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,8 +219,18 @@ Public Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="../../d1/d21/struct_utils_1_1_infos_1_1method__info.xhtml">Utils::Infos::method_info</a> MemoryAreas::MethodArea::getMethod </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>method_name</em></td><td>)</td>
+          <td class="paramname"><em>method_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>descriptor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -303,13 +316,26 @@ Public Attributes</h2></td></tr>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d0/df8/class_memory_areas_1_1_method_area_a90d17713e372a56c9f709db6e6022417_icgraph.svg" width="422" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d0/df8/class_memory_areas_1_1_method_area_a90d17713e372a56c9f709db6e6022417_icgraph.svg" width="422" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3ba3bd14487412600f3dcd9b631c8157"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ba3bd14487412600f3dcd9b631c8157">&#9670;&nbsp;</a></span>fields</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="../../dd/d32/struct_utils_1_1_infos_1_1field__info.xhtml">Utils::Infos::field_info</a>&gt; MemoryAreas::MethodArea::fields</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a70e9f3cf1af8a4e21f7fcab64f5f85ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a70e9f3cf1af8a4e21f7fcab64f5f85ef">&#9670;&nbsp;</a></span>runtime_classfile</h2>
 
@@ -344,7 +370,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 21 2019 16:46:21 for JVM 8 SB 2019/2 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 2 2019 03:56:43 for JVM 8 SB 2019/2 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.16
 </small></address>

@@ -81,15 +81,16 @@ $(function() {
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d0/de0/class_memory_areas_1_1_thread__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d0/de0/class_memory_areas_1_1_thread__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a6d7cc4a6181e1e96f1bd12c2b4293d60"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/da2/class_memory_areas_1_1_thread.xhtml#a6d7cc4a6181e1e96f1bd12c2b4293d60">Thread</a> (<a class="el" href="../../d0/df8/class_memory_areas_1_1_method_area.xhtml">MethodArea</a> *<a class="el" href="../../d5/da2/class_memory_areas_1_1_thread.xhtml#a76dee1d66ab23a8f520c3dee33a9dd0c">method_area</a>, <a class="el" href="../../d1/d4e/class_memory_areas_1_1_heap.xhtml">Heap</a> *<a class="el" href="../../d5/da2/class_memory_areas_1_1_thread.xhtml#a7ce4dce6523e6475a0909cba095bf320">heap</a>, const <a class="el" href="../../da/d41/class_class_file.xhtml">ClassFile</a> *cf)</td></tr>
 <tr class="separator:a6d7cc4a6181e1e96f1bd12c2b4293d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a567ab372e0f46e9e104dcff111e574f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/da2/class_memory_areas_1_1_thread.xhtml#a567ab372e0f46e9e104dcff111e574f5">executeMethod</a> (const std::string &amp;method_name, const bool &amp;popObjectRef=false, const std::string &amp;descriptor=&quot;&quot;)</td></tr>
-<tr class="separator:a567ab372e0f46e9e104dcff111e574f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9ab8079cc4ec3f0d0ad80f465b27697"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/da2/class_memory_areas_1_1_thread.xhtml#ac9ab8079cc4ec3f0d0ad80f465b27697">executeMethod</a> (const std::string &amp;method_name, const std::string &amp;descriptor, const bool &amp;popObjectRef=false)</td></tr>
+<tr class="separator:ac9ab8079cc4ec3f0d0ad80f465b27697"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab82ebb628d5572e13f970d314804c5ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/da2/class_memory_areas_1_1_thread.xhtml#ab82ebb628d5572e13f970d314804c5ec">changeContext</a> (const std::string &amp;classname, const std::string &amp;method, const std::string &amp;arguments, const bool &amp;popObjectRef)</td></tr>
 <tr class="separator:ab82ebb628d5572e13f970d314804c5ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cfc65854fe5ef91f83fa816aa4a774e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/da2/class_memory_areas_1_1_thread.xhtml#a9cfc65854fe5ef91f83fa816aa4a774e">storeArguments</a> (const std::string &amp;args, <a class="el" href="../../d8/d62/class_utils_1_1_frame.xhtml">Utils::Frame</a> *new_frame, const bool &amp;popObjectRef)</td></tr>
@@ -106,6 +107,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a7ce4dce6523e6475a0909cba095bf320"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac61ddb98d6be1ce1e530e935010a46d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d62/class_utils_1_1_frame.xhtml">Utils::Frame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/da2/class_memory_areas_1_1_thread.xhtml#ac61ddb98d6be1ce1e530e935010a46d5">current_frame</a></td></tr>
 <tr class="separator:ac61ddb98d6be1ce1e530e935010a46d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1057a6b59844930e8e2a32c35e154f59"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../da/d41/class_class_file.xhtml">ClassFile</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/da2/class_memory_areas_1_1_thread.xhtml#a1057a6b59844930e8e2a32c35e154f59">current_class</a></td></tr>
+<tr class="separator:a1057a6b59844930e8e2a32c35e154f59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6d7cc4a6181e1e96f1bd12c2b4293d60"></a>
@@ -191,8 +194,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a567ab372e0f46e9e104dcff111e574f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a567ab372e0f46e9e104dcff111e574f5">&#9670;&nbsp;</a></span>executeMethod()</h2>
+<a id="ac9ab8079cc4ec3f0d0ad80f465b27697"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9ab8079cc4ec3f0d0ad80f465b27697">&#9670;&nbsp;</a></span>executeMethod()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -206,14 +209,14 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bool &amp;&#160;</td>
-          <td class="paramname"><em>popObjectRef</em> = <code>false</code>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>descriptor</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>descriptor</em> = <code>&quot;&quot;</code>&#160;</td>
+          <td class="paramtype">const bool &amp;&#160;</td>
+          <td class="paramname"><em>popObjectRef</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -222,14 +225,6 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d5/da2/class_memory_areas_1_1_thread_a567ab372e0f46e9e104dcff111e574f5_icgraph.svg" width="359" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
 
 </div>
 </div>
@@ -258,11 +253,11 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="../../d5/da2/class_memory_areas_1_1_thread_aecd9c52d349a369e9d75b1aa7209113a_cgraph.svg" width="408" height="206"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -303,6 +298,20 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a1057a6b59844930e8e2a32c35e154f59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1057a6b59844930e8e2a32c35e154f59">&#9670;&nbsp;</a></span>current_class</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="../../da/d41/class_class_file.xhtml">ClassFile</a>* MemoryAreas::Thread::current_class</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac61ddb98d6be1ce1e530e935010a46d5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac61ddb98d6be1ce1e530e935010a46d5">&#9670;&nbsp;</a></span>current_frame</h2>
 
@@ -351,7 +360,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 21 2019 16:46:21 for JVM 8 SB 2019/2 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 2 2019 03:56:43 for JVM 8 SB 2019/2 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.16
 </small></address>

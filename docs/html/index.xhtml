@@ -69,49 +69,68 @@ $(function() {
 <div class="textblock"><p>repositório com o fim de fazer a JVM 8.</p>
 <h1><a class="anchor" id="autotoc_md26"></a>
 Oracle Documentation</h1>
-<p>Documentação da Oracle disponível em: <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/index.html">Java SE 8</a></p>
+<p>Oracle documentation avaible at: <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/index.html">Java SE 8</a></p>
 <h1><a class="anchor" id="autotoc_md27"></a>
 Usage</h1>
 <h3><a class="anchor" id="autotoc_md28"></a>
 Linux:</h3>
 <p><code>make clean &amp;&amp; make</code></p>
-<p><code>./jvm.out interpreter ./classes/ anon.class</code></p>
+<p><code>make &amp;&amp; ./jvm.out {viewer, interpreter} &lt;PATH&gt; &lt;FILE&gt; [options]* [--args] [arguments]*</code></p>
 <h3><a class="anchor" id="autotoc_md29"></a>
 Windows:</h3>
 <p><code>mingw32-make.exe clean</code></p>
 <p><code>mingw32-make.exe</code></p>
-<p><code>.\jvm.exe viewer .\classes\ .\.classes\Anon.class -json</code></p>
+<p><code>make &amp;&amp; .\jvm.exe {viewer, interpreter} &lt;PATH&gt; &lt;FILE&gt; [options]* [--args] [arguments]*</code></p>
 <h1><a class="anchor" id="autotoc_md30"></a>
+Avaible Command Line Options</h1>
+<h2><a class="anchor" id="autotoc_md31"></a>
+PATH</h2>
+<p>path to the program search for class files</p>
+<h2><a class="anchor" id="autotoc_md32"></a>
+FILE</h2>
+<p>the actual class file to be executed by jvm</p>
+<h2><a class="anchor" id="autotoc_md33"></a>
+arguments</h2>
+<p>list of parameters to be passed to the interpreter, i.e. to the main method</p>
+<h2><a class="anchor" id="autotoc_md34"></a>
+Options</h2>
+<ul>
+<li><b>-d, -debug</b>: interpreter flag, shows what instruction is being executed and the actual PC</li>
+<li><b>-json</b>: viewer flag, generates a json file that represents the structure of .class file passed</li>
+<li><b>-v, -verbose</b>: both modes flag, shows what is executing during program</li>
+<li><b>-i, -ignore</b>: no use</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md35"></a>
 Debugging</h1>
 <p>Make sure you have GDB installed.</p>
 <p>Compile the program normally according to your operating system.</p>
-<p><code>gdb --args ./jvm.out viewer ./classes/ ./classes/Caixa.class</code></p>
-<h3><a class="anchor" id="autotoc_md31"></a>
+<p><code>gdb --args make &amp;&amp; ./jvm.out {viewer, interpreter} &lt;PATH&gt; &lt;FILE&gt; [options]* [--args] [arguments]*</code></p>
+<h3><a class="anchor" id="autotoc_md36"></a>
 Basic commands</h3>
 <p>consult the commands: <a href="http://www.yolinux.com/TUTORIALS/GDB-Commands.html">GDB Command Line Arguments</a></p>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md37"></a>
 Running Dynamic Code Analysis (only on Linux)</h1>
 <p>Make sure you have valgrind installed.</p>
 <p>Compile the program normally according to your operating system.</p>
-<p><code>make &amp;&amp; valgrind -v --leak-check=full --track-origins=yes --show-leak-kinds=all ./jvm.out interpreter ./classes/ anon.class</code></p>
-<h1><a class="anchor" id="autotoc_md33"></a>
+<p><code>make &amp;&amp; valgrind -v --leak-check=full --track-origins=yes --show-leak-kinds=all make &amp;&amp; ./jvm.out {viewer, interpreter} &lt;PATH&gt; &lt;FILE&gt; [options]* [--args] [arguments]*</code></p>
+<h1><a class="anchor" id="autotoc_md38"></a>
 Code style reference</h1>
 <p><a href="https://google.github.io/styleguide/cppguide.html">Google C++ Style Guide</a></p>
-<h3><a class="anchor" id="autotoc_md34"></a>
+<h3><a class="anchor" id="autotoc_md39"></a>
 Running Static Code Checker</h3>
 <p>Make sure that you have Python and pip installed.</p>
 <ul>
 <li>installing: <code>pip install cpplint</code></li>
 <li>running: <code>cpplint --recursive ./[src|include]</code></li>
 </ul>
-<h3><a class="anchor" id="autotoc_md35"></a>
+<h3><a class="anchor" id="autotoc_md40"></a>
 Running Code Formatter (only on Linux)</h3>
 <p>Make sure that you have clang and clang-format installed</p>
 <ul>
 <li>installing: <code>sudo apt install clang clang-format</code></li>
 <li>running: <code>./formatter ./[src|include]</code></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md36"></a>
+<h1><a class="anchor" id="autotoc_md41"></a>
 Generating Documentation</h1>
 <p>Make sure that you have Doxygen installed.</p>
 <ul>
@@ -121,36 +140,36 @@ Generating Documentation</h1>
 </li>
 <li>running: <code>doxygen .\Doxyfile</code></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md37"></a>
+<h1><a class="anchor" id="autotoc_md42"></a>
 Generating test files</h1>
 <p>Make sure you have Java 8u231 installed.</p>
 <p>Follow the steps to install <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK 8</a></p>
 <p>Follow the steps to install <a href="https://www.oracle.com/technetwork/pt/java/javase/downloads/jre8-downloads-2133155.html">JRE 8</a></p>
 <ul>
 <li><p class="startli">generating:</p>
-<p class="startli"><code>cd .\.javasrc\</code></p>
-<p class="startli"><code>javac -cp . -d ..\classes\ -g -parameters *.java</code></p>
+<p class="startli">Linux: <code>make tests</code><br  />
+ Windows: <code>mingw32-make tests</code></p>
 </li>
 <li><p class="startli">running:</p>
 <p class="startli"><code>cd .\classes\</code></p>
 <p class="startli"><code>java &lt;nome da classe&gt;</code></p>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md38"></a>
+<h1><a class="anchor" id="autotoc_md43"></a>
 Authors</h1>
-<h2><a class="anchor" id="autotoc_md39"></a>
+<h2><a class="anchor" id="autotoc_md44"></a>
 Cláudio Roberto Barros - 19/0097591</h2>
-<h2><a class="anchor" id="autotoc_md40"></a>
+<h2><a class="anchor" id="autotoc_md45"></a>
 Gabriel Alves Castro - 17/0033813</h2>
-<h2><a class="anchor" id="autotoc_md41"></a>
+<h2><a class="anchor" id="autotoc_md46"></a>
 Matheus breder - 17/0018997</h2>
-<h2><a class="anchor" id="autotoc_md42"></a>
+<h2><a class="anchor" id="autotoc_md47"></a>
 Yuri Serka do Carmo Rodrigues - 17/0024385</h2>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 21 2019 16:46:34 for JVM 8 SB 2019/2 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 2 2019 03:56:48 for JVM 8 SB 2019/2 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.16
 </small></address>
