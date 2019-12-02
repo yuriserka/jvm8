@@ -8,6 +8,16 @@
 
 namespace Instructions {
 namespace Double {
+/**
+ * @brief Convert double to float
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> ToFloat::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -19,6 +29,16 @@ std::vector<int> ToFloat::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Convert double to integer
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> ToInteger::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -30,6 +50,16 @@ std::vector<int> ToInteger::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Convert double to long
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> ToLong::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -53,6 +83,16 @@ std::vector<int> Add::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Load double from array
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> LoadFromArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -66,6 +106,16 @@ std::vector<int> LoadFromArray::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Store double into local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> StoreIntoArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -80,6 +130,16 @@ std::vector<int> StoreIntoArray::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Compare double (val1 > val2)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> CompareGreater::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -100,6 +160,16 @@ std::vector<int> CompareGreater::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Compare double (val1 < val2)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> CompareLess::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -120,6 +190,16 @@ std::vector<int> CompareLess::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief 
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Const_0::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -140,6 +220,16 @@ std::vector<int> Const_1::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Divide double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Div::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -152,6 +242,16 @@ std::vector<int> Div::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Load double from local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Load::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -172,6 +272,16 @@ std::vector<int> Load::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Load double from local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Load_0::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -183,6 +293,16 @@ std::vector<int> Load_0::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Load double from local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Load_1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -194,6 +314,16 @@ std::vector<int> Load_1::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Load double from local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Load_2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -204,7 +334,17 @@ std::vector<int> Load_2::execute(
       th->current_frame->getLocalVarValue<double>(2));
   return {};
 }
-// ----------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+/**
+ * @brief Load double from local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Load_3::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -216,6 +356,16 @@ std::vector<int> Load_3::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Multiply double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Mul::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -228,6 +378,16 @@ std::vector<int> Mul::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Negate double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Neg::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -239,6 +399,16 @@ std::vector<int> Neg::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Remainder double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Rem::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -251,6 +421,16 @@ std::vector<int> Rem::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Return double from method
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Return::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -263,6 +443,16 @@ std::vector<int> Return::execute(
   return {1};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Store double into local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Store::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -283,6 +473,16 @@ std::vector<int> Store::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Store double into local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Store_0::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -294,6 +494,16 @@ std::vector<int> Store_0::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Store double into local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Store_1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -305,6 +515,16 @@ std::vector<int> Store_1::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Store double into local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Store_2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -316,6 +536,16 @@ std::vector<int> Store_2::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Store double into local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Store_3::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -327,6 +557,16 @@ std::vector<int> Store_3::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Subtract double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> Sub::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {

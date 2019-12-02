@@ -6,6 +6,16 @@
 
 namespace Instructions {
 namespace Branch {
+/**
+ * @brief Branch if reference comparison succeeds
+
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> RefCompareEqual::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -23,6 +33,16 @@ std::vector<int> RefCompareEqual::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if reference not null
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> RefCompareNotEqual::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -40,6 +60,16 @@ std::vector<int> RefCompareNotEqual::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if int comparison succeeds (val1 = val2)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> IntegerCompareEqual::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -57,6 +87,16 @@ std::vector<int> IntegerCompareEqual::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if int comparison succeeds (val1 >= val2)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> IntegerCompareGreaterEqual::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -74,6 +114,16 @@ std::vector<int> IntegerCompareGreaterEqual::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if int comparison succeeds (val1 > val2)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> IntegerCompareGreaterThan::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -91,6 +141,16 @@ std::vector<int> IntegerCompareGreaterThan::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if int comparison succeeds (val1 <= val2)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> IntegerCompareLessEqual::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -108,6 +168,16 @@ std::vector<int> IntegerCompareLessEqual::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if int comparison succeeds (val1 < val2)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> IntegerCompareLessThan::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -125,6 +195,16 @@ std::vector<int> IntegerCompareLessThan::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if int comparison succeeds (val1 != val2)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> IntegerCompareNotEqual::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -142,6 +222,16 @@ std::vector<int> IntegerCompareNotEqual::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if int comparison succeeds (value == 0)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> EqualZero::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -158,6 +248,16 @@ std::vector<int> EqualZero::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if int comparison succeeds (value >= 0)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> GreaterEqualZero::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -174,6 +274,16 @@ std::vector<int> GreaterEqualZero::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if int comparison succeeds (value > 0)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> GreaterThanZero::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -190,6 +300,16 @@ std::vector<int> GreaterThanZero::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if int comparison succeeds (value <= 0)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> LessEqualZero::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -206,6 +326,16 @@ std::vector<int> LessEqualZero::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if int comparison succeeds (value < 0)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> LessThanZero::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -222,6 +352,16 @@ std::vector<int> LessThanZero::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if int comparison succeeds (value != 0)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> NotEqualZero::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -238,6 +378,16 @@ std::vector<int> NotEqualZero::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if reference is not null
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> NonNull::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -254,6 +404,17 @@ std::vector<int> NonNull::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+/**
+ * @brief Branch if reference is null
+
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
 std::vector<int> RefNull::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
