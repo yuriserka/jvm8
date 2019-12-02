@@ -34,16 +34,16 @@ class Dynamic : public Instruction {
     return {Utils::String::toString(+(*++*code_it)),
             Utils::String::toString(+(*++*code_it))};
   }
-/**
- * @brief Invoke dynamic method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Invoke dynamic method
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -74,16 +74,16 @@ class Interface : public Instruction {
     return {Utils::String::toString(+(*++*code_it)),
             Utils::String::toString(+(*++*code_it))};
   }
-/**
- * @brief Invoke interface method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Invoke interface method
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -111,16 +111,16 @@ class Especial : public Instruction {
     *delta_code = 2;
     return {};
   }
-/**
- * @brief Invoke especial method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Invoke especial method
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -148,16 +148,16 @@ class Static : public Instruction {
     *delta_code = 2;
     return {};
   }
-/**
- * @brief Invoke static method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Invoke static method
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -185,16 +185,16 @@ class Virtual : public Instruction {
     *delta_code = 2;
     return {};
   }
-/**
- * @brief Invoke virtual method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Invoke virtual method
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,

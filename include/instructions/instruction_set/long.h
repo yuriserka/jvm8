@@ -33,16 +33,16 @@ class BaseLong : public Instruction {
 class ToDouble : public BaseLong {
  public:
   ToDouble() : BaseLong(Opcodes::kL2D) {}
-/**
- * @brief Convert long to double
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Convert long to double
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -52,16 +52,16 @@ class ToDouble : public BaseLong {
 class ToFloat : public BaseLong {
  public:
   ToFloat() : BaseLong(Opcodes::kL2F) {}
-/**
- * @brief Convert long to float
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Convert long to float
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -71,16 +71,16 @@ class ToFloat : public BaseLong {
 class ToInteger : public BaseLong {
  public:
   ToInteger() : BaseLong(Opcodes::kL2I) {}
-/**
- * @brief Convert long to integer
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Convert long to integer
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -90,16 +90,16 @@ class ToInteger : public BaseLong {
 class Add : public BaseLong {
  public:
   Add() : BaseLong(Opcodes::kLADD) {}
-/**
- * @brief Add long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Add long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -109,16 +109,16 @@ class Add : public BaseLong {
 class LoadFromArray : public BaseLong {
  public:
   LoadFromArray() : BaseLong(Opcodes::kLALOAD) {}
-/**
- * @brief Load long from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load long from local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -128,16 +128,16 @@ class LoadFromArray : public BaseLong {
 class And : public BaseLong {
  public:
   And() : BaseLong(Opcodes::kLAND) {}
-/**
- * @brief Boolean AND long 
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Boolean AND long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -147,16 +147,16 @@ class And : public BaseLong {
 class StoreIntoArray : public BaseLong {
  public:
   StoreIntoArray() : BaseLong(Opcodes::kLASTORE) {}
-/**
- * @brief Store long into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store long into local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -166,16 +166,16 @@ class StoreIntoArray : public BaseLong {
 class Compare : public BaseLong {
  public:
   Compare() : BaseLong(Opcodes::kLCMP) {}
-/**
- * @brief Compare long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Compare long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -185,16 +185,16 @@ class Compare : public BaseLong {
 class Const_0 : public BaseLong {
  public:
   Const_0() : BaseLong(Opcodes::kLCONST_0) {}
-/**
- * @brief Push long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Push long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -204,16 +204,16 @@ class Const_0 : public BaseLong {
 class Const_1 : public BaseLong {
  public:
   Const_1() : BaseLong(Opcodes::kLCONST_1) {}
-/**
- * @brief Push long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Push long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -223,16 +223,16 @@ class Const_1 : public BaseLong {
 class Div : public BaseLong {
  public:
   Div() : BaseLong(Opcodes::kLDIV) {}
-/**
- * @brief Divide long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Divide long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -274,16 +274,16 @@ class Load : public Instruction {
     *delta_code = 1;
     return {Utils::String::toString(int{index})};
   }
-/**
- * @brief Load long from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load long from local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -293,16 +293,16 @@ class Load : public Instruction {
 class Load_0 : public BaseLong {
  public:
   Load_0() : BaseLong(Opcodes::kLLOAD_0) {}
-/**
- * @brief Load long from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load long from local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -312,16 +312,16 @@ class Load_0 : public BaseLong {
 class Load_1 : public BaseLong {
  public:
   Load_1() : BaseLong(Opcodes::kLLOAD_1) {}
-/**
- * @brief Load long from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load long from local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -331,16 +331,16 @@ class Load_1 : public BaseLong {
 class Load_2 : public BaseLong {
  public:
   Load_2() : BaseLong(Opcodes::kLLOAD_2) {}
-/**
- * @brief Load long from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load long from local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -350,16 +350,16 @@ class Load_2 : public BaseLong {
 class Load_3 : public BaseLong {
  public:
   Load_3() : BaseLong(Opcodes::kLLOAD_3) {}
-/**
- * @brief Load long from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load long from local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -369,16 +369,16 @@ class Load_3 : public BaseLong {
 class Mul : public BaseLong {
  public:
   Mul() : BaseLong(Opcodes::kLMUL) {}
-/**
- * @brief Multiply long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Multiply long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -388,16 +388,16 @@ class Mul : public BaseLong {
 class Neg : public BaseLong {
  public:
   Neg() : BaseLong(Opcodes::kLNEG) {}
-/**
- * @brief Negate long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Negate long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -407,16 +407,16 @@ class Neg : public BaseLong {
 class Or : public BaseLong {
  public:
   Or() : BaseLong(Opcodes::kLOR) {}
-/**
- * @brief Boolean OR long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Boolean OR long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -426,16 +426,16 @@ class Or : public BaseLong {
 class Rem : public BaseLong {
  public:
   Rem() : BaseLong(Opcodes::kLREM) {}
-/**
- * @brief Remainder long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Remainder long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -445,16 +445,16 @@ class Rem : public BaseLong {
 class Return : public BaseLong {
  public:
   Return() : BaseLong(Opcodes::kLRETURN) {}
-/**
- * @brief Return long from method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Return long from method
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -464,16 +464,16 @@ class Return : public BaseLong {
 class ShiftLeft : public BaseLong {
  public:
   ShiftLeft() : BaseLong(Opcodes::kLSHL) {}
-/**
- * @brief Shift left long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Shift left long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -483,16 +483,16 @@ class ShiftLeft : public BaseLong {
 class ArithmeticShiftRight : public BaseLong {
  public:
   ArithmeticShiftRight() : BaseLong(Opcodes::kLSHR) {}
-/**
- * @brief Arithmetic shift right long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Arithmetic shift right long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -533,16 +533,16 @@ class Store : public Instruction {
     *delta_code = 1;
     return {Utils::String::toString(int{index})};
   }
-/**
- * @brief Store long into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store long into local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -552,16 +552,16 @@ class Store : public Instruction {
 class Store_0 : public BaseLong {
  public:
   Store_0() : BaseLong(Opcodes::kLSTORE_0) {}
-/**
- * @brief Store long into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store long into local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -571,16 +571,16 @@ class Store_0 : public BaseLong {
 class Store_1 : public BaseLong {
  public:
   Store_1() : BaseLong(Opcodes::kLSTORE_1) {}
-/**
- * @brief Store long into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store long into local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -590,16 +590,16 @@ class Store_1 : public BaseLong {
 class Store_2 : public BaseLong {
  public:
   Store_2() : BaseLong(Opcodes::kLSTORE_2) {}
-/**
- * @brief Store long into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store long into local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -609,16 +609,16 @@ class Store_2 : public BaseLong {
 class Store_3 : public BaseLong {
  public:
   Store_3() : BaseLong(Opcodes::kLSTORE_3) {}
-/**
- * @brief Store long into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store long into local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -628,16 +628,16 @@ class Store_3 : public BaseLong {
 class Sub : public BaseLong {
  public:
   Sub() : BaseLong(Opcodes::kLSUB) {}
-/**
- * @brief Subtract long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Subtract long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -647,16 +647,16 @@ class Sub : public BaseLong {
 class LogicalShiftRight : public BaseLong {
  public:
   LogicalShiftRight() : BaseLong(Opcodes::kLUSHR) {}
-/**
- * @brief Logical shift right long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Logical shift right long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -666,16 +666,16 @@ class LogicalShiftRight : public BaseLong {
 class Xor : public BaseLong {
  public:
   Xor() : BaseLong(Opcodes::kLXOR) {}
-/**
- * @brief Boolean XOR long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Boolean XOR long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,

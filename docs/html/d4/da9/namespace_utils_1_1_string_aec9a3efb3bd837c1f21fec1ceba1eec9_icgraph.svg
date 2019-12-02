@@ -205,10 +205,10 @@ var sectionId = 'dynsection-0';
 </g>
 <!-- Node12 -->
 <g id="node12" class="node"><title>Node12</title>
-<g id="a_node12"><a xlink:href="../../da/d2a/class_instructions_1_1_float_1_1_load.xhtml#a4a369e431f4b78660d69e6c78cbd254d" target="_top" xlink:title=" ">
+<g id="a_node12"><a xlink:href="../../d9/da0/class_instructions_1_1_misc_1_1_goto.xhtml#afa9d244746b52683a1289bc43146fbc1" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="26.5,-686.5 26.5,-716.5 148.5,-716.5 148.5,-686.5 26.5,-686.5"/>
-<text text-anchor="start" x="34.5" y="-704.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Float</text>
-<text text-anchor="middle" x="87.5" y="-693.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Load::toBytecode_json</text>
+<text text-anchor="start" x="34.5" y="-704.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="87.5" y="-693.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Goto::toBytecode_json</text>
 </a>
 </g>
 </g>
@@ -219,10 +219,10 @@ var sectionId = 'dynsection-0';
 </g>
 <!-- Node13 -->
 <g id="node13" class="node"><title>Node13</title>
-<g id="a_node13"><a xlink:href="../../d9/da0/class_instructions_1_1_misc_1_1_goto.xhtml#afa9d244746b52683a1289bc43146fbc1" target="_top" xlink:title=" ">
+<g id="a_node13"><a xlink:href="../../da/d2a/class_instructions_1_1_float_1_1_load.xhtml#a4a369e431f4b78660d69e6c78cbd254d" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="26.5,-637.5 26.5,-667.5 148.5,-667.5 148.5,-637.5 26.5,-637.5"/>
-<text text-anchor="start" x="34.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="87.5" y="-644.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Goto::toBytecode_json</text>
+<text text-anchor="start" x="34.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Float</text>
+<text text-anchor="middle" x="87.5" y="-644.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Load::toBytecode_json</text>
 </a>
 </g>
 </g>
@@ -261,23 +261,23 @@ var sectionId = 'dynsection-0';
 </g>
 <!-- Node16 -->
 <g id="node16" class="node"><title>Node16</title>
-<g id="a_node16"><a xlink:href="../../d3/d3e/class_instructions_1_1_double_1_1_store.xhtml#a52498a5224fe484bf9a30b4bb0e82154" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="25,-490.5 25,-520.5 150,-520.5 150,-490.5 25,-490.5"/>
-<text text-anchor="start" x="33" y="-508.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Double</text>
-<text text-anchor="middle" x="87.5" y="-497.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode_json</text>
+<g id="a_node16"><a xlink:href="../../d6/ddc/class_instructions_1_1_misc_1_1_lookup_switch.xhtml#ae5d37274cfc43d30131adfd202e58b39" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="6.5,-490.5 6.5,-520.5 168.5,-520.5 168.5,-490.5 6.5,-490.5"/>
+<text text-anchor="start" x="14.5" y="-508.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="87.5" y="-497.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LookupSwitch::toBytecode_json</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node16 -->
 <g id="edge15" class="edge"><title>Node1&#45;&gt;Node16</title>
-<path fill="none" stroke="midnightblue" d="M247.339,-586.628C230.655,-570.121 203.157,-545.357 175,-530.5 167.258,-526.415 158.764,-522.92 150.217,-519.954"/>
+<path fill="none" stroke="midnightblue" d="M247.339,-586.628C230.655,-570.121 203.157,-545.357 175,-530.5 167.811,-526.707 159.973,-523.423 152.047,-520.598"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="245.097,-589.338 254.617,-593.989 250.075,-584.417 245.097,-589.338"/>
 </g>
 <!-- Node17 -->
 <g id="node17" class="node"><title>Node17</title>
-<g id="a_node17"><a xlink:href="../../d2/db2/class_instructions_1_1_float_1_1_store.xhtml#a65ac9fcf360aafd923c16446fa748002" target="_top" xlink:title=" ">
+<g id="a_node17"><a xlink:href="../../d3/d3e/class_instructions_1_1_double_1_1_store.xhtml#a52498a5224fe484bf9a30b4bb0e82154" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="25,-441.5 25,-471.5 150,-471.5 150,-441.5 25,-441.5"/>
-<text text-anchor="start" x="33" y="-459.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Float</text>
+<text text-anchor="start" x="33" y="-459.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Double</text>
 <text text-anchor="middle" x="87.5" y="-448.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode_json</text>
 </a>
 </g>
@@ -289,24 +289,24 @@ var sectionId = 'dynsection-0';
 </g>
 <!-- Node18 -->
 <g id="node18" class="node"><title>Node18</title>
-<g id="a_node18"><a xlink:href="../../dd/d7b/class_instructions_1_1_integer_1_1_inc.xhtml#a4c1f81ffe4463eb6b7aafee74f4fe5bb" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="30.5,-392.5 30.5,-422.5 144.5,-422.5 144.5,-392.5 30.5,-392.5"/>
-<text text-anchor="start" x="38.5" y="-410.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Integer</text>
-<text text-anchor="middle" x="87.5" y="-399.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Inc::toBytecode_json</text>
+<g id="a_node18"><a xlink:href="../../d2/db2/class_instructions_1_1_float_1_1_store.xhtml#a65ac9fcf360aafd923c16446fa748002" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="25,-392.5 25,-422.5 150,-422.5 150,-392.5 25,-392.5"/>
+<text text-anchor="start" x="33" y="-410.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Float</text>
+<text text-anchor="middle" x="87.5" y="-399.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode_json</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node18 -->
 <g id="edge17" class="edge"><title>Node1&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M258.735,-583.52C249.167,-547.781 224.196,-472.879 175,-432.5 166.3,-425.359 155.652,-420.258 144.839,-416.613"/>
+<path fill="none" stroke="midnightblue" d="M258.735,-583.52C249.167,-547.781 224.196,-472.879 175,-432.5 167.75,-426.549 159.147,-422.015 150.223,-418.56"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="255.455,-584.825 261.312,-593.654 262.24,-583.1 255.455,-584.825"/>
 </g>
 <!-- Node19 -->
 <g id="node19" class="node"><title>Node19</title>
-<g id="a_node19"><a xlink:href="../../d6/ddc/class_instructions_1_1_misc_1_1_lookup_switch.xhtml#ae5d37274cfc43d30131adfd202e58b39" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="6.5,-343.5 6.5,-373.5 168.5,-373.5 168.5,-343.5 6.5,-343.5"/>
-<text text-anchor="start" x="14.5" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="87.5" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LookupSwitch::toBytecode_json</text>
+<g id="a_node19"><a xlink:href="../../df/de0/class_instructions_1_1_misc_1_1_multi_dim_array.xhtml#a4b482239676e8e7d07f32b5983045815" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="6,-343.5 6,-373.5 169,-373.5 169,-343.5 6,-343.5"/>
+<text text-anchor="start" x="14" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="87.5" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">::MultiDimArray::toBytecode_json</text>
 </a>
 </g>
 </g>
@@ -317,86 +317,86 @@ var sectionId = 'dynsection-0';
 </g>
 <!-- Node20 -->
 <g id="node20" class="node"><title>Node20</title>
-<g id="a_node20"><a xlink:href="../../d0/d64/class_instructions_1_1_long_1_1_store.xhtml#a9f34f0bc093b998f982664b346b5cb56" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="25,-294.5 25,-324.5 150,-324.5 150,-294.5 25,-294.5"/>
-<text text-anchor="start" x="33" y="-312.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Long</text>
-<text text-anchor="middle" x="87.5" y="-301.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode_json</text>
+<g id="a_node20"><a xlink:href="../../dd/d7b/class_instructions_1_1_integer_1_1_inc.xhtml#a4c1f81ffe4463eb6b7aafee74f4fe5bb" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="30.5,-294.5 30.5,-324.5 144.5,-324.5 144.5,-294.5 30.5,-294.5"/>
+<text text-anchor="start" x="38.5" y="-312.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Integer</text>
+<text text-anchor="middle" x="87.5" y="-301.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Inc::toBytecode_json</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node20 -->
 <g id="edge19" class="edge"><title>Node1&#45;&gt;Node20</title>
-<path fill="none" stroke="midnightblue" d="M262.986,-583.741C260.603,-534.316 247.401,-404.306 175,-334.5 168.023,-327.773 159.352,-322.838 150.216,-319.222"/>
+<path fill="none" stroke="midnightblue" d="M262.986,-583.741C260.603,-534.316 247.401,-404.306 175,-334.5 166.673,-326.471 155.932,-320.995 144.869,-317.267"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="259.489,-583.898 263.369,-593.757 266.484,-583.631 259.489,-583.898"/>
 </g>
 <!-- Node21 -->
 <g id="node21" class="node"><title>Node21</title>
-<g id="a_node21"><a xlink:href="../../df/d58/class_instructions_1_1_integer_1_1_load.xhtml#a1c4fb1dccfdf4c888530a6b8335c24d1" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="26.5,-245.5 26.5,-275.5 148.5,-275.5 148.5,-245.5 26.5,-245.5"/>
-<text text-anchor="start" x="34.5" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Integer</text>
-<text text-anchor="middle" x="87.5" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Load::toBytecode_json</text>
+<g id="a_node21"><a xlink:href="../../d0/d64/class_instructions_1_1_long_1_1_store.xhtml#a9f34f0bc093b998f982664b346b5cb56" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="25,-245.5 25,-275.5 150,-275.5 150,-245.5 25,-245.5"/>
+<text text-anchor="start" x="33" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Long</text>
+<text text-anchor="middle" x="87.5" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode_json</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node21 -->
 <g id="edge20" class="edge"><title>Node1&#45;&gt;Node21</title>
-<path fill="none" stroke="midnightblue" d="M264.171,-583.614C264.911,-528.187 259.132,-370.47 175,-285.5 167.741,-278.169 158.475,-272.956 148.721,-269.256"/>
+<path fill="none" stroke="midnightblue" d="M264.171,-583.614C264.911,-528.187 259.132,-370.47 175,-285.5 168.071,-278.502 159.314,-273.434 150.048,-269.77"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="260.667,-583.75 263.94,-593.826 267.666,-583.908 260.667,-583.75"/>
 </g>
 <!-- Node22 -->
 <g id="node22" class="node"><title>Node22</title>
-<g id="a_node22"><a xlink:href="../../df/de0/class_instructions_1_1_misc_1_1_multi_dim_array.xhtml#a4b482239676e8e7d07f32b5983045815" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="6,-196.5 6,-226.5 169,-226.5 169,-196.5 6,-196.5"/>
-<text text-anchor="start" x="14" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="87.5" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::MultiDimArray::toBytecode_json</text>
+<g id="a_node22"><a xlink:href="../../d7/d61/class_instructions_1_1_misc_1_1_new_array.xhtml#a14e7dc289150cc0e854fda9ec9b78a7d" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="16,-196.5 16,-226.5 159,-226.5 159,-196.5 16,-196.5"/>
+<text text-anchor="start" x="24" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="87.5" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::NewArray::toBytecode_json</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node22 -->
 <g id="edge21" class="edge"><title>Node1&#45;&gt;Node22</title>
-<path fill="none" stroke="midnightblue" d="M261.329,-583.624C253.422,-514.758 224.029,-287.772 175,-236.5 171.327,-232.659 167.103,-229.397 162.541,-226.628"/>
+<path fill="none" stroke="midnightblue" d="M261.329,-583.624C253.422,-514.758 224.029,-287.772 175,-236.5 170.463,-231.755 165.086,-227.894 159.267,-224.755"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="257.891,-584.377 262.485,-593.924 264.848,-583.596 257.891,-584.377"/>
 </g>
 <!-- Node23 -->
 <g id="node23" class="node"><title>Node23</title>
-<g id="a_node23"><a xlink:href="../../d7/d61/class_instructions_1_1_misc_1_1_new_array.xhtml#a14e7dc289150cc0e854fda9ec9b78a7d" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="16,-147.5 16,-177.5 159,-177.5 159,-147.5 16,-147.5"/>
-<text text-anchor="start" x="24" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="87.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::NewArray::toBytecode_json</text>
+<g id="a_node23"><a xlink:href="../../df/d58/class_instructions_1_1_integer_1_1_load.xhtml#a1c4fb1dccfdf4c888530a6b8335c24d1" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="26.5,-147.5 26.5,-177.5 148.5,-177.5 148.5,-147.5 26.5,-147.5"/>
+<text text-anchor="start" x="34.5" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Integer</text>
+<text text-anchor="middle" x="87.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Load::toBytecode_json</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node23 -->
 <g id="edge22" class="edge"><title>Node1&#45;&gt;Node23</title>
-<path fill="none" stroke="midnightblue" d="M261.923,-583.441C255.642,-508.557 230.033,-246.63 175,-187.5 170.527,-182.694 165.193,-178.792 159.402,-175.627"/>
+<path fill="none" stroke="midnightblue" d="M261.923,-583.441C255.642,-508.557 230.033,-246.63 175,-187.5 167.865,-179.833 158.539,-174.467 148.659,-170.723"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="258.466,-584.111 262.766,-593.794 265.443,-583.543 258.466,-584.111"/>
 </g>
 <!-- Node24 -->
 <g id="node24" class="node"><title>Node24</title>
-<g id="a_node24"><a xlink:href="../../d8/d87/class_instructions_1_1_integer_1_1_store.xhtml#ae6c1628ae73da11cfa125391f28661e7" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="25,-98.5 25,-128.5 150,-128.5 150,-98.5 25,-98.5"/>
-<text text-anchor="start" x="33" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Integer</text>
-<text text-anchor="middle" x="87.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode_json</text>
+<g id="a_node24"><a xlink:href="../../db/d2e/class_instructions_1_1_misc_1_1_ret.xhtml#a8eba3c872a2e267dfcba90a10531879c" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="29.5,-98.5 29.5,-128.5 145.5,-128.5 145.5,-98.5 29.5,-98.5"/>
+<text text-anchor="start" x="37.5" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="87.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Ret::toBytecode_json</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node24 -->
 <g id="edge23" class="edge"><title>Node1&#45;&gt;Node24</title>
-<path fill="none" stroke="midnightblue" d="M262.427,-583.702C257.699,-503.737 236.181,-205.672 175,-138.5 168.263,-131.104 159.489,-125.843 150.116,-122.112"/>
+<path fill="none" stroke="midnightblue" d="M262.427,-583.702C257.699,-503.737 236.181,-205.672 175,-138.5 167.211,-129.948 156.697,-124.251 145.684,-120.473"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="258.942,-584.079 263.005,-593.864 265.931,-583.681 258.942,-584.079"/>
 </g>
 <!-- Node25 -->
 <g id="node25" class="node"><title>Node25</title>
-<g id="a_node25"><a xlink:href="../../db/d2e/class_instructions_1_1_misc_1_1_ret.xhtml#a8eba3c872a2e267dfcba90a10531879c" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="29.5,-49.5 29.5,-79.5 145.5,-79.5 145.5,-49.5 29.5,-49.5"/>
-<text text-anchor="start" x="37.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="87.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Ret::toBytecode_json</text>
+<g id="a_node25"><a xlink:href="../../d8/d87/class_instructions_1_1_integer_1_1_store.xhtml#ae6c1628ae73da11cfa125391f28661e7" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="25,-49.5 25,-79.5 150,-79.5 150,-49.5 25,-49.5"/>
+<text text-anchor="start" x="33" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Integer</text>
+<text text-anchor="middle" x="87.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode_json</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node25 -->
 <g id="edge24" class="edge"><title>Node1&#45;&gt;Node25</title>
-<path fill="none" stroke="midnightblue" d="M262.813,-583.555C259.475,-498.205 242.255,-164.655 175,-89.5 167.286,-80.8799 156.804,-75.1543 145.799,-71.3702"/>
+<path fill="none" stroke="midnightblue" d="M262.813,-583.555C259.475,-498.205 242.255,-164.655 175,-89.5 168.328,-82.0448 159.586,-76.7546 150.226,-73.013"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="259.321,-583.839 263.189,-593.702 266.316,-583.58 259.321,-583.839"/>
 </g>
 <!-- Node26 -->

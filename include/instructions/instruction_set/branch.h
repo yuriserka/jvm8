@@ -37,16 +37,16 @@ class BaseBranch : public Instruction {
 class RefCompareEqual : public BaseBranch {
  public:
   RefCompareEqual() : BaseBranch(Opcodes::kIF_ACMPEQ) {}
-/**
- * @brief Branch if reference comparison succeeds
+  /**
+   * @brief Branch if reference comparison succeeds
 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -56,16 +56,16 @@ class RefCompareEqual : public BaseBranch {
 class RefCompareNotEqual : public BaseBranch {
  public:
   RefCompareNotEqual() : BaseBranch(Opcodes::kIF_ACMPNE) {}
-/**
- * @brief Branch if reference not null
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if reference not null
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -75,16 +75,16 @@ class RefCompareNotEqual : public BaseBranch {
 class IntegerCompareEqual : public BaseBranch {
  public:
   IntegerCompareEqual() : BaseBranch(Opcodes::kIF_ICMPEQ) {}
-/**
- * @brief Branch if int comparison succeeds (val1 = val2)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if int comparison succeeds (val1 = val2)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -94,16 +94,16 @@ class IntegerCompareEqual : public BaseBranch {
 class IntegerCompareGreaterEqual : public BaseBranch {
  public:
   IntegerCompareGreaterEqual() : BaseBranch(Opcodes::kIF_ICMPGE) {}
-/**
- * @brief Branch if int comparison succeeds (val1 >= val2)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if int comparison succeeds (val1 >= val2)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -113,16 +113,16 @@ class IntegerCompareGreaterEqual : public BaseBranch {
 class IntegerCompareGreaterThan : public BaseBranch {
  public:
   IntegerCompareGreaterThan() : BaseBranch(Opcodes::kIF_ICMPGT) {}
-/**
- * @brief Branch if int comparison succeeds (val1 > val2)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if int comparison succeeds (val1 > val2)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -132,16 +132,16 @@ class IntegerCompareGreaterThan : public BaseBranch {
 class IntegerCompareLessEqual : public BaseBranch {
  public:
   IntegerCompareLessEqual() : BaseBranch(Opcodes::kIF_ICMPLE) {}
-/**
- * @brief Branch if int comparison succeeds (val1 <= val2)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if int comparison succeeds (val1 <= val2)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -151,16 +151,16 @@ class IntegerCompareLessEqual : public BaseBranch {
 class IntegerCompareLessThan : public BaseBranch {
  public:
   IntegerCompareLessThan() : BaseBranch(Opcodes::kIF_ICMPLT) {}
-/**
- * @brief Branch if int comparison succeeds (val1 < val2)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if int comparison succeeds (val1 < val2)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -170,16 +170,16 @@ class IntegerCompareLessThan : public BaseBranch {
 class IntegerCompareNotEqual : public BaseBranch {
  public:
   IntegerCompareNotEqual() : BaseBranch(Opcodes::kIF_ICMPNE) {}
-/**
- * @brief Branch if int comparison succeeds (val1 != val2)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if int comparison succeeds (val1 != val2)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -189,16 +189,16 @@ class IntegerCompareNotEqual : public BaseBranch {
 class EqualZero : public BaseBranch {
  public:
   EqualZero() : BaseBranch(Opcodes::kIFEQ) {}
-/**
- * @brief Branch if int comparison succeeds (value == 0)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if int comparison succeeds (value == 0)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -208,16 +208,16 @@ class EqualZero : public BaseBranch {
 class GreaterEqualZero : public BaseBranch {
  public:
   GreaterEqualZero() : BaseBranch(Opcodes::kIFGE) {}
-/**
- * @brief Branch if int comparison succeeds (value >= 0)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if int comparison succeeds (value >= 0)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -227,16 +227,16 @@ class GreaterEqualZero : public BaseBranch {
 class GreaterThanZero : public BaseBranch {
  public:
   GreaterThanZero() : BaseBranch(Opcodes::kIFGT) {}
-/**
- * @brief Branch if int comparison succeeds (value > 0)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if int comparison succeeds (value > 0)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -246,16 +246,16 @@ class GreaterThanZero : public BaseBranch {
 class LessEqualZero : public BaseBranch {
  public:
   LessEqualZero() : BaseBranch(Opcodes::kIFLE) {}
-/**
- * @brief Branch if int comparison succeeds (value <= 0)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if int comparison succeeds (value <= 0)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -265,16 +265,16 @@ class LessEqualZero : public BaseBranch {
 class LessThanZero : public BaseBranch {
  public:
   LessThanZero() : BaseBranch(Opcodes::kIFLT) {}
-/**
- * @brief Branch if int comparison succeeds (value < 0)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if int comparison succeeds (value < 0)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -284,16 +284,16 @@ class LessThanZero : public BaseBranch {
 class NotEqualZero : public BaseBranch {
  public:
   NotEqualZero() : BaseBranch(Opcodes::kIFNE) {}
-/**
- * @brief Branch if int comparison succeeds (value != 0)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if int comparison succeeds (value != 0)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -303,16 +303,16 @@ class NotEqualZero : public BaseBranch {
 class NonNull : public BaseBranch {
  public:
   NonNull() : BaseBranch(Opcodes::kIFNONNULL) {}
-/**
- * @brief Branch if reference is not null
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Branch if reference is not null
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -322,17 +322,17 @@ class NonNull : public BaseBranch {
 class RefNull : public BaseBranch {
  public:
   RefNull() : BaseBranch(Opcodes::kIFNULL) {}
-/**
- * @brief Branch if reference is null
+  /**
+   * @brief Branch if reference is null
 
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,

@@ -27,16 +27,16 @@ class LoadFromArray : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     return {};
   }
-/**
- * @brief Load short from array
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load short from array
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -60,16 +60,16 @@ class StoreIntoArray : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     return {};
   }
-/**
- * @brief Store short into array
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store short into array
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -97,16 +97,16 @@ class Push : public Instruction {
     *delta_code = 2;
     return {Utils::String::toString(s)};
   }
-/**
- * @brief push short
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief push short
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,

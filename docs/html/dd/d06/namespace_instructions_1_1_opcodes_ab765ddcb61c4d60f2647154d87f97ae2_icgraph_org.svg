@@ -342,24 +342,24 @@
 </g>
 <!-- Node25 -->
 <g id="node25" class="node"><title>Node25</title>
-<g id="a_node25"><a xlink:href="../../db/d43/class_instructions_1_1_reference_1_1_load.xhtml#aa69cb3a6a0c20bcc137ee7eade72b6cf" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="18,-1372.5 18,-1402.5 134,-1402.5 134,-1372.5 18,-1372.5"/>
-<text text-anchor="start" x="26" y="-1390.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Reference</text>
-<text text-anchor="middle" x="76" y="-1379.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Load::toBytecode</text>
+<g id="a_node25"><a xlink:href="../../d3/d48/class_instructions_1_1_constant_pool_1_1_load_cat2.xhtml#ae8cb5cb38bb64993775435fcf78cd976" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="10.5,-1372.5 10.5,-1402.5 141.5,-1402.5 141.5,-1372.5 10.5,-1372.5"/>
+<text text-anchor="start" x="18.5" y="-1390.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::ConstantPool</text>
+<text text-anchor="middle" x="76" y="-1379.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LoadCat2::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node25 -->
 <g id="edge24" class="edge"><title>Node1&#45;&gt;Node25</title>
-<path fill="none" stroke="midnightblue" d="M227.149,-1287.8C210.775,-1310.2 183.26,-1343.53 152,-1363.5 146.47,-1367.03 140.378,-1370.09 134.127,-1372.71"/>
+<path fill="none" stroke="midnightblue" d="M227.149,-1287.8C210.775,-1310.2 183.26,-1343.53 152,-1363.5 146.701,-1366.89 140.884,-1369.83 134.908,-1372.38"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="230.104,-1289.69 233.064,-1279.51 224.406,-1285.62 230.104,-1289.69"/>
 </g>
 <!-- Node26 -->
 <g id="node26" class="node"><title>Node26</title>
-<g id="a_node26"><a xlink:href="../../d3/d48/class_instructions_1_1_constant_pool_1_1_load_cat2.xhtml#ae8cb5cb38bb64993775435fcf78cd976" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="10.5,-1323.5 10.5,-1353.5 141.5,-1353.5 141.5,-1323.5 10.5,-1323.5"/>
-<text text-anchor="start" x="18.5" y="-1341.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::ConstantPool</text>
-<text text-anchor="middle" x="76" y="-1330.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LoadCat2::toBytecode</text>
+<g id="a_node26"><a xlink:href="../../db/d43/class_instructions_1_1_reference_1_1_load.xhtml#aa69cb3a6a0c20bcc137ee7eade72b6cf" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="18,-1323.5 18,-1353.5 134,-1353.5 134,-1323.5 18,-1323.5"/>
+<text text-anchor="start" x="26" y="-1341.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Reference</text>
+<text text-anchor="middle" x="76" y="-1330.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Load::toBytecode</text>
 </a>
 </g>
 </g>
@@ -398,10 +398,10 @@
 </g>
 <!-- Node29 -->
 <g id="node29" class="node"><title>Node29</title>
-<g id="a_node29"><a xlink:href="../../d0/d9b/class_instructions_1_1_misc_1_1_get_field.xhtml#a5d3d4b7ab5fcb33a0f803b11377346c6" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="18.5,-1176.5 18.5,-1206.5 133.5,-1206.5 133.5,-1176.5 18.5,-1176.5"/>
-<text text-anchor="start" x="26.5" y="-1194.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="76" y="-1183.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GetField::toBytecode</text>
+<g id="a_node29"><a xlink:href="../../d7/df0/class_instructions_1_1_invokes_1_1_virtual.xhtml#a67b4dc9ef382ec47ff7fa26bd7f4d7e1" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="23,-1176.5 23,-1206.5 129,-1206.5 129,-1176.5 23,-1176.5"/>
+<text text-anchor="start" x="31" y="-1194.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Invokes</text>
+<text text-anchor="middle" x="76" y="-1183.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Virtual::toBytecode</text>
 </a>
 </g>
 </g>
@@ -412,72 +412,72 @@
 </g>
 <!-- Node30 -->
 <g id="node30" class="node"><title>Node30</title>
-<g id="a_node30"><a xlink:href="../../d7/df0/class_instructions_1_1_invokes_1_1_virtual.xhtml#a67b4dc9ef382ec47ff7fa26bd7f4d7e1" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="23,-1127.5 23,-1157.5 129,-1157.5 129,-1127.5 23,-1127.5"/>
-<text text-anchor="start" x="31" y="-1145.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Invokes</text>
-<text text-anchor="middle" x="76" y="-1134.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Virtual::toBytecode</text>
+<g id="a_node30"><a xlink:href="../../d0/d9b/class_instructions_1_1_misc_1_1_get_field.xhtml#a5d3d4b7ab5fcb33a0f803b11377346c6" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="18.5,-1127.5 18.5,-1157.5 133.5,-1157.5 133.5,-1127.5 18.5,-1127.5"/>
+<text text-anchor="start" x="26.5" y="-1145.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="76" y="-1134.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GetField::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node30 -->
 <g id="edge29" class="edge"><title>Node1&#45;&gt;Node30</title>
-<path fill="none" stroke="midnightblue" d="M226.44,-1241.03C209.889,-1219.16 182.558,-1187.07 152,-1167.5 145.065,-1163.06 137.261,-1159.33 129.376,-1156.21"/>
+<path fill="none" stroke="midnightblue" d="M226.44,-1241.03C209.889,-1219.16 182.558,-1187.07 152,-1167.5 146.105,-1163.73 139.582,-1160.46 132.916,-1157.66"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="223.683,-1243.19 232.444,-1249.15 229.311,-1239.02 223.683,-1243.19"/>
 </g>
 <!-- Node31 -->
 <g id="node31" class="node"><title>Node31</title>
-<g id="a_node31"><a xlink:href="../../d8/d24/class_instructions_1_1_double_1_1_load.xhtml#acb18445350f21454396f29b5b72c8bec" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="24.5,-1078.5 24.5,-1108.5 127.5,-1108.5 127.5,-1078.5 24.5,-1078.5"/>
-<text text-anchor="start" x="32.5" y="-1096.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Double</text>
-<text text-anchor="middle" x="76" y="-1085.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Load::toBytecode</text>
+<g id="a_node31"><a xlink:href="../../db/df9/class_instructions_1_1_reference_1_1_new_array.xhtml#a0267d18a1ae0d6f29302a543840a7c42" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="16,-1078.5 16,-1108.5 136,-1108.5 136,-1078.5 16,-1078.5"/>
+<text text-anchor="start" x="24" y="-1096.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Reference</text>
+<text text-anchor="middle" x="76" y="-1085.5" font-family="Helvetica,sans-Serif" font-size="10.00">::NewArray::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node31 -->
 <g id="edge30" class="edge"><title>Node1&#45;&gt;Node31</title>
-<path fill="none" stroke="midnightblue" d="M233.775,-1239.65C220.517,-1207.24 193.06,-1150.87 152,-1118.5 144.886,-1112.89 136.455,-1108.51 127.859,-1105.1"/>
+<path fill="none" stroke="midnightblue" d="M233.775,-1239.65C220.517,-1207.24 193.06,-1150.87 152,-1118.5 147.15,-1114.68 141.687,-1111.42 135.977,-1108.66"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="230.647,-1241.26 237.58,-1249.27 237.156,-1238.68 230.647,-1241.26"/>
 </g>
 <!-- Node32 -->
 <g id="node32" class="node"><title>Node32</title>
-<g id="a_node32"><a xlink:href="../../db/df9/class_instructions_1_1_reference_1_1_new_array.xhtml#a0267d18a1ae0d6f29302a543840a7c42" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="16,-1029.5 16,-1059.5 136,-1059.5 136,-1029.5 16,-1029.5"/>
-<text text-anchor="start" x="24" y="-1047.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Reference</text>
-<text text-anchor="middle" x="76" y="-1036.5" font-family="Helvetica,sans-Serif" font-size="10.00">::NewArray::toBytecode</text>
+<g id="a_node32"><a xlink:href="../../d3/de0/class_instructions_1_1_misc_1_1_get_static.xhtml#a37897a610883bf721cc1d8f74ea56933" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="16.5,-1029.5 16.5,-1059.5 135.5,-1059.5 135.5,-1029.5 16.5,-1029.5"/>
+<text text-anchor="start" x="24.5" y="-1047.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="76" y="-1036.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GetStatic::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node32 -->
 <g id="edge31" class="edge"><title>Node1&#45;&gt;Node32</title>
-<path fill="none" stroke="midnightblue" d="M238.059,-1239.6C228.603,-1198.38 204.083,-1115.92 152,-1069.5 147.287,-1065.3 141.846,-1061.8 136.091,-1058.89"/>
+<path fill="none" stroke="midnightblue" d="M238.059,-1239.6C228.603,-1198.38 204.083,-1115.92 152,-1069.5 147.184,-1065.21 141.609,-1061.65 135.715,-1058.7"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="234.641,-1240.35 240.194,-1249.37 241.479,-1238.86 234.641,-1240.35"/>
 </g>
 <!-- Node33 -->
 <g id="node33" class="node"><title>Node33</title>
-<g id="a_node33"><a xlink:href="../../d9/db2/class_instructions_1_1_long_1_1_load.xhtml#a0d644df82394d3f696611907d1409ee9" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="26.5,-980.5 26.5,-1010.5 125.5,-1010.5 125.5,-980.5 26.5,-980.5"/>
-<text text-anchor="start" x="34.5" y="-998.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Long</text>
+<g id="a_node33"><a xlink:href="../../d8/d24/class_instructions_1_1_double_1_1_load.xhtml#acb18445350f21454396f29b5b72c8bec" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="24.5,-980.5 24.5,-1010.5 127.5,-1010.5 127.5,-980.5 24.5,-980.5"/>
+<text text-anchor="start" x="32.5" y="-998.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Double</text>
 <text text-anchor="middle" x="76" y="-987.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Load::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node33 -->
 <g id="edge32" class="edge"><title>Node1&#45;&gt;Node33</title>
-<path fill="none" stroke="midnightblue" d="M240.704,-1239.45C234.887,-1190.47 215.202,-1081.51 152,-1020.5 144.693,-1013.45 135.343,-1008.38 125.743,-1004.74"/>
+<path fill="none" stroke="midnightblue" d="M240.704,-1239.45C234.887,-1190.47 215.202,-1081.51 152,-1020.5 145.187,-1013.92 136.597,-1009.07 127.685,-1005.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="237.235,-1239.92 241.799,-1249.48 244.194,-1239.16 237.235,-1239.92"/>
 </g>
 <!-- Node34 -->
 <g id="node34" class="node"><title>Node34</title>
-<g id="a_node34"><a xlink:href="../../d3/de0/class_instructions_1_1_misc_1_1_get_static.xhtml#a37897a610883bf721cc1d8f74ea56933" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="16.5,-931.5 16.5,-961.5 135.5,-961.5 135.5,-931.5 16.5,-931.5"/>
-<text text-anchor="start" x="24.5" y="-949.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="76" y="-938.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GetStatic::toBytecode</text>
+<g id="a_node34"><a xlink:href="../../d9/db2/class_instructions_1_1_long_1_1_load.xhtml#a0d644df82394d3f696611907d1409ee9" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="26.5,-931.5 26.5,-961.5 125.5,-961.5 125.5,-931.5 26.5,-931.5"/>
+<text text-anchor="start" x="34.5" y="-949.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Long</text>
+<text text-anchor="middle" x="76" y="-938.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Load::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node34 -->
 <g id="edge33" class="edge"><title>Node1&#45;&gt;Node34</title>
-<path fill="none" stroke="midnightblue" d="M242.532,-1239.23C240.114,-1183.2 226.431,-1047.48 152,-971.5 147.294,-966.696 141.641,-962.815 135.577,-959.679"/>
+<path fill="none" stroke="midnightblue" d="M242.532,-1239.23C240.114,-1183.2 226.431,-1047.48 152,-971.5 144.797,-964.146 135.377,-958.956 125.657,-955.292"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="239.038,-1239.46 242.88,-1249.34 246.034,-1239.22 239.038,-1239.46"/>
 </g>
 <!-- Node35 -->
@@ -552,114 +552,114 @@
 </g>
 <!-- Node40 -->
 <g id="node40" class="node"><title>Node40</title>
-<g id="a_node40"><a xlink:href="../../d3/d3e/class_instructions_1_1_double_1_1_store.xhtml#ab8702c93434e8fe36be00a7dfdaa51b5" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="24.5,-637.5 24.5,-667.5 127.5,-667.5 127.5,-637.5 24.5,-637.5"/>
-<text text-anchor="start" x="32.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Double</text>
-<text text-anchor="middle" x="76" y="-644.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode</text>
+<g id="a_node40"><a xlink:href="../../d6/ddc/class_instructions_1_1_misc_1_1_lookup_switch.xhtml#a047938871f72f8398828d2c401a667e2" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="6.5,-637.5 6.5,-667.5 145.5,-667.5 145.5,-637.5 6.5,-637.5"/>
+<text text-anchor="start" x="14.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="76" y="-644.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LookupSwitch::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node40 -->
 <g id="edge39" class="edge"><title>Node1&#45;&gt;Node40</title>
-<path fill="none" stroke="midnightblue" d="M242.476,-1239.09C239.89,-1137.84 225.445,-764.445 152,-677.5 145.623,-669.951 136.9,-664.67 127.656,-660.98"/>
+<path fill="none" stroke="midnightblue" d="M242.476,-1239.09C239.89,-1137.84 225.445,-764.445 152,-677.5 148.723,-673.621 144.826,-670.34 140.558,-667.567"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="238.982,-1239.39 242.72,-1249.3 245.98,-1239.22 238.982,-1239.39"/>
 </g>
 <!-- Node41 -->
 <g id="node41" class="node"><title>Node41</title>
-<g id="a_node41"><a xlink:href="../../d6/ddc/class_instructions_1_1_misc_1_1_lookup_switch.xhtml#a047938871f72f8398828d2c401a667e2" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="6.5,-588.5 6.5,-618.5 145.5,-618.5 145.5,-588.5 6.5,-588.5"/>
-<text text-anchor="start" x="14.5" y="-606.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="76" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LookupSwitch::toBytecode</text>
+<g id="a_node41"><a xlink:href="../../d3/d3e/class_instructions_1_1_double_1_1_store.xhtml#ab8702c93434e8fe36be00a7dfdaa51b5" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="24.5,-588.5 24.5,-618.5 127.5,-618.5 127.5,-588.5 24.5,-588.5"/>
+<text text-anchor="start" x="32.5" y="-606.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Double</text>
+<text text-anchor="middle" x="76" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node41 -->
 <g id="edge40" class="edge"><title>Node1&#45;&gt;Node41</title>
-<path fill="none" stroke="midnightblue" d="M242.816,-1239.4C241.543,-1133.43 231.478,-723.71 152,-628.5 148.746,-624.601 144.865,-621.308 140.608,-618.525"/>
+<path fill="none" stroke="midnightblue" d="M242.816,-1239.4C241.543,-1133.43 231.478,-723.71 152,-628.5 145.667,-620.914 136.964,-615.617 127.725,-611.922"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="239.317,-1239.52 242.921,-1249.48 246.317,-1239.45 239.317,-1239.52"/>
 </g>
 <!-- Node42 -->
 <g id="node42" class="node"><title>Node42</title>
-<g id="a_node42"><a xlink:href="../../dd/d7b/class_instructions_1_1_integer_1_1_inc.xhtml#ab4af3940e33f8bfff84a1761830f3059" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="25,-539.5 25,-569.5 127,-569.5 127,-539.5 25,-539.5"/>
-<text text-anchor="start" x="33" y="-557.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Integer</text>
-<text text-anchor="middle" x="76" y="-546.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Inc::toBytecode</text>
+<g id="a_node42"><a xlink:href="../../d2/db2/class_instructions_1_1_float_1_1_store.xhtml#af7d8cbf157d13771b32a7798ae08afc2" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="25.5,-539.5 25.5,-569.5 126.5,-569.5 126.5,-539.5 25.5,-539.5"/>
+<text text-anchor="start" x="33.5" y="-557.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Float</text>
+<text text-anchor="middle" x="76" y="-546.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node42 -->
 <g id="edge41" class="edge"><title>Node1&#45;&gt;Node42</title>
-<path fill="none" stroke="midnightblue" d="M243.101,-1238.93C243.035,-1127.18 237.33,-682.771 152,-579.5 145.531,-571.67 136.534,-566.278 127.013,-562.569"/>
+<path fill="none" stroke="midnightblue" d="M243.101,-1238.93C243.035,-1127.18 237.33,-682.771 152,-579.5 145.443,-571.565 136.291,-566.133 126.627,-562.419"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="239.601,-1239.23 243.091,-1249.23 246.601,-1239.24 239.601,-1239.23"/>
 </g>
 <!-- Node43 -->
 <g id="node43" class="node"><title>Node43</title>
-<g id="a_node43"><a xlink:href="../../d2/db2/class_instructions_1_1_float_1_1_store.xhtml#af7d8cbf157d13771b32a7798ae08afc2" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="25.5,-490.5 25.5,-520.5 126.5,-520.5 126.5,-490.5 25.5,-490.5"/>
-<text text-anchor="start" x="33.5" y="-508.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Float</text>
-<text text-anchor="middle" x="76" y="-497.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode</text>
+<g id="a_node43"><a xlink:href="../../df/de0/class_instructions_1_1_misc_1_1_multi_dim_array.xhtml#af1d3f9f5d388e19b807ac12f9f2aa87c" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="6,-490.5 6,-520.5 146,-520.5 146,-490.5 6,-490.5"/>
+<text text-anchor="start" x="14" y="-508.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="76" y="-497.5" font-family="Helvetica,sans-Serif" font-size="10.00">::MultiDimArray::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node43 -->
 <g id="edge42" class="edge"><title>Node1&#45;&gt;Node43</title>
-<path fill="none" stroke="midnightblue" d="M243.35,-1239.35C244.46,-1123.49 243.426,-642.137 152,-530.5 145.478,-522.536 136.34,-517.093 126.679,-513.377"/>
+<path fill="none" stroke="midnightblue" d="M243.35,-1239.35C244.46,-1123.49 243.426,-642.137 152,-530.5 148.869,-526.677 145.136,-523.435 141.031,-520.686"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="239.85,-1239.36 243.239,-1249.39 246.849,-1239.43 239.85,-1239.36"/>
 </g>
 <!-- Node44 -->
 <g id="node44" class="node"><title>Node44</title>
-<g id="a_node44"><a xlink:href="../../d0/d64/class_instructions_1_1_long_1_1_store.xhtml#a6ecd897d761bd2286f536ae72f48c786" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="25.5,-441.5 25.5,-471.5 126.5,-471.5 126.5,-441.5 25.5,-441.5"/>
-<text text-anchor="start" x="33.5" y="-459.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Long</text>
-<text text-anchor="middle" x="76" y="-448.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode</text>
+<g id="a_node44"><a xlink:href="../../dd/d7b/class_instructions_1_1_integer_1_1_inc.xhtml#ab4af3940e33f8bfff84a1761830f3059" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="25,-441.5 25,-471.5 127,-471.5 127,-441.5 25,-441.5"/>
+<text text-anchor="start" x="33" y="-459.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Integer</text>
+<text text-anchor="middle" x="76" y="-448.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Inc::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node44 -->
 <g id="edge43" class="edge"><title>Node1&#45;&gt;Node44</title>
-<path fill="none" stroke="midnightblue" d="M241.659,-1239.17C234.686,-1111.46 201.006,-541.808 152,-481.5 145.508,-473.511 136.383,-468.057 126.724,-464.339"/>
+<path fill="none" stroke="midnightblue" d="M241.659,-1239.17C234.686,-1111.46 201.006,-541.808 152,-481.5 145.595,-473.618 136.626,-468.203 127.111,-464.489"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="238.166,-1239.39 242.2,-1249.19 245.155,-1239.02 238.166,-1239.39"/>
 </g>
 <!-- Node45 -->
 <g id="node45" class="node"><title>Node45</title>
-<g id="a_node45"><a xlink:href="../../df/d58/class_instructions_1_1_integer_1_1_load.xhtml#a77bfe8e83f5a5fe8107780648c7d5ebb" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="25,-392.5 25,-422.5 127,-422.5 127,-392.5 25,-392.5"/>
-<text text-anchor="start" x="33" y="-410.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Integer</text>
-<text text-anchor="middle" x="76" y="-399.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Load::toBytecode</text>
+<g id="a_node45"><a xlink:href="../../d0/d64/class_instructions_1_1_long_1_1_store.xhtml#a6ecd897d761bd2286f536ae72f48c786" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="25.5,-392.5 25.5,-422.5 126.5,-422.5 126.5,-392.5 25.5,-392.5"/>
+<text text-anchor="start" x="33.5" y="-410.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Long</text>
+<text text-anchor="middle" x="76" y="-399.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node45 -->
 <g id="edge44" class="edge"><title>Node1&#45;&gt;Node45</title>
-<path fill="none" stroke="midnightblue" d="M241.846,-1239.28C235.585,-1107.02 204.035,-496.979 152,-432.5 145.622,-424.596 136.664,-419.173 127.151,-415.456"/>
+<path fill="none" stroke="midnightblue" d="M241.846,-1239.28C235.585,-1107.02 204.035,-496.979 152,-432.5 145.535,-424.489 136.421,-419.027 126.765,-415.306"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="238.35,-1239.46 242.314,-1249.28 245.343,-1239.13 238.35,-1239.46"/>
 </g>
 <!-- Node46 -->
 <g id="node46" class="node"><title>Node46</title>
-<g id="a_node46"><a xlink:href="../../df/de0/class_instructions_1_1_misc_1_1_multi_dim_array.xhtml#af1d3f9f5d388e19b807ac12f9f2aa87c" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="6,-343.5 6,-373.5 146,-373.5 146,-343.5 6,-343.5"/>
-<text text-anchor="start" x="14" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="76" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">::MultiDimArray::toBytecode</text>
+<g id="a_node46"><a xlink:href="../../d2/da4/class_instructions_1_1_misc_1_1_new.xhtml#a2087103af39f64239fc3154507eb7276" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="27.5,-343.5 27.5,-373.5 124.5,-373.5 124.5,-343.5 27.5,-343.5"/>
+<text text-anchor="start" x="35.5" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="76" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">::New::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node46 -->
 <g id="edge45" class="edge"><title>Node1&#45;&gt;Node46</title>
-<path fill="none" stroke="midnightblue" d="M242.001,-1239.13C236.388,-1101.91 207.034,-452.117 152,-383.5 148.909,-379.646 145.203,-376.381 141.118,-373.616"/>
+<path fill="none" stroke="midnightblue" d="M242.001,-1239.13C236.388,-1101.91 207.034,-452.117 152,-383.5 145.13,-374.935 135.23,-369.281 124.864,-365.556"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="238.518,-1239.61 242.419,-1249.46 245.512,-1239.33 238.518,-1239.61"/>
 </g>
 <!-- Node47 -->
 <g id="node47" class="node"><title>Node47</title>
-<g id="a_node47"><a xlink:href="../../d2/da4/class_instructions_1_1_misc_1_1_new.xhtml#a2087103af39f64239fc3154507eb7276" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="27.5,-294.5 27.5,-324.5 124.5,-324.5 124.5,-294.5 27.5,-294.5"/>
-<text text-anchor="start" x="35.5" y="-312.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="76" y="-301.5" font-family="Helvetica,sans-Serif" font-size="10.00">::New::toBytecode</text>
+<g id="a_node47"><a xlink:href="../../df/d58/class_instructions_1_1_integer_1_1_load.xhtml#a77bfe8e83f5a5fe8107780648c7d5ebb" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="25,-294.5 25,-324.5 127,-324.5 127,-294.5 25,-294.5"/>
+<text text-anchor="start" x="33" y="-312.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Integer</text>
+<text text-anchor="middle" x="76" y="-301.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Load::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node47 -->
 <g id="edge46" class="edge"><title>Node1&#45;&gt;Node47</title>
-<path fill="none" stroke="midnightblue" d="M242.145,-1239.07C237.16,-1097.2 210.049,-407.278 152,-334.5 145.068,-325.809 135.014,-320.115 124.508,-316.391"/>
+<path fill="none" stroke="midnightblue" d="M242.145,-1239.07C237.16,-1097.2 210.049,-407.278 152,-334.5 145.667,-326.56 136.728,-321.121 127.219,-317.401"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="238.657,-1239.49 242.501,-1249.37 245.653,-1239.25 238.657,-1239.49"/>
 </g>
 <!-- Node48 -->
@@ -678,58 +678,58 @@
 </g>
 <!-- Node49 -->
 <g id="node49" class="node"><title>Node49</title>
-<g id="a_node49"><a xlink:href="../../d8/d87/class_instructions_1_1_integer_1_1_store.xhtml#a789cf7c6ac9d44d46d69708094e8c3ed" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="25,-196.5 25,-226.5 127,-226.5 127,-196.5 25,-196.5"/>
-<text text-anchor="start" x="33" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Integer</text>
-<text text-anchor="middle" x="76" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode</text>
+<g id="a_node49"><a xlink:href="../../d0/d83/class_instructions_1_1_misc_1_1_put_field.xhtml#a27ef5fb941e0533d5bb4d1e1bea94de3" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="19,-196.5 19,-226.5 133,-226.5 133,-196.5 19,-196.5"/>
+<text text-anchor="start" x="27" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="76" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::PutField::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node49 -->
 <g id="edge48" class="edge"><title>Node1&#45;&gt;Node49</title>
-<path fill="none" stroke="midnightblue" d="M242.4,-1239.27C238.617,-1089.18 216.137,-317.678 152,-236.5 145.703,-228.531 136.78,-223.08 127.275,-219.357"/>
+<path fill="none" stroke="midnightblue" d="M242.4,-1239.27C238.617,-1089.18 216.137,-317.678 152,-236.5 147.065,-230.254 140.516,-225.555 133.338,-222.022"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="238.903,-1239.44 242.649,-1249.35 245.901,-1239.26 238.903,-1239.44"/>
 </g>
 <!-- Node50 -->
 <g id="node50" class="node"><title>Node50</title>
-<g id="a_node50"><a xlink:href="../../d0/d83/class_instructions_1_1_misc_1_1_put_field.xhtml#a27ef5fb941e0533d5bb4d1e1bea94de3" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="19,-147.5 19,-177.5 133,-177.5 133,-147.5 19,-147.5"/>
-<text text-anchor="start" x="27" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="76" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::PutField::toBytecode</text>
+<g id="a_node50"><a xlink:href="../../d5/d99/class_instructions_1_1_misc_1_1_put_static.xhtml#aa71832a79fc8385a91576cbe2335a398" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="16.5,-147.5 16.5,-177.5 135.5,-177.5 135.5,-147.5 16.5,-147.5"/>
+<text text-anchor="start" x="24.5" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="76" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::PutStatic::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node50 -->
 <g id="edge49" class="edge"><title>Node1&#45;&gt;Node50</title>
-<path fill="none" stroke="midnightblue" d="M242.503,-1239.06C239.262,-1084.26 219.143,-272.831 152,-187.5 147.077,-181.244 140.536,-176.539 133.361,-173.004"/>
+<path fill="none" stroke="midnightblue" d="M242.503,-1239.06C239.262,-1084.26 219.143,-272.831 152,-187.5 147.587,-181.891 141.872,-177.529 135.566,-174.139"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="239.011,-1239.5 242.715,-1249.42 246.009,-1239.35 239.011,-1239.5"/>
 </g>
 <!-- Node51 -->
 <g id="node51" class="node"><title>Node51</title>
-<g id="a_node51"><a xlink:href="../../d5/d99/class_instructions_1_1_misc_1_1_put_static.xhtml#aa71832a79fc8385a91576cbe2335a398" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="16.5,-98.5 16.5,-128.5 135.5,-128.5 135.5,-98.5 16.5,-98.5"/>
-<text text-anchor="start" x="24.5" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="76" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::PutStatic::toBytecode</text>
+<g id="a_node51"><a xlink:href="../../db/d2e/class_instructions_1_1_misc_1_1_ret.xhtml#a3810b2bc66284d325517b41ae4ee3fb6" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="29,-98.5 29,-128.5 123,-128.5 123,-98.5 29,-98.5"/>
+<text text-anchor="start" x="37" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
+<text text-anchor="middle" x="76" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Ret::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node51 -->
 <g id="edge50" class="edge"><title>Node1&#45;&gt;Node51</title>
-<path fill="none" stroke="midnightblue" d="M242.599,-1238.89C239.885,-1079.57 222.157,-227.998 152,-138.5 147.597,-132.883 141.888,-128.516 135.586,-125.124"/>
+<path fill="none" stroke="midnightblue" d="M242.599,-1238.89C239.885,-1079.57 222.157,-227.998 152,-138.5 144.803,-129.318 134.116,-123.478 123.052,-119.772"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="239.103,-1239.2 242.769,-1249.14 246.102,-1239.09 239.103,-1239.2"/>
 </g>
 <!-- Node52 -->
 <g id="node52" class="node"><title>Node52</title>
-<g id="a_node52"><a xlink:href="../../db/d2e/class_instructions_1_1_misc_1_1_ret.xhtml#a3810b2bc66284d325517b41ae4ee3fb6" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="29,-49.5 29,-79.5 123,-79.5 123,-49.5 29,-49.5"/>
-<text text-anchor="start" x="37" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Misc</text>
-<text text-anchor="middle" x="76" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Ret::toBytecode</text>
+<g id="a_node52"><a xlink:href="../../d8/d87/class_instructions_1_1_integer_1_1_store.xhtml#a789cf7c6ac9d44d46d69708094e8c3ed" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="25,-49.5 25,-79.5 127,-79.5 127,-49.5 25,-49.5"/>
+<text text-anchor="start" x="33" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Instructions::Integer</text>
+<text text-anchor="middle" x="76" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Store::toBytecode</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node52 -->
 <g id="edge51" class="edge"><title>Node1&#45;&gt;Node52</title>
-<path fill="none" stroke="midnightblue" d="M242.695,-1239.31C240.521,-1077.07 225.262,-183.281 152,-89.5 144.818,-80.3064 134.137,-74.4618 123.072,-70.7558"/>
+<path fill="none" stroke="midnightblue" d="M242.695,-1239.31C240.521,-1077.07 225.262,-183.281 152,-89.5 145.747,-81.4961 136.843,-76.0306 127.342,-72.3046"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="239.196,-1239.36 242.825,-1249.31 246.195,-1239.27 239.196,-1239.36"/>
 </g>
 <!-- Node53 -->

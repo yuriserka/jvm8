@@ -32,16 +32,16 @@ class BaseFloat : public Instruction {
 class ToDouble : public BaseFloat {
  public:
   ToDouble() : BaseFloat(Opcodes::kF2D) {}
-/**
- * @brief Convert float to double
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Convert float to double
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -51,16 +51,16 @@ class ToDouble : public BaseFloat {
 class ToInteger : public BaseFloat {
  public:
   ToInteger() : BaseFloat(Opcodes::kF2I) {}
-/**
- * @brief Convert float to integer
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Convert float to integer
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -70,16 +70,16 @@ class ToInteger : public BaseFloat {
 class ToLong : public BaseFloat {
  public:
   ToLong() : BaseFloat(Opcodes::kF2L) {}
-/**
- * @brief Convert float to long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Convert float to long
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -89,16 +89,16 @@ class ToLong : public BaseFloat {
 class Add : public BaseFloat {
  public:
   Add() : BaseFloat(Opcodes::kFADD) {}
-/**
- * @brief Add float
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Add float
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -108,16 +108,16 @@ class Add : public BaseFloat {
 class LoadFromArray : public BaseFloat {
  public:
   LoadFromArray() : BaseFloat(Opcodes::kFALOAD) {}
-/**
- * @brief Load float from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load float from local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -127,16 +127,16 @@ class LoadFromArray : public BaseFloat {
 class StoreIntoArray : public BaseFloat {
  public:
   StoreIntoArray() : BaseFloat(Opcodes::kFASTORE) {}
-/**
- * @brief Store float into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store float into local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -146,16 +146,16 @@ class StoreIntoArray : public BaseFloat {
 class CompareGreater : public BaseFloat {
  public:
   CompareGreater() : BaseFloat(Opcodes::kFCMPG) {}
-/**
- * @brief Compare float (val1 > val2)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Compare float (val1 > val2)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -165,16 +165,16 @@ class CompareGreater : public BaseFloat {
 class CompareLess : public BaseFloat {
  public:
   CompareLess() : BaseFloat(Opcodes::kFCMPL) {}
-/**
- * @brief Compare float (val1 < val2)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Compare float (val1 < val2)
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -184,16 +184,16 @@ class CompareLess : public BaseFloat {
 class Const_0 : public BaseFloat {
  public:
   Const_0() : BaseFloat(Opcodes::kFCONST_0) {}
-/**
- * @brief Push float
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Push float
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -203,16 +203,16 @@ class Const_0 : public BaseFloat {
 class Const_1 : public BaseFloat {
  public:
   Const_1() : BaseFloat(Opcodes::kFCONST_1) {}
-/**
- * @brief Push float
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Push float
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -222,16 +222,16 @@ class Const_1 : public BaseFloat {
 class Const_2 : public BaseFloat {
  public:
   Const_2() : BaseFloat(Opcodes::kFCONST_2) {}
-/**
- * @brief Push float
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Push float
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -241,16 +241,16 @@ class Const_2 : public BaseFloat {
 class Div : public BaseFloat {
  public:
   Div() : BaseFloat(Opcodes::kFDIV) {}
-/**
- * @brief Divide float
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Divide float
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -291,16 +291,16 @@ class Load : public Instruction {
     *delta_code = 1;
     return {Utils::String::toString(int{index})};
   }
-/**
- * @brief Load float from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load float from local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -310,16 +310,16 @@ class Load : public Instruction {
 class Load_0 : public BaseFloat {
  public:
   Load_0() : BaseFloat(Opcodes::kFLOAD_0) {}
-/**
- * @brief Load float from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load float from local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -329,16 +329,16 @@ class Load_0 : public BaseFloat {
 class Load_1 : public BaseFloat {
  public:
   Load_1() : BaseFloat(Opcodes::kFLOAD_1) {}
-/**
- * @brief Load float from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load float from local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -348,16 +348,16 @@ class Load_1 : public BaseFloat {
 class Load_2 : public BaseFloat {
  public:
   Load_2() : BaseFloat(Opcodes::kFLOAD_2) {}
-/**
- * @brief Load float from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load float from local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -367,16 +367,16 @@ class Load_2 : public BaseFloat {
 class Load_3 : public BaseFloat {
  public:
   Load_3() : BaseFloat(Opcodes::kFLOAD_3) {}
-/**
- * @brief Load float from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Load float from local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -386,16 +386,16 @@ class Load_3 : public BaseFloat {
 class Mul : public BaseFloat {
  public:
   Mul() : BaseFloat(Opcodes::kFMUL) {}
-/**
- * @brief Multiply float
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Multiply float
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -405,16 +405,16 @@ class Mul : public BaseFloat {
 class Neg : public BaseFloat {
  public:
   Neg() : BaseFloat(Opcodes::kFNEG) {}
-/**
- * @brief Negate float
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Negate float
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -424,16 +424,16 @@ class Neg : public BaseFloat {
 class Rem : public BaseFloat {
  public:
   Rem() : BaseFloat(Opcodes::kFREM) {}
-/**
- * @brief Remainder float
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Remainder float
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -443,16 +443,16 @@ class Rem : public BaseFloat {
 class Return : public BaseFloat {
  public:
   Return() : BaseFloat(Opcodes::kFRETURN) {}
-/**
- * @brief Return float from method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Return float from method
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -493,16 +493,16 @@ class Store : public Instruction {
     *delta_code = 1;
     return {Utils::String::toString(int{index})};
   }
-/**
- * @brief Store float into local variable 
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store float into local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -512,16 +512,16 @@ class Store : public Instruction {
 class Store_0 : public BaseFloat {
  public:
   Store_0() : BaseFloat(Opcodes::kFSTORE_0) {}
-/**
- * @brief Store float into local variable 
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store float into local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -531,16 +531,16 @@ class Store_0 : public BaseFloat {
 class Store_1 : public BaseFloat {
  public:
   Store_1() : BaseFloat(Opcodes::kFSTORE_1) {}
-/**
- * @brief Store float into local variable 
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store float into local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -550,16 +550,16 @@ class Store_1 : public BaseFloat {
 class Store_2 : public BaseFloat {
  public:
   Store_2() : BaseFloat(Opcodes::kFSTORE_2) {}
-/**
- * @brief Store float into local variable 
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store float into local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -569,16 +569,16 @@ class Store_2 : public BaseFloat {
 class Store_3 : public BaseFloat {
  public:
   Store_3() : BaseFloat(Opcodes::kFSTORE_3) {}
-/**
- * @brief Store float into local variable 
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Store float into local variable
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -588,16 +588,16 @@ class Store_3 : public BaseFloat {
 class Sub : public BaseFloat {
  public:
   Sub() : BaseFloat(Opcodes::kFSUB) {}
-/**
- * @brief Subtract float
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+  /**
+   * @brief Subtract float
+   *
+   * @param code_iterator
+   * @param th
+   * @param delta_code
+   * @param wide
+   * @param pc
+   * @return std::vector<int>
+   */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,

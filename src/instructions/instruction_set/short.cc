@@ -7,20 +7,6 @@
 
 namespace Instructions {
 namespace Short {
-<<<<<<< HEAD
-
-=======
-/**
- * @brief Load short from array
- *
- * @param code_iterator
- * @param th
- * @param delta_code
- * @param wide
- * @param pc
- * @return std::vector<int>
- */
->>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> LoadFromArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -34,20 +20,6 @@ std::vector<int> LoadFromArray::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
-<<<<<<< HEAD
-
-=======
-/**
- * @brief Store short into array
- *
- * @param code_iterator
- * @param th
- * @param delta_code
- * @param wide
- * @param pc
- * @return std::vector<int>
- */
->>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> StoreIntoArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -62,20 +34,6 @@ std::vector<int> StoreIntoArray::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
-<<<<<<< HEAD
-
-=======
-/**
- * @brief push short
- *
- * @param code_iterator
- * @param th
- * @param delta_code
- * @param wide
- * @param pc
- * @return std::vector<int>
- */
->>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Push::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
