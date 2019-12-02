@@ -10,16 +10,7 @@
 namespace Instructions {
     <<<<<<< Updated upstream
         namespace Reference {
-        /**
-         * @brief Load reference from array
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> LoadFromArray::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -33,16 +24,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Store into reference array
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> StoreIntoArray::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -57,16 +39,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Push null
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> ConstNull::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -77,16 +50,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Load reference from local variable
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> Load::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -107,16 +71,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Load reference from local variable
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> Load_0::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -128,16 +83,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Load reference from local variable
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> Load_1::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -149,16 +95,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Load reference from local variable
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> Load_2::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -170,16 +107,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Load reference from local variable
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> Load_3::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -191,16 +119,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Create new array of reference
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> NewArray::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -228,16 +147,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Return reference from method
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> Return::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -250,16 +160,7 @@ namespace Instructions {
             return {1};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Get length of array
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> ArrayLength::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -273,16 +174,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Store reference into local variable
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> Store::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -304,16 +196,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Store reference into local variable
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> Store_0::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -325,16 +208,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Store reference into local variable
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> Store_1::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -346,16 +220,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Store reference into local variable
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> Store_2::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -367,16 +232,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Store reference into local variable
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> Store_3::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -388,16 +244,7 @@ namespace Instructions {
             return {};
         }
         // ----------------------------------------------------------------------------
-        /**
-         * @brief Throw exception or error
-         * 
-         * @param code_iterator 
-         * @param th 
-         * @param delta_code 
-         * @param wide 
-         * @param pc 
-         * @return std::vector<int> 
-         */
+        
         std::vector<int> Throw::execute(
             std::vector<Utils::Types::u1>::iterator *code_iterator,
             MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {

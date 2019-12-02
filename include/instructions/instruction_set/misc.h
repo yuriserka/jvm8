@@ -52,7 +52,16 @@ class Checkcast : public Instruction {
     *delta_code = 2;
     return {};
   }
-
+/**
+ * @brief Check whether object is of given type
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -62,7 +71,16 @@ class Checkcast : public Instruction {
 class Dup : public BaseMisc {
  public:
   Dup() : BaseMisc(Opcodes::kDUP) {}
-
+/**
+ * @brief Duplicate the top operand stack value
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -72,7 +90,16 @@ class Dup : public BaseMisc {
 class DupX1 : public BaseMisc {
  public:
   DupX1() : BaseMisc(Opcodes::kDUP_X1) {}
-
+/**
+ * @brief Duplicate the top operand stack value and insert two values down
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -82,7 +109,16 @@ class DupX1 : public BaseMisc {
 class DupX2 : public BaseMisc {
  public:
   DupX2() : BaseMisc(Opcodes::kDUP_X2) {}
-
+/**
+ * @brief Duplicate the top operand stack value and insert two or three values down
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -92,7 +128,16 @@ class DupX2 : public BaseMisc {
 class Dup2 : public BaseMisc {
  public:
   Dup2() : BaseMisc(Opcodes::kDUP2) {}
-
+/**
+ * @brief Duplicate the top one or two operand stack values
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -102,7 +147,16 @@ class Dup2 : public BaseMisc {
 class Dup2X1 : public BaseMisc {
  public:
   Dup2X1() : BaseMisc(Opcodes::kDUP2_X1) {}
-
+/**
+ * @brief Duplicate the top one or two operand stack values and insert two or three values down
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -112,7 +166,16 @@ class Dup2X1 : public BaseMisc {
 class Dup2X2 : public BaseMisc {
  public:
   Dup2X2() : BaseMisc(Opcodes::kDUP2_X2) {}
-
+/**
+ * @brief Duplicate the top one or two operand stack values and insert two, three, or four values down
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -140,7 +203,16 @@ class GetField : public Instruction {
     *delta_code = 2;
     return {};
   }
-
+/**
+ * @brief Fetch field from object
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -168,7 +240,16 @@ class GetStatic : public Instruction {
     *delta_code = 2;
     return {};
   }
-
+/**
+ * @brief Get static field from class
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -198,7 +279,16 @@ class Goto : public Instruction {
     *delta_code = 2;
     return {Utils::String::toString(offset)};
   }
-
+/**
+ * @brief Branch always
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -229,7 +319,16 @@ class GotoWide : public Instruction {
     *delta_code = 4;
     return {Utils::String::toString(offset)};
   }
-
+/**
+ * @brief Branch always(wide index)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -257,7 +356,16 @@ class InstanceOf : public Instruction {
     *ret = (*++*code_it << 8) | *++*code_it;
     *delta_code = 2;
   }
-
+/**
+ * @brief Determine if object is of given type
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -343,7 +451,16 @@ class LookupSwitch : public Instruction {
 
     return args;
   }
-
+/**
+ * @brief Access jump table by key match and jump
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -372,7 +489,16 @@ class MultiDimArray : public Instruction {
     *delta_code = 3;
     return {Utils::String::toString(+(*++*code_it))};
   }
-
+/**
+ * @brief Create new multidimensional array
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -400,7 +526,16 @@ class New : public Instruction {
     *delta_code = 2;
     return {};
   }
-
+/**
+ * @brief Create new object
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -429,7 +564,16 @@ class NewArray : public Instruction {
     *delta_code = 1;
     return {Utils::String::toString(int{atype})};
   }
-
+/**
+ * @brief Create new array
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -473,7 +617,16 @@ class NewArray : public Instruction {
 class Nop : public BaseMisc {
  public:
   Nop() : BaseMisc(Opcodes::kNOP) {}
-
+/**
+ * @brief Do nothing
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -483,7 +636,16 @@ class Nop : public BaseMisc {
 class Pop : public BaseMisc {
  public:
   Pop() : BaseMisc(Opcodes::kPOP) {}
-
+/**
+ * @brief Pop the top operand stack value
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -493,7 +655,16 @@ class Pop : public BaseMisc {
 class Pop2 : public BaseMisc {
  public:
   Pop2() : BaseMisc(Opcodes::kPOP2) {}
-
+/**
+ * @brief Pop the top one or two operand stack values
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -521,7 +692,16 @@ class PutField : public Instruction {
     *delta_code = 2;
     return {};
   }
-
+/**
+ * @brief Set field in object
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -549,7 +729,16 @@ class PutStatic : public Instruction {
     *delta_code = 2;
     return {};
   }
-
+/**
+ * @brief Set static field in class
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -590,7 +779,16 @@ class Ret : public Instruction {
     *delta_code = 1;
     return {Utils::String::toString(int{index})};
   }
-
+/**
+ * @brief Return from subroutine
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -600,7 +798,16 @@ class Ret : public Instruction {
 class Return : public BaseMisc {
  public:
   Return() : BaseMisc(Opcodes::kRETURN) {}
-
+/**
+ * @brief Return void from method
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -610,7 +817,16 @@ class Return : public BaseMisc {
 class Swap : public BaseMisc {
  public:
   Swap() : BaseMisc(Opcodes::kSWAP) {}
-
+/**
+ * @brief Swap the top two operand stack values
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -694,7 +910,16 @@ class TableSwitch : public Instruction {
 
     return args;
   }
-
+/**
+ * @brief Access jump table by index and jump
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -707,7 +932,16 @@ class TableSwitch : public Instruction {
 class Wide : public BaseMisc {
  public:
   Wide() : BaseMisc(Opcodes::kWIDE) {}
-
+/**
+ * @brief Extend local variable index by additional bytes
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,

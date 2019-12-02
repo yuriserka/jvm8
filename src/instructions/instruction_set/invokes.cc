@@ -11,16 +11,7 @@
 
 namespace Instructions {
 namespace Invokes {
-/**
- * @brief Invoke dynamic method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+
 std::vector<int> Dynamic::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -30,16 +21,7 @@ std::vector<int> Dynamic::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
-/**
- * @brief Invoke interface method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+
 std::vector<int> Interface::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -49,16 +31,7 @@ std::vector<int> Interface::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
-/**
- * @brief Invoke especial method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+
 std::vector<int> Especial::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -105,16 +78,7 @@ std::vector<int> Especial::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
-/**
- * @brief Invoke static method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+
 std::vector<int> Static::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -231,16 +195,7 @@ static void append_handler(MemoryAreas::Thread *th,
   th->current_frame->pushOperand(objectref);
 }
 
-/**
- * @brief Invoke virtual method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+
 std::vector<int> Virtual::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {

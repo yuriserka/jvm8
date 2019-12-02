@@ -8,16 +8,7 @@ namespace Instructions {
 // It is only allowed in version 49.0 or earlier classfiles, corresponding
 // to Java 5 or earlier. In practice, it fell out of use long before that.
 namespace Jump {
-/**
- * @brief Jump subroutine
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+
 std::vector<int> JumpSubRoutine::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -29,16 +20,7 @@ std::vector<int> JumpSubRoutine::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
-/**
- * @brief Jump subroutine(wide)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
- */
+
 std::vector<int> JumpSubRoutineWide::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
