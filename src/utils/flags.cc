@@ -57,6 +57,14 @@ void toggleAll(const char **flags) {
 #endif
 
   for (; *flags;) {
+    if (!strcmp(*flags, "--args")) {
+      ++flags;
+      for (; *flags; ++flags) {
+        options.kJVM_ARGS =
+            options.kJVM_ARGS.append(*flags).append(*(flags + 1) ? " " : "");
+      }
+      break;
+    }
     toggle(*flags++);
   }
 }

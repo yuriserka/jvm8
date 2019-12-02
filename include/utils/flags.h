@@ -14,6 +14,7 @@ struct Options {
   } KMODE;
   std::string kFILE;
   std::string kPATH;
+  std::string kJVM_ARGS;
 };
 
 namespace Utils {

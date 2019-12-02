@@ -4,21 +4,41 @@ repositório com o fim de fazer a JVM 8.
 
 ## Oracle Documentation
 
-Documentação da Oracle disponível em: [Java SE 8](https://docs.oracle.com/javase/specs/jvms/se8/html/index.html)
+Oracle documentation avaible at: [Java SE 8](https://docs.oracle.com/javase/specs/jvms/se8/html/index.html)
 
 ## Usage
 
 #### Linux:
 `make clean && make`
 
-`./jvm.out interpreter ./classes/ anon.class`
+`make && ./jvm.out {viewer, interpreter} <PATH> <FILE> [options]* [--args] [arguments]*`
 
 #### Windows:
 `mingw32-make.exe clean`
 
 `mingw32-make.exe`
 
-`.\jvm.exe viewer .\classes\ .\.classes\Anon.class -json`
+`make && .\jvm.exe {viewer, interpreter} <PATH> <FILE> [options]* [--args] [arguments]*`
+
+## Avaible Command Line Options
+
+### PATH
+path to the program search for class files
+
+### FILE
+the actual class file to be executed by jvm
+
+### arguments
+list of parameters to be passed to the interpreter, i.e. to the main method
+
+### Options
+ - **-d, -debug**: interpreter flag, shows what instruction is being executed and the actual PC
+
+ - **-json**: viewer flag, generates a json file that represents the structure of .class file passed
+
+ - **-v, -verbose**: both modes flag, shows what is executing during program
+
+ - **-i, -ignore**: no use
 
 ## Debugging
 
@@ -26,7 +46,7 @@ Make sure you have GDB installed.
 
 Compile the program normally according to your operating system.
 
-`gdb --args ./jvm.out viewer ./classes/ ./classes/Caixa.class`
+`gdb --args make && ./jvm.out {viewer, interpreter} <PATH> <FILE> [options]* [--args] [arguments]*`
 
 #### Basic commands
 consult the commands: [GDB Command Line Arguments](http://www.yolinux.com/TUTORIALS/GDB-Commands.html)
@@ -38,7 +58,7 @@ Make sure you have valgrind installed.
 
 Compile the program normally according to your operating system.
 
-```make && valgrind -v --leak-check=full --track-origins=yes --show-leak-kinds=all ./jvm.out interpreter ./classes/ anon.class```
+```make && valgrind -v --leak-check=full --track-origins=yes --show-leak-kinds=all make && ./jvm.out {viewer, interpreter} <PATH> <FILE> [options]* [--args] [arguments]*```
 
 ## Code style reference
 [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)

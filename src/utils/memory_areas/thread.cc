@@ -52,6 +52,16 @@ void Thread::executeMethod(const std::string &method_name,
     this->storeArguments(descriptor.substr(descriptor.find_first_of('(') + 1,
                                            descriptor.find_last_of(')') - 1),
                          newf, popObjectRef);
+  } else {
+    auto args = Utils::String::split(Utils::Flags::options.kJVM_ARGS, ' ');
+    auto main_args =
+        new Utils::Array_t(args.size(), Utils::Reference::kREF_STRING);
+    auto this_obj =
+        new Utils::Object(main_args, Utils::getClassName(this->current_class));
+    for (size_t i = 0; i < args.size(); ++i) {
+      main_args->insert(new Utils::Object(args[i], "java/lang/String"), i);
+    }
+    newf->pushLocalVar(this->heap->pushReference(this_obj), 0);
   }
   this->current_frame = newf;
   this->jvm_stack.push(this->current_frame);
