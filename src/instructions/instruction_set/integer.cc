@@ -7,6 +7,9 @@
 
 namespace Instructions {
 namespace Integer {
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Convert int to byte
  *
@@ -17,6 +20,7 @@ namespace Integer {
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> ToByte::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -28,6 +32,9 @@ std::vector<int> ToByte::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Convert int to char
  *
@@ -38,6 +45,7 @@ std::vector<int> ToByte::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> ToChar::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -49,6 +57,9 @@ std::vector<int> ToChar::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Convert int to double
  *
@@ -59,6 +70,7 @@ std::vector<int> ToChar::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> ToDouble::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -70,6 +82,9 @@ std::vector<int> ToDouble::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Convert int to float
  *
@@ -80,6 +95,7 @@ std::vector<int> ToDouble::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> ToFloat::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -91,6 +107,9 @@ std::vector<int> ToFloat::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Convert int to long
  *
@@ -101,6 +120,7 @@ std::vector<int> ToFloat::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> ToLong::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -112,6 +132,9 @@ std::vector<int> ToLong::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Convert int to short
  *
@@ -122,6 +145,7 @@ std::vector<int> ToLong::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> ToShort::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -133,6 +157,9 @@ std::vector<int> ToShort::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Add int
  *
@@ -143,6 +170,7 @@ std::vector<int> ToShort::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Add::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -155,6 +183,9 @@ std::vector<int> Add::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Load int from local variable
  *
@@ -165,6 +196,7 @@ std::vector<int> Add::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> LoadFromArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -178,6 +210,9 @@ std::vector<int> LoadFromArray::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Boolean AND int
  *
@@ -188,6 +223,7 @@ std::vector<int> LoadFromArray::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> And::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -200,6 +236,9 @@ std::vector<int> And::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Store int into local variable
  *
@@ -210,6 +249,7 @@ std::vector<int> And::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> StoreIntoArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -224,6 +264,9 @@ std::vector<int> StoreIntoArray::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Push int constant
  *
@@ -234,6 +277,7 @@ std::vector<int> StoreIntoArray::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Const_m1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -244,6 +288,9 @@ std::vector<int> Const_m1::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Push int constant
  *
@@ -254,6 +301,7 @@ std::vector<int> Const_m1::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Const_0::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -264,6 +312,9 @@ std::vector<int> Const_0::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Push int constant
  *
@@ -274,6 +325,7 @@ std::vector<int> Const_0::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Const_1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -284,6 +336,9 @@ std::vector<int> Const_1::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Push int constant
  *
@@ -294,6 +349,7 @@ std::vector<int> Const_1::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Const_2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -304,6 +360,9 @@ std::vector<int> Const_2::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Push int constant
  *
@@ -314,6 +373,7 @@ std::vector<int> Const_2::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Const_3::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -324,6 +384,9 @@ std::vector<int> Const_3::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Push int constant
  *
@@ -334,6 +397,7 @@ std::vector<int> Const_3::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Const_4::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -344,6 +408,9 @@ std::vector<int> Const_4::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Push int constant
  *
@@ -354,6 +421,7 @@ std::vector<int> Const_4::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Const_5::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -364,6 +432,9 @@ std::vector<int> Const_5::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Divide int
  *
@@ -374,6 +445,7 @@ std::vector<int> Const_5::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Div::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -386,6 +458,9 @@ std::vector<int> Div::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Increment local variable by constant
  *
@@ -396,6 +471,7 @@ std::vector<int> Div::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Inc::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -418,6 +494,9 @@ std::vector<int> Inc::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Load int from local variable
  *
@@ -428,6 +507,7 @@ std::vector<int> Inc::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Load::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -448,6 +528,9 @@ std::vector<int> Load::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Load int from local variable
  *
@@ -458,6 +541,7 @@ std::vector<int> Load::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Load_0::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -468,6 +552,9 @@ std::vector<int> Load_0::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Load int from local variable
  *
@@ -478,6 +565,7 @@ std::vector<int> Load_0::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Load_1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -488,6 +576,9 @@ std::vector<int> Load_1::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Load int from local variable
  *
@@ -498,6 +589,7 @@ std::vector<int> Load_1::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Load_2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -508,6 +600,9 @@ std::vector<int> Load_2::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Load int from local variable
  *
@@ -518,6 +613,7 @@ std::vector<int> Load_2::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Load_3::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -528,6 +624,9 @@ std::vector<int> Load_3::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Multiply int
  *
@@ -538,6 +637,7 @@ std::vector<int> Load_3::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Mul::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -550,6 +650,9 @@ std::vector<int> Mul::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Negate int
  *
@@ -560,6 +663,7 @@ std::vector<int> Mul::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Neg::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -571,6 +675,9 @@ std::vector<int> Neg::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Boolean OR int
  *
@@ -581,6 +688,7 @@ std::vector<int> Neg::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Or::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -593,6 +701,9 @@ std::vector<int> Or::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Remaind int
  *
@@ -603,6 +714,7 @@ std::vector<int> Or::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Rem::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -615,6 +727,9 @@ std::vector<int> Rem::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Return int from method
  *
@@ -625,6 +740,7 @@ std::vector<int> Rem::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Return::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -637,6 +753,9 @@ std::vector<int> Return::execute(
   return {1};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Shift left int
  *
@@ -647,6 +766,7 @@ std::vector<int> Return::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> ShiftLeft::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -659,6 +779,9 @@ std::vector<int> ShiftLeft::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Arithmetic shift right int
  *
@@ -669,6 +792,7 @@ std::vector<int> ShiftLeft::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> ArithmeticShiftRight::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -681,6 +805,9 @@ std::vector<int> ArithmeticShiftRight::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Store int into local variable
  *
@@ -691,6 +818,7 @@ std::vector<int> ArithmeticShiftRight::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Store::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -711,6 +839,9 @@ std::vector<int> Store::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Store int into local variable
  *
@@ -721,6 +852,7 @@ std::vector<int> Store::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Store_0::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -732,6 +864,9 @@ std::vector<int> Store_0::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Store int into local variable
  *
@@ -742,6 +877,7 @@ std::vector<int> Store_0::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Store_1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -753,6 +889,9 @@ std::vector<int> Store_1::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Store int into local variable
  *
@@ -763,6 +902,7 @@ std::vector<int> Store_1::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Store_2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -774,6 +914,9 @@ std::vector<int> Store_2::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Store int into local variable
  *
@@ -784,6 +927,7 @@ std::vector<int> Store_2::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Store_3::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -795,6 +939,9 @@ std::vector<int> Store_3::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Subtract int
  *
@@ -805,6 +952,7 @@ std::vector<int> Store_3::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Sub::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -817,6 +965,9 @@ std::vector<int> Sub::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Logical shift right int
  *
@@ -827,6 +978,7 @@ std::vector<int> Sub::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> LogicalShiftRight::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -845,6 +997,9 @@ std::vector<int> LogicalShiftRight::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Boolean XOR int
  *
@@ -855,6 +1010,7 @@ std::vector<int> LogicalShiftRight::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Xor::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {

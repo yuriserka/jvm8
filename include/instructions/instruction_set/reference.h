@@ -32,7 +32,16 @@ class BaseReference : public Instruction {
 class LoadFromArray : public BaseReference {
  public:
   LoadFromArray() : BaseReference(Opcodes::kAALOAD) {}
-
+/**
+         * @brief Load reference from array
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -42,7 +51,16 @@ class LoadFromArray : public BaseReference {
 class StoreIntoArray : public BaseReference {
  public:
   StoreIntoArray() : BaseReference(Opcodes::kAASTORE) {}
-
+/**
+         * @brief Store into reference array
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -52,7 +70,16 @@ class StoreIntoArray : public BaseReference {
 class ConstNull : public BaseReference {
  public:
   ConstNull() : BaseReference(Opcodes::kACONST_NULL) {}
-
+/**
+         * @brief Push null
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -93,7 +120,16 @@ class Load : public Instruction {
     *delta_code = 1;
     return {Utils::String::toString(+index)};
   }
-
+/**
+         * @brief Load reference from local variable
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -103,7 +139,16 @@ class Load : public Instruction {
 class Load_0 : public BaseReference {
  public:
   Load_0() : BaseReference(Opcodes::kALOAD_0) {}
-
+/**
+         * @brief Load reference from local variable
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -113,7 +158,16 @@ class Load_0 : public BaseReference {
 class Load_1 : public BaseReference {
  public:
   Load_1() : BaseReference(Opcodes::kALOAD_1) {}
-
+/**
+         * @brief Load reference from local variable
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -123,7 +177,16 @@ class Load_1 : public BaseReference {
 class Load_2 : public BaseReference {
  public:
   Load_2() : BaseReference(Opcodes::kALOAD_2) {}
-
+/**
+         * @brief Load reference from local variable
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -133,7 +196,16 @@ class Load_2 : public BaseReference {
 class Load_3 : public BaseReference {
  public:
   Load_3() : BaseReference(Opcodes::kALOAD_3) {}
-
+/**
+         * @brief Load reference from local variable
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -161,7 +233,16 @@ class NewArray : public Instruction {
     *delta_code = 2;
     return {};
   }
-
+/**
+         * @brief Create new array of reference
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -171,7 +252,16 @@ class NewArray : public Instruction {
 class Return : public BaseReference {
  public:
   Return() : BaseReference(Opcodes::kARETURN) {}
-
+/**
+         * @brief Return reference from method
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -181,7 +271,16 @@ class Return : public BaseReference {
 class ArrayLength : public BaseReference {
  public:
   ArrayLength() : BaseReference(Opcodes::kARRAYLENGTH) {}
-
+/**
+         * @brief Get length of array
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -222,7 +321,16 @@ class Store : public Instruction {
     *delta_code = 1;
     return {Utils::String::toString(int{index})};
   }
-
+/**
+         * @brief Store reference into local variable
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -232,7 +340,16 @@ class Store : public Instruction {
 class Store_0 : public BaseReference {
  public:
   Store_0() : BaseReference(Opcodes::kASTORE_0) {}
-
+/**
+         * @brief Store reference into local variable
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -242,7 +359,16 @@ class Store_0 : public BaseReference {
 class Store_1 : public BaseReference {
  public:
   Store_1() : BaseReference(Opcodes::kASTORE_1) {}
-
+/**
+         * @brief Store reference into local variable
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -252,7 +378,16 @@ class Store_1 : public BaseReference {
 class Store_2 : public BaseReference {
  public:
   Store_2() : BaseReference(Opcodes::kASTORE_2) {}
-
+/**
+         * @brief Store reference into local variable
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -262,7 +397,16 @@ class Store_2 : public BaseReference {
 class Store_3 : public BaseReference {
  public:
   Store_3() : BaseReference(Opcodes::kASTORE_3) {}
-
+/**
+         * @brief Store reference into local variable
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -272,7 +416,16 @@ class Store_3 : public BaseReference {
 class Throw : public BaseReference {
  public:
   Throw() : BaseReference(Opcodes::kATHROW) {}
-
+/**
+         * @brief Throw exception or error
+         * 
+         * @param code_iterator 
+         * @param th 
+         * @param delta_code 
+         * @param wide 
+         * @param pc 
+         * @return std::vector<int> 
+         */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,

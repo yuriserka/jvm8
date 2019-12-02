@@ -10,6 +10,9 @@
 
 namespace Instructions {
 namespace ConstantPool {
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Push item from run-time constant pool (cat1)
  *
@@ -20,6 +23,7 @@ namespace ConstantPool {
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> LoadCat1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -67,6 +71,9 @@ std::vector<int> LoadCat1::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Push item from run-time constant pool (wide)
  *
@@ -77,6 +84,7 @@ std::vector<int> LoadCat1::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> LoadCat1Wide::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -124,6 +132,9 @@ std::vector<int> LoadCat1Wide::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Push item from run-time constant pool (cat2)
  *
@@ -134,6 +145,7 @@ std::vector<int> LoadCat1Wide::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> LoadCat2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {

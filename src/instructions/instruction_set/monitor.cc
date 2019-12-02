@@ -6,6 +6,9 @@
 
 namespace Instructions {
 namespace Monitor {
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Enter monitor for object
  *
@@ -16,6 +19,7 @@ namespace Monitor {
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Enter::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {
@@ -26,6 +30,9 @@ std::vector<int> Enter::execute(
   return {};
 }
 // ----------------------------------------------------------------------------
+<<<<<<< HEAD
+
+=======
 /**
  * @brief Exit monitor for object
  *
@@ -36,6 +43,7 @@ std::vector<int> Enter::execute(
  * @param pc
  * @return std::vector<int>
  */
+>>>>>>> b4932eb9aa6dba2be0f886d377ced60ee4c2895c
 std::vector<int> Exit::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
     MemoryAreas::Thread *th, int *delta_code, const bool &wide, int *pc) {

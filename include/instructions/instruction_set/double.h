@@ -33,7 +33,16 @@ class BaseDouble : public Instruction {
 class ToFloat : public BaseDouble {
  public:
   ToFloat() : BaseDouble(Opcodes::kD2F) {}
-
+/**
+ * @brief Convert double to float
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -43,7 +52,16 @@ class ToFloat : public BaseDouble {
 class ToInteger : public BaseDouble {
  public:
   ToInteger() : BaseDouble(Opcodes::kD2I) {}
-
+/**
+ * @brief Convert double to integer
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -53,7 +71,16 @@ class ToInteger : public BaseDouble {
 class ToLong : public BaseDouble {
  public:
   ToLong() : BaseDouble(Opcodes::kD2L) {}
-
+/**
+ * @brief Convert double to long
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -63,7 +90,16 @@ class ToLong : public BaseDouble {
 class Add : public BaseDouble {
  public:
   Add() : BaseDouble(Opcodes::kDADD) {}
-
+/**
+ * @brief Add double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -73,7 +109,16 @@ class Add : public BaseDouble {
 class LoadFromArray : public BaseDouble {
  public:
   LoadFromArray() : BaseDouble(Opcodes::kDALOAD) {}
-
+/**
+ * @brief Load double from array
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -83,7 +128,16 @@ class LoadFromArray : public BaseDouble {
 class StoreIntoArray : public BaseDouble {
  public:
   StoreIntoArray() : BaseDouble(Opcodes::kDASTORE) {}
-
+/**
+ * @brief Store double into local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -93,7 +147,16 @@ class StoreIntoArray : public BaseDouble {
 class CompareGreater : public BaseDouble {
  public:
   CompareGreater() : BaseDouble(Opcodes::kDCMPG) {}
-
+/**
+ * @brief Compare double (val1 > val2)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -103,7 +166,16 @@ class CompareGreater : public BaseDouble {
 class CompareLess : public BaseDouble {
  public:
   CompareLess() : BaseDouble(Opcodes::kDCMPL) {}
-
+/**
+ * @brief Compare double (val1 < val2)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -113,7 +185,16 @@ class CompareLess : public BaseDouble {
 class Const_0 : public BaseDouble {
  public:
   Const_0() : BaseDouble(Opcodes::kDCONST_0) {}
-
+/**
+ * @brief Push double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -123,7 +204,16 @@ class Const_0 : public BaseDouble {
 class Const_1 : public BaseDouble {
  public:
   Const_1() : BaseDouble(Opcodes::kDCONST_1) {}
-
+/**
+ * @brief Push double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -133,7 +223,16 @@ class Const_1 : public BaseDouble {
 class Div : public BaseDouble {
  public:
   Div() : BaseDouble(Opcodes::kDDIV) {}
-
+/**
+ * @brief Divide double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -174,7 +273,16 @@ class Load : public Instruction {
     *delta_code = 1;
     return {Utils::String::toString(int{index})};
   }
-
+/**
+ * @brief Load double from local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -184,7 +292,16 @@ class Load : public Instruction {
 class Load_0 : public BaseDouble {
  public:
   Load_0() : BaseDouble(Opcodes::kDLOAD_0) {}
-
+/**
+ * @brief Load double from local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -194,7 +311,16 @@ class Load_0 : public BaseDouble {
 class Load_1 : public BaseDouble {
  public:
   Load_1() : BaseDouble(Opcodes::kDLOAD_1) {}
-
+/**
+ * @brief Load double from local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -204,7 +330,16 @@ class Load_1 : public BaseDouble {
 class Load_2 : public BaseDouble {
  public:
   Load_2() : BaseDouble(Opcodes::kDLOAD_2) {}
-
+/**
+ * @brief Load double from local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -214,7 +349,16 @@ class Load_2 : public BaseDouble {
 class Load_3 : public BaseDouble {
  public:
   Load_3() : BaseDouble(Opcodes::kDLOAD_3) {}
-
+/**
+ * @brief Load double from local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -224,7 +368,16 @@ class Load_3 : public BaseDouble {
 class Mul : public BaseDouble {
  public:
   Mul() : BaseDouble(Opcodes::kDMUL) {}
-
+/**
+ * @brief Multiply double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -234,7 +387,16 @@ class Mul : public BaseDouble {
 class Neg : public BaseDouble {
  public:
   Neg() : BaseDouble(Opcodes::kDNEG) {}
-
+/**
+ * @brief Negate double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -244,7 +406,16 @@ class Neg : public BaseDouble {
 class Rem : public BaseDouble {
  public:
   Rem() : BaseDouble(Opcodes::kDREM) {}
-
+/**
+ * @brief Remainder double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -254,7 +425,16 @@ class Rem : public BaseDouble {
 class Return : public BaseDouble {
  public:
   Return() : BaseDouble(Opcodes::kDRETURN) {}
-
+/**
+ * @brief Return double from method
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -295,7 +475,16 @@ class Store : public Instruction {
     *delta_code = 1;
     return {Utils::String::toString(int{index})};
   }
-
+/**
+ * @brief Store double into local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -305,7 +494,16 @@ class Store : public Instruction {
 class Store_0 : public BaseDouble {
  public:
   Store_0() : BaseDouble(Opcodes::kDSTORE_0) {}
-
+/**
+ * @brief Store double into local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -315,7 +513,16 @@ class Store_0 : public BaseDouble {
 class Store_1 : public BaseDouble {
  public:
   Store_1() : BaseDouble(Opcodes::kDSTORE_1) {}
-
+/**
+ * @brief Store double into local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -325,7 +532,16 @@ class Store_1 : public BaseDouble {
 class Store_2 : public BaseDouble {
  public:
   Store_2() : BaseDouble(Opcodes::kDSTORE_2) {}
-
+/**
+ * @brief Store double into local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -335,7 +551,16 @@ class Store_2 : public BaseDouble {
 class Store_3 : public BaseDouble {
  public:
   Store_3() : BaseDouble(Opcodes::kDSTORE_3) {}
-
+/**
+ * @brief Store double into local variable
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -345,7 +570,16 @@ class Store_3 : public BaseDouble {
 class Sub : public BaseDouble {
  public:
   Sub() : BaseDouble(Opcodes::kDSUB) {}
-
+/**
+ * @brief Subtract double
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,

@@ -31,7 +31,16 @@ class LoadCat1 : public Instruction {
     *delta_code = 1;
     return {};
   }
-
+/**
+ * @brief Push item from run-time constant pool (cat1)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -59,7 +68,16 @@ class LoadCat1Wide : public Instruction {
     *delta_code = 2;
     return {};
   }
-
+/**
+ * @brief Push item from run-time constant pool (wide)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -87,7 +105,16 @@ class LoadCat2 : public Instruction {
     *delta_code = 2;
     return {};
   }
-
+/**
+ * @brief Push item from run-time constant pool (cat2)
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,

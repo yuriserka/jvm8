@@ -27,7 +27,16 @@ class LoadFromArray : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     return {};
   }
-
+/**
+ * @brief Load byte or boolean from array
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -51,7 +60,16 @@ class StoreIntoArray : public Instruction {
       int *ret, const bool &wide, int *pc) override {
     return {};
   }
-
+/**
+ * @brief Store into byte or boolean array
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -79,7 +97,16 @@ class Push : public Instruction {
     *delta_code = 1;
     return {Utils::String::toString(int{byte})};
   }
-
+/**
+ * @brief Push byte
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,

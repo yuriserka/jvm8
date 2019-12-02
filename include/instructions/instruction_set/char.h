@@ -31,7 +31,16 @@ class BaseChar : public Instruction {
 class LoadFromArray : public BaseChar {
  public:
   LoadFromArray() : BaseChar(Opcodes::kCALOAD) {}
-
+/**
+ * @brief Load char from array
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
@@ -41,7 +50,16 @@ class LoadFromArray : public BaseChar {
 class StoreIntoArray : public BaseChar {
  public:
   StoreIntoArray() : BaseChar(Opcodes::kCASTORE) {}
-
+/**
+ * @brief Store into char array
+ * 
+ * @param code_iterator 
+ * @param th 
+ * @param delta_code 
+ * @param wide 
+ * @param pc 
+ * @return std::vector<int> 
+ */
   std::vector<int> execute(
       std::vector<Utils::Types::u1>::iterator *code_iterator,
       MemoryAreas::Thread *th, int *delta_code, const bool &wide,
