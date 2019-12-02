@@ -100,17 +100,21 @@ void Thread::executeMethod(const std::string &method_name,
                 .getClass<Utils::ConstantPool::CONSTANT_Class_info>()
                 ->getValue(this->method_area->runtime_constant_pool);
         if (elem_class_name == obj->class_name) {
-          jumpto = it->handler_pc;
-          goto handle;
+          if (this->current_frame->pc > it->start_pc &&
+              this->current_frame->pc < it->end_pc) {
+            jumpto = it->handler_pc;
+            goto handle;
+          }
         }
       }
       this->pushReturnValue(obj);
       this->current_frame->cleanOperands();
       throw obj;
-handle:
-      it += (jumpto - this->current_frame->pc - 1);
-        this->current_frame->cleanOperands();
-        this->current_frame->pushOperand(obj);
+    handle:
+      it += (jumpto - this->current_frame->pc);
+      this->current_frame->pc += (jumpto - this->current_frame->pc);
+      this->current_frame->cleanOperands();
+      this->current_frame->pushOperand(obj);
     }
   }
 

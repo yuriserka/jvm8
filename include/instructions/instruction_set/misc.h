@@ -416,7 +416,7 @@ class NewArray : public Instruction {
       std::stringstream *ss, const bool &wide, int *pc,
       const int &delta_tab) override {
     unsigned char atype = *++*code_it;
-    (*ss) << Opcodes::getMnemonic(this->opcode) << " " << atype << " "
+    (*ss) << Opcodes::getMnemonic(this->opcode) << " " << static_cast<int>(atype) << " "
           << this->getType(atype);
     *delta_code = 1;
     return {};

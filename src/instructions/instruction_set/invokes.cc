@@ -66,6 +66,7 @@ std::vector<int> Especial::execute(
     std::cout << "Executando " << Opcodes::getMnemonic(this->opcode) << "\n";
   }
   auto index = (*++*code_iterator << 8) | *++*code_iterator;
+  *delta_code = 2;
   std::stringstream ss;
 
   std::string classname, methodname, descriptor;
@@ -76,7 +77,11 @@ std::vector<int> Especial::execute(
   if (classname.compare("java/lang/StringBuilder") &&
       classname.compare("java/lang/String") &&
       classname.compare("java/lang/Exception")) {
-    th->changeContext(classname, methodname, descriptor, true);
+    try {
+      th->changeContext(classname, methodname, descriptor, true);
+    } catch (Utils::Object *obj) {
+      throw obj;
+    }
     // auto m = Utils::getMethod(th->method_area->runtime_classfile,
     // methodname); auto accessflags =
     // Utils::Access::getMethodAccessType(m.access_flags); if
@@ -104,8 +109,6 @@ std::vector<int> Especial::execute(
                 << (classname + "." + methodname) << "\n";
     }
   }
-
-  *delta_code = 2;
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -132,7 +135,11 @@ std::vector<int> Static::execute(
   Utils::getReference(th->method_area->runtime_classfile, kpool_index,
                       &classname, &methodname, &descriptor);
   th->heap->addClass(th, classname);
-  th->changeContext(classname, methodname, descriptor, false);
+  try {
+    th->changeContext(classname, methodname, descriptor, false);
+  } catch (Utils::Object *obj) {
+    throw obj;
+  }
   return {};
 }
 // ----------------------------------------------------------------------------
@@ -285,8 +292,11 @@ std::vector<int> Virtual::execute(
       //   if (!classname.empty() && !classref->class_name.compare(classname)) {
       //     break;
       //   }
-      // try {
-      th->changeContext(classname, methodname, descriptor, true);
+      try {
+        th->changeContext(classname, methodname, descriptor, true);
+      } catch (Utils::Object *obj) {
+        throw obj;
+      }
       //   break;
       // } catch (...) {
       // }
