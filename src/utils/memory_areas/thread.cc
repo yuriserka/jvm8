@@ -78,7 +78,7 @@ void Thread::executeMethod(const std::string &method_name,
       if (finish_method) {
         break;
       }
-    } catch (const Utils::Object *obj) {
+    } catch (Utils::Object *obj) {
       if (Utils::Flags::options.kDEBUG) {
         std::cout << "Exception throwed by " << obj->class_name << "\n";
       }
@@ -87,7 +87,7 @@ void Thread::executeMethod(const std::string &method_name,
       auto attributes = this->current_class->attributes;
       auto exception_table = code_attr->exception_table;
 
-      int jumpto = 0;
+      auto jumpto = 0;
       for (auto it = exception_table.begin(); it != exception_table.end();
            ++it) {
         try {
@@ -107,8 +107,10 @@ void Thread::executeMethod(const std::string &method_name,
       this->pushReturnValue(obj);
       this->current_frame->cleanOperands();
       throw obj;
-    handle:
+handle:
       it += (jumpto - this->current_frame->pc - 1);
+        this->current_frame->cleanOperands();
+        this->current_frame->pushOperand(obj);
     }
   }
 
