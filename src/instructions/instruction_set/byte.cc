@@ -10,13 +10,13 @@ namespace Instructions {
 namespace Byte {
 /**
  * @brief Load byte or boolean from array
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> LoadFromArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -33,13 +33,13 @@ std::vector<int> LoadFromArray::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Store into byte or boolean array
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> StoreIntoArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -57,13 +57,13 @@ std::vector<int> StoreIntoArray::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Push byte
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Push::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,

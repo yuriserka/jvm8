@@ -10,13 +10,13 @@ namespace Instructions {
 namespace Jump {
 /**
  * @brief Jump subroutine
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> JumpSubRoutine::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -31,13 +31,13 @@ std::vector<int> JumpSubRoutine::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Jump subroutine(wide)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> JumpSubRoutineWide::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,

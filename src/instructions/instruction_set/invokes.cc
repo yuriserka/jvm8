@@ -13,13 +13,13 @@ namespace Instructions {
 namespace Invokes {
 /**
  * @brief Invoke dynamic method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Dynamic::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -32,13 +32,13 @@ std::vector<int> Dynamic::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Invoke interface method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Interface::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -51,13 +51,13 @@ std::vector<int> Interface::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Invoke especial method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Especial::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -74,7 +74,8 @@ std::vector<int> Especial::execute(
 
   // classname != java/lang/StringBuilder e != java/lang/String
   if (classname.compare("java/lang/StringBuilder") &&
-      classname.compare("java/lang/String")) {
+      classname.compare("java/lang/String") &&
+      classname.compare("java/lang/Exception")) {
     th->changeContext(classname, methodname, descriptor, true);
     // auto m = Utils::getMethod(th->method_area->runtime_classfile,
     // methodname); auto accessflags =
@@ -88,10 +89,13 @@ std::vector<int> Especial::execute(
     // o init do StringBuilder n precisa de argumentos, mas o do String sim
     // https://stackoverflow.com/questions/12438567/java-bytecode-dup
     std::string string_init_arg = "";
-    if (!classname.compare("java/lang/String")) {
+    // se nao for string builder
+    if (classname.compare("java/lang/StringBuilder")) {
       // vem do LDC
-      string_init_arg = th->current_frame->popOperand<Utils::Object *>()
-                            ->data.as<std::string>();
+      if (th->current_frame->topOperand().is<Utils::Object *>()) {
+        string_init_arg = th->current_frame->popOperand<Utils::Object *>()
+                              ->data.as<std::string>();
+      }
     }
     auto ref = th->current_frame->popOperand<Utils::Object *>();
     ref->data = string_init_arg;
@@ -107,13 +111,13 @@ std::vector<int> Especial::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Invoke static method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Static::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -233,13 +237,13 @@ static void append_handler(MemoryAreas::Thread *th,
 
 /**
  * @brief Invoke virtual method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Virtual::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,

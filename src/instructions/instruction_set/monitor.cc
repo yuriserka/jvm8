@@ -8,13 +8,13 @@ namespace Instructions {
 namespace Monitor {
 /**
  * @brief Enter monitor for object
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Enter::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -28,13 +28,13 @@ std::vector<int> Enter::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Exit monitor for object
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Exit::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,

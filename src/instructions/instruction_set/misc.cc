@@ -14,13 +14,13 @@ namespace Instructions {
 namespace Misc {
 /**
  * @brief Check whether object is of given type
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Checkcast::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -33,13 +33,13 @@ std::vector<int> Checkcast::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Duplicate the top operand stack value
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Dup::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -56,13 +56,13 @@ std::vector<int> Dup::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Duplicate the top operand stack value and insert two values down
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> DupX1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -80,14 +80,15 @@ std::vector<int> DupX1::execute(
 }
 // ----------------------------------------------------------------------------
 /**
- * @brief Duplicate the top operand stack value and insert two or three values down
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ * @brief Duplicate the top operand stack value and insert two or three values
+ * down
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> DupX2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -118,13 +119,13 @@ std::vector<int> DupX2::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Duplicate the top one or two operand stack values
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Dup2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -154,14 +155,15 @@ std::vector<int> Dup2::execute(
 }
 // ----------------------------------------------------------------------------
 /**
- * @brief Duplicate the top one or two operand stack values and insert two or three values down
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ * @brief Duplicate the top one or two operand stack values and insert two or
+ * three values down
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Dup2X1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -194,14 +196,15 @@ std::vector<int> Dup2X1::execute(
 }
 // ----------------------------------------------------------------------------
 /**
- * @brief Duplicate the top one or two operand stack values and insert two, three, or four values down
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ * @brief Duplicate the top one or two operand stack values and insert two,
+ * three, or four values down
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Dup2X2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -262,13 +265,13 @@ std::vector<int> Dup2X2::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Fetch field from object
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> GetField::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -319,13 +322,13 @@ std::vector<int> GetField::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Get static field from class
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> GetStatic::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -363,13 +366,13 @@ std::vector<int> GetStatic::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Branch always
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Goto::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -386,13 +389,13 @@ std::vector<int> Goto::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Branch always(wide index)
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> GotoWide::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -410,13 +413,13 @@ std::vector<int> GotoWide::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Determine if object is of given type
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> InstanceOf::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -437,13 +440,13 @@ std::vector<int> InstanceOf::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Access jump table by key match and jump
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> LookupSwitch::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -490,13 +493,13 @@ end:
 // ----------------------------------------------------------------------------
 /**
  * @brief Create new multidimensional array
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> MultiDimArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -532,13 +535,13 @@ std::vector<int> MultiDimArray::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Create new object
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> New::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -557,7 +560,8 @@ std::vector<int> New::execute(
   auto old_class = th->current_class;
   // classname != java/lang/StringBuilder e != java/lang/String
   if (classname.compare("java/lang/StringBuilder") &&
-      classname.compare("java/lang/String")) {
+      classname.compare("java/lang/String") &&
+      classname.compare("java/lang/Exception")) {
     th->method_area->update(th->method_area->getClass(classname));
   }
 
@@ -571,13 +575,13 @@ std::vector<int> New::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Create new array
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> NewArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -605,13 +609,13 @@ std::vector<int> NewArray::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Do nothing
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Nop::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -624,13 +628,13 @@ std::vector<int> Nop::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Pop the top operand stack value
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Pop::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -644,13 +648,13 @@ std::vector<int> Pop::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Pop the top one or two operand stack values
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Pop2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -673,13 +677,13 @@ std::vector<int> Pop2::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Set field in object
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> PutField::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -724,13 +728,13 @@ std::vector<int> PutField::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Set static field in class
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> PutStatic::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -785,13 +789,13 @@ std::vector<int> PutStatic::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Return from subroutine
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Ret::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -820,13 +824,13 @@ std::vector<int> Ret::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Return void from method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Return::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -840,13 +844,13 @@ std::vector<int> Return::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Swap the top two operand stack values
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Swap::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -864,13 +868,13 @@ std::vector<int> Swap::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Access jump table by index and jump
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> TableSwitch::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -918,13 +922,13 @@ end:
 // ----------------------------------------------------------------------------
 /**
  * @brief Extend local variable index by additional bytes
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Wide::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,

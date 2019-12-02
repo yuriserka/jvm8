@@ -9,13 +9,13 @@ namespace Instructions {
 namespace Integer {
 /**
  * @brief Convert int to byte
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> ToByte::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -30,13 +30,13 @@ std::vector<int> ToByte::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Convert int to char
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> ToChar::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -51,13 +51,13 @@ std::vector<int> ToChar::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Convert int to double
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> ToDouble::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -72,13 +72,13 @@ std::vector<int> ToDouble::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Convert int to float
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> ToFloat::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -93,13 +93,13 @@ std::vector<int> ToFloat::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Convert int to long
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> ToLong::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -114,13 +114,13 @@ std::vector<int> ToLong::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Convert int to short
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> ToShort::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -135,13 +135,13 @@ std::vector<int> ToShort::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Add int
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Add::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -157,13 +157,13 @@ std::vector<int> Add::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Load int from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> LoadFromArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -180,13 +180,13 @@ std::vector<int> LoadFromArray::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Boolean AND int
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> And::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -202,13 +202,13 @@ std::vector<int> And::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Store int into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> StoreIntoArray::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -226,13 +226,13 @@ std::vector<int> StoreIntoArray::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Push int constant
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Const_m1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -246,13 +246,13 @@ std::vector<int> Const_m1::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Push int constant
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Const_0::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -266,13 +266,13 @@ std::vector<int> Const_0::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Push int constant
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Const_1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -286,13 +286,13 @@ std::vector<int> Const_1::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Push int constant
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Const_2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -306,13 +306,13 @@ std::vector<int> Const_2::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Push int constant
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Const_3::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -326,13 +326,13 @@ std::vector<int> Const_3::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Push int constant
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Const_4::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -346,13 +346,13 @@ std::vector<int> Const_4::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Push int constant
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Const_5::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -366,13 +366,13 @@ std::vector<int> Const_5::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Divide int
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Div::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -388,13 +388,13 @@ std::vector<int> Div::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Increment local variable by constant
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Inc::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -420,13 +420,13 @@ std::vector<int> Inc::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Load int from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Load::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -450,13 +450,13 @@ std::vector<int> Load::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Load int from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Load_0::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -470,13 +470,13 @@ std::vector<int> Load_0::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Load int from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Load_1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -490,13 +490,13 @@ std::vector<int> Load_1::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Load int from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Load_2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -510,13 +510,13 @@ std::vector<int> Load_2::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Load int from local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Load_3::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -530,13 +530,13 @@ std::vector<int> Load_3::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Multiply int
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Mul::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -552,13 +552,13 @@ std::vector<int> Mul::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Negate int
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Neg::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -573,13 +573,13 @@ std::vector<int> Neg::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Boolean OR int
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Or::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -595,13 +595,13 @@ std::vector<int> Or::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Remaind int
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Rem::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -617,13 +617,13 @@ std::vector<int> Rem::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Return int from method
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Return::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -639,13 +639,13 @@ std::vector<int> Return::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Shift left int
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> ShiftLeft::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -661,13 +661,13 @@ std::vector<int> ShiftLeft::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Arithmetic shift right int
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> ArithmeticShiftRight::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -683,13 +683,13 @@ std::vector<int> ArithmeticShiftRight::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Store int into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Store::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -713,13 +713,13 @@ std::vector<int> Store::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Store int into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Store_0::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -734,13 +734,13 @@ std::vector<int> Store_0::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Store int into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Store_1::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -755,13 +755,13 @@ std::vector<int> Store_1::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Store int into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Store_2::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -776,13 +776,13 @@ std::vector<int> Store_2::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Store int into local variable
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Store_3::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -797,13 +797,13 @@ std::vector<int> Store_3::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Subtract int
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Sub::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -819,13 +819,13 @@ std::vector<int> Sub::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Logical shift right int
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> LogicalShiftRight::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
@@ -847,13 +847,13 @@ std::vector<int> LogicalShiftRight::execute(
 // ----------------------------------------------------------------------------
 /**
  * @brief Boolean XOR int
- * 
- * @param code_iterator 
- * @param th 
- * @param delta_code 
- * @param wide 
- * @param pc 
- * @return std::vector<int> 
+ *
+ * @param code_iterator
+ * @param th
+ * @param delta_code
+ * @param wide
+ * @param pc
+ * @return std::vector<int>
  */
 std::vector<int> Xor::execute(
     std::vector<Utils::Types::u1>::iterator *code_iterator,
