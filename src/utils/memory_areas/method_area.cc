@@ -119,7 +119,7 @@ const ClassFile *MethodArea::loadClass(const std::string &classname) {
   const ClassFile *new_class = new ClassFile();
   char delimiter = '/';
   auto splitted_path = Utils::String::split(classname, delimiter);
-  if (splitted_path.size() == 1) {
+  if (splitted_path.size()) {
     ss << Utils::Flags::options.kPATH << delimiter << classname << ".class";
   } else {
     ss << "." << delimiter << "classes" << delimiter << classname << ".class";
