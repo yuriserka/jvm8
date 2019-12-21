@@ -98,12 +98,6 @@ void Reader::readMinorVersion() {
               << std::uppercase << this->classfile->minor_version << "'\n";
     std::cout.copyfmt(state);
   }
-  // if (this->classfile->minor_version > Utils::Versions::getJava8version()) {
-  //   std::stringstream err;
-  //   err << "Minor version superior to 0x" << std::hex << std::uppercase
-  //       << Utils::Versions::getJava8version();
-  //   throw Utils::Errors::Exception(Utils::Errors::kMINOR, err.str());
-  // }
 }
 
 void Reader::readMajorVersion() {
@@ -115,12 +109,6 @@ void Reader::readMajorVersion() {
               << this->classfile->major_version << "'\n";
     std::cout.copyfmt(state);
   }
-  // if (this->classfile->major_version < Utils::Versions::getJava8version()) {
-  //   std::stringstream err;
-  //   err << "Major version inferior to 0x" << std::hex << std::uppercase
-  //       << Utils::Versions::getJava8version();
-  //   throw Utils::Errors::Exception(Utils::Errors::kMAJOR, err.str());
-  // }
 }
 
 void Reader::readConstantPool() {

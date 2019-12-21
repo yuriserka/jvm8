@@ -120,7 +120,7 @@ void Thread::executeMethod(const std::string &method_name,
 
   this->jvm_stack.pop();
   delete newf;
-}  // namespace MemoryAreas
+}
 
 void Thread::changeContext(const std::string &classname,
                            const std::string &method_name,
@@ -153,17 +153,33 @@ void Thread::changeContext(const std::string &classname,
   this->method_area->update(this->current_class);
 }
 
+// Não consegui passar o iterator de forma normal, então copiei o tipo que o
+// VSCode deu
+template <typename T>
+static void insertLocalVar(
+    MemoryAreas::Thread *th, Utils::Frame *frame, std::string args,
+    std::reverse_iterator<
+        __gnu_cxx::__normal_iterator<const char *, std::__cxx11::string>> *it,
+    int *index, const bool &JorD = false) {
+  if ((*it + 1) != args.rend() && *(*it + 1) == '[') {
+    ++*it;
+    frame->pushLocalVar(th->current_frame->popOperand<Utils::Object *>(),
+                        *index);
+  } else {
+    frame->pushLocalVar(th->current_frame->popOperand<T>(),
+                        JorD ? ((*index)-- - 1) : *index);
+  }
+}
+
 void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
                             const bool &popObjectRef) {
-  auto qtd_arguments_passados =
-      [&popObjectRef](const std::string &args) -> int {
-    std::string args_copy = args;
-    int qtd_args = 0;
-    for (auto it = args_copy.begin(); it != args_copy.end(); it++, ++qtd_args) {
+  auto n_args = [](const std::string &args) -> int {
+    int args_count = 0;
+    for (auto it = args.begin(); it != args.end(); it++, ++args_count) {
       switch (*it) {
         case 'D':
         case 'J':
-          ++qtd_args;
+          ++args_count;
           break;
         case 'L':
           while (*it != ';') {
@@ -180,12 +196,11 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
           break;
       }
     }
-    return qtd_args;
+    return args_count;
   }(args);
 
   // isso faz com que qnd eu precisar popar o objectref a posição 0 fique vazia
-  auto start_index =
-      popObjectRef ? qtd_arguments_passados : qtd_arguments_passados - 1;
+  auto start_index = popObjectRef ? n_args : n_args - 1;
 
   // o ultimo argumento da nova função ta no topo da pilha, entao a gente
   // precisa inverter pra pegar os valores corretos
@@ -197,36 +212,15 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
     // testes
     switch (*it) {
       case 'D': {
-        if ((it + 1) != args.rend() && *(it + 1) == '[') {
-          ++it;
-          new_frame->pushLocalVar(
-              this->current_frame->popOperand<Utils::Object *>(), start_index);
-        } else {
-          new_frame->pushLocalVar(this->current_frame->popOperand<double>(),
-                                  start_index-- - 1);
-        }
+        insertLocalVar<double>(this, new_frame, args, &it, &start_index, true);
         break;
       }
       case 'F': {
-        if ((it + 1) != args.rend() && *(it + 1) == '[') {
-          ++it;
-          new_frame->pushLocalVar(
-              this->current_frame->popOperand<Utils::Object *>(), start_index);
-        } else {
-          new_frame->pushLocalVar(this->current_frame->popOperand<float>(),
-                                  start_index);
-        }
+        insertLocalVar<float>(this, new_frame, args, &it, &start_index);
         break;
       }
       case 'J': {
-        if ((it + 1) != args.rend() && *(it + 1) == '[') {
-          ++it;
-          new_frame->pushLocalVar(
-              this->current_frame->popOperand<Utils::Object *>(), start_index);
-        } else {
-          new_frame->pushLocalVar(this->current_frame->popOperand<long>(),
-                                  start_index-- - 1);
-        }
+        insertLocalVar<long>(this, new_frame, args, &it, &start_index, true);
         break;
       }
       case 'B':
@@ -234,14 +228,7 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
       case 'I':
       case 'S':
       case 'Z':
-        if ((it + 1) != args.rend() && *(it + 1) == '[') {
-          ++it;
-          new_frame->pushLocalVar(
-              this->current_frame->popOperand<Utils::Object *>(), start_index);
-        } else {
-          new_frame->pushLocalVar(this->current_frame->popOperand<int>(),
-                                  start_index);
-        }
+        insertLocalVar<int>(this, new_frame, args, &it, &start_index);
         break;
       case ';': {
         new_frame->pushLocalVar(
@@ -256,6 +243,7 @@ void Thread::storeArguments(const std::string &args, Utils::Frame *new_frame,
       }
     }
   };
+
   if (popObjectRef) {
     auto objectref = this->current_frame->popOperand<Utils::Object *>();
     // if (!objectref->class_name.empty() && objectref->class_name.compare(
