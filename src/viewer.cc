@@ -53,27 +53,27 @@ void Viewer::printClassFile() {
 }
 
 void Viewer::printMagic() {
-  state.copyfmt(std::cout);
-  std::cout << "Magic: " << std::setw(16) << ' ' << "0x" << std::setfill('0')
-            << std::setw(4) << std::hex << std::uppercase
-            << this->classfile->magic << "\n";
-  std::cout.copyfmt(state);
+  std::stringstream ss;
+  ss << "Magic: " << std::setw(16) << ' ' << "0x" << std::setfill('0')
+     << std::setw(4) << std::hex << std::uppercase << this->classfile->magic
+     << "\n";
+  std::cout << ss.str();
 }
 
 void Viewer::printVersion() {
-  state.copyfmt(std::cout);
-  std::cout << "Minor version: " << std::setw(8) << ' '
-            << this->classfile->minor_version << "\n";
-  std::cout << "Major version: " << std::setw(8) << ' '
-            << this->classfile->major_version << "\n";
-  std::cout.copyfmt(state);
+  std::stringstream ss;
+  ss << "Minor version: " << std::setw(8) << ' '
+     << this->classfile->minor_version << "\n"
+     << "Major version: " << std::setw(8) << ' '
+     << this->classfile->major_version << "\n";
+  std::cout << ss.str();
 }
 
 void Viewer::printConstantPool() {
   makeTitle("Constant Pool", 80, 45);
   for (int i = 1; i < this->classfile->constant_pool_count; ++i) {
-    auto jmpNextIndex = this->printConstantPoolInfo(i, 0);
-    if (jmpNextIndex) {
+    auto J_or_D = this->printConstantPoolInfo(i, 0);
+    if (J_or_D) {
       std::cout << "[" << ++i << "]"
                 << " (large numeric continued)\n\n";
     }
@@ -81,10 +81,10 @@ void Viewer::printConstantPool() {
 }
 
 void Viewer::printConstantPoolCount() {
-  state.copyfmt(std::cout);
-  std::cout << "Constant Pool Count: " << std::setw(2) << ' '
-            << this->classfile->constant_pool_count << "\n";
-  std::cout.copyfmt(state);
+  std::stringstream ss;
+  ss << "Constant Pool Count: " << std::setw(2) << ' '
+     << this->classfile->constant_pool_count << "\n";
+  std::cout << ss.str();
 }
 
 bool Viewer::printConstantPoolInfo(const int index, const int delta_tab) {
@@ -273,12 +273,11 @@ std::string Viewer::getConstantPoolInfo(const int &index, const bool &dot) {
 
 void Viewer::printAccessFlags() {
   auto flags = Utils::Access::getClassAccessType(this->classfile->access_flags);
-  state.copyfmt(std::cout);
-  std::cout << "Access Flags: " << std::setw(11);
-  std::cout << "0x" << std::setfill('0') << std::setw(4) << std::hex
-            << std::uppercase << this->classfile->access_flags;
-  std::cout.copyfmt(state);
-  std::cout << " [";
+  std::stringstream ss;
+  ss << "Access Flags: " << std::setw(11) << "0x" << std::setfill('0')
+     << std::setw(4) << std::hex << std::uppercase
+     << this->classfile->access_flags;
+  std::cout << ss.str() << " [";
   for (size_t i = 0; i < flags.size(); ++i) {
     std::cout << flags[i] << (i < flags.size() - 1 ? " " : "");
   }
@@ -309,10 +308,10 @@ void Viewer::printInterfaces() {
 }
 
 void Viewer::printInterfacesCount() {
-  state.copyfmt(std::cout);
-  std::cout << "Interfaces Count: " << std::setw(6)
-            << this->classfile->interfaces_count << "\n";
-  std::cout.copyfmt(state);
+  std::stringstream ss;
+  ss << "Interfaces Count: " << std::setw(6)
+     << this->classfile->interfaces_count << "\n";
+  std::cout << ss.str();
 }
 
 void Viewer::printInterfaceInfo(const int &index, const int &tab_shift) {
@@ -331,10 +330,10 @@ void Viewer::printFields() {
 }
 
 void Viewer::printFieldsCount() {
-  state.copyfmt(std::cout);
-  std::cout << "Fields Count: " << std::setw(10)
-            << this->classfile->fields_count << "\n";
-  std::cout.copyfmt(state);
+  std::stringstream ss;
+  ss << "Fields Count: " << std::setw(10) << this->classfile->fields_count
+     << "\n";
+  std::cout << ss.str();
 }
 
 void Viewer::printFieldInfo(const int &index, const int &tab_shift) {
@@ -367,10 +366,10 @@ void Viewer::printMethods() {
 }
 
 void Viewer::printMethodsCount() {
-  state.copyfmt(std::cout);
-  std::cout << "Methods Count: " << std::setw(9)
-            << this->classfile->methods_count << "\n";
-  std::cout.copyfmt(state);
+  std::stringstream ss;
+  ss << "Methods Count: " << std::setw(9) << this->classfile->methods_count
+     << "\n";
+  std::cout << ss.str();
 }
 
 void Viewer::printMethodInfo(const int &index, const int &tab_shift) {
@@ -410,10 +409,10 @@ void Viewer::printAttributes(
 }
 
 void Viewer::printAttributesCount(const int &tab_shift, const int &attr_count) {
-  state.copyfmt(std::cout);
-  std::cout << std::string(tab_shift, '\t')
-            << "Attributes Count: " << std::setw(6) << attr_count << "\n";
-  std::cout.copyfmt(state);
+  std::stringstream ss;
+  ss << std::string(tab_shift, '\t') << "Attributes Count: " << std::setw(6)
+     << attr_count << "\n";
+  std::cout << ss.str();
 }
 
 std::string Viewer::getAttributeHeader(

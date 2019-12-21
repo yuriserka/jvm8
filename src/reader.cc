@@ -11,8 +11,6 @@
 #include "utils/string.h"
 #include "utils/versions.h"
 
-static std::ios state(NULL);
-
 Reader::Reader(ClassFile *cf, const std::string &fpath) {
   this->fname = fpath.substr(fpath.find_last_of("/\\") + 1);
   std::string p;
@@ -77,11 +75,11 @@ void Reader::readClassFile() {
 void Reader::readMagic() {
   this->readBytes(&this->classfile->magic);
   if (Utils::Flags::options.kVERBOSE) {
-    state.copyfmt(std::cout);
-    std::cout << "Read classfile->magic = '"
-              << "0x" << std::setfill('0') << std::setw(4) << std::hex
-              << std::uppercase << this->classfile->magic << "'\n";
-    std::cout.copyfmt(state);
+    std::stringstream ss;
+    ss << "Read classfile->magic = '"
+       << "0x" << std::setfill('0') << std::setw(4) << std::hex
+       << std::uppercase << this->classfile->magic << "'\n";
+    std::cout << ss.str();
   }
   if (this->classfile->magic != 0xCAFEBABE) {
     std::stringstream err;
@@ -93,21 +91,21 @@ void Reader::readMagic() {
 void Reader::readMinorVersion() {
   this->readBytes(&this->classfile->minor_version);
   if (Utils::Flags::options.kVERBOSE) {
-    state.copyfmt(std::cout);
-    std::cout << "Read classfile->minor_version = '" << std::hex
-              << std::uppercase << this->classfile->minor_version << "'\n";
-    std::cout.copyfmt(state);
+    std::stringstream ss;
+    ss << "Read classfile->minor_version = '" << std::hex << std::uppercase
+       << this->classfile->minor_version << "'\n";
+    std::cout << ss.str();
   }
 }
 
 void Reader::readMajorVersion() {
   this->readBytes(&this->classfile->major_version);
   if (Utils::Flags::options.kVERBOSE) {
-    state.copyfmt(std::cout);
-    std::cout << "Read classfile->major_version = '"
-              << "0x" << std::hex << std::uppercase
-              << this->classfile->major_version << "'\n";
-    std::cout.copyfmt(state);
+    std::stringstream ss;
+    ss << "Read classfile->major_version = '"
+       << "0x" << std::hex << std::uppercase << this->classfile->major_version
+       << "'\n";
+    std::cout << ss.str();
   }
 }
 
@@ -254,11 +252,11 @@ void Reader::readConstantPoolInfo() {
 void Reader::readAccessFlags() {
   this->readBytes(&this->classfile->access_flags);
   if (Utils::Flags::options.kVERBOSE) {
-    state.copyfmt(std::cout);
-    std::cout << "Read classfile->access_flags = '"
-              << "0x" << std::setfill('0') << std::setw(4) << std::hex
-              << std::uppercase << this->classfile->access_flags << "'\n";
-    std::cout.copyfmt(state);
+    std::stringstream ss;
+    ss << "Read classfile->access_flags = '"
+       << "0x" << std::setfill('0') << std::setw(4) << std::hex
+       << std::uppercase << this->classfile->access_flags << "'\n";
+    std::cout << ss.str();
   }
 }
 
