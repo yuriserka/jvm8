@@ -316,7 +316,7 @@ std::string CONSTANT_Utf8_info::getValue() const {
 
 std::string CONSTANT_Utf8_info::getGeneralInfo(const int &delta_tab) {
   std::stringstream ss;
-  auto utf8_str = String::getUtf8Modified(this);
+  auto utf8_str = this->getValue();
   ss << std::string(delta_tab, '\t') << "Length of byte array: " << this->length
      << "\n"
      << std::string(delta_tab, '\t') << "Length of string: " << utf8_str.size()

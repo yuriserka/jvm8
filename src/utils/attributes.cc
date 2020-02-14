@@ -4,7 +4,7 @@
 #include <sstream>
 #include "classfile.h"
 #include "instructions/printer.h"
-#include "utils/accessFlags.h"
+#include "utils/access_flags.h"
 #include "utils/constantPool.h"
 #include "utils/external/tableformatter.h"
 #include "utils/string.h"

@@ -2,7 +2,7 @@
 
 #include <cmath>
 #include <iomanip>
-#include "utils/accessFlags.h"
+#include "utils/access_flags.h"
 #include "utils/flags.h"
 #include "utils/memory_areas/heap.h"
 #include "utils/memory_areas/method_area.h"

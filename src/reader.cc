@@ -30,7 +30,6 @@ Reader::Reader(ClassFile *cf, const std::string &fpath) {
   this->path = p.substr(0, p.find_last_of("/\\") + 1);
 
   this->file.open(p, std::ios::binary | std::ios::in);
-  this->classfile = cf;
 
   if (!this->file.is_open()) {
     throw Utils::Errors::Exception(
@@ -40,6 +39,7 @@ Reader::Reader(ClassFile *cf, const std::string &fpath) {
   if (Utils::Flags::options.kVERBOSE) {
     std::cout << "classfile: '" << this->fname << "' opened\n";
   }
+  this->classfile = cf;
 }
 
 void Reader::readClassFile() {

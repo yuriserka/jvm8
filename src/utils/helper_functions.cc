@@ -1,6 +1,7 @@
 #include "utils/helper_functions.h"
 
 #include <algorithm>
+#include "utils/access_flags.h"
 #include "utils/errors.h"
 #include "utils/infos.h"
 
@@ -37,5 +38,27 @@ const std::string getClassName(const ClassFile *cf) {
           ->getValue();
 
   return actual_classname;
+}
+
+bool methodIs(const Utils::Infos::method_info &method,
+              const std::string &access_type) {
+  auto flags = Utils::Access::getMethodAccessType(method.access_flags);
+
+  auto is = std::find_if(flags.begin(), flags.end(), [=](const std::string &f) {
+              return !f.compare(access_type);
+            }) != flags.end();
+
+  return is;
+}
+
+bool fieldIs(const Utils::Infos::field_info &field,
+             const std::string &access_type) {
+  auto flags = Utils::Access::getFieldAccessType(field.access_flags);
+
+  auto is = std::find_if(flags.begin(), flags.end(), [=](const std::string &f) {
+              return !f.compare(access_type);
+            }) != flags.end();
+
+  return is;
 }
 }  // namespace Utils

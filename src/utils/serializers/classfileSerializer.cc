@@ -1,6 +1,6 @@
 #include "utils/serializers/classfileSerializer.h"
 
-#include "utils/accessFlags.h"
+#include "utils/access_flags.h"
 #include "utils/serializers/attributeSerializer.h"
 #include "utils/serializers/constpoolSerializer.h"
 #include "utils/serializers/fieldSerializer.h"

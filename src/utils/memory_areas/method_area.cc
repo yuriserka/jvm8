@@ -2,7 +2,7 @@
 
 #include <algorithm>
 #include "reader.h"
-#include "utils/accessFlags.h"
+#include "utils/access_flags.h"
 #include "utils/constantPool.h"
 #include "utils/errors.h"
 #include "utils/flags.h"

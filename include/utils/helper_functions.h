@@ -59,6 +59,12 @@ inline void getReference(const ClassFile *cf, const Types::u2 &ref_index,
             ->getValue();
   }
 }
+
+bool methodIs(const Utils::Infos::method_info &method,
+              const std::string &access_type);
+
+bool fieldIs(const Utils::Infos::field_info &field,
+             const std::string &access_type);
 }  // namespace Utils
 
 #endif  // INCLUDE_UTILS_HELPER_FUNCTIONS_H_

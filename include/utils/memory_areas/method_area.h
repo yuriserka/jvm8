@@ -55,6 +55,10 @@ class MethodArea {
   std::vector<Utils::Infos::field_info> fields;
 
  private:
+  const ClassFile *loadClass(const ClassFile *cf) {
+    this->loaded.push_back(cf);
+    return cf;
+  }
   std::list<const ClassFile *> loaded;
   std::vector<Utils::Infos::method_info> methods;
 };

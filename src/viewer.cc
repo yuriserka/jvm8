@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <iostream>
 #include "instructions/printer.h"
-#include "utils/accessFlags.h"
+#include "utils/access_flags.h"
 #include "utils/constantPool.h"
 #include "utils/flags.h"
 #include "utils/memory.h"
@@ -88,7 +88,7 @@ void Viewer::printConstantPoolCount() {
 }
 
 bool Viewer::printConstantPoolInfo(const int index, const int delta_tab) {
-  bool jmpNextIndex = false;
+  bool jmp_nxt_idx = false;
   auto kpool = this->classfile->constant_pool;
   auto cpi = this->classfile->constant_pool[index - 1];
 
@@ -139,13 +139,13 @@ bool Viewer::printConstantPoolInfo(const int index, const int delta_tab) {
     case cp::kCONSTANT_LONG: {
       auto klong_info = cpi.getClass<cp::CONSTANT_Long_info>();
       std::cout << klong_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
-      jmpNextIndex = true;
+      jmp_nxt_idx = true;
       break;
     }
     case cp::kCONSTANT_DOUBLE: {
       auto kdouble_info = cpi.getClass<cp::CONSTANT_Double_info>();
       std::cout << kdouble_info->getGeneralInfo(kpool, delta_tab + 1) << "\n";
-      jmpNextIndex = true;
+      jmp_nxt_idx = true;
       break;
     }
     case cp::kCONSTANT_NAMEANDTYPE: {
@@ -178,9 +178,8 @@ bool Viewer::printConstantPoolInfo(const int index, const int delta_tab) {
     }
   }
   std::cout << "\n";
-  std::cout.clear();
 
-  return jmpNextIndex;
+  return jmp_nxt_idx;
 }
 
 std::string Viewer::getConstantPoolInfo(const int &index, const bool &dot) {
