@@ -1,6 +1,7 @@
 #include "instructions/instruction_set/misc.h"
 
 #include <memory>
+
 #include "utils/access_flags.h"
 #include "utils/array_t.h"
 #include "utils/field_t.h"

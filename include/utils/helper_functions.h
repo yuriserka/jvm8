@@ -2,6 +2,7 @@
 #define INCLUDE_UTILS_HELPER_FUNCTIONS_H_
 
 #include <string>
+
 #include "classfile.h"
 #include "utils/constantPool.h"
 

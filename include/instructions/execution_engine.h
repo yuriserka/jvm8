@@ -2,6 +2,7 @@
 #define INCLUDE_INSTRUCTIONS_PRINTER_H_
 
 #include <vector>
+
 #include "utils/types.h"
 
 // forward declaration

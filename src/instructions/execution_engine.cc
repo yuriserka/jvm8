@@ -1,6 +1,5 @@
-#include "instructions/printer.h"
-
 #include <iostream>
+
 #include "instructions/instruction_set/base.h"
 #include "instructions/instruction_set/branch.h"
 #include "instructions/instruction_set/byte.h"
@@ -17,6 +16,7 @@
 #include "instructions/instruction_set/reference.h"
 #include "instructions/instruction_set/short.h"
 #include "instructions/opcodes.h"
+#include "instructions/printer.h"
 #include "utils/errors.h"
 #include "utils/memory_areas/thread.h"
 

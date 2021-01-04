@@ -2,8 +2,10 @@
 #define INCLUDE_UTILS_FILESYSTEM_H_
 
 #include <dirent.h>
+
 #include <string>
 #include <vector>
+
 #include "utils/errors.h"
 
 namespace Utils {

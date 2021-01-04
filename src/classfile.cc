@@ -2,6 +2,7 @@
 
 #include <iomanip>
 #include <sstream>
+
 #include "utils/string.h"
 
 void ClassFile::deleteConstantPool() {

@@ -1,5 +1,7 @@
 #include <locale.h>
+
 #include <iostream>
+
 #include "classfile.h"
 #include "interpreter.h"
 #include "reader.h"

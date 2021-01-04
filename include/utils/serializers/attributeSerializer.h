@@ -2,6 +2,7 @@
 #define INCLUDE_UTILS_SERIALIZERS_ATTRIBUTESERIALIZER_H_
 
 #include <vector>
+
 #include "classfile.h"
 #include "utils/external/nlohmann_json.hpp"
 

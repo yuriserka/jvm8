@@ -2,6 +2,7 @@
 #define INCLUDE_UTILS_CLASS_T_H_
 
 #include <map>
+
 #include "utils/external/any.h"
 #include "utils/field_t.h"
 #include "utils/object.h"

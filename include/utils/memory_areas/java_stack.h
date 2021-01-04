@@ -2,6 +2,7 @@
 #define INCLUDE_UTILS_MEMORY_AREAS_JVM_STACK_H_
 
 #include <stack>
+
 #include "utils/frame.h"
 
 namespace MemoryAreas {

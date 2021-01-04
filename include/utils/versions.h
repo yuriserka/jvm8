@@ -2,6 +2,7 @@
 #define INCLUDE_UTILS_VERSIONS_H_
 
 #include <string>
+
 #include "utils/types.h"
 
 namespace Utils {

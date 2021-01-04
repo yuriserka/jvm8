@@ -2,6 +2,7 @@
 #define INCLUDE_UTILS_SERIALIZERS_INSTRUCTIONSERIALIZER_H_
 
 #include <vector>
+
 #include "classfile.h"
 #include "utils/serializers/constpoolSerializer.h"
 

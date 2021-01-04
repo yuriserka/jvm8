@@ -1,6 +1,7 @@
 #include "utils/memory_areas/method_area.h"
 
 #include <algorithm>
+
 #include "reader.h"
 #include "utils/access_flags.h"
 #include "utils/constantPool.h"

@@ -2,6 +2,7 @@
 #define INCLUDE_UTILS_INFOS_H_
 
 #include <vector>
+
 #include "utils/attributes.h"
 #include "utils/types.h"
 

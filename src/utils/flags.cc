@@ -1,10 +1,12 @@
 #include "utils/flags.h"
 
 #include <string.h>
+
 #include <iostream>
 #include <map>
 #include <regex>
 #include <sstream>
+
 #include "utils/errors.h"
 
 namespace Utils {

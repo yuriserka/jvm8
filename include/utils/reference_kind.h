@@ -2,6 +2,7 @@
 #define INCLUDE_UTILS_REFERENCE_KIND_H_
 
 #include <string>
+
 #include "utils/types.h"
 
 namespace Utils {

@@ -1,6 +1,7 @@
 #include "utils/memory_areas/thread.h"
 
 #include <algorithm>
+
 #include "instructions/execution_engine.h"
 #include "instructions/opcodes.h"
 #include "reader.h"
@@ -156,11 +157,10 @@ void Thread::changeContext(const std::string &classname,
 // Não consegui passar o iterator de forma normal, então copiei o tipo que o
 // VSCode deu
 template <typename T>
-static void insertLocalVar(
-    MemoryAreas::Thread *th, Utils::Frame *frame, std::string args,
-    std::reverse_iterator<
-        __gnu_cxx::__normal_iterator<const char *, std::__cxx11::string>> *it,
-    int *index, const bool &JorD = false) {
+static void insertLocalVar(MemoryAreas::Thread *th, Utils::Frame *frame,
+                           std::string args,
+                           std::string::const_reverse_iterator *it, int *index,
+                           const bool &JorD = false) {
   if ((*it + 1) != args.rend() && *(*it + 1) == '[') {
     ++*it;
     frame->pushLocalVar(th->current_frame->popOperand<Utils::Object *>(),

@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <list>
 #include <vector>
+
 #include "utils/class_t.h"
 #include "utils/helper_functions.h"
 #include "utils/memory_areas/thread.h"
